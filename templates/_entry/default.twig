@@ -1,0 +1,26 @@
+{# ======================================
+FINAL FALLBACK for generic pages like /terms /privacy etc,
+but also provides base skeleton to inherit from for other entries
+========================================= #}
+
+{% extends '_layout' %}
+
+{# =============================================================================== #}
+
+{% set title = entry.titleTag ? entry.titleTag : entry.title %}
+{% set metaDesc = entry.metaDesc ?? null %}
+{% set noIndex = entry.noIndex ?? null %}
+
+{% set ogTitle = entry.ogTitle ?? null %}
+{% set ogDesc =  entry.ogDesc ?? null %}
+{% set ogImg = entry.ogImage|length ? entry.ogImage.one : entry.bannerImg|length ? entry.bannerImg.one : null %}
+{% set ogType = entry.ogType ?? null %}
+{% set twitterCreator = entry.twitterCreator ?? null %}
+{% set twitterCard = entry.twitterCard ?? null %}
+
+{# =============================================================================== #}
+
+{% block content %}
+
+
+{% endblock %}

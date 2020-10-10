@@ -1,0 +1,14 @@
+enableVersioning: true
+handle: home
+name: 'Home pages'
+propagationMethod: all
+siteSettings:
+  27fd5441-8230-4f21-8d4c-ae215e7076df:
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: 1
+  uid: 43fe3018-e149-4463-a93d-59d3106459fa
+type: structure

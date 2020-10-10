@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: 2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1
+handle: headScripts
+instructions: 'Anything you add here will be added to the global document <head> section. Wherever possible, put scripts in the body-end section instead, as anything added here will block the rendering of the site until all the extra assets have been downloaded and executed.'
+name: 'Head scripts'
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: '1'
+  columnType: null
+  initialRows: '8'
+  multiline: '1'
+  placeholder: ''
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

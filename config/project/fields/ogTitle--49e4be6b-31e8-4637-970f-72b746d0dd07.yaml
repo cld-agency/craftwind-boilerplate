@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+handle: ogTitle
+instructions: 'Override both the browser title and the entry title for services that consume OG meta data.'
+name: 'OG title override'
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: ''
+  columnType: null
+  initialRows: '4'
+  multiline: ''
+  placeholder: ''
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

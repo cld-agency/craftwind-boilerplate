@@ -1,0 +1,39 @@
+{
+  "name": "Craftwind-Boilerplate",
+  "version": "1.0.0",
+  "description": "A starting point for Craft CMS with Tailwind and Vue via Laravel Mix",
+  "main": "webpack.mix.js",
+  "scripts": {
+    "all": "npm run development -- --watch & npm run production -- --watch",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "browser-sync": "^2.26.12",
+    "browser-sync-webpack-plugin": "^2.0.1",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.3.1",
+    "eslint-config-prettier": "^6.11.0",
+    "laravel-mix": "^5.0.6",
+    "laravel-mix-purgecss": "^5.0.0",
+    "sass": "^1.27.0",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.12",
+    "dotenv": "^8.2.0"
+  },
+  "dependencies": {
+    "tailwindcss": "^1.8.12",
+    "vue": "^2.6.12"
+  }
+}

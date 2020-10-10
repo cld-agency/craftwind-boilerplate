@@ -1,0 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/*! purgecss start ignore */
+@import '_mixins';
+@import '_project';
+/*! purgecss end ignore */

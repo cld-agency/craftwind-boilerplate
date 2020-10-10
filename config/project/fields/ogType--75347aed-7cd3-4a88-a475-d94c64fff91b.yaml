@@ -1,0 +1,56 @@
+contentColumnType: string
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+handle: ogType
+instructions: 'This changes how your content is shown in social sharing services. If you don''t specify a type, the default will be "website".'
+name: 'OG type'
+searchable: false
+settings:
+  optgroups: true
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - Website
+        -
+          - value
+          - website
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - Article
+        -
+          - value
+          - article
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - Place
+        -
+          - value
+          - place
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - Video
+        -
+          - value
+          - video
+        -
+          - default
+          - ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

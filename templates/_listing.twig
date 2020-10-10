@@ -1,0 +1,8 @@
+{% set defaultListingType = category is defined ? 'entriesByCategory' : 'entries' %}
+{% set override = category is defined ? category.group.handle : entry.section.handle %}
+
+{% include [
+	'_listing/' ~ override,
+	'_listing/handlers/' ~ defaultListingType,
+	'_listing/default'
+] %}

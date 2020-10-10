@@ -1,0 +1,32 @@
+contentColumnType: string
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+handle: ogImage
+instructions: 'OG images should be no more than 1MB in file size. For Twitter ''summary'' cards, the image should be a square at least 120px x 120px. For Twitter ''large summary'' cards they can be any dimensions.'
+name: 'OG image'
+searchable: false
+settings:
+  allowSelfRelations: false
+  allowedKinds:
+    - image
+  defaultUploadLocationSource: 'volume:b51c3bf7-bd4c-46f9-92d5-c548637e190a'
+  defaultUploadLocationSubpath: ''
+  limit: '1'
+  localizeRelations: false
+  previewMode: thumbs
+  restrictFiles: '1'
+  selectionLabel: ''
+  showSiteMenu: true
+  showUnpermittedFiles: false
+  showUnpermittedVolumes: false
+  singleUploadLocationSource: 'volume:b51c3bf7-bd4c-46f9-92d5-c548637e190a'
+  singleUploadLocationSubpath: ''
+  source: null
+  sources:
+    - 'volume:b51c3bf7-bd4c-46f9-92d5-c548637e190a'
+  targetSiteId: null
+  useSingleFolder: false
+  validateRelatedElements: false
+  viewMode: large
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets

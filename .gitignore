@@ -1,0 +1,12 @@
+/.env
+/.idea
+.DS_Store
+public_html/media
+*sublime-*
+node_modules
+config/license.key
+/storage/*
+!/storage/rebrand/*
+public_html/cpresources/*
+public_html/_assets
+/vendor

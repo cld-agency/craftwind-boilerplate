@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: 2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1
+handle: twitterHandle
+instructions: 'PLEASE DO NOT INCLUDE the @ symbol or the twitter.com domain name (this is so we can reuse this field more easily).'
+name: 'Twitter username'
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: ''
+  columnType: null
+  initialRows: '4'
+  multiline: ''
+  placeholder: company_twitter_name
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

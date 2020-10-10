@@ -1,0 +1,83 @@
+// --------------------------------------------
+// FONT SIZE
+// --------------------------------------------
+
+@mixin font-size( $sizeValue: 1.6 ) {
+  font-size: font-size($sizeValue);
+}
+@function font-size( $sizeValue: 1.6 ) {
+  @return ($sizeValue / 10 * 0.625) * 1rem;
+}
+
+// --------------------------------------------
+// FLUID ANYTHING (typically font-size). If using font-size, property values passed in px
+// will be automatically converted to rems. If not using font-size, you cannot
+// mix unit types between the breakpoint values and the property values - in other
+// words, if your breakpoints are in ems, your property values must also be in ems (or rems).
+// ... if your breakpoints are in px, your property values must also be in px.
+//
+// Usage:
+//
+// @include fluid($properties, $breakpoint-min, $breakpoint-max, $property-value-at-breakpoint-min-and-below, $property-value-at-breakpoint-max-and-above);
+//
+// Single property
+// html {
+//   @include fluid(font-size, 320px, 1366px, 14px, 18px);
+// }
+//
+// with em-based breakpoint variables and font-size auto-conversion from px to rems:
+// h1 {
+//   @include fluid(font-size, $A, $C, 20px, 55px);
+// }
+//
+// Multiple properties with same values
+// h1 {
+//   @include fluid(padding-bottom padding-top, 20em, 70em, 2em, 4em);
+// }
+//
+// if you want to mentally work in px values, just convert on the fly e.g. value * 1rem:
+// .articleSection{/
+//    @include fluid(padding-top padding-bottom, $A, $E, $sectionPaddingMini/2 * 1rem, $sectionPadding/4 * 1rem);
+// }
+//
+// --------------------------------------------
+
+@mixin fluid($properties, $min-vw, $max-vw, $min-value, $max-value) {
+
+  // convert values to rems if breakpoints are in ems or rems
+  @if 'font-size' in $properties{
+    @if unit($min-vw) == 'em' or unit($min-vw) == 'rem' {
+      $max-value: font-size(strip-unit($max-value));
+      $min-value: font-size(strip-unit($min-value));
+    }
+  }
+
+  @each $property in $properties {
+    #{$property}: $min-value;
+  }
+
+  @media (min-width: $min-vw) {
+    @each $property in $properties {
+      // if breakpoints are in px, need to ensure we don't hardcode the rem unit in there...
+      @if unit($min-vw) == 'em' or unit($min-vw) == 'rem' {
+        #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{strip-unit($min-vw)}rem) / #{strip-unit($max-vw - $min-vw)});
+      } @else {
+        #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)});
+      }
+    }
+  }
+
+  @media (min-width: $max-vw) {
+    @each $property in $properties {
+      #{$property}: $max-value;
+    }
+  }
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}

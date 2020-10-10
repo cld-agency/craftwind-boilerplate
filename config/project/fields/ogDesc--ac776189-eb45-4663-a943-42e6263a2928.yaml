@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+handle: ogDesc
+instructions: 'The description that will appear on the Twitter Card or Facebook post or any other third party service that consumes OG meta data.'
+name: 'OG description'
+searchable: true
+settings:
+  byteLimit: null
+  charLimit: null
+  code: ''
+  columnType: null
+  initialRows: '4'
+  multiline: ''
+  placeholder: ''
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

@@ -1,0 +1,127 @@
+{% set transforms = {
+	ogImg: { mode:'crop', width:1200, height:1200 },
+} %}
+
+{# =============================================================================== #}
+
+{% minify %}
+<!doctype html>
+<html prefix="og: http://ogp.me/ns#" class="no-js" lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');</script>
+	<meta charset="utf-8">
+	<title>{{ title is defined ? title ~ ' | ' ~ siteName : siteName }}</title>
+	<meta name="description" content="{{ metaDesc is defined ? metaDesc|striptags : null }}">
+	<link rel="stylesheet" href="{{ siteUrl }}{{ craft.app.config.general.env == 'local' ? '_assets/css/main.css' : mix('css/main.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% if noIndex is defined and noIndex == 1 or craft.app.config.general.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
+
+	{# ======================================
+	SOCIAL META. Use OG fallbacks to minimise complexity here.
+
+	NB: null coalescence operator doesn't seem to work as expected
+	here, so swapping out for nested ternaries :-/ I think that's
+	because Craft treats empty variables as non-null.
+
+	Don't be tempted to directly inject OG content here (i.e.
+	{{ entry.ogTitle }} - instead, keep the definition of that
+	data in each child template.
+
+	This approach has several advantages:
+	1) You can set cascading fallbacks per content type with a final fallback here.
+	2) This layout template becomes more reusable as it's not reliant on the existence of an 'entry'.
+	3) You can pass hardcoded content easily - no need to create singles for everything
+
+	Here's a sample child section for setting all available meta (exact implementation should vary depending on the available fallback fields so that authors don't have to enter explicit OG data every time):
+
+	{% set title = entry.titleTag ? entry.titleTag : entry.title %}
+	{% set metaDesc = entry.metaDesc ? entry.metaDesc : entry.summary ? entry.summary : null %}
+	{% set noIndex = entry.noIndex ?? null %}
+
+	{% set ogTitle = entry.ogTitle ?? null %}
+	{% set ogDesc =  entry.ogDesc ?? null %}
+	{% set ogImg = entry.ogImage.one ? entry.ogImage.one : entry.productImage.one ? entry.productImage.one : null %}
+	{% set ogType = entry.ogType ?? null %}
+	{% set twitterCreator = entry.twitterCreator ?? null %}
+	{% set twitterCard = entry.twitterCard ?? null %}
+	========================================= #}
+
+	{% set ogTitle = ogTitle is defined and ogTitle ? ogTitle : title is defined and title ? title : siteName %}
+	{% set ogDesc = ogDesc is defined and ogDesc ? ogDesc : metaDesc is defined and metaDesc ? metaDesc : null %}
+
+	{#
+	We prefer to use site-root relative URIs for our asset base URLs, which means
+	we'll need to manually append the siteUrl onto externally referenced images such
+	as the OG image. Craft forces siteUrl to use a trailing slash, so we'll need to
+	trim it here to avoid a double-slash.
+	 #}
+	{% if ogImg is defined and ogImg %}
+		{% set ogImg = siteUrl|trim('/', 'right') ~ ogImg.getUrl(transforms.ogImg) %}
+	{% else %}
+		{% set ogImg = siteUrl ~ 'assets/img/logo-og.png' %}
+	{% endif %}
+
+	<meta name="twitter:card" content="{{ twitterCard ?? 'summary' }}">
+	{% if socialLinks.twitterHandle %}<meta name="twitter:site" content="@{{ socialLinks.twitterHandle }}">{% endif %}
+	{% if twitterCreator is defined and twitterCreator %}<meta name="twitter:creator" content="{{ twitterCreator }}">{% endif %}
+	<meta property="og:title" content="{{ ogTitle }}">
+	<meta property="og:type" content="{{ ogType ?? 'website' }}">
+	<meta property="og:url" content="{{ craft.app.request.absoluteUrl }}">
+
+	<meta property="og:image" content="{{ ogImg }}">
+	{% if ogDesc %}<meta property="og:description" content="{{ ogDesc|striptags }}">{% endif %}
+	<meta property="og:site_name" content="{{ siteName }}">
+
+	{% if socialLinks.fbAdmins|length %}
+		{% for fbAdmin in socialLinks.fbAdmins %}
+			<meta property="fb:admins" content="{{ fbAdmin.fbAccountNo }}">
+		{% endfor %}
+	{% endif %}
+
+	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
+		{{ customScripts.headScripts|raw }}
+	{% endif %}
+
+	{{ head() }}
+</head>
+
+<body class="{{ bodyClass ?? null }}">
+
+	{{ beginBody() }}
+
+	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
+		{{ customScripts.bodyStartScripts|raw }}
+	{% endif %}
+
+	{# =============================================================================== #}
+
+	<header class="">
+
+	</header>
+
+	{# =============================================================================== #}
+
+	<main>
+		{{ block('content') }}
+	</main>
+
+	{# =============================================================================== #}
+
+	<footer class="">
+		<p>&copy; {{ siteName }} {{ "now"|date("Y") }}</p>
+	</footer>
+
+	{# =============================================================================== #}
+
+	<script src="{{ siteUrl }}{{ craft.app.config.general.env == 'local' ? 'assets/js/main.js' : mix('js/main.js') }}"></script>
+
+	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
+		{{ customScripts.bodyEndScripts|raw }}
+	{% endif %}
+
+	{{ endBody() }}
+
+</body>
+</html>
+{% endminify %}

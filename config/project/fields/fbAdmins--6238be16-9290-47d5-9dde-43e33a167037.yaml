@@ -1,0 +1,32 @@
+contentColumnType: text
+fieldGroup: 2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1
+handle: fbAdmins
+instructions: 'Add the numeric Facebook account numbers who administer the company''s Facebook page'
+name: 'Facebook admins'
+searchable: false
+settings:
+  addRowLabel: 'Add a row'
+  columnType: text
+  columns:
+    __assoc__:
+      -
+        - col1
+        -
+          __assoc__:
+            -
+              - heading
+              - 'Account number'
+            -
+              - handle
+              - fbAccountNo
+            -
+              - width
+              - ''
+            -
+              - type
+              - number
+  maxRows: ''
+  minRows: ''
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Table

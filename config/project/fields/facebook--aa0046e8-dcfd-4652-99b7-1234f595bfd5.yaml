@@ -1,0 +1,18 @@
+contentColumnType: text
+fieldGroup: 2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1
+handle: facebook
+instructions: 'Full link to your Facebook page'
+name: Facebook
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: ''
+  columnType: null
+  initialRows: '4'
+  multiline: ''
+  placeholder: 'https://www.facebook.com/youraccount'
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

@@ -1,0 +1,13 @@
+contentColumnType: boolean
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+handle: noIndex
+instructions: 'Adds a meta noindex tag to the page to stop search engines indexing it'
+name: 'No index'
+searchable: false
+settings:
+  default: false
+  offLabel: null
+  onLabel: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Lightswitch

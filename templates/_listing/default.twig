@@ -1,0 +1,62 @@
+{% extends '_layout' %}
+
+{% block content %}
+
+	<h1>{{ entry.title }}</h1>
+
+	{# ==================================
+	CATEGORY FILTER LINKS
+	===================================== #}
+
+	{% if categories is defined and categories %}
+		<h2>Categories
+		<ul>
+			{% for cat in categories %}
+				<li><a href="/{{ craft.app.request.getSegment(1) }}/category/{{ cat.slug }}">{{ cat.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{# ==================================
+	ENTRIES LIST
+	===================================== #}
+
+	{% if pageEntries is defined and pageEntries %}
+		<ul>
+			{% for post in pageEntries %}
+				<li>
+					<article>
+						<a href="{{ post.url }}">
+							<h2>{{ post.title }}</h2>
+							<p>summary</p>
+						</a>
+					</article>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{# ==================================
+	PAGINATION LINKS
+	===================================== #}
+
+	{% if pageInfo.total >= perPage %}
+		<ul>
+			<li><a href="{{ pageInfo.firstUrl }}">First</a></li>
+			{% if pageInfo.prevUrl %}<li><a href="{{ pageInfo.prevUrl }}">Previous</a></li>{% endif %}
+
+			{% for page, url in pageInfo.getPrevUrls(3) %}
+			   <li><a href="{{ url }}">{{ page }}</a></li>
+			{% endfor %}
+
+			<li>{{ pageInfo.currentPage }}</li>
+
+			{% for page, url in pageInfo.getNextUrls(3) %}
+				<li><a href="{{ url }}">{{ page }}</a></li>
+			{% endfor %}
+
+		 	{% if pageInfo.nextUrl %}<li><a href="{{ pageInfo.nextUrl }}">Next</a></li>{% endif %}
+			<li><a href="{{ pageInfo.lastUrl }}">Last</a></li>
+		</ul>
+	{% endif %}
+{% endblock %}

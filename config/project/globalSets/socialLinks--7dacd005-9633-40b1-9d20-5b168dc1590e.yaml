@@ -1,0 +1,45 @@
+fieldLayouts:
+  d26d4596-ddbf-490a-9583-41b88b736393:
+    tabs:
+      -
+        elements:
+          -
+            fieldUid: aa0046e8-dcfd-4652-99b7-1234f595bfd5
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: 6238be16-9290-47d5-9dde-43e33a167037
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: ab8a0a53-54af-4c10-90ea-d34258125fae
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: f2d836d8-5576-4f7d-97a7-3cbe6aa415e7
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+        name: Content
+        sortOrder: 1
+handle: socialLinks
+name: 'Social links'
