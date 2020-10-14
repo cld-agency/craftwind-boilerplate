@@ -114,7 +114,7 @@
 
 	{# =============================================================================== #}
 
-	<script src="{{ siteUrl }}{{ craft.app.config.general.env == 'local' ? 'assets/js/main.js' : mix('js/main.js') }}"></script>
+	<script src="{{ siteUrl }}{{ craft.app.config.general.env == 'local' ? '_assets/js/main.js' : mix('js/main.js') }}"></script>
 
 	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
 		{{ customScripts.bodyEndScripts|raw }}
