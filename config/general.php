@@ -16,7 +16,7 @@ return [
     '*' => [
         'env' => App::env('ENVIRONMENT'),
         'securityKey' => App::env('SECURITY_KEY'),
-        'useProjectConfigFile' => true,
+        'allowAdminChanges' => false,
 
         // the siteUrl setting in the control panel (Settings > Sites) should be left blank and will auto-populate with this value
         'siteUrl' => App::env('SITE_URL'),
@@ -71,6 +71,7 @@ return [
 
     // local (development) environment
     'local' => [
+        'allowAdminChanges' => true,
         'userSessionDuration' => 0,
         'allowUpdates' => true,
         'devMode' => true,
