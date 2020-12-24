@@ -2,7 +2,7 @@
 {% set override = category is defined ? category.group.handle : entry.section.handle %}
 
 {% include [
-	'_listing/' ~ override,
-	'_listing/handlers/' ~ defaultListingType,
-	'_listing/default'
+	'_listings/' ~ override,
+	'_listings/handlers/' ~ defaultListingType,
+	'_listings/default'
 ] %}

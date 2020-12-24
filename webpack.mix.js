@@ -9,6 +9,10 @@ let localDomain = process.env.DEFAULT_SITE_URL || 'example.test';
 let srcPath = 'src';
 let buildPath = mix.inProduction() ? 'public_html/assets' : 'public_html/_assets';
 
+mix.webpackConfig({
+	watchOptions: { ignored: /node_modules/ }
+});
+
 // This sets the location of the mix-manifest.json file.
 // Putting in public_html/assets makes it more straight-forward to get read by the Craft Mix plugin
 // when using "public_html" and "assets" respectively in the plugin's settings for publicPath + assetsPath.

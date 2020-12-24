@@ -1,0 +1,23 @@
+contentColumnType: string
+fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2
+handle: listingSection
+instructions: ''
+name: 'List entries from...'
+searchable: false
+settings:
+  optgroups: true
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - 'Please select...'
+        -
+          - value
+          - ''
+        -
+          - default
+          - '1'
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

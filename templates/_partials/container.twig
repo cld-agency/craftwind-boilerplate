@@ -1,0 +1,66 @@
+{# ==================================
+GENERIC REUSABLE CONTAINER PARTIAL.
+
+Use this an `embed` so you can pass in html for the `content` block.
+
+Params:
+
+* element (HTML element - default to <section>)
+* compact (bool) - smaller y-padding (should move this into a variants object for consistency with other partials!)
+* attrs - (object) Extra attributes for the main wrapper
+* classes (array or string) Extra classes for the main wrapper
+* sectionBG: white|silver|brand|accent (string)
+
+Examples:
+
+{% embed '_partials/container.twig' with { element:'header' } %}
+	{% block before %}Pre content here{% endblock %}
+	{% block content %}
+		<h1>{{ entry.title }}</h1>
+	{% endblock %}
+	{% block after %}Post content here{% endblock %}
+{% endembed %}
+===================================== #}
+
+{% set element = element ?? 'section' %}
+{% set compact = compact ?? false %}
+{% set attrs = attrs ?? null %}
+{% set classes = classes ?? [] %}
+{# if we were passed a string, let's convert it to an array (so we can reliably merge() later) #}
+{% set classes = classes is iterable ? classes : [classes] %}
+
+{# set block background colours here #}
+{% if block is defined and block.sectionBG is defined or sectionBG is defined %}
+	{% set sectionBG = sectionBG ?? block.sectionBG %}
+	{% switch sectionBG %}
+		{% case 'white' %}
+			{% set classes = classes|merge(['bg-white']) %}
+		{% case 'silver' %}
+			{% set classes = classes|merge(['bg-gray-100']) %}
+		{% case 'brand' %}
+			{% set classes = classes|merge(['bg-brand']) %}
+		{% case 'accent' %}
+			{% set classes = classes|merge(['bg-accent']) %}
+		{% default %}
+			{% set classes = classes|merge(['bg-white']) %}
+	{% endswitch %}
+{% else %}
+	{# we're defaulting to bg-white so that we can reliably collapse v-padding
+	between consecutive sections of the same colour. (i.e. with .bg-white + .bg-white.
+	So be sure to include the bg-white class even if it seems redundant #}
+	{% set classes = classes|merge(['bg-white']) %}
+{% endif %}
+
+{# ======================================================================= #}
+
+<{{ element }} class="{{ compact ? 'fl:py-12' : 'fl:py-16' }} {{ classes|join(' ') }}" {{ attrs ? attr(attrs) }}>
+
+	{{ block('before') ?? null }}
+
+	<div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+		{{ block('content') ?? null }}
+	</div>
+
+	{{ block('after') ?? null }}
+
+</{{ element }}>

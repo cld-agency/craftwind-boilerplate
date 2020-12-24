@@ -1,4 +1,4 @@
-dateModified: 1602334969
+dateModified: 1608818145
 email:
   fromEmail: james@cld.agency
   fromName: Boilerplate
@@ -16,6 +16,10 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+  redactor:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.3.0
 system:
   edition: solo
   live: true

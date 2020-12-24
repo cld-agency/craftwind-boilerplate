@@ -1,0 +1,47 @@
+{# this is included in the boilerplate just as an example - will require customisation #}
+
+{# ======================================
+THE purpose of this handler template is to
+decide which entries to fetch for the listing
+default template to list
+========================================= #}
+
+{% extends '_listing/default.twig' %}
+
+{# =============================================================================== #}
+
+{# {% set category = craft.categories.slug(route_cat).one %}
+{% set noIndexOverride = 1 %} #}
+
+{# set some per-listing vars. (route_listing is defined in routes.php) #}
+{# {% switch route_listing %}
+	{% case 'blog' %}
+		{% set mainHeading = 'Posts filed under: ' ~ category.title %}
+		{% set pageTitleOverride = 'Posts filed under: ' ~ category.title %}
+	{% case 'showcase' %}
+		{% set mainHeading = category.title %}
+		{% set pageTitleOverride = category.title ~ ' Showcase' %}
+{% endswitch %}
+ #}
+{# {% set withPagination = entry.itemsPerPage|length ? true : false %} #}
+
+{# remember, don't call .all() on this ElementCriteriaModel object as it needs to be
+passed into the paginate tag which will work it all out - https://docs.craftcms.com/v3/dev/tags/paginate.html #}
+
+{# {% set theLimit = entry.itemsPerPage ?: null %} #}
+{# compensate for the featuredItem offset #}
+{# {% if entry.highlightMostRecentAsFeatured %}
+	{% set theLimit = theLimit + 1 %}
+{% endif %} #}
+{#
+{% set theStuff = craft.entries.sectionId(entry.listingSection).relatedTo(category).with(['articleCats','workCats','cardImg','featureImg']).limit(theLimit) %} #}
+{# these ids are used to ensure we only output cats that have entries. See partials/cardList #}
+{# {% set theStuffIds = craft.entries.sectionId(entry.listingSection).ids() %} #}
+
+{# set the main `pageEntries` and `pageInfo` vars #}
+{# {% paginate theStuff as pageInfo, pageEntries %} #}
+
+{# reset withPagination var if there aren't enough entries to paginate #}
+{# {% if pageEntries|length < entry.itemsPerPage %}
+	{% set withPagination = false %}
+{% endif %} #}

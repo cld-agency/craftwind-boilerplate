@@ -1,0 +1,14 @@
+enableVersioning: true
+handle: listingPages
+name: 'Listing pages'
+propagationMethod: all
+siteSettings:
+  27fd5441-8230-4f21-8d4c-ae215e7076df:
+    enabledByDefault: true
+    hasUrls: true
+    template: _listing
+    uriFormat: '{slug}'
+structure:
+  maxLevels: 1
+  uid: 85aea21f-03da-4f41-b8f9-662f37dfc7e1
+type: structure

@@ -1,11 +1,12 @@
-This is starter boilerplate for Craft CMS + Tailwind + Vue via Laravel Mix.
+This is starter boilerplate for Craft CMS 3 + Tailwind 2 + Vue 2 via Laravel Mix 5.
 
 To use this Craft boilerplate:
 ====================================
 
-1.
-1.
-1.
+1. `npm install`
+1. `npm run development` or `npm run watch` or `npm run all`. Running `all` will trigger both development (with watch) and production builds simulataneously. Downside to that is that production CSS will only be purged when the task is first run, so you'll need to run production task again (`npm run production` or `npm run all`).
+
+The full unpurged Tailwind CSS is available in local dev to make it easier to select classes in the Inspector. The build is purged when running `npm run production`.
 
 -------------------------------------------
 

@@ -1,1 +1,2 @@
-body{ background:chartreuse; }
+// collapse consecutive blocks of the same colour... be sure to always use bg-white even if it seems redundant!
+.bg-white + .bg-white,.bg-gray-100 + .bg-gray-100{ padding-top:0; }

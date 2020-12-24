@@ -2,6 +2,11 @@
 	ogImg: { mode:'crop', width:1200, height:1200 },
 } %}
 
+{% set css = {
+	navLink: 'uppercase group inline-flex items-center text-center fl:text-11to15 font-semibold tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
+	navLinkOnLight: 'block uppercase text-base font-semibold tracking-widest leading-6',
+} %}
+
 {# =============================================================================== #}
 
 {% minify %}
@@ -94,23 +99,112 @@
 		{{ customScripts.bodyStartScripts|raw }}
 	{% endif %}
 
-	{# =============================================================================== #}
+	<div id="app" class="flex flex-col min-h-screen">
 
-	<header class="">
+		{# =============================================================================== #}
 
-	</header>
+		{% embed '_partials/container.twig' with {
+			compact: true,
+			element:'header',
+			sectionBG: 'silver',
+			classes: ['relative', 'z-20']
+		} %}
+			{% block content %}
+				<nav class="flex justify-between items-center">
+					<a class="flex" href="/"><img alt="" style="height:50px" src="/assets/img/no-image.svg"></a>
 
-	{# =============================================================================== #}
+					<ul class="hidden md:flex fl:space-x-8 ml-8">
+						<li><a href="#" class="{{ css.navLink }}">About us</a></li>
+					</ul>
+				</nav>
+			{% endblock %}
+		{% endembed %}
 
-	<main>
-		{{ block('content') }}
-	</main>
+		{# ==================================
+		MOBILE NAV
+		===================================== #}
 
-	{# =============================================================================== #}
+		<nav class="md:hidden flex flex-col bg-brand">
 
-	<footer class="">
-		<p>&copy; {{ siteName }} {{ "now"|date("Y") }}</p>
-	</footer>
+			{% set naviconVars = {
+				naviconLineClasses: 'absolute block bg-accent',
+				naviconLineStyles: 'transition:top .2s .25s, left .2s .25s, opacity .2s .25s, transform .2s 0s; height:2px;width:27px;left:17px;',
+				naviconLineActiveStyles: 'transition:background .2s, top .2s, left .2s, opacity .2s, transform .2s .25s; top:28px;width:27px;'
+			} %}
+
+			<button style="top:22px;height:60px;width:60px" title="Menu" class="flex items-center bg-white z-40 fixed right-0 mr-4 focus:outline-none" @click="mobileNavActive = !mobileNavActive">
+				<span class="{{ naviconVars.naviconLineClasses }}"
+				      style="{{ naviconVars.naviconLineStyles }} top:20px;"
+				      :class="mobileNavActive ? 'transform rotate-45' : ''"
+				      :style="mobileNavActive ? '{{ naviconVars.naviconLineActiveStyles }}' : ''"></span>
+				<span class="{{ naviconVars.naviconLineClasses }}"
+				      style="{{ naviconVars.naviconLineStyles }} top:28px;width:22px;"
+				      :class="mobileNavActive ? 'opacity-0' : ''"></span>
+				<span class="{{ naviconVars.naviconLineClasses }}"
+				      style="{{ naviconVars.naviconLineStyles }} top:37px;width:17px;"
+				      :class="mobileNavActive ? 'transform -rotate-45' : ''"
+				      :style="mobileNavActive ? '{{ naviconVars.naviconLineActiveStyles }}' : ''"></span>
+			</button>
+
+			<div class="bg-gray-100 transition transform translate-x-full fixed z-30 inset-0 overflow-y-auto" :class="mobileNavActive ? 'transform-none duration-410 ease-cld' : 'transform duration-320 ease-cld'" data-scroll-lock-target-of="mobileNavActive">
+
+				<div class="p-8">
+					<ul class="space-y-4">
+						<li><a href="/" class="{{ css.navLinkOnLight }}">Home</a></li>
+						<li><a href="/about-us" class="{{ css.navLinkOnLight }}">About us</a></li>
+						<li><span class="{{ css.navLinkOnLight }}">Services</span>
+							<ul class="pl-8 space-y-2 my-4">
+								<li><a class="{{ css.navLinkOnLight }}" href="#">Nested item</a></li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="flex text-center w-full mx-auto flex-wrap justify-center mt-8 space-x-4">
+						{% if socialLinks.facebook %}
+							<li>
+								<a target="_blank" title="Facebook" href="{{ socialLinks.facebook }}">
+									{{ svg('@webroot/assets/img/facebook.svg') }}
+								</a>
+							</li>
+						{% endif %}
+						{% if socialLinks.twitterHandle %}
+							<li>
+								<a target="_blank" title="Twitter" href="https://twitter.com/{{ socialLinks.twitterHandle }}">
+									{{ svg('@webroot/assets/img/twitter.svg') }}
+								</a>
+							</li>
+						{% endif %}
+						{% if socialLinks.linkedIn %}
+							<li>
+								<a target="_blank" title="LinkedIn" href="{{ socialLinks.linkedIn }}">
+									{{ svg('@webroot/assets/img/linked-in.svg') }}
+								</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		{# =============================================================================== #}
+
+		<main>
+			{{ block('content') }}
+		</main>
+
+		{# =============================================================================== #}
+
+		{% embed '_partials/container.twig' with {
+			compact: true,
+			element:'footer',
+			sectionBG: 'silver',
+			classes: ['mt-auto', 'relative'],
+		} %}
+			{% block content %}
+				<p>&copy; {{ siteName }} {{ 'now'|date('Y') }}</p>
+			{% endblock %}
+		{% endembed %}
+
+	</div>
 
 	{# =============================================================================== #}
 

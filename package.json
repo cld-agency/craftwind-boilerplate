@@ -1,7 +1,7 @@
 {
-  "name": "Craftwind-Boilerplate",
+  "name": "craftwindboilerplate",
   "version": "1.0.0",
-  "description": "A starting point for Craft CMS with Tailwind and Vue via Laravel Mix",
+  "description": "Boilerplate Project",
   "main": "webpack.mix.js",
   "scripts": {
     "all": "npm run development -- --watch & npm run production -- --watch",
@@ -15,8 +15,7 @@
   "author": "",
   "license": "ISC",
   "browserslist": [
-    "> 1%",
-    "last 2 versions"
+    "> 1%"
   ],
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -32,7 +31,10 @@
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
-    "tailwindcss": "^1.8.12",
-    "vue": "^2.6.12"
+    "body-scroll-lock": "^3.1.5",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
+    "tailwindcss-fl": "^0.2.0",
+    "vue": "^2.6.12",
+    "vue-clickaway": "^2.2.2"
   }
 }

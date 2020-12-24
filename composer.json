@@ -1,8 +1,9 @@
 {
   "require": {
     "craftcms/cms": "^3.5.10",
+    "craftcms/redactor": "2.8.5",
     "misterbk/mix": "1.5.2",
-    "mmikkel/cp-field-inspect": "1.2.2",
+    "mmikkel/cp-field-inspect": "1.2.3",
     "nystudio107/craft-minify": "1.2.10",
     "vlucas/phpdotenv": "^3.4.0"
   },

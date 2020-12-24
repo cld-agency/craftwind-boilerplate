@@ -6,13 +6,16 @@
     "italic",
     "lists",
     "link",
-    "image",
     "file"
   ],
   "plugins": [
-    "table",
-    "fullscreen"
+    "table"
   ],
-  "linkNewTab": true,
-  "toolbarFixed": true
+  "toolbarFixed": true,
+  "formatting": [
+    "h2",
+    "h3",
+    "h4",
+    "p"
+  ]
 }
