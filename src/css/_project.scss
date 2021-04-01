@@ -1,2 +1,32 @@
 // collapse consecutive blocks of the same colour... be sure to always use bg-white even if it seems redundant!
 .bg-white + .bg-white,.bg-gray-100 + .bg-gray-100{ padding-top:0; }
+
+// --------------------------------------------
+// MOBILE NAV
+// --------------------------------------------
+
+.mobile-nav-button{
+	span{
+		transition:top .2s .25s, left .2s .25s, opacity .2s .25s, transform .2s 0s;
+		height:2px;left:17px;
+	}
+	span:nth-child(1){ top:20px;width:27px }
+	span:nth-child(2){ top:28px;width:22px; }
+	span:nth-child(3){ top:37px;width:17px; }
+	&.is-active{
+		span{
+			top:28px;width:27px;
+			transition:background .2s, top .2s, left .2s, opacity .2s, transform .2s .25s;
+		}
+		span:nth-child(1){ transform:rotate(45deg) }
+		span:nth-child(2){ opacity:0; }
+		span:nth-child(3){ transform:rotate(-45deg) }
+	}
+}
+.mobile-nav{
+	&.is-active{
+		transition-duration:410ms;
+		transition-timing-function:cubic-bezier(.54,.74,.02,.95);
+	}
+}
+

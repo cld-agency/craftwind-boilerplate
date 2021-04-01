@@ -6,18 +6,23 @@ module.exports = {
 		'src/**/*.js',
 		'src/**/*.vue'
 	],
-	corePlugins: {
-		gradientColorStops: false,
-	},
 	theme: {
 		fontFamily: {
-			//'sans': ["Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif"]
+			'sans': ["Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif"],
+			'serif': ["Georgia", "serif"],
+			// 'body': theme => theme('fontFamily.sans'),
+			// 'headings': theme => theme('fontFamily.serif')
+		},
+		_vars: {
+			'headingWeight': 400,
+			'boldWeight': 600
 		},
 		colors: {
 			white: '#fff',
 			transparent: 'transparent',
 			current: 'currentColor',
 			gray: colors.blueGray,
+			body: '#464646',
 			brand: {
 				DEFAULT: '#1375BC',
 				highlight: '#228edc',
@@ -33,28 +38,15 @@ module.exports = {
 				'250': '250ms',
 				'320': '320ms',
 				'410': '410ms'
-			},
-			transitionTimingFunction: {
-				'cld': 'cubic-bezier(.54,.74,.02,.95)',
-			},
+			}
+			// transitionTimingFunction: {
+			// 	'cld': 'cubic-bezier(.54,.74,.02,.95)',
+			// },
 		},
-	},
-	variants: {
-		extend: {
-			// this is so that we can use `top:1px` on :active button states
-			inset:['active']
-		}
 	},
 	plugins: [
 		// fluid plugin: https://github.com/soberwp/tailwindcss-fl
-		require('tailwindcss-fl')({
-			theme: {
-				fontSize: {
-					config: {
-
-					}
-				}
-			}
-		}),
+		// this doesn't work yet in JIT
+		//require('tailwindcss-fl')()
 	],
 }

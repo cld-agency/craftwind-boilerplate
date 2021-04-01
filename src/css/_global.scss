@@ -1,0 +1,88 @@
+// --------------------------------------------
+// GLOBAL NORMALISER
+// --------------------------------------------
+
+*,*:before,*:after{box-sizing:border-box;}
+div,main,article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;margin:0;padding:0;}
+//audio,canvas,video{display:inline-block;}
+::selection {background:theme('colors.accent.DEFAULT');color:#333;}
+::-moz-selection {background:theme('colors.accent.DEFAULT');color:#333;}
+html{font-size:100%;text-size-adjust:100%;}
+nav ul{list-style:none;padding:0}
+a{text-decoration:none;}
+iframe,object,embed,img{border:0;max-width:100%;height:auto}
+img[src$=".svg"]{width:100%;} // for IE11
+abbr{border-bottom:1px dotted #666;cursor:help;text-decoration:none;}
+address{font-style:normal;}
+b,strong{font-weight:theme('_vars.boldWeight');}
+i,em{font-style:italic;}
+button{cursor:pointer;}
+// [name="google_conversion_frame"]{ position:absolute;bottom:0; } // add this if you're using any PPC ads
+
+// No-JS visibility helpers
+.no-js .js,.js .no-js{ display:none; }
+
+// --------------------------------------------
+// TAILWIND PREFLIGHT cherrypicks.  We're not using
+// Tailwind's base reset as it's way too nuclear,
+// but some of the stuff is actually useful... add back here
+// --------------------------------------------
+
+*,::before,::after {
+	border-width:0;
+	border-style:solid;
+	border-color:theme('borderColor.default', currentColor);
+}
+// enable this if using g maps and add wrapper el to the map:
+//.google-map * {
+//	border-style: none;
+//}
+
+// --------------------------------------------
+// ELEMENT RESETTER CLASSES
+// --------------------------------------------
+
+.list-reset{
+	margin:0;padding:0;
+	list-style:none;
+	> li{ padding-left:0;margin:0; &:before{display:none} }
+}
+.button-reset{
+	border:none;
+	margin:0;
+	padding:0;
+	width:auto;
+	min-width:auto;
+	overflow:visible;
+	background:transparent;
+	color:inherit;
+	-webkit-appearance:none;
+	-moz-appearance: none;
+	cursor:pointer;
+	&[type='button']{ -webkit-appearance: button; }
+	// don't combine these rules otherwise chrome will ignore!
+	&:focus{ outline:none;box-shadow: 0 0 0 1px theme('colors.brand.DEFAULT'); }
+	&::-moz-focus-inner{ border:0!important; }
+	&:hover{ color:inherit; }
+}
+
+// --------------------------------------------
+// LOBOTOMISED OWL
+// http://alistapart.com/article/axiomatic-css-and-lobotomized-owls
+// --------------------------------------------
+
+%spacing{
+	margin-top:1.1em;
+	@media (min-width:theme('screens.md')) { margin-top:1.85em; }
+}
+//%halfSpacing{
+//	margin-top:0.65em;
+//	@media (min-width:theme('screens.md')) { margin-top:0.925em; }
+//}
+*+*,.spacing{
+	@extend %spacing;
+}
+
+span,li+li,i,option,br,hr,svg,svg *,.button+.button,blockquote:first-child,p:first-child,ul:first-child,ol:first-child,dl:first-child,h1:first-child,h2:first-child,h3:first-child,table:first-child,.yii-debug-toolbar__block *{
+	margin-top:0;
+}

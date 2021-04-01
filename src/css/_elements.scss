@@ -1,0 +1,120 @@
+// --------------------------------------------
+// CORE CONTENT STYLING
+// --------------------------------------------
+
+p,address,ul,ol,dl,dd{
+	margin-bottom:0;
+	&:first-child{ margin-top:0 }
+	@include font-size(14);
+	line-height:1.5;
+	@media (min-width:theme('screens.sm')) { @include font-size(15); }
+	@media (min-width:theme('screens.md')) { @include font-size(16); }
+}
+small,.small{@include font-size(13);}
+
+address{
+	@include font-size(21);
+	font-family:theme('fontFamily.serif');
+	font-weight:theme('_vars.headingWeight');
+	line-height:1.4;
+}
+
+// --------------------------------------------
+// LINKS
+// --------------------------------------------
+
+a{
+	text-decoration:underline;
+	text-decoration-skip-ink:auto;
+	color:theme('colors.body');
+	&:hover{ color:theme('colors.accent.DEFAULT'); }
+}
+
+// --------------------------------------------
+// HEADINGS
+// --------------------------------------------
+
+h1,h2,h3,h4,h5,h6,dt,th{
+	font-family:theme('fontFamily.serif');
+	font-weight:theme('_vars.headingWeight');
+	color:theme('colors.brand.DEFAULT');
+	margin-bottom:0;
+}
+h1{
+	line-height:1.1;
+	@include font-size(32);
+	@media (min-width:theme('screens.md')){ @include font-size(48);line-height:1.2; }
+}
+h2{
+	@include font-size(25);
+	@media (min-width:theme('screens.md')){ @include font-size(28); }
+}
+h3,dt{
+	@include font-size(21);
+	@media (min-width:theme('screens.md')){ @include font-size(25); }
+}
+h4{
+	@include font-size(18);
+}
+
+// --------------------------------------------
+// LISTS
+// --------------------------------------------
+
+article ul,dl,ol{
+	padding:0 30px 0 0;
+	text-align:left;
+}
+ol{ margin-left:1.2em;}
+
+//bullets
+article ul li:before, dt:before{
+	content: "";
+	width:6px;
+	height:6px;
+	background-color:theme('colors.brand.DEFAULT');
+	float:left;
+	margin:.6em 0 0 -2em;
+	border-radius:50%;
+}
+
+article li{padding:0 0 0 2em;}
+article ol li{padding: 0 0 0 1em;}
+nav li{padding:0}
+nav li:before{display:none}
+
+// --------------------------------------------
+// IMG & FIGURE & CAPTION
+// --------------------------------------------
+
+img{
+	vertical-align:middle;
+}
+// because figures get automatically inserted by Redactor,
+// we need to style the defaults here. Use .figureReset to undo
+// figure:not(.figureReset){
+// 	text-align:center;
+// 	@extend %spacing;
+// 	img{
+// 		box-shadow:0 30px 60px -10px rgba(0,0,0,.3);
+// 		padding:1px;
+// 		border:1px solid #ccc;
+// 	}
+// }
+
+// --------------------------------------------
+// BLOCKQUOTES
+// --------------------------------------------
+
+blockquote{
+
+}
+blockquote p{
+
+}
+cite{
+	font-style:normal;
+	display:block;
+	@include font-size(14);
+	line-height:20px;
+}

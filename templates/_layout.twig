@@ -11,14 +11,14 @@
 
 {% minify %}
 <!doctype html>
-<html prefix="og: http://ogp.me/ns#" class="no-js" lang="en">
+<html prefix="og: http://ogp.me/ns#" class="no-js antialiased font-sans text-body" lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');</script>
 	<meta charset="utf-8">
 	<title>{{ title is defined ? title ~ ' | ' ~ siteName : siteName }}</title>
 	<meta name="description" content="{{ metaDesc is defined ? metaDesc|striptags : null }}">
-	<link rel="stylesheet" href="{{ siteUrl }}{{ craft.app.config.general.env == 'local' ? '_assets/css/main.css' : mix('css/main.css') }}">
+	<link rel="stylesheet" href="{{ siteUrl }}{{ mix('css/main.css') }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{% if noIndex is defined and noIndex == 1 or craft.app.config.general.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
 
@@ -91,7 +91,7 @@
 	{{ head() }}
 </head>
 
-<body class="{{ bodyClass ?? null }}">
+<body class="m-0 {{ bodyClass ?? null }}">
 
 	{{ beginBody() }}
 
@@ -114,7 +114,8 @@
 					<a class="flex" href="/"><img alt="" style="height:50px" src="/assets/img/no-image.svg"></a>
 
 					<ul class="hidden md:flex fl:space-x-8 ml-8">
-						<li><a href="#" class="{{ css.navLink }}">About us</a></li>
+						<li><a href="#" class="{{ css.navLink }}">Link</a></li>
+						<li><a href="#" class="{{ css.navLink }}">Another</a></li>
 					</ul>
 				</nav>
 			{% endblock %}
@@ -126,35 +127,31 @@
 
 		<nav class="md:hidden flex flex-col bg-brand">
 
-			{% set naviconVars = {
-				naviconLineClasses: 'absolute block bg-accent',
-				naviconLineStyles: 'transition:top .2s .25s, left .2s .25s, opacity .2s .25s, transform .2s 0s; height:2px;width:27px;left:17px;',
-				naviconLineActiveStyles: 'transition:background .2s, top .2s, left .2s, opacity .2s, transform .2s .25s; top:28px;width:27px;'
-			} %}
+			{% set naviconLineClasses = 'absolute block bg-accent transform' %}
 
-			<button style="top:22px;height:60px;width:60px" title="Menu" class="flex items-center bg-white z-40 fixed right-0 mr-4 focus:outline-none" @click="mobileNavActive = !mobileNavActive">
-				<span class="{{ naviconVars.naviconLineClasses }}"
-				      style="{{ naviconVars.naviconLineStyles }} top:20px;"
-				      :class="mobileNavActive ? 'transform rotate-45' : ''"
-				      :style="mobileNavActive ? '{{ naviconVars.naviconLineActiveStyles }}' : ''"></span>
-				<span class="{{ naviconVars.naviconLineClasses }}"
-				      style="{{ naviconVars.naviconLineStyles }} top:28px;width:22px;"
-				      :class="mobileNavActive ? 'opacity-0' : ''"></span>
-				<span class="{{ naviconVars.naviconLineClasses }}"
-				      style="{{ naviconVars.naviconLineStyles }} top:37px;width:17px;"
-				      :class="mobileNavActive ? 'transform -rotate-45' : ''"
-				      :style="mobileNavActive ? '{{ naviconVars.naviconLineActiveStyles }}' : ''"></span>
+			<button style="top:22px;height:60px;width:60px"
+			        title="Menu"
+			        class="mobile-nav-button flex items-center bg-white z-40 fixed right-0 mr-4 focus:outline-none js-toggle js-toggleScrollLock"
+			        aria-controls="js-mobileNav"
+			        data-active-target-id="js-mobileNav"
+			        data-active-target="is-active"
+			        data-active="is-active"
+			        aria-expanded="false"
+			>
+				<span class="{{ naviconLineClasses }}"></span>
+				<span class="{{ naviconLineClasses }}"></span>
+				<span class="{{ naviconLineClasses }}"></span>
 			</button>
 
-			<div class="bg-gray-100 transition transform translate-x-full fixed z-30 inset-0 overflow-y-auto" :class="mobileNavActive ? 'transform-none duration-410 ease-cld' : 'transform duration-320 ease-cld'" data-scroll-lock-target-of="mobileNavActive">
+			<div id="js-mobileNav" class="mobile-nav bg-gray-100 transition transform translate-x-full duration-320 ease-cld fixed z-30 inset-0 overflow-y-auto" data-scroll-lock-target-of="mobileNavActive" aria-hidden="true">
 
 				<div class="p-8">
 					<ul class="space-y-4">
 						<li><a href="/" class="{{ css.navLinkOnLight }}">Home</a></li>
-						<li><a href="/about-us" class="{{ css.navLinkOnLight }}">About us</a></li>
-						<li><span class="{{ css.navLinkOnLight }}">Services</span>
+						<li><a href="/about-us" class="{{ css.navLinkOnLight }}">Link</a></li>
+						<li><span class="{{ css.navLinkOnLight }}">Another</span>
 							<ul class="pl-8 space-y-2 my-4">
-								<li><a class="{{ css.navLinkOnLight }}" href="#">Nested item</a></li>
+								<li><a class="{{ css.navLinkOnLight }}" href="#">A nested item</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -208,7 +205,7 @@
 
 	{# =============================================================================== #}
 
-	<script src="{{ siteUrl }}{{ craft.app.config.general.env == 'local' ? '_assets/js/main.js' : mix('js/main.js') }}"></script>
+	<script src="{{ siteUrl }}{{ mix('js/main.js') }}"></script>
 
 	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
 		{{ customScripts.bodyEndScripts|raw }}

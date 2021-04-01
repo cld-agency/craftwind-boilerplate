@@ -1,15 +1,15 @@
 {
-  "name": "craftwindboilerplate",
+  "name": "clientnamewithnospaces",
   "version": "1.0.0",
-  "description": "Boilerplate Project",
+  "description": "A Client Name",
   "main": "webpack.mix.js",
   "scripts": {
-    "all": "npm run development -- --watch & npm run production -- --watch",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "npm run development -- --watch",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "development": "mix",
+    "watch": "NODE_ENV=production TAILWIND_MODE=watch mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "production": "mix --production",
+    "prod": "mix --production"
   },
   "keywords": [],
   "author": "",
@@ -18,23 +18,17 @@
     "> 1%"
   ],
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "browser-sync": "^2.26.12",
-    "browser-sync-webpack-plugin": "^2.0.1",
-    "cross-env": "^7.0.2",
+    "@tailwindcss/jit": "^0.1.17",
+    "browser-sync": "^2.26.14",
+    "browser-sync-webpack-plugin": "^2.2.2",
     "dotenv": "^8.2.0",
-    "eslint": "^7.3.1",
-    "eslint-config-prettier": "^6.11.0",
-    "laravel-mix": "^5.0.6",
-    "sass": "^1.27.0",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.12"
+    "laravel-mix": "^6.0.13",
+    "postcss": "^8.2.9",
+    "sass": "^1.32.8",
+    "sass-loader": "^10.1.1",
+    "tailwindcss": "^2.0.4"
   },
   "dependencies": {
-    "body-scroll-lock": "^3.1.5",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
-    "tailwindcss-fl": "^0.2.0",
-    "vue": "^2.6.12",
-    "vue-clickaway": "^2.2.2"
+    "body-scroll-lock": "^3.1.5"
   }
 }

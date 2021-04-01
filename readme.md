@@ -1,18 +1,20 @@
-This is starter boilerplate for Craft CMS 3 + Tailwind 2 + Vue 2 via Laravel Mix 5.
+This is starter boilerplate for Craft CMS 3 + Tailwind-JIT via Laravel Mix 6. No JavaScript frameworks are included.
+
+This branch does not use Tailwind's `base` / preflight layer - instead you are expected to bring your own CSS reset and base styles (see global.scss and elements.scss respectively).
 
 To use this Craft boilerplate:
 ====================================
 
 1. `npm install`
-1. `npm run development` or `npm run watch` or `npm run all`. Running `all` will trigger both development (with watch) and production builds simulataneously. Downside to that is that production CSS will only be purged when the task is first run, so you'll need to run production task again (`npm run production` or `npm run all`).
+1. `npm run watch`
 
-The full unpurged Tailwind CSS is available in local dev to make it easier to select classes in the Inspector. The build is purged when running `npm run production`.
+The `watch` task is configured to do a full production build locally on save, so no need for separate dev/prod build processes here.
 
 -------------------------------------------
 
 MIT License
 
-Copyright &copy; 2020 Clever Little Design Ltd.
+Copyright &copy; 2021 Clever Little Design Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

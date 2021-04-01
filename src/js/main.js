@@ -1,44 +1,55 @@
-'use strict';
+import Toggle from './_toggle.js';
+import * as bodyScrollLock from './_bodyScrollLock.js';
 
-import Vue from 'vue';
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+const SITE = {
 
-const vm = new Vue({
-	el: '#app',
-	delimiters: ['${', '}'],
+	// --------------------------------------------
+	// CACHE SOME COMMON PROPERTIES
+	// --------------------------------------------
 
-	// Why data must be a function: https://flaviocopes.com/vue-data-function/
-	data() {
-		return {
-			mobileNavActive: false,
-		}
+	getSettings: function(){
+		//this.$html = $('html');
 	},
 
-	mounted: function(){
+	// --------------------------------------------
+	// GET THIS PARTY STARTED...
+	// --------------------------------------------
 
+	init: function(){
+		SITE.getSettings();
+		SITE.bindUI();
 	},
 
-	// Watch uses magical function names i.e. - mobileNavActive()
-	// will run whenever the `mobileNavActive` variable changes.
-	// The function is sent the new and old values as parameters.
-	watch: {
+	// --------------------------------------------
+	// UI EVENT BINDINGS
+	// --------------------------------------------
+
+	bindUI: function(){
 
 		// --------------------------------------------
-		// Activate body-scroll-lock when mobile nav is on.
-		// https://www.npmjs.com/package/body-scroll-lock
+		// TOGGLEABLES
 		// --------------------------------------------
 
-		mobileNavActive: function(newValue, oldValue) {
-			let scrollLockEl = document.querySelector('[data-scroll-lock-target-of="mobileNavActive"]');
-			if (newValue === true) {
-				disableBodyScroll(scrollLockEl, {reserveScrollBarGap: true});
-			} else {
-				enableBodyScroll(scrollLockEl, {reserveScrollBarGap: true});
-			}
-		}
+		new Toggle('.js-toggle');
+
+		// --------------------------------------------
+		// PREVENT BACKGROUND SCROLLING esp on iOS while
+		// various overlays are on.
+		// Uses this lib: https://github.com/willmcpo/body-scroll-lock
+		// --------------------------------------------
+
+		// toggle method allows a single element to do both on and off functions...
+		document.querySelectorAll('.js-toggleScrollLock').forEach(item => {
+			item.addEventListener('click', e => {
+				if (e.target.getAttribute('aria-expanded') === 'true'){
+					let target = document.getElementById(e.target.dataset.activeTargetId);
+					bodyScrollLock.disableBodyScroll(target);
+				} else {
+					bodyScrollLock.clearAllBodyScrollLocks();
+				}
+			});
+		});
 	},
+};
 
-	methods: {
-
-	}
-});
+SITE.init();

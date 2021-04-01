@@ -1,0 +1,15 @@
+.is-active{
+	transform:none;
+	opacity:1
+}
+
+// extracted these classes from the Fluid plugin https://github.com/soberwp/tailwindcss-fl
+.fl\:py-16 {
+	padding-top: clamp(2.472188rem, 2.472188rem + (4 - 2.472188) * ((100vw - 40rem) / (80 - 40)), 4rem);
+	padding-bottom: clamp(2.472188rem, 2.472188rem + (4 - 2.472188) * ((100vw - 40rem) / (80 - 40)), 4rem);
+}
+
+.fl\:py-12 {
+	padding-top: clamp(1.854141rem, 1.854141rem + (3 - 1.854141) * ((100vw - 40rem) / (80 - 40)), 3rem);
+	padding-bottom: clamp(1.854141rem, 1.854141rem + (3 - 1.854141) * ((100vw - 40rem) / (80 - 40)), 3rem);
+}
