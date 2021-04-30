@@ -8,13 +8,14 @@
 .mobile-nav-button{
 	span{
 		transition:top .2s .25s, left .2s .25s, opacity .2s .25s, transform .2s 0s;
-		height:2px;left:17px;
+		height:2px;left:14px;
 	}
-	span:nth-child(1){ top:20px;width:27px }
+	span:nth-child(1){ top:19px;width:27px }
 	span:nth-child(2){ top:28px;width:22px; }
 	span:nth-child(3){ top:37px;width:17px; }
 	&.is-active{
 		span{
+			background:#fff;
 			top:28px;width:27px;
 			transition:background .2s, top .2s, left .2s, opacity .2s, transform .2s .25s;
 		}
@@ -24,9 +25,9 @@
 	}
 }
 .mobile-nav{
+	transition-duration:.32s;
 	&.is-active{
-		transition-duration:410ms;
+		transition-duration:.41s;
 		transition-timing-function:cubic-bezier(.54,.74,.02,.95);
 	}
 }
-

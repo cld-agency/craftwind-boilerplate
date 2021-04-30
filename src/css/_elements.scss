@@ -4,30 +4,31 @@
 
 p,address,ul,ol,dl,dd{
 	margin-bottom:0;
-	&:first-child{ margin-top:0 }
-	@include font-size(14);
-	line-height:1.5;
-	@media (min-width:theme('screens.sm')) { @include font-size(15); }
-	@media (min-width:theme('screens.md')) { @include font-size(16); }
+	@include fluid(font-size, 20rem, 64rem, 1rem, 1.125rem);
+	line-height:1.77;
 }
-small,.small{@include font-size(13);}
-
-address{
-	@include font-size(21);
-	font-family:theme('fontFamily.serif');
-	font-weight:theme('_vars.headingWeight');
-	line-height:1.4;
+small,.small{
+	@include fluid(font-size, 20rem, 64rem, 0.75rem, 1rem);
 }
 
 // --------------------------------------------
 // LINKS
 // --------------------------------------------
 
-a{
-	text-decoration:underline;
-	text-decoration-skip-ink:auto;
-	color:theme('colors.body');
-	&:hover{ color:theme('colors.accent.DEFAULT'); }
+$linkHover: 0 4px 0 0 theme('colors.accent.DEFAULT');
+$linkTransition: box-shadow .2s linear, color .2s linear;
+
+article p > a:not(.button),.default-link{
+	color:#333;
+	box-shadow:0 4px 0 0 #a4def2;
+	font-weight:theme('_vars.boldWeight');
+	transition:$linkTransition;
+	&:hover{ color:#000;box-shadow:$linkHover }
+	@include fluid(font-size, 20rem, 64rem, 0.75rem, 1rem);
+}
+.standard-link-hover{
+	transition:$linkTransition;
+	&:hover,&:focus{ box-shadow: $linkHover; }
 }
 
 // --------------------------------------------
@@ -35,27 +36,28 @@ a{
 // --------------------------------------------
 
 h1,h2,h3,h4,h5,h6,dt,th{
-	font-family:theme('fontFamily.serif');
+	font-family:theme('fontFamily.display');
 	font-weight:theme('_vars.headingWeight');
-	color:theme('colors.brand.DEFAULT');
+	color:theme('colors.dark.DEFAULT');
 	margin-bottom:0;
 }
 h1{
-	line-height:1.1;
-	@include font-size(32);
-	@media (min-width:theme('screens.md')){ @include font-size(48);line-height:1.2; }
+	@include fluid(font-size, 20rem, 64rem, 2rem, 2.5rem);
+	+ h2{ margin-top:0.5em; }
 }
-h2{
-	@include font-size(25);
-	@media (min-width:theme('screens.md')){ @include font-size(28); }
+h2,.fauxH2{
+	@include fluid(font-size, 20rem, 64rem, 1.5625rem, 1.75rem);
+	+ h3{ margin-top:0.5em; }
 }
-h3,dt{
-	@include font-size(21);
-	@media (min-width:theme('screens.md')){ @include font-size(25); }
+h3,dt,.fauxH4{
+	@include fluid(font-size, 20rem, 64rem, 1.3125rem, 1.5rem);
+	+ h4{ margin-top:1em; }
 }
-h4{
-	@include font-size(18);
+h4,h5,h6{
+	@include fluid(font-size, 20rem, 64rem, 1rem, 1.1875rem);
 }
+
+.fauxH4 + p { margin-top:1em; }
 
 // --------------------------------------------
 // LISTS
@@ -68,13 +70,14 @@ article ul,dl,ol{
 ol{ margin-left:1.2em;}
 
 //bullets
+article ul{ list-style:none; }
 article ul li:before, dt:before{
 	content: "";
 	width:6px;
 	height:6px;
 	background-color:theme('colors.brand.DEFAULT');
 	float:left;
-	margin:.6em 0 0 -2em;
+	margin:.7em 0 0 -2em;
 	border-radius:50%;
 }
 
@@ -83,38 +86,131 @@ article ol li{padding: 0 0 0 1em;}
 nav li{padding:0}
 nav li:before{display:none}
 
+// horrible nested lists and list items with multiple paras.
+// ideally steer clients away from doing this, but at least it
+// should work. Nullify lobotomised owl approach here as it can't
+// really work...
+article ul ul, article ul ol, article ol ul, article ol ol, article ul > li p{
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+
+// --------------------------------------------
+// HR
+// --------------------------------------------
+
+hr {
+	border-color:theme('borderColor.DEFAULT');
+	border-top-width: 1px;
+	margin-top: 3em;
+	margin-bottom: 3em;
+}
+
 // --------------------------------------------
 // IMG & FIGURE & CAPTION
 // --------------------------------------------
 
-img{
-	vertical-align:middle;
-}
 // because figures get automatically inserted by Redactor,
-// we need to style the defaults here. Use .figureReset to undo
-// figure:not(.figureReset){
-// 	text-align:center;
-// 	@extend %spacing;
-// 	img{
-// 		box-shadow:0 30px 60px -10px rgba(0,0,0,.3);
-// 		padding:1px;
-// 		border:1px solid #ccc;
-// 	}
-// }
+// we need to style the defaults here.
+figure{
+	display:table;
+	img{
+		box-shadow:0 30px 60px -10px rgba(0,0,0,.3);
+		padding:1px;
+		border:1px solid theme('borderColor.DEFAULT');
+	}
+}
+figure:not(.quote) figcaption {
+	display:table-caption;
+	caption-side:bottom;
+	font-size:0.875em;
+	line-height:1.6;
+	max-width:60ch;
+	text-align:center;
+	margin:1.5em auto 0;
+}
 
 // --------------------------------------------
 // BLOCKQUOTES
+// https://maedi.com/code/semantic-blockquote-html5/
 // --------------------------------------------
 
-blockquote{
-
+blockquote,.quote{
+	position:relative;
+	background:theme('colors.light.DEFAULT');
+	border-left-width:.25rem;
+	border-left-color:theme('colors.brand.DEFAULT');
+	padding:2em 3em;
+	// in case it comes from redactor and there are no p tags...
+	@include fluid(font-size, 20rem, 64rem, 1.2rem, 1.4375rem);
+	line-height:1.6;
+	color:theme('colors.brand.DEFAULT');
+	&::before, &::after{
+		content:"“";
+		font-family:theme('fontFamily.display');
+		font-size:48px;
+		font-weight:700;
+		position:absolute;
+		top:0;left:.5em;
+	}
+	&::after{
+		content:"”";
+		top:auto;left:auto;
+		right:.5em;bottom:0;
+	}
+}
+// ideally we're in a <figure> element,
+// but keep the styles above on the blockquote
+// in case it's come from Redactor which will not
+// wrap a blockquote in a figure.
+figure blockquote{
+	margin:0;
+	border:0;
+	padding:0;
+	&::before,&::after{ display:none; }
 }
 blockquote p{
+	@include fluid(font-size, 20rem, 64rem, 1.2rem, 1.4375rem);
+}
 
+// --------------------------------------------
+// TABLES. Lifted from Tailwind Typography plugin
+// --------------------------------------------
+
+table {
+	width: 100%;
+	table-layout: auto;
+	text-align: left;
+	font-size: 0.875em;
+	line-height: 1.71;
 }
-cite{
-	font-style:normal;
-	display:block;
-	@include font-size(14);
-	line-height:20px;
+thead {
+	color: theme('colors.gray.900', 'defaultTheme.colors.gray[900]');
+	font-weight: 600;
+	border-bottom-width: 1px;
+	border-bottom-color: theme('colors.gray.300', 'defaultTheme.colors.gray[300]');
 }
+thead th {
+	vertical-align: bottom;
+	padding-right: 0.57em;
+	padding-bottom: 0.57em;
+	padding-left: 0.57em;
+}
+tbody tr {
+	border-bottom-width: 1px;
+	border-bottom-color: theme('colors.gray.200', 'defaultTheme.colors.gray[200]');
+}
+tbody tr:last-child {
+	border-bottom-width: 0;
+}
+tbody td {
+	vertical-align: top;
+	padding:0.57em;
+}
+thead th:first-child,tbody td:first-child {
+	padding-left: 0;
+}
+thead th:last-child,tbody td:last-child {
+	padding-right: 0;
+}
+// no tfoot yet (has anyone ever used tfoot ever?!)

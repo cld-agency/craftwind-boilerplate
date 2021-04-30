@@ -2,47 +2,52 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
 	purge: [
-		'templates/**/*.twig',
-		'src/**/*.js',
-		'src/**/*.vue'
+		'templates/**/*.twig'
 	],
 	theme: {
+		screens: {
+			'sm': '500px',
+			'md': '858px',
+			'lg': '1024px',
+			'xl': '1280px',
+			'2xl': '1536px',
+		},
 		fontFamily: {
 			'sans': ["Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif"],
 			'serif': ["Georgia", "serif"],
-			// 'body': theme => theme('fontFamily.sans'),
-			// 'headings': theme => theme('fontFamily.serif')
+			// these are aliased to 'body' and 'display' instead of directly edited to maintain
+			// potential compat with externally-built tailwind components (eg TailwindUI). (And, for example, you wouldn't
+			// always want your 'display' font to be referenced as 'serif' if it's not a serif!)
+			'body': theme => theme('fontFamily.sans'),
+			'display': theme => theme('fontFamily.serif')
 		},
 		_vars: {
 			'headingWeight': 400,
 			'boldWeight': 600
 		},
-		colors: {
-			white: '#fff',
-			transparent: 'transparent',
-			current: 'currentColor',
-			gray: colors.blueGray,
-			body: '#464646',
-			brand: {
-				DEFAULT: '#1375BC',
-				highlight: '#228edc',
-			},
-			accent: {
-				DEFAULT: '#9FD321',
-				highlight: '#bef735'
-			}
-		},
 		extend: {
-			transitionDuration: {
-				'220': '220ms',
-				'250': '250ms',
-				'320': '320ms',
-				'410': '410ms'
+			colors: {
+				gray: colors.blueGray,
+				body: '#464646',
+				brand: {
+					DEFAULT: '#1375BC',
+					highlight: '#228edc',
+				},
+				accent: {
+					DEFAULT: '#9FD321',
+					highlight: '#bef735'
+				},
+				light: {
+					DEFAULT: '#F3FAFC'
+				},
+				accent: {
+					DEFAULT: '#1E90FF'
+				},
+				dark: {
+					DEFAULT: '#212121',
+				}
 			}
-			// transitionTimingFunction: {
-			// 	'cld': 'cubic-bezier(.54,.74,.02,.95)',
-			// },
-		},
+		}
 	},
 	plugins: [
 		// fluid plugin: https://github.com/soberwp/tailwindcss-fl

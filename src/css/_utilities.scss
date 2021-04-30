@@ -1,15 +1,54 @@
 .is-active{
 	transform:none;
-	opacity:1
+	opacity:1;
+	visibility:visible;
+	pointer-events:all;
+	display:block; // override this via TW classes where necessary
+	&.flex{ display:flex; }
 }
 
-// extracted these classes from the Fluid plugin https://github.com/soberwp/tailwindcss-fl
+// aspect ratios lifted from the Tailwind aspect ratio plugin...
+// no need for a whole plugin just for these really...
+.aspect-16-9{
+	position:relative;
+	padding-bottom:calc(9 / 16 * 100%);
+	> *{
+		position:absolute;
+		height:100%;
+		width:100%;
+		top:0;right:0;bottom:0;left:0
+	}
+}
+
+// FLUID UTIITIES
+.fl\:py-44 {
+	@include fluid(padding-top padding-bottom, 20rem, 64rem, 1.5rem, 11rem);
+}
 .fl\:py-16 {
-	padding-top: clamp(2.472188rem, 2.472188rem + (4 - 2.472188) * ((100vw - 40rem) / (80 - 40)), 4rem);
-	padding-bottom: clamp(2.472188rem, 2.472188rem + (4 - 2.472188) * ((100vw - 40rem) / (80 - 40)), 4rem);
+	@include fluid(padding-top padding-bottom, 20rem, 64rem, 1.5rem, 6rem);
+}
+.fl\:py-12 {
+	@include fluid(padding-top padding-bottom, 20rem, 64rem, 1rem, 3.875rem);
+}
+.fl\:py-8{
+	@include fluid(padding-top padding-bottom, 20rem, 64rem, 0.75rem, 2rem);
 }
 
-.fl\:py-12 {
-	padding-top: clamp(1.854141rem, 1.854141rem + (3 - 1.854141) * ((100vw - 40rem) / (80 - 40)), 3rem);
-	padding-bottom: clamp(1.854141rem, 1.854141rem + (3 - 1.854141) * ((100vw - 40rem) / (80 - 40)), 3rem);
+.fl\:text-sm{
+	@include fluid(font-size, 48rem, 80rem, 0.75rem, 1rem);
+}
+.fl\:text-base{
+	@include fluid(font-size, 20rem, 64rem, 0.75rem, 1rem);
+}
+.fl\:text-m{
+	@include fluid(font-size, 20rem, 64rem, 1rem, 1.25rem);
+}
+.fl\:text-lg{
+	@include fluid(font-size, 20rem, 64rem, 1rem, 1.5rem);
+}
+.fl\:text-4xl{
+	@include fluid(font-size, 20rem, 64rem, 1rem, 2.5rem);
+}
+.fl\:text-5xl{
+	@include fluid(font-size, 20rem, 64rem, 1.25rem, 3rem);
 }
