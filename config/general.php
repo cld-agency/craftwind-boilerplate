@@ -37,6 +37,7 @@ return [
 
         // prevent /cpresources/ path showing up on the front end
         'generateTransformsBeforePageLoad' => true,
+        'upscaleImages' => false,
 
         // remove index.php from auto-generated URLs
         'omitScriptNameInUrls' => true,

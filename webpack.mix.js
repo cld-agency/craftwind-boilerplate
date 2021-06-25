@@ -3,7 +3,7 @@ const tailwindJit = require("@tailwindcss/jit");
 
 // --------------------------------------------
 
-// set PRIMARY_SITE_URL to your local domain in your .env file...
+// set MIX_PRIMARY_SITE_URL to your local domain in your .env file...
 let localDomain = process.env.MIX_LOCAL_SITE_URL || 'example.test';
 let srcPath = 'src';
 let buildPath = mix.inProduction() ? 'public_html/assets' : 'public_html/_assets';
@@ -25,7 +25,7 @@ mix.options({
 	processCssUrls: false,
 	// specify which postcss plugins to use here...
 	postCss: [ tailwindJit ],
-	// when running `npm run watch all` it's confusing to clear the console each time...
+	// when running `npm run all` it's confusing to clear the console each time...
 	clearConsole: false,
 });
 
