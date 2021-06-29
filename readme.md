@@ -5,8 +5,17 @@ This branch does *not* use Tailwind's `base` / preflight layer - instead you are
 To use this Craft boilerplate:
 ====================================
 
+1. `composer install`
+1. `./craft update all`
+1. Update your control panel trigger word in `config/general.php` to something unique
+1. Create a new blank database and virtual host
+1. Update the `DB_DATABASE` variable in `.env` to use that new database
+1. Update the `MIX_LOCAL_SITE_URL` variable in `.env` to point to your new virtual host
+1. Update the `SECURITY_KEY` in `.env` to something unique
+1. Install Craft by visiting the control panel and following the on-screen instructions
+1. Create an entry in the Home Pages section
 1. `npm install`
-1. `npm run all` or `npm run prod` or `npm run watch`
+1. `npm run all` or `npm run prod` or `npm run watch` to start work at http://localhost:3000
 
 The `npm run all` task is configured to do both dev and production builds locally on save, so no need for separate dev/prod build processes here. If running both at the same time ever becomes too taxing on your CPU, you can run them separately with `npm run prod` and `npm run watch`.
 

@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-const tailwindJit = require("@tailwindcss/jit");
+const tailwind = require("tailwindcss");
 
 // --------------------------------------------
 
@@ -24,7 +24,7 @@ mix.options({
 	// (what kind of monster uses relative URLs in CSS anyway?!)
 	processCssUrls: false,
 	// specify which postcss plugins to use here...
-	postCss: [ tailwindJit ],
+	postCss: [ tailwind ],
 	// when running `npm run all` it's confusing to clear the console each time...
 	clearConsole: false,
 });
@@ -80,6 +80,4 @@ if (!mix.inProduction()) {
 // File revving
 // --------------------------------------------
 
-if (mix.inProduction()) {
-	mix.version();
-}
+mix.version();

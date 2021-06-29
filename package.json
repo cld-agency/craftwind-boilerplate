@@ -31,14 +31,13 @@
     }
   },
   "devDependencies": {
-    "@tailwindcss/jit": "^0.1.18",
     "browser-sync": "^2.26.14",
     "browser-sync-webpack-plugin": "^2.3.0",
-    "laravel-mix": "^6.0.16",
+    "laravel-mix": "^6.0.25",
     "postcss": "^8.2.9",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
-    "tailwindcss": "^2.1.1"
+    "tailwindcss": "^2.2.4"
   },
   "dependencies": {
     "body-scroll-lock": "^3.1.5",

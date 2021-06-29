@@ -2,6 +2,8 @@
 // FONT SIZE
 // --------------------------------------------
 
+@use "sass:math";
+
 @mixin font-size( $sizeValue: 1.6 ) {
   font-size: font-size($sizeValue);
 }
@@ -76,7 +78,7 @@
 
 @function strip-unit($number) {
   @if type-of($number) == "number" and not unitless($number) {
-    @return $number / ($number * 0 + 1);
+    @return math.div($number, $number * 0 + 1);
   }
 
   @return $number;

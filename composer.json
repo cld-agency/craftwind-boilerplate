@@ -1,9 +1,9 @@
 {
   "require": {
-    "craftcms/cms": "3.6.11.2",
-    "craftcms/redactor": "2.8.5",
+    "craftcms/cms": "3.6.17",
+    "craftcms/redactor": "2.8.7",
     "misterbk/mix": "1.5.2",
-    "mmikkel/cp-field-inspect": "1.2.4",
+    "mmikkel/cp-field-inspect": "1.2.5",
     "nystudio107/craft-minify": "1.2.10",
     "vlucas/phpdotenv": "^3.4.0"
   },
@@ -27,6 +27,6 @@
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
     ]
   },
-  "name": "",
-  "description": ""
+  "name": "cld/project-name",
+  "description": "Project Name"
 }
