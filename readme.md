@@ -1,6 +1,6 @@
 This is an opinionated starter boilerplate for Craft CMS 3 + Tailwind-JIT and Vanilla JS via Laravel Mix 6. No JavaScript frameworks are included.
 
-This branch does *not* use Tailwind's `base` / preflight layer - instead you are expected to bring your own CSS reset and base styles (see global.scss and elements.scss respectively).
+This branch does *not* use Tailwind's `base` / preflight layer, because we prefer to have at least _some_ base styling - instead we use our own CSS reset and base styles (see global.scss and elements.scss respectively).
 
 To use this Craft boilerplate:
 ====================================
@@ -14,6 +14,7 @@ To use this Craft boilerplate:
 1. Update the `SECURITY_KEY` in `.env` to something unique
 1. Install Craft by visiting the control panel and following the on-screen instructions
 1. Create an entry in the Home Pages section
+1. Update `package.json` with project name
 1. `npm install`
 1. `npm run all` or `npm run prod` or `npm run watch` to start work at http://localhost:3000
 
@@ -28,6 +29,32 @@ This repo includes the following JS libraries:
 
 * <a href="https://github.com/willmcpo/body-scroll-lock">BodyScrollLock</a> by @willmcpo
 * <a href="https://codepen.io/croxton/pen/yLOLzjo">Toggle</a> by @croxton
+
+Example code for using the accessible toggle functionality (set this as an auto-expand snippet/live template in your editor):
+
+```
+<button type="button"
+	class="button-reset js-toggleAThing"
+	aria-controls="js-idOfThingToToggle"
+	data-active-target-id="js-idOfThingToToggle"
+	data-active-target="is-active"
+	data-active="is-active"
+	aria-expanded="false"
+>
+	Toggle Text
+</button>
+
+<div id="js-idOfThingToToggle" aria-hidden="true" class="hidden">
+	<button type="button" class="close">Close me</button>
+	toggle me
+</div>
+
+Now put this into your bindUI function in main.js:
+new Toggle('.js-toggleAThing');
+(best to use a new instantiation for each type of toggler so that they don't interfere with each other)
+```
+
+If you want to transition-in the hidden thing instead of an instant show/hide, just use a transform class like `class="translate-x-full"` instead of `hidden`. (The `.is-active` modifier will remove all transforms, set opacity to 1 and enable pointer events (see utilities.scss)).
 
 CSS functionality
 -------------------

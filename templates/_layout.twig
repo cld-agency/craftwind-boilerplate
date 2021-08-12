@@ -3,7 +3,7 @@
 } %}
 
 {% set css = {
-	navLink: 'uppercase group inline-flex items-center text-center fl:text-11to15 font-semibold tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
+	navLink: 'uppercase group inline-flex items-center text-center font-semibold tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
 	navLinkOnLight: 'block uppercase text-base font-semibold tracking-widest leading-6',
 } %}
 
@@ -18,7 +18,7 @@
 	<meta charset="utf-8">
 	<title>{{ title is defined ? title ~ ' | ' ~ siteName : siteName }}</title>
 	<meta name="description" content="{{ metaDesc is defined ? metaDesc|striptags : null }}">
-	<link rel="stylesheet" href="{{ siteUrl|trim('/', 'right') }}{{ craft.app.config.general.env == 'local' ? '/_assets/css/main.css' : mix('css/main.css') }}">
+	<link rel="stylesheet" href="{{ siteUrl|trim('/', 'right') }}{{ mix('css/main.css') }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{% if noIndex is defined and noIndex == 1 or craft.app.config.general.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
 
@@ -113,7 +113,7 @@
 				<nav class="flex justify-between items-center">
 					<a class="flex" href="/"><img alt="" style="height:50px" src="/assets/img/no-image.svg"></a>
 
-					<ul class="hidden md:flex fl:space-x-8 ml-8">
+					<ul class="hidden md:flex space-x-8 ml-8">
 						<li><a href="#" class="{{ css.navLink }}">Link</a></li>
 						<li><a href="#" class="{{ css.navLink }}">Another</a></li>
 					</ul>
@@ -143,7 +143,7 @@
 				<span class="{{ naviconLineClasses }}"></span>
 			</button>
 
-			<div id="js-mobileNav" class="mobile-nav bg-gray-100 transition transform translate-x-full duration-320 ease-cld fixed z-30 inset-0 overflow-y-auto" data-scroll-lock-target-of="mobileNavActive" aria-hidden="true">
+			<div id="js-mobileNav" class="mobile-nav bg-gray-100 transition transform translate-x-full duration-320 ease-out fixed z-30 inset-0 overflow-y-auto" aria-hidden="true">
 
 				<div class="p-8">
 					<ul class="space-y-4">
@@ -205,7 +205,7 @@
 
 	{# =============================================================================== #}
 
-	<script src="{{ siteUrl }}{{ craft.app.config.general.env == 'local' ? '_assets/js/main.js' : mix('js/main.js') }}"></script>
+	<script src="{{ siteUrl|trim('/', 'right') }}{{ mix('js/main.js') }}"></script>
 
 	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
 		{{ customScripts.bodyEndScripts|raw }}
