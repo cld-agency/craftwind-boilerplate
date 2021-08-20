@@ -1,4 +1,4 @@
-dateModified: 1619790590
+dateModified: 1629446360
 email:
   fromEmail: james@cld.agency
   fromName: Boilerplate
@@ -24,7 +24,7 @@ system:
   edition: solo
   live: true
   name: Boilerplate
-  schemaVersion: 3.5.13
+  schemaVersion: 3.6.8
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false

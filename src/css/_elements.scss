@@ -49,15 +49,13 @@ h2,.fauxH2{
 	@include fluid(font-size, 20rem, 64rem, 1.5625rem, 1.75rem);
 	+ h3{ margin-top:0.5em; }
 }
-h3,dt,.fauxH4{
+h3,dt,.fauxH3{
 	@include fluid(font-size, 20rem, 64rem, 1.3125rem, 1.5rem);
 	+ h4{ margin-top:1em; }
 }
 h4,h5,h6{
 	@include fluid(font-size, 20rem, 64rem, 1rem, 1.1875rem);
 }
-
-.fauxH4 + p { margin-top:1em; }
 
 // --------------------------------------------
 // LISTS
