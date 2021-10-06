@@ -88,6 +88,7 @@
 // UPDATED modern version using clamp() instead
 // of media queries. Call it exactly the same way
 // as the legacy version above.
+// https://www.smashingmagazine.com/2016/05/fluid-typography/#controlling-the-rate-of-scale
 // --------------------------------------------
 
 @mixin fluid($properties, $min-vw, $max-vw, $min-value, $max-value) {

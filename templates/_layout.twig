@@ -85,7 +85,7 @@
 	{% endif %}
 
 	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
-		{{ customScripts.headScripts|raw }}
+		{{ scripts.headScripts|raw }}
 	{% endif %}
 
 	{{ head() }}
@@ -96,7 +96,7 @@
 	{{ beginBody() }}
 
 	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
-		{{ customScripts.bodyStartScripts|raw }}
+		{{ scripts.bodyStartScripts|raw }}
 	{% endif %}
 
 	<div id="app" class="flex flex-col min-h-screen">
@@ -208,7 +208,7 @@
 	<script src="{{ siteUrl|trim('/', 'right') }}{{ mix('js/main.js') }}"></script>
 
 	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
-		{{ customScripts.bodyEndScripts|raw }}
+		{{ scripts.bodyEndScripts|raw }}
 	{% endif %}
 
 	{{ endBody() }}
