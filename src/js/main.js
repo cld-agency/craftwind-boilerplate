@@ -18,6 +18,56 @@ const SITE = {
 	init: function(){
 		SITE.getSettings();
 		SITE.bindUI();
+		SITE.refreshCSRFs();
+		SITE.getEditLink();
+	},
+
+	// --------------------------------------------
+	// refreshCSRFs to evade any static caching
+	// --------------------------------------------
+
+	refreshCSRFs: function() {
+		fetch('/getCSRF', {
+			headers: {
+				'X-Requested-With': 'XMLHttpRequest',
+			},
+			method: 'GET'
+		})
+			.then(response => response.text())
+			.then(data => {
+				document.querySelectorAll('[name="CRAFT_CSRF_TOKEN"]').forEach(item => {
+					item.value = data;
+				});
+				// also store in window so it can be reused by other scripts
+				window.csrfTokenValue = data;
+			});
+	},
+
+	// --------------------------------------------
+	// GET EDIT LINK via ajax just in case we're using static cache
+	// --------------------------------------------
+
+	getEditLink: function(){
+		const editMarker = document.querySelector('.js-edit-this');
+		const data = {
+			"thing": editMarker.dataset.thing,
+			"CRAFT_CSRF_TOKEN": window.csrfTokenValue
+		};
+
+		fetch('/getEditLink', {
+			headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/json' },
+			method: 'POST',
+			body: JSON.stringify(data)
+		})
+			.then(response => response.text())
+			.then(xhrResponse => {
+				if (xhrResponse && xhrResponse.trim()) {
+					editMarker.innerHTML = xhrResponse;
+					setTimeout(function () {
+						document.querySelector('.edit-this').classList.remove('posing');
+					}, 600);
+				}
+			});
 	},
 
 	// --------------------------------------------

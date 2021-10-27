@@ -1,0 +1,38 @@
+{% if craft.app.request.isAjax %}
+	{% set thingID = craft.app.request.getParam('thing') %}
+	{% set thing = craft.entries.id(thingID).one() ?? craft.categories.id(thingID).one() %}
+
+	{% if thing is defined and thing and thing.isEditable()%}
+		<style>
+			.edit-this{
+				background: #A50050;
+				color:#fff;
+				border-radius: 50%;
+				height: 100px;
+				width: 100px;
+				position: fixed;
+				z-index:99;
+				display: flex!important;
+				justify-content: center;
+				align-items: center;
+				font-size: 14px;
+				text-transform: uppercase;
+				left: calc(50% - 50px);
+				top: -77px;
+				padding-top: 42px;
+				transition: all .28s ease-out;
+				transform:none;
+				opacity:1;
+			}
+			.edit-this.posing{transform:translateY(-30px);opacity:0;}
+			.edit-this:hover{
+				background:#E11176;
+				color:#fff!important;
+			}
+		</style>
+
+		<a class="edit-this posing" href="{{ thing.cpEditUrl }}">Edit this</a>
+	{% endif %}
+{% else %}
+	{% redirect 404 %}
+{% endif %}

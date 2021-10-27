@@ -93,6 +93,8 @@
 
 <body class="m-0 {{ bodyClass ?? null }}">
 
+	<div class="js-edit-this" data-thing="{{ entry.id ?? category.id ?? null }}"></div>
+
 	{{ beginBody() }}
 
 	{% if not craft.app.request.isLivePreview and craft.app.config.general.env == 'live' %}
