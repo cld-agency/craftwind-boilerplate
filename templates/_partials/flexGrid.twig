@@ -1,0 +1,91 @@
+{# ==================================
+REUSABLE FLEX GRID.
+
+Params:
+
+* items (required) [array]
+	pass in which items to show in the grid
+* itemSize [string]
+	pass in a list of classnames reflecting the size of each item at each breakpoint
+* gutterSizes [object]
+	pass in an object with `wrap` and `items` keys to determine the gutter sizes
+* itemContent [twig block]
+	If you want to override the default item content (featureCard.twig),
+	include this partial as an `embed` and pass in itemContent as a block.
+* cardVariants (see featureCard.twig for options)
+
+Examples:
+
+1. Simple include: {% include '_partials/flexGrid.twig' with { items: block.entries.all() } %}
+
+2. Using embed to override the itemContent:
+
+{% embed '_partials/flexGrid.twig' with { items: block.imgs.all() } %}
+	{% block itemContent %}
+		<div class="bg-white border h-full p-4 flex justify-center items-center" style="min-height:110px">
+			<img class="max-h-full" src="{{ item.url(transforms.logoCloud) }}">
+		</div>
+	{% endblock %}
+{% endembed %}
+
+3. Using cardVariants to still use the default featureCard partial but with tweaks to the card layout:
+
+{% include '_partials/flexGrid.twig' with { items: block.entries.all(), cardVariants: ['leftAligned', 'lockAspectRatio'] } %}
+
+4. If you want to have grid of multiple cards using flexGrid.twig, but with
+the power to customise all the parameters in the grid items, do something like this:
+
+{% embed '_partials/flexGrid.twig' with {
+	items: entry.cards,
+	itemSize: 'w-full sm:w-1/2'
+} %}
+	{% block itemContent %}
+		{% include '_partials/featureCard.twig' with {
+			variants: ['leftAligned', 'lockAspectRatio'],
+			url: item.cardLink
+		} %}
+	{% endblock %}
+{% endembed %}
+
+===================================== #}
+
+{# how wide each item should be: #}
+{% if itemSize is not defined %}
+	{% switch items|length %}
+		{% case '1' %}
+			{% set itemSize = 'w-full md:w-1/3' %}
+		{% case '2' %}
+			{% set itemSize = 'w-full md:w-1/2' %}
+		{% case '4' or '8' %}
+			{% set itemSize = 'w-full md:w-1/2 lg:w-1/4' %}
+		{% case '5' %}
+			{% set itemSize = 'w-1/2 md:w-1/4 lg:w-1/5' %}
+		{% default %}
+			{% set itemSize = 'w-full md:w-1/2 lg:w-1/3' %}
+	{% endswitch %}
+{% endif %}
+
+{# how wide and tall the gutters should be. The negative numbers in the wrapper should all match the positive ones in the items #}
+{% if gutterSizes is not defined %}
+	{% set gutterSizes = {
+		wrap: '-mx-2 -mt-2 md:-my-3 md:-mx-3',
+		items: 'my-2 px-2 md:my-3 md:px-3'
+	} %}
+{% endif %}
+
+{# extra classes #}
+{% if gridClasses is not defined %}
+	{% set gridClasses = 'justify-center' %}
+{% endif %}
+
+{# ======================================================================= #}
+
+<ul class="list-reset-for-grids flex flex-wrap {{ gutterSizes.wrap }} {{ gridClasses|join(' ') }}">
+	{% for item in items %}
+		<li class="{{ itemSize }} {{ gutterSizes.items }}">
+			{% block itemContent %}
+				{% include '_partials/featureCard.twig' with {variants: cardVariants ?? null } %}
+			{% endblock %}
+		</li>
+	{% endfor %}
+</ul>

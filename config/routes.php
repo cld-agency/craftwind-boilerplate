@@ -19,5 +19,5 @@
  */
 
 return [
-
+    '<route_listing>/category/<route_cat>' => ['template' => '_listing'],
 ];

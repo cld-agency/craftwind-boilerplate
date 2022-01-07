@@ -1,69 +1,206 @@
 {# ======================================
 LISTING DEFAULT. Used by:
 
-* listingsPages channel entries at /{slug} e.g. /blog, /case-studies
+* entries from the listingsPages section at /{slug} e.g. /blog, /case-studies
+* /something-else/
+* /something-else/category/{cat-slug}
+* /another-thing
 
 ========================================= #}
 
-{% extends '_layout.twig' %}
+{% set pageElement = category ?? entry %}
+
+{% set theLayout = craft.app.request.isAjax and not craft.app.request.isLivePreview ? '_ajaxLayout' : '_layout' %}
+{% extends theLayout %}
+
+{% set title = pageElement.titleTag ?? pageElement.title %}
+{% set metaDesc = pageElement.metaDesc ?? null %}
+{% set noIndex = pageElement.noIndex ?? null %}
+
+{% set ogTitle = pageElement.ogTitle ?? null %}
+{% set ogDesc =  pageElement.ogDesc ?? pageElement.intro ?? null %}
+{% set ogImg = pageElement.ogImage|length ? pageElement.ogImage.one() : pageElement.featuredImg|length ? pageElement.featuredImg.one() : null %}
+{% set ogType = pageElement.ogType ?? null %}
+{% set twitterCreator = pageElement.twitterCreator ?? null %}
+{% set twitterCard = pageElement.twitterCard ?? null %}
+
+{# ======================================================================= #}
 
 {% block content %}
 
-	<h1>{{ entry.title }}</h1>
-
 	{# ==================================
-	CATEGORY FILTER LINKS
+	INTRO or BANNER or CAROUSEL
 	===================================== #}
 
-	{% if categories is defined and categories %}
-		<h2>Categories
-		<ul>
-			{% for cat in categories %}
-				<li><a href="/{{ craft.app.request.getSegment(1) }}/category/{{ cat.slug }}">{{ cat.title }}</a></li>
-			{% endfor %}
-		</ul>
+	{% include '_partials/header.twig' %}
+
+	{# ==================================
+	CATS. Populated in child templates.
+	===================================== #}
+
+	{{ block('cats') ?? null }}
+
+	{# ==================================
+	LISTING. Populated in child templates.
+	===================================== #}
+
+	{{ block('listingContent') }}
+
+	{# ==================================
+	PAGINATION
+	===================================== #}
+
+	{% if withPagination is defined and withPagination and (pageInfo.prevUrl or pageInfo.nextUrl)%}
+
+		{# let's only output the load more button on the first page, otherwise the JS gets very complicated #}
+		{% if pageInfo.nextUrl and pageInfo.currentPage == 1 %}
+			{# Load More AJAX button #}
+			{% embed '_partials/container.twig' with {variants: 'full-y'} %}
+				{% block content %}
+					<div class="text-center mb-12">
+						{% include '_partials/button.twig' with {
+							label: 'Load more',
+							link: withPagination is defined and withPagination ? '/' ~ craft.app.request.pathInfo ~ '/page-' ~ (pageInfo.currentPage + 1),
+							classes: 'js-loadMore',
+							variants: 'jumbo'
+						} only %}
+					</div>
+				{% endblock %}
+			{% endembed %}
+		{% endif %}
+
+		{% set queryString = craft.app.request.getQueryStringWithoutPath() ? '?' ~ craft.app.request.getQueryStringWithoutPath() : '' %}
+
+		{% embed '_partials/container.twig' with {sectionBG: 'silver', variants: 'compact'} %}
+			{% block content %}
+				{% set paginationCSS = {
+					base: 'mt-0 px-8 !py-4 relative inline-flex items-center border border-gray-300 bg-white font-bold text-gray-700 hover:bg-gray-50 focus:bg-gray-50',
+				} %}
+
+				{# ==================================
+				Just two buttons @mobile...
+				===================================== #}
+
+				<div class="flex-1 flex justify-between sm:hidden">
+					{% if pageInfo.prevUrl %}
+						{% include '_partials/button.twig' with { link: pageInfo.prevUrl ~ queryString, label:'Previous', variants: 'jumbo'} only %}
+					{% endif %}
+					{% if pageInfo.nextUrl %}
+						{% include '_partials/button.twig' with { link: pageInfo.nextUrl ~ queryString, label:'Next', variants: 'jumbo'} only %}
+					{% endif %}
+				</div>
+
+				{# ==================================
+				DESKTOP
+				===================================== #}
+
+				<div class="hidden sm:block">
+					<nav class="relative inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+
+						{# ==================================
+						PREV PAGE BUTTON
+						===================================== #}
+
+						{% if pageInfo.prevUrl %}
+							<a href="{{ pageInfo.prevUrl ~ queryString }}" class="rounded-l-md {{ paginationCSS.base }}">
+								<span class="sr-only">Previous</span>
+								<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+									<path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+								</svg>
+							</a>
+						{% endif %}
+
+						{# ==================================
+						PREV PAGES LINKS
+						===================================== #}
+
+						{% for page, url in pageInfo.getPrevUrls(5) %}
+							<a href="{{ url ~ queryString }}" class="{{ paginationCSS.base }}">{{ page }}</a>
+						{% endfor %}
+
+						{# ==================================
+						CURRENT FAUX-LINK
+						===================================== #}
+
+						<span class="{{ paginationCSS.base }} bg-gray-200 hover:bg-gray-200">{{ pageInfo.currentPage }}</span>
+
+						{# ==================================
+						NEXT PAGES LINKS
+						===================================== #}
+
+						{% for page, url in pageInfo.getNextUrls(5) %}
+							<a href="{{ url ~ queryString }}" class="{{ paginationCSS.base }}">{{ page }}</a>
+						{% endfor %}
+
+						{# ==================================
+						NEXT PAGE BUTTON
+						===================================== #}
+
+						{% if pageInfo.nextUrl %}
+							<a href="{{ pageInfo.nextUrl ~ queryString }}" class="rounded-r-md {{ paginationCSS.base }}">
+								<span class="sr-only">Next</span>
+								<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+									<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+								</svg>
+							</a>
+						{% endif %}
+					</nav>
+				</div>
+			{% endblock %}
+		{% endembed %}
 	{% endif %}
 
 	{# ==================================
-	ENTRIES LIST
+	EXTRAS (populated in child templates)
 	===================================== #}
 
-	{% if pageEntries is defined and pageEntries %}
-		<ul>
-			{% for post in pageEntries %}
-				<li>
-					<article>
-						<a href="{{ post.url }}">
-							<h2>{{ post.title }}</h2>
-							<p>summary</p>
-						</a>
-					</article>
-				</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
+	{{ block('extras') ?? null }}
 
-	{# ==================================
-	PAGINATION LINKS
-	===================================== #}
-
-	{% if pageInfo.total >= perPage %}
-		<ul>
-			<li><a href="{{ pageInfo.firstUrl }}">First</a></li>
-			{% if pageInfo.prevUrl %}<li><a href="{{ pageInfo.prevUrl }}">Previous</a></li>{% endif %}
-
-			{% for page, url in pageInfo.getPrevUrls(3) %}
-			   <li><a href="{{ url }}">{{ page }}</a></li>
-			{% endfor %}
-
-			<li>{{ pageInfo.currentPage }}</li>
-
-			{% for page, url in pageInfo.getNextUrls(3) %}
-				<li><a href="{{ url }}">{{ page }}</a></li>
-			{% endfor %}
-
-		 	{% if pageInfo.nextUrl %}<li><a href="{{ pageInfo.nextUrl }}">Next</a></li>{% endif %}
-			<li><a href="{{ pageInfo.lastUrl }}">Last</a></li>
-		</ul>
-	{% endif %}
 {% endblock %}
+
+{% block ajaxContent %}
+	{{ block('listingContent') }}
+{% endblock %}
+
+{# ======================================
+AJAX PAGINATION SCRIPT
+========================================= #}
+
+{% if pageInfo is defined and pageInfo.total > 12 %}
+	{% js %}
+		var currentPage = 1;
+		var perPage = 12;
+		var count = perPage;
+
+		document.querySelector('.js-loadMore').addEventListener('click', e => {
+			e.preventDefault();
+			e.currentTarget.classList.add('disabled', 'pointer-events-none');
+			var originalWidth = e.currentTarget.offsetWidth;
+			var buttonText = document.querySelector('.js-loadMore').textContent;
+			e.currentTarget.style.width = originalWidth;
+			e.currentTarget.textContent = 'Loading...';
+			if({{ pageInfo.total }} > count){
+				fetch(e.currentTarget.getAttribute('href'), {
+					headers: {
+						'X-Requested-With': 'XMLHttpRequest',
+					},
+					method: 'GET'
+				}).then(response => response.text()).then(data => {
+
+					document.querySelector('.js-ajaxPagination').insertAdjacentHTML('beforeend', data);
+					var button = document.querySelector('.js-loadMore');
+					button.textContent = buttonText;
+					// increment the counters
+					count = count + perPage;
+					currentPage++;
+					button.style.display = 'block';
+					button.href = '/{{ craft.app.request.pathInfo }}/page-' + (currentPage + 1);
+					button.classList.remove('disabled', 'pointer-events-none');
+					if({{ pageInfo.total }} <= count){
+						button.remove();
+					}
+				});
+			}
+		});
+	{% endjs %}
+{% endif %}

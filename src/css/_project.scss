@@ -1,5 +1,5 @@
 // collapse consecutive blocks of the same colour... be sure to always use bg-white even if it seems redundant!
-.bg-white + .bg-white,.bg-gray-100 + .bg-gray-100{ padding-top:0; }
+.bg-white:not(.with-bg-img) + .bg-white:not(.with-bg-img),.bg-gray-100:not(.with-bg-img) + .bg-gray-100:not(.with-bg-img),.bg-brand:not(.with-bg-img) + .bg-brand:not(.with-bg-img){ padding-top:0; }
 
 // --------------------------------------------
 // MOBILE NAV

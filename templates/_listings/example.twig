@@ -1,0 +1,70 @@
+{# ==================================
+LISTING EXAMPLE
+===================================== #}
+
+{% extends '_listings/default.twig' %}
+
+{# pageEntries should be set by handlers/elementsByCategory or handlers/elements #}
+{% set pageEntries = pageEntries ?? null %}
+
+{# ==================================
+CATEGORY BUTTONS
+===================================== #}
+
+{#{% block cats %}#}
+{#	{% embed '_partials/container.twig' %}#}
+{#		{% block content %}#}
+{#			{% include '_partials/categoryButtons.twig' with {catGroup: 'assetCats'} %}#}
+{#		{% endblock %}#}
+{#	{% endembed %}#}
+{#{% endblock %}#}
+
+{# ==================================
+LISTING CONTENT
+===================================== #}
+
+{# these are atually the default gutters from flexGrid.twig, but we're
+repeating them here so that ajax and non-ajax versions can both share it (because
+the ajax version doesn't use flexGrid.twig #}
+{% set gutterSizes = {
+	wrap: '-mx-2 -mt-2 md:-my-3 md:-mx-3',
+	items: 'my-2 px-2 md:my-3 md:px-3'
+} %}
+{# {% set cardVariants = ['leftAligned', 'withChevron', 'lockAspectRatio'] %} #}
+
+{% block listingContent %}
+
+	{# tweak the unit size based on how many items we're showing #}
+	{% switch pageEntries|length %}
+		{% case '1' %}
+			{% set itemSize = 'w-full md:w-1/3' %}
+		{% case '2' %}
+			{% set itemSize = 'w-full md:w-1/2' %}
+		{% case '4' or '8' %}
+			{% set itemSize = 'w-full md:w-1/2 lg:w-1/4' %}
+		{% case '5' %}
+			{% set itemSize = 'w-1/2 md:w-1/4 lg:w-1/5' %}
+		{% default %}
+			{% set itemSize = 'w-full md:w-1/2 lg:w-1/3' %}
+	{% endswitch %}
+
+	{% if not craft.app.request.isAjax %}
+		{% embed '_partials/container.twig' %}
+			{% block content %}
+				{% if not pageEntries %}
+					<p>There are no items to display.</p>
+				{% else %}
+					{% include '_partials/flexGrid.twig' with { items: pageEntries } %}
+				{% endif %}
+			{% endblock %}
+		{% endembed %}
+	{% else %}
+		{# for ajax requests, we don't want a full grid with ul wrapper, we just want the individual list items to inject... #}
+		{% for item in pageEntries %}
+			<li class="{{ itemSize }} {{ gutterSizes.items }}">
+				{% include '_partials/featureCard.twig' %}
+			</li>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{# ======================================
+`extends` logic map...
+_listing.twig (routing handler)
+	-> _listings/handlers/elements.twig (elements handler)
+		-> _listings/blog.twig (listing type handler for unique listing layout and any per-type customisation)
+			-> _listings/default.twig (shared listing layout - header/hero/metadata/pagination etc)
+				-> _layout.twig (site layout)
+
+The purpose of this handler template is ultimately to
+decide which elements to fetch for the listing.
+
+Listings can list entries, categories, or assets.
+
+We are extending an individual template for
+each listing type (e.g. _listings/blog.twig) to
+give us the flexibility to make per-type
+tweaks and keep all that logic in the same place,
+whilst retaining this common handler logic
+between all of the types.
+========================================= #}
+
+{% extends '_listings/' ~ entry.slug|camel %}
+
+{# =============================================================================== #}
+
+{# could pull this dynamically from the listing entry instead of hardcoding #}
+{% set theLimit = 12 %}
+
+{% switch entry.slug %}
+	{% case 'articles' %}
+		{% set fromWhere = ['articles'] %}
+		{% set fromWhereCats = ['articles','events'] %}
+		{% set elementType = 'entries' %}
+	{% case 'events' %}
+		{% set fromWhere = ['events'] %}
+		{% set fromWhereCats = ['articles','events'] %}
+		{% set elementType = 'entries' %}
+	{% case 'meet-the-team' %}
+		{% set fromWhere = 'team' %}
+		{% set elementType = 'entries' %}
+		{% set theLimit = null %}
+	{% case 'downloads' %}
+		{% set fromWhere = 'assetCats' %}
+		{% set elementType = 'cats' %}
+	{% default %}
+		{% set fromWhere = entry.slug %}
+		{% set elementType = 'entries' %}
+{% endswitch %}
+
+{# theStuffIds can be used to output links to related category filter pages on the main listing page, ensuring that we only output cats that have related elements #}
+{% switch elementType %}
+	{% case 'entries' %}
+		{# remember, don't call .all() on this ElementCriteriaModel object as it needs to be
+		passed into the paginate tag which will work it all out - https://docs.craftcms.com/v3/dev/tags/paginate.html #}
+		{% set theStuff = craft.entries.section(fromWhere).with([]).limit(theLimit) %}
+		{# these ids are used to ensure we only output cats that have entries. See categoryButtons.twig #}
+		{% set theStuffIds = craft.entries.section(fromWhereCats ?? fromWhere).ids() %}
+{#	{% case 'assets' %}#}
+{#		{% set theStuff = craft.assets.volume(fromWhere).with([]).limit(theLimit) %}#}
+{#		{% set theStuffIds = craft.assets.volume(fromWhere).ids() %}#}
+{# 	{% case 'cats' %}
+		{% set theStuff = craft.categories.group(fromWhere).with([]).limit(theLimit) %}
+		{% set theStuffIds = craft.categories.group(fromWhere).ids() %}
+	{% default %} #}
+{% endswitch %}
+
+{# set the main `pageEntries` and `pageInfo` vars #}
+{% paginate theStuff as pageInfo, pageEntries %}
+
+{% set withPagination = theStuffIds|length < theLimit ? false : true %}
