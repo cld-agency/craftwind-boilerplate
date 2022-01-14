@@ -8,7 +8,7 @@
   font-size: font-size($sizeValue);
 }
 @function font-size( $sizeValue: 1.6 ) {
-  @return ($sizeValue / 10 * 0.625) * 1rem;
+  @return (math.div($sizeValue, 10 * 0.625)) * 1rem;
 }
 
 // --------------------------------------------
