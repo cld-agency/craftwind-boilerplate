@@ -5,14 +5,12 @@ This branch does *not* use Tailwind's `base` / preflight layer, because we prefe
 To use this Craft boilerplate:
 ====================================
 
-1. `composer install`
-1. `./craft update all`
+1. Run `composer install`
+1. Create a new local blank database and local virtual host
 1. Update your control panel trigger word in `config/general.php` to something unique
-1. Create a new blank database and virtual host
-1. Update the `DB_DATABASE` variable in `.env` to use that new database
-1. Update the `MIX_LOCAL_SITE_URL` variable in `.env` to point to your new virtual host
-1. Update the `SECURITY_KEY` in `.env` to something unique
+1. Create your local `.env` file from the sample and populate with all relevant details
 1. Install Craft by visiting the control panel and following the on-screen instructions
+1. Run `./craft update all`
 1. Create an entry in the Home Pages section
 1. Update `package.json` with project name
 1. `npm install`
@@ -74,7 +72,7 @@ This repo includes the following Craft plugins:
 
 MIT License
 
-Copyright &copy; 2021 Clever Little Design Ltd.
+Copyright &copy; 2022 Clever Little Design Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

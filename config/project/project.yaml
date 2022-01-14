@@ -1,4 +1,4 @@
-dateModified: 1629446360
+dateModified: 1642174398
 email:
   fromEmail: james@cld.agency
   fromName: Boilerplate
@@ -23,7 +23,8 @@ plugins:
 system:
   edition: solo
   live: true
-  name: Boilerplate
+  name: $SYSTEM_NAME
+  retryDuration: null
   schemaVersion: 3.6.8
   timeZone: America/Los_Angeles
 users:
