@@ -43,3 +43,4 @@ fieldLayouts:
         sortOrder: 1
 handle: socialLinks
 name: 'Social links'
+sortOrder: 2

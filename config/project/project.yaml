@@ -1,8 +1,14 @@
-dateModified: 1642174398
+dateModified: 1642174559
 email:
   fromEmail: james@cld.agency
   fromName: Boilerplate
   transportType: craft\mail\transportadapters\Sendmail
+meta:
+  __names__:
+    7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
+    b51c3bf7-bd4c-46f9-92d5-c548637e190a: Images # Images
+    d6de9704-4f2d-488c-b526-7edee9635399: Scripts # Scripts
+    fafbc7c6-c05b-4945-8db7-72ae3d199156: Downloads # Downloads
 plugins:
   cp-field-inspect:
     edition: standard
@@ -25,7 +31,7 @@ system:
   live: true
   name: $SYSTEM_NAME
   retryDuration: null
-  schemaVersion: 3.6.8
+  schemaVersion: 3.7.8
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false
