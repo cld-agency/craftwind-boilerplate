@@ -55,8 +55,8 @@ return [
         // and then use these aliases as prefixes in the control panel (Settings > Assets > File System Path)
         // - so site-1's images directory would be `@basePathSite1/media/images`
         // 'aliases' => [
-        //     '@basePathSite1' => '../public_site1',
-        //     '@basePathSite2' => '../public_site2',
+        //     '@basePathSite1' => 'public_site1',
+        //     '@basePathSite2' => 'public_site2',
         // ],
     ],
 
