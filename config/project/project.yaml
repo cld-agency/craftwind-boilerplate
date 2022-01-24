@@ -1,4 +1,4 @@
-dateModified: 1642174559
+dateModified: 1643021166
 email:
   fromEmail: james@cld.agency
   fromName: Boilerplate
@@ -6,6 +6,7 @@ email:
 meta:
   __names__:
     7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
+    329fb3c3-eacd-4f5a-8086-8cd96ac705fc: 'Home pages' # Home pages
     b51c3bf7-bd4c-46f9-92d5-c548637e190a: Images # Images
     d6de9704-4f2d-488c-b526-7edee9635399: Scripts # Scripts
     fafbc7c6-c05b-4945-8db7-72ae3d199156: Downloads # Downloads
