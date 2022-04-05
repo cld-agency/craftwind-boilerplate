@@ -28,21 +28,14 @@ table{border-collapse:collapse;}
 // but some of the stuff is actually useful... add back here
 // --------------------------------------------
 
+// this is to allow adding a border to an element just by adding border-width.
 // need to add `img` here to override the border:0 coming from above.
 *,::before,::after,img {
 	border-width:0;
 	border-style:solid;
 	border-color:theme('borderColor.DEFAULT', currentColor);
 }
-* {
-	--tw-shadow: 0 0 #0000;
-	--tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
-	--tw-ring-offset-width: 0px;
-	--tw-ring-offset-color: #fff;
-	--tw-ring-color: rgba(59, 130, 246, 0.5);
-	--tw-ring-offset-shadow: 0 0 #0000;
-	--tw-ring-shadow: 0 0 #0000;
-}
+
 // enable this if using g maps and add wrapper el to the map:
 //.google-map * {
 //	border-style: none;

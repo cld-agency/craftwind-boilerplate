@@ -1,9 +1,12 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-	purge: [
+	content: [
 		'templates/**/*.twig'
 	],
+	corePlugins: {
+		preflight: false,
+	},
 	theme: {
 		screens: {
 			'sm': '500px',
@@ -18,8 +21,8 @@ module.exports = {
 			// these are aliased to 'body' and 'display' instead of directly edited to maintain
 			// potential compat with externally-built tailwind components (eg TailwindUI). (And, for example, you wouldn't
 			// always want your 'display' font to be referenced as 'serif' if it's not a serif!)
-			'body': theme => theme('fontFamily.sans'),
-			'display': theme => theme('fontFamily.serif')
+			'body': ["Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif"],
+			'display': ["Georgia", "serif"]
 		},
 		_vars: {
 			'headingWeight': 400,
@@ -27,7 +30,7 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				gray: colors.blueGray,
+				gray: colors.slate,
 				body: '#464646',
 				brand: {
 					DEFAULT: '#1375BC',
@@ -50,8 +53,6 @@ module.exports = {
 		}
 	},
 	plugins: [
-		// fluid plugin: https://github.com/soberwp/tailwindcss-fl
-		// this doesn't work yet in JIT
-		//require('tailwindcss-fl')()
+
 	],
 }
