@@ -29,22 +29,26 @@ return [
 		//'bootstrap' => ['my-module'],
 	],
 	'local' => [
-		// override local env to use Mailhog SMTP via MAMP Pro.
-		// these overrides are not visible in the Craft CP, and
-		// also do not get used when using the Test button on
-		// the email settings screen.
+		// override local env to use a different Mailer component so
+		// that devs can use e.g. Mailhog SMTP via MAMP Pro, which is
+		// super nice and saves faffing about waiting and hoping
+		// that something might arrive in your real inbox.
+		// Important: these overrides are not visible in the Craft CP, and
+		// also do not get used when using the "Test" button on
+		// the email settings screen. (that's a good thing, because it allows
+		// for testing the remote SMTP settings locally)
 		'components' => [
 			'mailer' => function() {
 				$settings = craft\helpers\App::mailSettings();
 				$settings->transportType = Smtp::class;
 				$settings->transportSettings = [
-					'host' => App::env('SMTP_HOST'),
-					'port' => App::env('SMTP_PORT'),
-					'useAuthentication' => App::env('SMTP_AUTHENTICATION') ?? '',
-					'username' => App::env('SMTP_USERNAME') ?? '',
-					'password' => App::env('SMTP_PASSWORD') ?? '',
-					'encryptionMethod' => App::env('SMTP_ENCRYPTION') ?? '',
-					'timeout' => App::env('SMTP_TIMEOUT') ?? 10
+					'host' => getenv('SMTP_LOCAL_HOST'),
+					'port' => getenv('SMTP_LOCAL_PORT'),
+					'useAuthentication' => getenv('SMTP_LOCAL_AUTHENTICATION') ?? '',
+					'username' => getenv('SMTP_LOCAL_USERNAME') ?? '',
+					'password' => getenv('SMTP_LOCAL_PASSWORD') ?? '',
+					'encryptionMethod' => getenv('SMTP_LOCAL_ENCRYPTION') ?? '',
+					'timeout' => getenv('SMTP_LOCAL_TIMEOUT') ?? 10
 				];
 
 				$config = craft\helpers\App::mailerConfig($settings);
