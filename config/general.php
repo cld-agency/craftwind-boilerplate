@@ -14,17 +14,8 @@ return [
 
     // All environments
     '*' => [
-        'env' => App::env('ENVIRONMENT'),
         'securityKey' => App::env('SECURITY_KEY'),
         'allowAdminChanges' => false,
-
-        // the siteUrl setting in the control panel (Settings > Sites) should be left blank and will auto-populate with this value
-        'siteUrl' => App::env('SITE_URL'),
-        // if multi-site, do it like this...
-        // 'siteUrl' => [
-        //     'siteOneHandle' => App::env('SITE1_URL'),
-        //     'siteTwoHandle' => App::env('SITE2_URL'),
-        // ],
 
         'isSystemLive' => true,
         'cpTrigger' => 'admin', // change me

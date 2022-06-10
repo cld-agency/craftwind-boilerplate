@@ -1,5 +1,6 @@
+columnSuffix: null
 contentColumnType: string
-fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2
+fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # Common
 handle: bodyBuilder
 instructions: ''
 name: 'Body builder'
@@ -8,6 +9,7 @@ settings:
   contentTable: '{{%matrixcontent_bodybuilder}}'
   maxBlocks: ''
   minBlocks: ''
+  propagationKeyFormat: null
   propagationMethod: all
 translationKeyFormat: null
 translationMethod: site

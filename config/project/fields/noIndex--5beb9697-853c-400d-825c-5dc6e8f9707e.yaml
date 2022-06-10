@@ -1,5 +1,6 @@
+columnSuffix: null
 contentColumnType: boolean
-fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f # SEO
 handle: noIndex
 instructions: 'Adds a meta noindex tag to the page to stop search engines indexing it'
 name: 'No index'

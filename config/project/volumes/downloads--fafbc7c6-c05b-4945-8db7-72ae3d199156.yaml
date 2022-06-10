@@ -23,16 +23,16 @@ fieldLayouts:
             step: null
             tip: null
             title: null
-            type: craft\fieldlayoutelements\AssetTitleField
+            type: craft\fieldlayoutelements\assets\AssetTitleField
             warning: null
             width: 100
         name: Content
         sortOrder: 1
+fs: downloads
 handle: downloads
 hasUrls: true
 name: Downloads
-settings:
-  path: '@webroot/media/downloads'
 sortOrder: 2
-type: craft\volumes\Local
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
 url: /media/downloads

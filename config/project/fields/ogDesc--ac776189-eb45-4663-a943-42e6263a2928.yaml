@@ -1,5 +1,6 @@
+columnSuffix: null
 contentColumnType: text
-fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f # SEO
 handle: ogDesc
 instructions: 'The description that will appear on the Twitter Card or Facebook post or any other third party service that consumes OG meta data.'
 name: 'OG description'
@@ -11,7 +12,7 @@ settings:
   columnType: null
   initialRows: '4'
   multiline: ''
-  placeholder: ''
+  placeholder: null
   uiMode: normal
 translationKeyFormat: null
 translationMethod: none

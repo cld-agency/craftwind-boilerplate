@@ -2,7 +2,7 @@
 	{% set thingID = craft.app.request.getParam('thing') %}
 	{% set thing = craft.entries.id(thingID).one() ?? craft.categories.id(thingID).one() %}
 
-	{% if thing is defined and thing and thing.isEditable()%}
+	{% if thing is defined and thing and currentUser and thing.canView(currentUser) and thing.canSave(currentUser) %}
 		<style>
 			.edit-this{
 				background: #A50050;

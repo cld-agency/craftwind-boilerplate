@@ -23,11 +23,11 @@ fieldLayouts:
             step: null
             tip: null
             title: null
-            type: craft\fieldlayoutelements\EntryTitleField
+            type: craft\fieldlayoutelements\entries\EntryTitleField
             warning: null
             width: 100
           -
-            fieldUid: 56716528-cd41-42c1-894c-9b5ee770b2ea
+            fieldUid: 56716528-cd41-42c1-894c-9b5ee770b2ea # List entries from...
             instructions: null
             label: null
             required: false
@@ -40,7 +40,7 @@ fieldLayouts:
 handle: listingPages
 hasTitleField: true
 name: 'Listing pages'
-section: 3abf1c16-bab7-4d4a-a7a7-7720e06c217f
+section: 3abf1c16-bab7-4d4a-a7a7-7720e06c217f # Listing pages
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

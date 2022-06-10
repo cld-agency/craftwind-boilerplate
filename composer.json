@@ -1,10 +1,10 @@
 {
   "require": {
-    "craftcms/cms": "3.7.44",
-    "craftcms/redactor": "2.10.8",
-    "misterbk/mix": "1.5.2",
+    "craftcms/cms": "^4.0.0",
+    "craftcms/redactor": "3.0.0",
+    "misterbk/mix": "dev-craft-cms-4.0",
     "mmikkel/cp-field-inspect": "1.4.4",
-    "nystudio107/craft-minify": "1.2.11",
+    "nystudio107/craft-minify": "4.0.0-beta.2",
     "vlucas/phpdotenv": "^3.4.0"
   },
   "require-dev": {
@@ -15,6 +15,12 @@
       "modules\\": "modules/"
     }
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/totov/craft-plugin-mix"
+    }
+  ],
   "config": {
     "allow-plugins": {
       "craftcms/plugin-installer": true,
@@ -23,7 +29,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "7.4"
+      "php": "8.1"
     }
   },
   "scripts": {

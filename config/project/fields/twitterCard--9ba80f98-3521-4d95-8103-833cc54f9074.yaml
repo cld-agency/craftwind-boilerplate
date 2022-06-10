@@ -1,5 +1,6 @@
+columnSuffix: null
 contentColumnType: string
-fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f # SEO
 handle: twitterCard
 instructions: 'Select the type of Twitter Card you want to use. Default will be ''summary'' if you make no selection.'
 name: 'Twitter card'

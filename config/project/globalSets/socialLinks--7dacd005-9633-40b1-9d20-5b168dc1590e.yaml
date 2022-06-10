@@ -4,7 +4,7 @@ fieldLayouts:
       -
         elements:
           -
-            fieldUid: aa0046e8-dcfd-4652-99b7-1234f595bfd5
+            fieldUid: aa0046e8-dcfd-4652-99b7-1234f595bfd5 # Facebook
             instructions: null
             label: null
             required: false
@@ -13,7 +13,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
-            fieldUid: 6238be16-9290-47d5-9dde-43e33a167037
+            fieldUid: 6238be16-9290-47d5-9dde-43e33a167037 # Facebook admins
             instructions: null
             label: null
             required: false
@@ -22,7 +22,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
-            fieldUid: ab8a0a53-54af-4c10-90ea-d34258125fae
+            fieldUid: ab8a0a53-54af-4c10-90ea-d34258125fae # Linked In
             instructions: null
             label: null
             required: false
@@ -31,7 +31,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
-            fieldUid: f2d836d8-5576-4f7d-97a7-3cbe6aa415e7
+            fieldUid: f2d836d8-5576-4f7d-97a7-3cbe6aa415e7 # Twitter username
             instructions: null
             label: null
             required: false

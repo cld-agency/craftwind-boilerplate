@@ -23,11 +23,11 @@ fieldLayouts:
             step: null
             tip: null
             title: null
-            type: craft\fieldlayoutelements\EntryTitleField
+            type: craft\fieldlayoutelements\entries\EntryTitleField
             warning: null
             width: 100
           -
-            fieldUid: 661f0cbe-8667-4984-aea8-55239d2f6e8e
+            fieldUid: 661f0cbe-8667-4984-aea8-55239d2f6e8e # Body builder
             instructions: null
             label: null
             required: false
@@ -40,7 +40,7 @@ fieldLayouts:
       -
         elements:
           -
-            fieldUid: 5beb9697-853c-400d-825c-5dc6e8f9707e
+            fieldUid: 5beb9697-853c-400d-825c-5dc6e8f9707e # No index
             instructions: null
             label: null
             required: false
@@ -51,7 +51,7 @@ fieldLayouts:
           -
             type: craft\fieldlayoutelements\HorizontalRule
           -
-            fieldUid: 3a55636c-f114-4ca1-84a3-f568f17a51b0
+            fieldUid: 3a55636c-f114-4ca1-84a3-f568f17a51b0 # Browser title
             instructions: null
             label: null
             required: false
@@ -60,27 +60,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
-            fieldUid: 49e4be6b-31e8-4637-970f-72b746d0dd07
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            warning: null
-            width: 100
-          -
-            type: craft\fieldlayoutelements\HorizontalRule
-          -
-            fieldUid: 55409bef-f02b-43a6-87ba-6645890db160
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            warning: null
-            width: 100
-          -
-            fieldUid: ac776189-eb45-4663-a943-42e6263a2928
+            fieldUid: 49e4be6b-31e8-4637-970f-72b746d0dd07 # OG title override
             instructions: null
             label: null
             required: false
@@ -91,7 +71,16 @@ fieldLayouts:
           -
             type: craft\fieldlayoutelements\HorizontalRule
           -
-            fieldUid: 93911dec-d597-4048-be70-3822341db5c8
+            fieldUid: 55409bef-f02b-43a6-87ba-6645890db160 # Meta description
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: ac776189-eb45-4663-a943-42e6263a2928 # OG description
             instructions: null
             label: null
             required: false
@@ -102,7 +91,7 @@ fieldLayouts:
           -
             type: craft\fieldlayoutelements\HorizontalRule
           -
-            fieldUid: 75347aed-7cd3-4a88-a475-d94c64fff91b
+            fieldUid: 93911dec-d597-4048-be70-3822341db5c8 # OG image
             instructions: null
             label: null
             required: false
@@ -111,7 +100,18 @@ fieldLayouts:
             warning: null
             width: 100
           -
-            fieldUid: 9ba80f98-3521-4d95-8103-833cc54f9074
+            type: craft\fieldlayoutelements\HorizontalRule
+          -
+            fieldUid: 75347aed-7cd3-4a88-a475-d94c64fff91b # OG type
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            warning: null
+            width: 100
+          -
+            fieldUid: 9ba80f98-3521-4d95-8103-833cc54f9074 # Twitter card
             instructions: null
             label: null
             required: false
@@ -120,7 +120,7 @@ fieldLayouts:
             warning: null
             width: 50
           -
-            fieldUid: 096e0833-599f-412d-96d1-e509f94c841e
+            fieldUid: 096e0833-599f-412d-96d1-e509f94c841e # Twitter creator
             instructions: null
             label: null
             required: false

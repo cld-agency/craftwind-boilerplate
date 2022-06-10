@@ -1,5 +1,6 @@
+columnSuffix: null
 contentColumnType: text
-fieldGroup: 2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1
+fieldGroup: 2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1 # Globals
 handle: bodyStartScripts
 instructions: 'Anything you add here will be added to the start of the <body> tag on every page.'
 name: 'Body start scripts'
@@ -11,7 +12,7 @@ settings:
   columnType: null
   initialRows: '8'
   multiline: '1'
-  placeholder: ''
+  placeholder: null
   uiMode: normal
 translationKeyFormat: null
 translationMethod: none

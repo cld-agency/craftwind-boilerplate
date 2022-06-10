@@ -20,7 +20,7 @@
 	<meta name="description" content="{{ metaDesc is defined ? metaDesc|striptags : null }}">
 	<link rel="stylesheet" href="{{ siteUrl|trim('/', 'right') }}{{ mix('css/main.css') }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	{% if noIndex is defined and noIndex == 1 or craft.app.config.general.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
+	{% if noIndex is defined and noIndex == 1 or craft.app.config.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
 
 	{# ======================================
 	SOCIAL META. Use OG fallbacks to minimise complexity here.
@@ -84,7 +84,7 @@
 		{% endfor %}
 	{% endif %}
 
-	{% if not craft.app.request.isPreview and craft.app.config.general.env == 'live' %}
+	{% if not craft.app.request.isPreview and craft.app.config.env == 'live' %}
 		{{ scripts.headScripts|raw }}
 	{% endif %}
 
@@ -97,7 +97,7 @@
 
 	{{ beginBody() }}
 
-	{% if not craft.app.request.isPreview and craft.app.config.general.env == 'live' %}
+	{% if not craft.app.request.isPreview and craft.app.config.env == 'live' %}
 		{{ scripts.bodyStartScripts|raw }}
 	{% endif %}
 
@@ -209,7 +209,7 @@
 
 	<script src="{{ siteUrl|trim('/', 'right') }}{{ mix('js/main.js') }}"></script>
 
-	{% if not craft.app.request.isPreview and craft.app.config.general.env == 'live' %}
+	{% if not craft.app.request.isPreview and craft.app.config.env == 'live' %}
 		{{ scripts.bodyEndScripts|raw }}
 	{% endif %}
 

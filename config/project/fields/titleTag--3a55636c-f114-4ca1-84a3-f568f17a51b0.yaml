@@ -1,5 +1,6 @@
+columnSuffix: null
 contentColumnType: text
-fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f # SEO
 handle: titleTag
 instructions: ''
 name: 'Browser title'
@@ -11,7 +12,7 @@ settings:
   columnType: null
   initialRows: '4'
   multiline: ''
-  placeholder: ''
+  placeholder: null
   uiMode: normal
 translationKeyFormat: null
 translationMethod: none

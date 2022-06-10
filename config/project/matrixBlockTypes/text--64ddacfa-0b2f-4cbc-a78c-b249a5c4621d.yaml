@@ -1,11 +1,11 @@
-field: 661f0cbe-8667-4984-aea8-55239d2f6e8e
+field: 661f0cbe-8667-4984-aea8-55239d2f6e8e # Body builder
 fieldLayouts:
   a0b73357-c352-4da0-a14f-23235c80fa59:
     tabs:
       -
         elements:
           -
-            fieldUid: ee12cfc1-e007-4254-bc36-f5ff21ea00bd
+            fieldUid: ee12cfc1-e007-4254-bc36-f5ff21ea00bd # Body
             instructions: null
             label: null
             required: false
@@ -14,7 +14,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
-            fieldUid: 4d75c350-59e2-4ecc-b469-bb97f6ff276d
+            fieldUid: 4d75c350-59e2-4ecc-b469-bb97f6ff276d # Section background colour
             instructions: null
             label: null
             required: false
@@ -25,7 +25,8 @@ fieldLayouts:
         name: Content
         sortOrder: 1
 fields:
-  4d75c350-59e2-4ecc-b469-bb97f6ff276d:
+  4d75c350-59e2-4ecc-b469-bb97f6ff276d: # Section background colour
+    columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: sectionBG
@@ -60,7 +61,8 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Dropdown
-  ee12cfc1-e007-4254-bc36-f5ff21ea00bd:
+  ee12cfc1-e007-4254-bc36-f5ff21ea00bd: # Body
+    columnSuffix: null
     contentColumnType: text
     fieldGroup: null
     handle: body
@@ -70,7 +72,6 @@ fields:
     settings:
       availableTransforms: '*'
       availableVolumes: ''
-      cleanupHtml: true
       columnType: text
       configSelectionMode: choose
       defaultTransform: ''

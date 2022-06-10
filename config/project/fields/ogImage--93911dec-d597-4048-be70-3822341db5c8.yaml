@@ -1,11 +1,13 @@
+columnSuffix: null
 contentColumnType: string
-fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f # SEO
 handle: ogImage
 instructions: 'OG images should be no more than 1MB in file size. For Twitter ''summary'' cards, the image should be a square at least 120px x 120px. For Twitter ''large summary'' cards they can be any dimensions.'
 name: 'OG image'
 searchable: false
 settings:
   allowSelfRelations: false
+  allowUploads: true
   allowedKinds:
     - image
   defaultUploadLocationSource: 'volume:b51c3bf7-bd4c-46f9-92d5-c548637e190a' # Images

@@ -1,5 +1,6 @@
+columnSuffix: null
 contentColumnType: string
-fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f
+fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f # SEO
 handle: ogType
 instructions: 'This changes how your content is shown in social sharing services. If you don''t specify a type, the default will be "website".'
 name: 'OG type'
