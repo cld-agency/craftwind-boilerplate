@@ -6,7 +6,6 @@ instructions: 'Select the type of Twitter Card you want to use. Default will be 
 name: 'Twitter card'
 searchable: false
 settings:
-  optgroups: true
   options:
     -
       __assoc__:

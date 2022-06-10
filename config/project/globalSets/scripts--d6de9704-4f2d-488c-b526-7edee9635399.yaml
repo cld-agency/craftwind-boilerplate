@@ -10,6 +10,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: 5ac5db5c-8d19-45b8-9f89-efed89b6f4c0
             warning: null
             width: 100
           -
@@ -19,6 +20,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: 20ae92e5-dff1-4ab8-bf74-193048b06ac9
             warning: null
             width: 100
           -
@@ -28,10 +30,11 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: fc937fb6-2c39-46c2-9b60-572e31421259
             warning: null
             width: 100
         name: Content
-        sortOrder: 1
+        uid: c70342c6-1232-479f-b394-1e44e97846c5
 handle: scripts
 name: Scripts
 sortOrder: 1

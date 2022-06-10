@@ -10,6 +10,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: fd8aae1d-a599-4356-b19b-eb5abfbb36fe
             warning: null
             width: 100
           -
@@ -19,6 +20,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: 0f9de512-2134-413f-99e9-7c325b2e3133
             warning: null
             width: 100
           -
@@ -28,6 +30,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: 79621cd8-e988-4a65-b776-73aff820f99b
             warning: null
             width: 100
           -
@@ -37,10 +40,11 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: 83125e57-f9c4-4b25-96b4-4c909a2718b6
             warning: null
             width: 100
         name: Content
-        sortOrder: 1
+        uid: fab4646b-d859-4d9b-991c-ce877a318ddf
 handle: socialLinks
 name: 'Social links'
 sortOrder: 2

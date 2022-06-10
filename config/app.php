@@ -42,13 +42,13 @@ return [
 				$settings = craft\helpers\App::mailSettings();
 				$settings->transportType = Smtp::class;
 				$settings->transportSettings = [
-					'host' => getenv('SMTP_LOCAL_HOST'),
-					'port' => getenv('SMTP_LOCAL_PORT'),
-					'useAuthentication' => getenv('SMTP_LOCAL_AUTHENTICATION') ?? '',
-					'username' => getenv('SMTP_LOCAL_USERNAME') ?? '',
-					'password' => getenv('SMTP_LOCAL_PASSWORD') ?? '',
-					'encryptionMethod' => getenv('SMTP_LOCAL_ENCRYPTION') ?? '',
-					'timeout' => getenv('SMTP_LOCAL_TIMEOUT') ?? 10
+					'host' => App::env('SMTP_LOCAL_HOST'),
+					'port' => App::env('SMTP_LOCAL_PORT'),
+					'useAuthentication' => App::env('SMTP_LOCAL_AUTHENTICATION') ?? '',
+					'username' => App::env('SMTP_LOCAL_USERNAME') ?? '',
+					'password' => App::env('SMTP_LOCAL_PASSWORD') ?? '',
+					'encryptionMethod' => App::env('SMTP_LOCAL_ENCRYPTION') ?? '',
+					'timeout' => App::env('SMTP_LOCAL_TIMEOUT') ?? 10
 				];
 
 				$config = craft\helpers\App::mailerConfig($settings);

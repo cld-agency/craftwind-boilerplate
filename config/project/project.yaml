@@ -1,7 +1,11 @@
-dateModified: 1654875277
+dateModified: 1654878931
 email:
-  fromEmail: james@cld.agency
-  fromName: Boilerplate
+  fromEmail: $SYSTEM_EMAIL
+  fromName: $SYSTEM_NAME
+  replyToEmail: null
+  template: null
+  transportSettings:
+    command: '/usr/sbin/sendmail -bs'
   transportType: craft\mail\transportadapters\Sendmail
 fs:
   downloads:

@@ -24,6 +24,7 @@ fieldLayouts:
             tip: null
             title: null
             type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 2cab2678-0dbc-40f5-a57d-9551adc452f7
             warning: null
             width: 100
           -
@@ -33,10 +34,11 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: fc38e852-2785-4efe-aa04-dca03001a0ed
             warning: null
             width: 100
         name: Content
-        sortOrder: 1
+        uid: be8e96b4-2e07-46f0-a6db-5c214032c5a6
 handle: listingPages
 hasTitleField: true
 name: 'Listing pages'

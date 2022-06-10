@@ -24,15 +24,16 @@ fieldLayouts:
             tip: null
             title: null
             type: craft\fieldlayoutelements\assets\AssetTitleField
+            uid: f825e94a-9acf-4515-9393-dd0e7564ff27
             warning: null
             width: 100
         name: Content
-        sortOrder: 1
+        uid: 7147e423-f696-4e1f-8e3c-e25c6728eac5
 fs: downloads
 handle: downloads
-hasUrls: true
 name: Downloads
 sortOrder: 2
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
-url: /media/downloads
+transformFs: null
+transformSubpath: ''

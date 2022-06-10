@@ -2,16 +2,16 @@ columnSuffix: null
 contentColumnType: text
 fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f # SEO
 handle: metaDesc
-instructions: ''
+instructions: null
 name: 'Meta description'
 searchable: true
 settings:
   byteLimit: null
   charLimit: null
-  code: ''
+  code: false
   columnType: null
-  initialRows: '4'
-  multiline: ''
+  initialRows: 4
+  multiline: false
   placeholder: null
   uiMode: normal
 translationKeyFormat: null

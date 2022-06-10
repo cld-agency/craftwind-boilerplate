@@ -6,7 +6,6 @@ instructions: 'This changes how your content is shown in social sharing services
 name: 'OG type'
 searchable: false
 settings:
-  optgroups: true
   options:
     -
       __assoc__:

@@ -13,8 +13,8 @@ To use this Craft boilerplate:
 1. Create a new local blank database and local virtual host
 1. Update your control panel trigger word in `config/general.php` to something unique
 1. Create your local `.env` file from the sample and populate with all relevant details
-1. Install Craft by visiting the control panel and following the on-screen instructions
-1. Run `./craft update all`
+1. Run `./craft setup/app-id && ./craft setup/security-key` to recreate a new app ID and security key (copy these values to the remote env files manually later)
+1. Install Craft by visiting the control panel and following the on-screen instructions. Keep the site name as $PRIMARY_SITE_URL so it will pull from .env
 1. Create an entry in the Home Pages section
 1. Update `package.json` with project name
 1. `npm install`
