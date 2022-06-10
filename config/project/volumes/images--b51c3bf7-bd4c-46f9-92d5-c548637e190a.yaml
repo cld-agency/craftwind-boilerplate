@@ -24,15 +24,37 @@ fieldLayouts:
             tip: null
             title: null
             type: craft\fieldlayoutelements\assets\AssetTitleField
+            uid: 70ae530d-92e4-432d-b961-e09b07502bae
+            warning: null
+            width: 100
+          -
+            attribute: alt
+            class: null
+            cols: null
+            disabled: false
+            id: null
+            instructions: null
+            label: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: true
+            required: false
+            rows: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\assets\AltField
+            uid: 0a8c2e2d-bb7d-4b64-a6cb-4d068cb6b85f
             warning: null
             width: 100
         name: Content
-        sortOrder: 1
+        uid: f91c1b67-423e-415f-998c-661286d845cc
 fs: images
 handle: images
-hasUrls: true
 name: Images
 sortOrder: 1
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
-url: /media/images
+transformFs: ''
+transformSubpath: ''
