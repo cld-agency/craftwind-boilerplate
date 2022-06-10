@@ -1,6 +1,6 @@
-This is an opinionated starter boilerplate for Craft CMS 3 + Tailwind-JIT and Vanilla JS via Laravel Mix 6. No JavaScript frameworks are included.
+This is an opinionated starter boilerplate for Craft CMS 4 + Tailwind-JIT and Vanilla JS via Laravel Mix 6. No JavaScript frameworks are included.
 
-This branch does *not* use Tailwind's `base` / preflight layer, because we prefer to have at least _some_ base styling - instead we use our own CSS reset and base styles (see global.scss and elements.scss respectively).
+This branch does *not* use Tailwind's base styles (we're setting `preflight: false`), because we prefer to have at least _some_ base styling - instead we use our own CSS reset and base styles (see global.scss and elements.scss respectively).
 
 To use this Craft boilerplate:
 ====================================
@@ -64,7 +64,7 @@ Craft plugins
 
 This repo includes the following Craft plugins:
 
-* <a href="https://plugins.craftcms.com/mix">Mix</a>
+* <a href="https://plugins.craftcms.com/mix">Mix (fork for Craft 4)</a>
 * <a href="https://plugins.craftcms.com/minify">Minify</a>
 * <a href="https://plugins.craftcms.com/cp-field-inspect">CP Field Inspect</a>
 
