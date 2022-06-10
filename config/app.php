@@ -22,7 +22,7 @@ use craft\mail\transportadapters\Smtp;
 
 return [
 	'*' => [
-		'id' => App::env('APP_ID') ?: 'CraftCMS',
+		'id' => App::env('CRAFT_APP_ID') ?: 'CraftCMS',
 		'modules' => [
 			'my-module' => \modules\Module::class,
 		],

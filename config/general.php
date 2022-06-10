@@ -14,7 +14,6 @@ return [
 
     // All environments
     '*' => [
-        'securityKey' => App::env('SECURITY_KEY'),
         'allowAdminChanges' => false,
 
         'isSystemLive' => true,
