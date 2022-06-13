@@ -89,11 +89,11 @@ const SITE = {
 		// --------------------------------------------
 
 		// toggle method allows a single element to do both on and off functions...
-		document.querySelectorAll('.js-toggleScrollLock').forEach(item => {
-			item.addEventListener('click', e => {
-				if (e.target.getAttribute('aria-expanded') === 'true'){
-					let target = document.getElementById(e.target.dataset.activeTargetId);
-					bodyScrollLock.disableBodyScroll(target);
+		document.querySelectorAll('.js-toggleScrollLock').forEach(el => {
+			el.addEventListener('click', e => {
+				if (e.currentTarget.getAttribute('aria-expanded') === 'true' || e.currentTarget.dataset.close){
+					let target = document.getElementById(e.currentTarget.dataset.activeTargetId);
+					bodyScrollLock.disableBodyScroll(target, {reserveScrollBarGap: true});
 				} else {
 					bodyScrollLock.clearAllBodyScrollLocks();
 				}
