@@ -60,12 +60,20 @@
 	we'll need to manually append the siteUrl onto externally referenced images such
 	as the OG image. Craft forces siteUrl to use a trailing slash, so we'll need to
 	trim it here to avoid a double-slash.
+	Also specify OG width and height for better rendering perf:
+	https://developers.facebook.com/docs/sharing/best-practices
 	 #}
 	{% if ogImg is defined and ogImg %}
-		{% set ogImg = siteUrl|trim('/', 'right') ~ ogImg.getUrl(transforms.ogImg) %}
+		{% set ogImg = siteUrl|trim('/', 'right') ~ ogImg.url(transforms.ogImg) %}
+		{% set ogWidth = ogImg.width() %}
+		{% set ogHeight = ogImg.height() %}
 	{% else %}
 		{% set ogImg = siteUrl ~ 'assets/img/logo-og.png' %}
+		{% set ogWidth = 1200 %}
+		{% set ogHeight = 1200 %}
 	{% endif %}
+
+	{% set ogWidth = value %}
 
 	<meta name="twitter:card" content="{{ twitterCard ?? 'summary' }}">
 	{% if socialLinks.twitterHandle %}<meta name="twitter:site" content="@{{ socialLinks.twitterHandle }}">{% endif %}
@@ -75,6 +83,8 @@
 	<meta property="og:url" content="{{ craft.app.request.absoluteUrl }}">
 
 	<meta property="og:image" content="{{ ogImg }}">
+	<meta property="og:image:height" content="{{ ogHeight }}">
+	<meta property="og:image:width" content="{{ ogWidth }}">
 	{% if ogDesc %}<meta property="og:description" content="{{ ogDesc|striptags }}">{% endif %}
 	<meta property="og:site_name" content="{{ siteName }}">
 
@@ -106,7 +116,7 @@
 		{# =============================================================================== #}
 
 		{% embed '_partials/container.twig' with {
-			compact: true,
+			variants: 'squash',
 			element:'header',
 			sectionBG: 'silver',
 			classes: ['relative', 'z-20']
