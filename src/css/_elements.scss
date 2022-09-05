@@ -35,7 +35,7 @@ article p > a:not(.button),.default-link{
 // HEADINGS
 // --------------------------------------------
 
-h1,h2,h3,h4,h5,h6,dt,th{
+h1,h2,h3,h4,h5,h6,dt,th,.fauxH2,.fauxH3{
 	font-family:theme('fontFamily.display');
 	font-weight:theme('_vars.headingWeight');
 	color:theme('colors.dark.DEFAULT');
@@ -172,43 +172,31 @@ blockquote p{
 }
 
 // --------------------------------------------
-// TABLES. Lifted from Tailwind Typography plugin
+// TABLES
 // --------------------------------------------
 
 table {
-	width: 100%;
-	table-layout: auto;
-	text-align: left;
-	font-size: 0.875em;
-	line-height: 1.71;
+	width:100%;
+	table-layout:auto;
+	text-align:left;
+	line-height:1.4;
 }
+table,tbody p{ @include fluid(font-size, 48rem, 80rem, 0.75rem, 1rem); }
 thead {
-	color: theme('colors.gray.900', 'defaultTheme.colors.gray[900]');
 	font-weight: 600;
-	border-bottom-width: 1px;
-	border-bottom-color: theme('colors.gray.300', 'defaultTheme.colors.gray[300]');
+	border-bottom: 1px solid theme('colors.gray.300');
 }
-thead th {
-	vertical-align: bottom;
-	padding-right: 0.57em;
-	padding-bottom: 0.57em;
-	padding-left: 0.57em;
+td,th{ padding:.8em; }
+th{
+	text-transform:uppercase;
+	letter-spacing:1.2px;
+	@include fluid(font-size, 48rem, 80rem, 0.6rem, 0.75rem);
+	background:theme('colors.gray.100');
 }
-tbody tr {
-	border-bottom-width: 1px;
-	border-bottom-color: theme('colors.gray.200', 'defaultTheme.colors.gray[200]');
+tbody tr{ border-bottom: 1px solid theme('colors.gray.200'); }
+// overrides for tables on silver
+.bg-gray-100 table{
+	td{ background:#fff; }
+	th{ background:theme('colors.gray.200'); }
+	tbody tr{ border-color:theme('colors.gray.300'); }
 }
-tbody tr:last-child {
-	border-bottom-width: 0;
-}
-tbody td {
-	vertical-align: top;
-	padding:0.57em;
-}
-thead th:first-child,tbody td:first-child {
-	padding-left: 0;
-}
-thead th:last-child,tbody td:last-child {
-	padding-right: 0;
-}
-// no tfoot yet (has anyone ever used tfoot ever?!)
