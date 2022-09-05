@@ -42,10 +42,7 @@ module.exports = {
 				},
 				light: {
 					DEFAULT: '#F3FAFC'
-				},
-				accent: {
-					DEFAULT: '#1E90FF'
-				},
+				}
 				dark: {
 					DEFAULT: '#212121',
 				}
