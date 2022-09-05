@@ -2,7 +2,7 @@
   "require": {
     "craftcms/cms": "^4.0.0",
     "craftcms/redactor": "3.0.0",
-    "misterbk/mix": "dev-craft-cms-4.0",
+    "misterbk/mix": "1.6.0",
     "mmikkel/cp-field-inspect": "1.4.4",
     "nystudio107/craft-minify": "4.0.0-beta.2",
     "vlucas/phpdotenv": "^5.4.0"
@@ -15,12 +15,6 @@
       "modules\\": "modules/"
     }
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/totov/craft-plugin-mix"
-    }
-  ],
   "config": {
     "allow-plugins": {
       "craftcms/plugin-installer": true,

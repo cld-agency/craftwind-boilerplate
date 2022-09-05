@@ -99,6 +99,18 @@ const SITE = {
 				}
 			});
 		});
+
+		// --------------------------------------------
+		// WRAP TABLES
+		// --------------------------------------------
+
+		Array.from(document.getElementsByTagName('table')).forEach(el => {
+			const wrapper = document.createElement('div');
+			wrapper.style.overflowX = 'auto';
+			wrapper.className = 'spacing';
+			el.parentNode.insertBefore(wrapper, el);
+			wrapper.appendChild(el);
+		});
 	},
 };
 
