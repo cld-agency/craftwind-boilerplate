@@ -13,7 +13,7 @@ but also provides base skeleton to inherit from for other entries
 
 {% set ogTitle = entry.ogTitle ?? null %}
 {% set ogDesc =  entry.ogDesc ?? null %}
-{% set ogImg = entry.ogImage|length ? entry.ogImage.one : entry.bannerImg|length ? entry.bannerImg.one : null %}
+{% set ogImg = entry.ogImage.exists() ? entry.ogImage.one() : null %}
 {% set ogType = entry.ogType ?? null %}
 {% set twitterCreator = entry.twitterCreator ?? null %}
 {% set twitterCard = entry.twitterCard ?? null %}

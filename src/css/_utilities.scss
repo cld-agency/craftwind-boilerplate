@@ -5,6 +5,7 @@
 	pointer-events:all;
 	display:block; // override this via TW classes where necessary
 	&.flex{ display:flex; }
+	&.inline-flex{ display:inline-flex; }
 }
 
 // aspect ratios lifted from the Tailwind aspect ratio plugin...
@@ -43,7 +44,7 @@
 .fl\:text-m{
 	@include fluid(font-size, 20rem, 64rem, 1rem, 1.25rem);
 }
-.fl\:text-lg{
+.fl\:text-lg,.lead p{
 	@include fluid(font-size, 20rem, 64rem, 1rem, 1.5rem);
 }
 .fl\:text-4xl{
