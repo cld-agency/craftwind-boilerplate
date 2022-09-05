@@ -1,7 +1,7 @@
-{% spaceless %}
+{% apply spaceless %}
 	{% if craft.app.request.isAjax %}
 		{{ craft.app.request.csrfToken }}
 	{% else %}
 		{% redirect 404 %}
 	{% endif %}
-{% endspaceless %}
+{% endapply %}
