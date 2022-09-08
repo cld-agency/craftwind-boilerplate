@@ -1,0 +1,157 @@
+{# ==================================
+PICTURE
+
+Generate a picture element with:
+- srcset & sizes
+- webp variant
+- lazyloading
+- focal point handling
+- aspect ratio box
+- svg inlining
+
+Params
+---------
+
+- image {object} (required)
+- transforms {array of objects} - an array of transforms e.g.
+	[{width:400}, {width:800}, {height:400, width:400, mode:crop}].
+	Default to globalTransforms.fullWidth as set in layout.twig
+- sizes {string} - use a tool like https://github.com/ausi/respimagelint
+	to help define an accurate `sizes` attribute according to the context
+- alt {string} (default to image.alt ?? '' (image.title is also available but is auto-populated with the filename, which is never good enough as editors don't change it!))
+
+- extraPictureClasses {string} - extra classes for the picture tag
+- extraImgClasses {string} - extra classes for the img tag
+- extraSVGClasses {string} - extra classes for an inline SVG element
+
+- useInlineSVG {bool} (default false) - whether to inline an SVG
+- useLazyLoading {bool} (default true) - turn this off if your image is likely to be near the top of the viewport
+- useRatioBox {bool} (default false) -
+	output an appropriately proportioned wrapper element per image so that you can use lazyloading without incurring layout shifts as the images load in. (Note: if you want to have e.g. a set of cards which all share the same img aspect ratio, instead of useRatioBox you should use the following settings: `extraImgClasses: 'object-cover h-full w-full',extraPictureClasses: 'aspect-16-9 relative'` ... The aspect-16-9 class is defined in utilities.scss.
+- useFocalPoint {bool} (default false) - you'll need a wrapper element with some fixed dimensions for this to work (or define dimensions on the picture element via extraPictureClasses)
+===================================== #}
+
+{% if
+	image['extension'] is defined and image.extension == 'svg' or
+	image['extension'] is defined and image.extension == 'gif' or
+	image['extension'] is not defined and '.gif' in image
+%}
+	{% if useInlineSVG is defined and useInlineSVG %}
+
+		{# ==================================
+		INLINE SVGS
+		===================================== #}
+
+		{% set extraSVGClasses = extraSVGClasses ?? 'fill-current' %}
+		{{ svg(image)|attr({ class: extraSVGClasses }) }}
+	{% else %}
+
+		{# ==================================
+		SVGS & GIFS
+		===================================== #}
+
+		<img src="{{ image['extension'] is defined ? image.url : image }}"
+			alt="{{ alt ?? image.alt ?? '' }}"
+			{% if extraImgClasses is defined %} class="{{ extraImgClasses }}"{% endif %}
+		>
+	{% endif %}
+{% else %}
+
+	{# ==================================
+	ALL OTHER IMAGE TYPES
+	===================================== #}
+
+	{% set extraPictureClasses = extraPictureClasses ?? null %}
+	{% set useLazyLoading = useLazyLoading ?? true %}
+	{% set useRatioBox = useRatioBox ?? false %}
+	{% set useFocalPoint = useFocalPoint ?? false %}
+	{% set pictureClass = useRatioBox ? 'absolute top-0 left-0 w-full h-full' : '' %}
+	{% set pictureClass = extraPictureClasses ? extraPictureClasses ~ ' ' ~ pictureClass : pictureClass %}
+
+	{# this value should reflect the mobile x-gutters. Could use calc() instead to make it more obvious #}
+	{# use a tool like https://github.com/ausi/respimagelint to help define an accurate `sizes` attribute for each use case #}
+	{# but beware this issue with object-fit: https://github.com/ausi/respimagelint/issues/57 #}
+	{% set sizes = sizes ?? 'calc(97.04vw - 23px)' %}
+
+	{% set transforms = transforms ?? globalTransforms.fullWidth %}
+
+	{# ==================================
+	CREATE SRCSET STRINGS.
+	Unfortunately Craft's built-in image.srcset()
+	method is a bit	too basic as it only accounts for
+	width transforms. At the time of writing there also
+	appears to be a bug where .srcset() doesn't respect
+	the `upscaleImages:false` setting in general.php!
+	Doing it manually instead with .url() allows us
+	full freedom to use any kind of transform.
+
+	Remember that calling .url() here is the part that
+	actually gets Craft to create the transformed img.
+	(Calling .srcset() would too, but only on `w` descriptors)
+	===================================== #}
+
+	{% set srcset = [] %}
+	{% set srcsetWebp = [] %}
+
+	{% for transform in transforms %}
+		{% set srcset = srcset|merge([image.url(transform) ~ ' ' ~ image.width(transform) ~ 'w']) %}
+		{% set webpTransform = transform|merge({format:'webp'}) %}
+		{% set srcsetWebp = srcsetWebp|merge([image.url(webpTransform) ~ ' ' ~ image.width(webpTransform) ~ 'w']) %}
+	{% endfor %}
+
+	{# ==================================
+	FOCAL POINT.
+	Pass in useFocalPoint:true to use.
+	You'll also need a wrapper element with
+	at least one fixed dimension for it to work.
+
+	(Bear in mind that if you're using transforms with `mode:crop`
+	and with fixed h/w dimensions, Craft will automatically
+	take into account the focal point for the purpose
+	of determining the centre point from which to crop.
+	No need to specify useFocalPoint:true for that use-case).
+	===================================== #}
+
+	{% if useFocalPoint %}
+		{% set focalPointCoords = image.hasFocalPoint ? image.getFocalPoint() : [0.5, 0.5] %}
+		{% set focalPointPosition = 'object-position: ' ~ focalPointCoords|first * 100 ~ '% ' ~ focalPointCoords|last * 100 ~ '%' %}
+		{% set focalPointClass = 'w-full h-full object-cover' %}
+	{% endif %}
+
+	{# ======================================================================= #}
+
+	{% set innards %}
+		<picture{% if pictureClass|length %} class="{{ pictureClass }}"{% endif %}>
+			<source type="image/webp"
+				{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetWebp|join(',') }}"
+				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
+			>
+			<img src="{{ useLazyLoading ? '' : image.url(transforms|last) }}"
+				{{ useLazyLoading ? 'data-' }}src="{{ image.url(transforms|last) }}"
+				{{ useLazyLoading ? 'data-' }}srcset="{{ srcset|join(',') }}"
+				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
+				alt="{{ alt ?? image.alt ?? image.title }}"
+				height="{{ image.height(transforms|last) }}"
+				width="{{ image.width(transforms|last) }}"
+				class="{{ useLazyLoading ? 'js-lazyload'}} {{ focalPointClass ?? null }} {{ extraImgClasses ?? null }}"
+				{% if useFocalPoint %}style="{{ focalPointPosition }}"{% endif %}
+			>
+		</picture>
+	{% endset %}
+
+	{# ======================================================================= #}
+
+	{# Final output... To Wrap, Or Not To Wrap, that is the question #}
+	{% if useRatioBox %}
+		<div class="relative overflow-hidden w-full" style="padding-top: {{ (image.height(transforms[0]) / image.width(transforms[0])) * 100 }}%">
+			{{ innards }}
+		</div>
+	{% elseif useFocalPoint %}
+		<div class="relative overflow-hidden w-full h-full">
+			{{ innards }}
+		</div>
+	{% else %}
+		{{ innards }}
+	{% endif %}
+
+{% endif %}
