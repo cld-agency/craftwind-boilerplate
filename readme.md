@@ -47,7 +47,7 @@ Example code for using the accessible toggle functionality (set this as an auto-
 </button>
 
 <div id="js-idOfThingToToggle" aria-hidden="true" class="hidden">
-	<button type="button" class="close">Close me</button>
+	<button type="button" data-close>Close me</button>
 	toggle me
 </div>
 

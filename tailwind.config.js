@@ -42,7 +42,7 @@ module.exports = {
 				},
 				light: {
 					DEFAULT: '#F3FAFC'
-				}
+				},
 				dark: {
 					DEFAULT: '#212121',
 				}
