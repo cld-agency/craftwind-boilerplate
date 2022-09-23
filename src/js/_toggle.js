@@ -146,7 +146,9 @@ class Toggle {
 					let focusable = targetPanel.querySelector(targetBtn.dataset.focus);
 					clearTimeout(delayFocus);
 					let delayFocus = setTimeout(function() {
-						focusable.focus();
+						focusable.focus({
+							preventScroll: true
+						});
 					}, 300);
 
 				} else {
@@ -156,7 +158,9 @@ class Toggle {
 						let delayFocus;
 						clearTimeout(delayFocus);
 						delayFocus = setTimeout(function() {
-							firstFocusable.focus();
+							firstFocusable.focus({
+								preventScroll: true
+							});
 						}, 300);
 					}
 				}
