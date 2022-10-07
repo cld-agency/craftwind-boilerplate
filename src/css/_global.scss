@@ -108,7 +108,7 @@ div.spacing{
 	@include fluid(font-size, 20rem, 64rem, 1rem, 1.125rem);
 }
 
-span,li+li,i,option,br,hr,svg,svg *,.button+.button,blockquote:first-child,p:first-child,h1:first-child,h2:first-child,h3:first-child,table:first-child,.yii-debug-toolbar__block *,[type=hidden]+*,[aria-hidden=true]+*{
+span,li+li,i,option,br,hr,svg,svg *,.button+.button,blockquote:first-child,p:first-child,h1:first-child,h2:first-child,h3:first-child,table:first-child,.spacing:first-child,.yii-debug-toolbar__block *,[type=hidden]+*,[aria-hidden=true]+*{
 	margin-top:0;
 }
 

@@ -18,7 +18,7 @@ small,.small{
 $linkHover: 0 4px 0 0 theme('colors.accent.DEFAULT');
 $linkTransition: box-shadow .2s linear, color .2s linear;
 
-article p > a:not(.button),.default-link{
+article p > a:not(.button),article li > a,.default-link,.default-links a{
 	color:#333;
 	box-shadow:0 4px 0 0 #a4def2;
 	font-weight:theme('_vars.boldWeight');

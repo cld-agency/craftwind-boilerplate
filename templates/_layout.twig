@@ -1,6 +1,34 @@
-{% set transforms = {
-	ogImg: { mode:'crop', width:1200, height:1200 },
+{% set globalTransforms = {
+	ogImg: [{ mode:'crop', width:1200, height:1200 }],
+	fullWidth: [
+		{width:400},
+		{width:800},
+		{width:1200},
+		{width:1600},
+		{width:1920},
+		{width:2400}
+	]
 } %}
+
+{# Duplicate the globalTransforms array into a version that also includes the webp
+transforms so that we can eager load all transforms more easily, e.g.:
+
+{% set eagerLoadingExample = craft.entries.with([
+	['heroImg', {withTransforms:transformsToEagerLoad.fullWidth}]
+]).all() %}
+#}
+
+{% set transformsToEagerLoad = [] %}
+{% set transformsToEagerLoad = globalTransforms|map( transformArray =>
+	transformArray|map( transform =>
+		transform|merge({format:'webp'})
+	)
+) %}
+{% set transformsToEagerLoadCollection = collect(transformsToEagerLoad) %}
+{% set globalTransformsCollection = collect(globalTransforms) %}
+{% set transformsToEagerLoad = transformsToEagerLoadCollection.mergeRecursive(globalTransformsCollection) %}
+
+{# =============================================================================== #}
 
 {% set css = {
 	navLink: 'uppercase group inline-flex items-center text-center font-semibold tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
@@ -64,7 +92,7 @@
 	https://developers.facebook.com/docs/sharing/best-practices
 	 #}
 	{% if ogImg is defined and ogImg %}
-		{% set ogImg = siteUrl|trim('/', 'right') ~ ogImg.url(transforms.ogImg) %}
+		{% set ogImg = siteUrl|trim('/', 'right') ~ ogImg.url(globalTransforms.ogImg[0]) %}
 		{% set ogWidth = ogImg.width() %}
 		{% set ogHeight = ogImg.height() %}
 	{% else %}
