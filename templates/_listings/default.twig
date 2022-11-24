@@ -60,7 +60,7 @@ LISTING DEFAULT. Used by:
 					<div class="text-center mb-12">
 						{% include '_partials/button.twig' with {
 							label: 'Load more',
-							link: withPagination is defined and withPagination ? '/' ~ craft.app.request.pathInfo ~ '/page-' ~ (pageInfo.currentPage + 1),
+							link: withPagination is defined and withPagination ? '/' ~ craft.app.request.pathInfo ~ '/p' ~ (pageInfo.currentPage + 1),
 							classes: 'js-loadMore',
 							variants: 'jumbo'
 						} only %}
@@ -194,7 +194,7 @@ AJAX PAGINATION SCRIPT
 					count = count + perPage;
 					currentPage++;
 					button.style.display = 'block';
-					button.href = '/{{ craft.app.request.pathInfo }}/page-' + (currentPage + 1);
+					button.href = '/{{ craft.app.request.pathInfo }}/p' + (currentPage + 1);
 					button.classList.remove('disabled', 'pointer-events-none');
 					if({{ pageInfo.total }} <= count){
 						button.remove();

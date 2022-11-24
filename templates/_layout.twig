@@ -74,7 +74,7 @@ transforms so that we can eager load all transforms more easily, e.g.:
 
 	{% set ogTitle = entry.ogTitle ?? null %}
 	{% set ogDesc =  entry.ogDesc ?? null %}
-	{% set ogImg = entry.ogImage.one ? entry.ogImage.one : entry.productImage.one ? entry.productImage.one : null %}
+	{% set ogImg = entry.ogImage.one() ?? entry.productImage.one() ?? null %}
 	{% set ogType = entry.ogType ?? null %}
 	{% set twitterCreator = entry.twitterCreator ?? null %}
 	{% set twitterCard = entry.twitterCard ?? null %}
@@ -139,7 +139,7 @@ transforms so that we can eager load all transforms more easily, e.g.:
 		{{ scripts.bodyStartScripts|raw }}
 	{% endif %}
 
-	<div id="app" class="flex flex-col min-h-screen">
+	<div class="flex flex-col min-h-screen">
 
 		{# =============================================================================== #}
 

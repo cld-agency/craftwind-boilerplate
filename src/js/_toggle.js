@@ -103,7 +103,7 @@ class Toggle {
 			targetPanel.setAttribute('aria-hidden', 'false');
 
 			// toggle any tabindexes in the region
-			let tabIndexes = targetPanel.querySelectorAll('[tabindex]');
+			let tabIndexes = targetPanel.querySelectorAll('[tabindex]:not([aria-hidden="true"])');
 			for (let i=0; i < tabIndexes.length; i++) {
 				tabIndexes[i].setAttribute("tabindex", "0");
 			}
