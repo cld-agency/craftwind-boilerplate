@@ -15,7 +15,7 @@ Params
 - image {object} (required)
 - transforms {array of objects} - an array of transforms e.g.
 	[{width:400}, {width:800}, {height:400, width:400, mode:crop}].
-	Default to globalTransforms.fullWidth as set in layout.twig
+	Default to craft.app.config.custom.globalTransforms.fullWidth as set in config/custom.php
 - sizes {string} - use a tool like https://github.com/ausi/respimagelint
 	to help define an accurate `sizes` attribute according to the context
 - alt {string} (default to image.alt ?? '' (image.title is also available but is auto-populated with the filename, which is never good enough as editors don't change it!))
@@ -29,6 +29,7 @@ Params
 - useRatioBox {bool} (default false) -
 	output an appropriately proportioned wrapper element per image so that you can use lazyloading without incurring layout shifts as the images load in. (Note: if you want to have e.g. a set of cards which all share the same img aspect ratio, instead of useRatioBox you should use the following settings: `extraImgClasses: 'object-cover h-full w-full',extraPictureClasses: 'aspect-16-9 relative'` ... The aspect-16-9 class is defined in utilities.scss.
 - useFocalPoint {bool} (default false) - you'll need a wrapper element with some fixed dimensions for this to work (or define dimensions on the picture element via extraPictureClasses)
+- useCaption {bool} (default false) - output a caption under the image if it exists
 ===================================== #}
 
 {% if
@@ -43,7 +44,7 @@ Params
 		===================================== #}
 
 		{% set extraSVGClasses = extraSVGClasses ?? 'fill-current' %}
-		{{ svg(image)|attr({ class: extraSVGClasses }) }}
+		{{ svg(image)|attr({ class: extraSVGClasses, 'aria-hidden': 'true' }) }}
 	{% else %}
 
 		{# ==================================
@@ -65,6 +66,7 @@ Params
 	{% set useLazyLoading = useLazyLoading ?? true %}
 	{% set useRatioBox = useRatioBox ?? false %}
 	{% set useFocalPoint = useFocalPoint ?? false %}
+	{% set useCaption = useCaption ?? false %}
 	{% set pictureClass = useRatioBox ? 'absolute top-0 left-0 w-full h-full' : '' %}
 	{% set pictureClass = extraPictureClasses ? extraPictureClasses ~ ' ' ~ pictureClass : pictureClass %}
 
@@ -73,7 +75,7 @@ Params
 	{# but beware this issue with object-fit: https://github.com/ausi/respimagelint/issues/57 #}
 	{% set sizes = sizes ?? 'calc(97.04vw - 23px)' %}
 
-	{% set transforms = transforms ?? globalTransforms.fullWidth %}
+	{% set transforms = transforms ?? craft.app.config.custom.globalTransforms.fullWidth %}
 
 	{# ==================================
 	CREATE SRCSET STRINGS.
@@ -146,10 +148,13 @@ Params
 		<div class="relative overflow-hidden w-full" style="padding-top: {{ (image.height(transforms[0]) / image.width(transforms[0])) * 100 }}%">
 			{{ innards }}
 		</div>
-	{% elseif useFocalPoint %}
-		<div class="relative overflow-hidden w-full">
+	{% elseif useCaption %}
+		<figure>
 			{{ innards }}
-		</div>
+			{% if image.caption|length %}
+				<figcaption>{{ image.caption }}</figcaption>
+			{% endif %}
+		</figure>
 	{% else %}
 		{{ innards }}
 	{% endif %}

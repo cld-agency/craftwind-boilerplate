@@ -53,3 +53,16 @@
 .fl\:text-5xl{
 	@include fluid(font-size, 20rem, 64rem, 1.25rem, 3rem);
 }
+
+// --------------------------------------------
+// line-height-compensation
+// --------------------------------------------
+
+.line-height-compensation, .line-height-compensation-first-children > p:first-child{
+	@include text-crop();
+}
+// 1.238 seems to be what firefox at least for Montserrat considers to be "line-height:normal".
+// Tweak according to your heading font
+.line-height-compensation-normal, .line-height-compensation-first-children > h2:first-child{
+	@include text-crop(1.238);
+}

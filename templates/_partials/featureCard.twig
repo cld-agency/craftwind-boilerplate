@@ -1,14 +1,14 @@
 {# ==================================
 CARD.
 
-Slight variations depending on if we've got an icon or a photo.
-
 Usage options:
 
 A. If you're happy with all the defaults, then typically you can just use
 the flexGrid.twig partial as an include, passing in the items e.g.
 
 {% include '_partials/flexGrid.twig' with { items: block.entries.all() } %}
+
+-----
 
 B. If you want to have grid of multiple cards using flexGrid.twig, but with
 the power to customise all the parameters in this partial, do something like this:
@@ -25,6 +25,8 @@ the power to customise all the parameters in this partial, do something like thi
 	{% endblock %}
 {% endembed %}
 
+-----
+
 C. If you just want to reuse the outer card style but completely go to town on
 customising the card innards, then use this partial as an embed and override the
 `cardContent` block. E.g.
@@ -35,51 +37,74 @@ customising the card innards, then use this partial as an embed and override the
 	{% endblock %}
 {% endembed %}
 
-(and of course, you could embed that inside flexGrid's itemContent block if necessary).
+(and of course, you could embed that inside flexGrid's itemContent block if necessary). Like this:
+
+{% embed '_partials/flexGrid.twig' with {
+	items: entry.cards,
+	itemSize: 'w-full sm:w-1/2'
+} %}
+	{% block itemContent %}
+		{% embed '_partials/featureCard.twig' %}
+			{% block cardContent %}
+				Go to town here
+			{% endblock %}
+		{% endembed %}
+	{% endblock %}
+{% endembed %}
+
+-----
+
+D. You can also choose to only override the card header/body/footer separately like this:
+
+{% embed '_partials/featureCard.twig' with { img: item.personPhotoLandscape[0] ?? null, url: item.url } %}
+	{% block cardBody %}
+		{% include '_partials/someSpecialCardBody.twig' %}
+	{% endblock %}
+	{% block cardFooter %}
+		<p>Special footer</p>
+	{% endblock %}
+{% endembed %}
 
 ---------------------------------------
 
 Params:
 
-* item
-* img
-* url
-* desc
-* imgIsIcon (overrides the default full-bleed card img to constrain it to the card's inner padding)
-* variants
-	- leftAligned
-		override the default centred text
-	- withChevron
-		show a little arrow thing
-	- lockAspectRatio
-		ensures that icon imgs and photographic imgs can both be
-		used in the same grid while still lining up with each other
+- item
+- element
+- img
+- imgIsIcon (bool)
+- url
+- desc
+- cardButtonLabel
+- extraCardClasses
+- headingOverride
+- disableHeading (bool)
+- variants
+	- jumbo
+	- letterbox
+	- showArrowByHeading
 
 ===================================== #}
 
-{% set img = item.featuredImg[0] is defined ? item.featuredImg[0] : img is defined and img ? img : item.featuredImg is defined and item.featuredImg|length ? item.featuredImg.one() : null %}
-{% set imgIsIcon = imgIsIcon is defined and imgIsIcon ? imgIsIcon : item.featuredImgIsIcon is defined and item.featuredImgIsIcon or img|length == 0 %}
+{% set img = img is defined and img ? img : item.featuredImg[0] is defined ? item.featuredImg[0] %}
+{% set imgIsIcon = imgIsIcon ?? false %}
+{% set useFallbackImg = useFallbackImg ?? false %}
+{% set disableHeading = disableHeading ?? false %}
+{% set element = element ?? 'a' %}
 {% set url = url ?? item.url() %}
-{% set desc = desc ?? item.intro ?? null %}
+{% set desc = desc ?? item.summary ?? null %}
 {% set variants = variants ?? [] %}
 {# if variants was a string, convert to an array so we can use 'in' on it more reliably... #}
 {% set variants = variants is iterable ? variants : [variants] %}
 
-{% set _headingStyles = 'fl:text-lg font-display leading-normal' %}
-{% set _paraStyles = 'text-body' %}
-
-{% if 'leftAligned' not in variants %}
-	{% set _headingStyles = _headingStyles ~ ' text-center' %}
-	{% set _paraStyles = _paraStyles ~ ' text-center' %}
-{% endif %}
-
-{% if item.sub is defined and item.sub|length %}
-	{% set _headingStyles = _headingStyles ~ ' mt-2' %}
-{% endif %}
+{% set _headingStyles = 'jumbo' in variants ? 'fl:text-3xl' : 'fl:text-lg' %}
+{% set _paraStyles = 'jumbo' in variants ? 'fl:text-lg-alt mt-4' : 'mt-4' %}
+{% set cardPadding = 'jumbo' in variants ? 'p-8 md:p-12 lg:p-16' : 'p-8' %}
+{% set cardPadding2 = 'jumbo' in variants ? 'px-8 pb-8 md:px-12 md:pb-12 lg:px-16 lg:pb-16' : 'px-8 pb-8' %}
 
 {# ======================================================================= #}
 
-<a href="{{ url }}" class="group block overflow-hidden shadow-cld w-full h-full transition transform hover:-translate-y-1 hover:shadow-cld-hover focus:outline-none focus:ring ring-brand" style="will-change:transform">
+<{{ element}} {% if element == 'a' and url %}href="{{ url }}"{% endif %} class="group block rounded-lg overflow-hidden shadow-lg w-full h-full transition transform hover:-translate-y-1 any-pointer-coarse:!transform-none hover:shadow-xl focus:outline-none focus-visible:ring ring-accent {{ extraCardClasses ?? null }}" style="will-change:transform" {{ cardAttrs is defined ? attr(cardAttrs) }}>
 	<article class="flex flex-col bg-white shadow-sm min-w-xs w-full h-full" style="will-change:transform">
 
 		{% block cardContent %}
@@ -88,66 +113,69 @@ Params:
 			CARD HEADER
 			===================================== #}
 
-			{% if imgIsIcon %}
-				<div class="{{ 'lockAspectRatio' in variants ? 'aspect-16-9 relative border-b' }}">
-					<div class="p-8 flex items-center justify-center">
-						{% if img %}
-							{% if transformOverride is not defined %}
-								{% set transform = img.extension != 'svg' ? transforms.cardImg : null %}
-							{% else %}
-								{% set transform = img.extension != 'svg' ? transformOverride : null %}
-							{% endif %}
-							<img class="mx-auto max-h-full" src="{{ img.url(transform) }}" alt="{{ img.alt ?? '' }}">
-						{% else %}
-							<img class="mx-auto max-h-full" src="/assets/img/logo.svg" alt="">
-						{% endif %}
-					</div>
-				</div>
-			{% elseif img %}
-				<div class="aspect-16-9 relative">
-					{% set transform = img.extension != 'svg' ? transforms.cardImg : null %}
-					<img class="object-cover" src="{{ img.url(transform) }}" alt="{{ img.alt ?? '' }}">
-				</div>
-			{% endif %}
+			{% block cardHeader %}
+				{% if img is defined and img %}
+					{% if imgIsIcon %}
+						{% include '_partials/picture.twig' with {
+							image: img,
+							transforms: craft.app.config.custom.globalTransforms.cardTransforms,
+							sizes: '(min-width: 1360px) 389px, (min-width: 1040px) calc(26.67vw + 32px), (min-width: 860px) calc(50vw - 36px), calc(97.04vw - 23px)',
+							useFocalPoint:true,
+							extraImgClasses: 'px-8 pt-8',
+							extraPictureClasses: 'letterbox' in variants ? 'aspect-letterbox relative' : 'aspect-16-9 relative'
+						} only %}
+					{% else %}
+						{% include '_partials/picture.twig' with {
+							image: img,
+							transforms: craft.app.config.custom.globalTransforms.cardTransforms,
+							sizes: '(min-width: 1360px) 389px, (min-width: 1040px) calc(26.67vw + 32px), (min-width: 860px) calc(50vw - 36px), calc(97.04vw - 23px)',
+							useFocalPoint:true,
+							extraImgClasses: 'object-cover h-full w-full',
+							extraPictureClasses: 'letterbox' in variants ? 'aspect-letterbox relative' : 'aspect-16-9 relative'
+						} only %}
+					{% endif %}
+				{% endif %}
+			{% endblock %}
 
 			{# ==================================
-			CARD BODY. Reset padding according to
-			some different variants...
+			CARD BODY
 			===================================== #}
 
-			{% set cardBodyPadding = 'px-8 pb-8' %}
-
-			{% if 'lockAspectRatio' in variants %}
-				{% set cardBodyPadding = 'p-8' %}
-			{% endif %}
-
-			{% if 'withChevron' in variants %}
-				{% set cardBodyPadding = 'px-8 pt-8 pb-2' %}
-			{% endif %}
-
-			<div class="flex flex-col flex-grow mt-auto {{ cardBodyPadding }}">
-				{% if item.sub|length %}<p class="text-gray-400 font-bold text-sm {{ 'leftAligned' not in variants ? 'text-center' }}">{{ item.sub }}</p>{% endif %}
-				<h3 class="{{ _headingStyles }}">{{ item.heading ?? item.title }}</h3>
-				{% if desc %}
-					<p class="{{ _paraStyles }}">{{ desc }}</p>
-				{% endif %}
+			<div class="flex flex-col flex-grow mt-auto {{ cardPadding }} line-height-compensation">
+				{% block cardBody %}
+					{% if not disableHeading %}
+						<h3 class="{{ _headingStyles }} text-accent font-display js-cardHeading leading-tight flex items-center">
+							{{ headingOverride is defined ? headingOverride|raw : item.title }}
+							{% if 'showArrowByHeading' in variants %}
+								<svg class="ml-3" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z" fill="currentColor"/></svg>
+							{% endif %}
+						</h3>
+					{% endif %}
+					{% if desc %}
+						<p class="{{ _paraStyles }} text-body">{{ desc }}</p>
+					{% endif %}
+				{% endblock %}
 			</div>
 
 			{# ==================================
 			CARD FOOTER
 			===================================== #}
 
-			{# show an arrow... #}
-			{% if 'withChevron' in variants %}
-				<div class="mt-auto flex px-8 pb-8 justify-end text-brand">
-					<svg class="max-h-full max-w-full" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C4.47715 0 0 4.47715 0 10C0 15.5229 4.47715 20 10 20C15.5229 20 20 15.5229 20 10C20 4.47715 15.5229 0 10 0ZM10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18ZM15 9.91V10C14.9997 10.134 14.9725 10.2667 14.92 10.39C14.8713 10.5092 14.7999 10.6178 14.71 10.71L11.71 13.71L11.7042 13.7158C11.3121 14.1047 10.6789 14.1021 10.29 13.71L10.2842 13.7042C9.89528 13.3121 9.89788 12.6789 10.29 12.29L11.59 11H6C5.44772 11 5 10.5523 5 10C5 9.44772 5.44772 9 6 9H11.66L10.43 7.69C10.0489 7.28959 10.0646 6.65608 10.465 6.275C10.8654 5.89392 11.4989 5.90959 11.88 6.31L14.74 9.31C14.7734 9.35089 14.8035 9.39436 14.83 9.44C14.8762 9.49734 14.9133 9.56142 14.94 9.63C14.9752 9.71943 14.9954 9.81402 15 9.91Z" fill="currentColor"/></svg>
-				</div>
-			{% elseif item.cardLink is defined and item.cardLink and item.label is defined and item.label %}
-				<p class="border-t mt-auto flex p-8 text-brand font-bold text-sm flex items-center {{ 'leftAligned' not in variants ? 'justify-center' }}">
-					<svg class="max-h-full max-w-full mr-2" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C4.47715 0 0 4.47715 0 10C0 15.5229 4.47715 20 10 20C15.5229 20 20 15.5229 20 10C20 4.47715 15.5229 0 10 0ZM10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18ZM15 9.91V10C14.9997 10.134 14.9725 10.2667 14.92 10.39C14.8713 10.5092 14.7999 10.6178 14.71 10.71L11.71 13.71L11.7042 13.7158C11.3121 14.1047 10.6789 14.1021 10.29 13.71L10.2842 13.7042C9.89528 13.3121 9.89788 12.6789 10.29 12.29L11.59 11H6C5.44772 11 5 10.5523 5 10C5 9.44772 5.44772 9 6 9H11.66L10.43 7.69C10.0489 7.28959 10.0646 6.65608 10.465 6.275C10.8654 5.89392 11.4989 5.90959 11.88 6.31L14.74 9.31C14.7734 9.35089 14.8035 9.39436 14.83 9.44C14.8762 9.49734 14.9133 9.56142 14.94 9.63C14.9752 9.71943 14.9954 9.81402 15 9.91Z" fill="currentColor"/></svg>
-					{{ item.label }}
-				</p>
+			{% block cardFooter %}
+				{% if cardButtonLabel is defined and cardButtonLabel %}
+					<div class="mt-auto flex {{ cardPadding2 }}">
+						{% include '_partials/button.twig' with {
+							element: 'span',
+							label: cardButtonLabel,
+							classes:'group-hover:bg-accent-highlight'
+						} only %}
+					</div>
+				{% endif %}
+			{% endblock %}
+
+			{% if extras is defined and extras %}
+				<div class="{{ cardPadding2 }} text-body text-xs">{{ extras|md }}</div>
 			{% endif %}
 		{% endblock %}
 	</article>
-</a>
+</{{ element}}>

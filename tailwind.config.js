@@ -15,6 +15,7 @@ module.exports = {
 			'lg': '1024px',
 			'xl': '1280px',
 			'2xl': '1536px',
+			'any-pointer-coarse': { 'raw': '(any-pointer: coarse)' },
 		},
 		fontFamily: {
 			'sans': ["Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif"],
