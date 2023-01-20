@@ -29,8 +29,9 @@ JS functionality
 
 This repo includes the following JS libraries:
 
-* <a href="https://github.com/willmcpo/body-scroll-lock">BodyScrollLock</a> by @willmcpo
+* <a href="https://github.com/tuax/tua-body-scroll-lock">tua-body-scroll-lock</a> for reliably locking the body scroll while modals and overlays are on, whilst still allowing the modal/overlay content to be scrollable.
 * <a href="https://codepen.io/croxton/pen/yLOLzjo">Toggle</a> by @croxton
+* <a href="https://github.com/verlok/vanilla-lazyload">Vanilla Lazyload</a> by @verlok-cn
 
 Example code for using the accessible toggle functionality (set this as an auto-expand snippet/live template in your editor):
 
@@ -62,6 +63,7 @@ CSS functionality
 -------------------
 
 * A custom made SCSS `fluid` mixin for fluid values between two breakpoints. Useful for font-sizes and also vertical padding.
+* A mixin from <a href="http://text-crop.eightshapes.com">http://text-crop.eightshapes.com</a> called mixin called `text-crop` to prevent line-heights from affecting vertical box padding.
 
 Craft plugins
 ----------------
