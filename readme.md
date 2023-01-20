@@ -63,14 +63,14 @@ CSS functionality
 -------------------
 
 * A custom made SCSS `fluid` mixin for fluid values between two breakpoints. Useful for font-sizes and also vertical padding.
-* A mixin from <a href="http://text-crop.eightshapes.com">http://text-crop.eightshapes.com</a> called mixin called `text-crop` to prevent line-heights from affecting vertical box padding.
+* A mixin from <a href="http://text-crop.eightshapes.com">http://text-crop.eightshapes.com</a> called `text-crop` to prevent line-heights from affecting vertical box padding.
 
 Craft plugins
 ----------------
 
 This repo includes the following Craft plugins:
 
-* <a href="https://plugins.craftcms.com/mix">Mix (fork for Craft 4)</a>
+* <a href="https://plugins.craftcms.com/mix">Mix</a>
 * <a href="https://plugins.craftcms.com/minify">Minify</a>
 * <a href="https://plugins.craftcms.com/cp-field-inspect">CP Field Inspect</a>
 
