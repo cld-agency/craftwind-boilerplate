@@ -27,6 +27,12 @@ mix.options({
 	postCss: [ tailwind ],
 	// when running `npm run all` it's confusing to clear the console each time...
 	clearConsole: false,
+	// https://laracasts.com/discuss/channels/elixir/stop-mix-from-generating-license-file
+	// (due to tua body scroll lock)
+	terser: {
+		extractComments: false,
+		format: { comments: false }
+	}
 });
 
 // this allows any sass errors/warnings to shine through
@@ -44,10 +50,17 @@ mix.sass(srcPath + '/css/main.scss', buildPath + '/css/');
 // --------------------------------------------
 
 mix.js([
-	srcPath + '/js/_bodyScrollLock.js',
+	srcPath + '/js/_tua-body-scroll-lock.js',
 	srcPath + '/js/_toggle.js',
+	srcPath + '/js/_vanilla-lazyload.js',
 	srcPath + '/js/main.js'
 ], buildPath + '/js/main.js');
+
+// If you want to build separate JS files so they can be conditionally included
+// add a separate block like this
+// mix.js([
+// 	srcPath + '/js/swiper.js',
+// ], buildPath + '/js/swiper.min.js');
 
 // If you want to minify and concatenate some separate scripts that do not require
 // ES6 transpiling, use combine() e.g.:
@@ -71,7 +84,7 @@ if (!mix.inProduction()) {
 		},
 		files: [
 			'templates/**/*.twig',
-			buildPath + '/**/main.{css,js}',
+			buildPath + '/**/*.{css,js}',
 		]
 	});
 }
