@@ -69,8 +69,6 @@
 		{% set ogHeight = 1200 %}
 	{% endif %}
 
-	{% set ogWidth = value %}
-
 	<meta name="twitter:card" content="{{ twitterCard ?? 'summary' }}">
 	{% if socialLinks.twitterHandle %}<meta name="twitter:site" content="@{{ socialLinks.twitterHandle }}">{% endif %}
 	{% if twitterCreator is defined and twitterCreator %}<meta name="twitter:creator" content="{{ twitterCreator }}">{% endif %}
