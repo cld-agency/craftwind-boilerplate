@@ -30,8 +30,7 @@ mix.options({
 	// https://laracasts.com/discuss/channels/elixir/stop-mix-from-generating-license-file
 	// (due to tua body scroll lock)
 	terser: {
-		extractComments: false,
-		format: { comments: false }
+		extractComments: false
 	}
 });
 
