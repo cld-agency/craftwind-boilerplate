@@ -36,22 +36,22 @@
 }
 
 .fl\:text-sm{
-	@include fluid(font-size, 48rem, 80rem, 0.75rem, 1rem);
+	@include fluid(font-size, 48rem, 80rem, 0.6875rem, 0.875rem);
 }
 .fl\:text-base{
-	@include fluid(font-size, 20rem, 64rem, 0.75rem, 1rem);
-}
-.fl\:text-m{
-	@include fluid(font-size, 20rem, 64rem, 1rem, 1.25rem);
+	@include fluid(font-size, 20rem, 80rem, 0.8125rem, 1rem);
 }
 .fl\:text-lg,.lead p{
-	@include fluid(font-size, 20rem, 64rem, 1rem, 1.5rem);
+	@include fluid(font-size, 20rem, 80rem, 1rem, 1.125rem);
+}
+.fl\:text-3xl{
+	@include fluid(font-size, 20rem, 80rem, 1.5rem, 1.875rem);
 }
 .fl\:text-4xl{
-	@include fluid(font-size, 20rem, 64rem, 1rem, 2.5rem);
+	@include fluid(font-size, 20rem, 80rem, 1.75rem, 2.25rem);
 }
 .fl\:text-5xl{
-	@include fluid(font-size, 20rem, 64rem, 1.25rem, 3rem);
+	@include fluid(font-size, 20rem, 80rem, 2rem, 3rem);
 }
 
 // --------------------------------------------
