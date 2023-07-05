@@ -83,7 +83,7 @@ the power to customise all the parameters in the grid items, do something like t
 
 <ul class="list-reset-for-grids flex flex-wrap {{ gutterSizes.wrap }} {{ gridClasses|join(' ') }}">
 	{% for item in items %}
-		<li class="{{ itemSize }} {{ gutterSizes.items }}">
+		<li class="py-0 {{ itemSize }} {{ gutterSizes.items }}">
 			{% block itemContent %}
 				{% include '_partials/featureCard.twig' with {variants: cardVariants ?? null } %}
 			{% endblock %}
