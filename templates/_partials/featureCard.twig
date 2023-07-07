@@ -120,8 +120,8 @@ Params:
 							image: img,
 							transforms: craft.app.config.custom.globalTransforms.cardTransforms,
 							sizes: '(min-width: 1360px) 389px, (min-width: 1040px) calc(26.67vw + 32px), (min-width: 860px) calc(50vw - 36px), calc(97.04vw - 23px)',
-							useFocalPoint:true,
-							extraImgClasses: 'px-8 pt-8',
+							useFocalPoint: false,
+							extraImgClasses: 'px-8 pt-8 object-contain',
 							extraPictureClasses: 'letterbox' in variants ? 'aspect-letterbox relative' : 'aspect-16-9 relative'
 						} only %}
 					{% else %}
