@@ -9,7 +9,7 @@ Params:
 	pass in a list of classnames reflecting the size of each item at each breakpoint
 * gutterSizes [object]
 	pass in an object with `wrap` and `items` keys to determine the gutter sizes
-* gridClasses - override the classes on the outer grid. Default to just `justify-center`, so pass in an empty string if you want to left-align.
+* gridClasses - extra classes on the grid wrapper (don't use this for vertical spacing, as we need the negative margins to compensate for the grid item gutters)
 * itemContent [twig block]
 	If you want to override the default item content (featureCard.twig),
 	include this partial as an `embed` and pass in itemContent as a block.
@@ -74,14 +74,9 @@ the power to customise all the parameters in the grid items, do something like t
 	} %}
 {% endif %}
 
-{# extra classes #}
-{% if gridClasses is not defined %}
-	{% set gridClasses = 'justify-center' %}
-{% endif %}
-
 {# ======================================================================= #}
 
-<ul class="list-reset-for-grids flex flex-wrap {{ gutterSizes.wrap }} {{ gridClasses|join(' ') }}">
+<ul class="list-reset-for-grids flex flex-wrap {{ gutterSizes.wrap }} {{ gridClasses is defined ? gridClasses|join(' ') }}">
 	{% for item in items %}
 		<li class="py-0 {{ itemSize }} {{ gutterSizes.items }}">
 			{% block itemContent %}
