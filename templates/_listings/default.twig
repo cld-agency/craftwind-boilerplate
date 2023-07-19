@@ -19,7 +19,7 @@ LISTING DEFAULT. Used by:
 
 {% set ogTitle = pageElement.ogTitle ?? null %}
 {% set ogDesc =  pageElement.ogDesc ?? pageElement.intro ?? null %}
-{% set ogImg = pageElement.ogImage|length ? pageElement.ogImage.one() : pageElement.featuredImg|length ? pageElement.featuredImg.one() : null %}
+{% set ogImg = pageElement.ogImage.one() ?? pageElement.featuredImg.one() ?? null %}
 {% set ogType = pageElement.ogType ?? null %}
 {% set twitterCreator = pageElement.twitterCreator ?? null %}
 {% set twitterCard = pageElement.twitterCard ?? null %}
