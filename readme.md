@@ -74,7 +74,7 @@ This is a fairly opinionated repository, so here's a description of how certain 
 
 ### `_partials/picture.twig`
 
-This boilerplate includes a powerful [picture](_partials/picture.twig) partial for outputting optimised responsive images natively in Craft without the use of any third-party image plugins or external image generation services. It handles:
+This boilerplate includes a powerful [picture](templates/_partials/picture.twig) partial for outputting optimised responsive images natively in Craft without the use of any third-party image plugins or external image generation services. It handles:
 
 - srcset & sizes (the sizes attribute must still be figured out for each use case)
 - webp variant generation
@@ -115,6 +115,8 @@ All image transforms should be stored globally in the custom config array at [co
 ```
 
 This approach ensures that both the `webp` and original format transforms are eager loaded so as to fully avoid an N+1 issue when looping through multiple images.
+
+Finally, be sure to add an accurate `sizes` attribute according to your use case. This is a useful bookmarklet for figuring out the more complex ones: [https://ausi.github.io/respimagelint/](https://ausi.github.io/respimagelint/).
 
 ### entry / listing routing
 

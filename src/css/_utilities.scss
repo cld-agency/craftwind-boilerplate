@@ -22,6 +22,8 @@
 }
 
 // FLUID UTIITIES
+// at full size, the values should match tailwind's equivalent class.
+// If you want in-betweeney values, create a new class.
 .fl\:py-44 {
 	@include fluid(padding-top padding-bottom, 20rem, 64rem, 1.5rem, 11rem);
 }
