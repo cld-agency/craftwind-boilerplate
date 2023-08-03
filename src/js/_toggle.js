@@ -58,12 +58,10 @@ class Toggle {
 					}
 				}
 			}
-
 		});
 	}
 
 	resetToggleState() {
-
 		for (let i=0; i < this.buttons.length; i++) {
 
 			let btn = this.buttons[i];
@@ -79,9 +77,7 @@ class Toggle {
 				} else {
 					this.toggle(btn, 'false', false);
 				}
-
 			}
-
 		}
 	}
 
@@ -141,7 +137,7 @@ class Toggle {
 
 			// focus first element in the newly opened panel
 			if (focus) {
-				if (targetBtn.dataset.focus) {
+				if (targetBtn.dataset.focus && targetBtn.dataset.focus !== 'false') {
 
 					let focusable = targetPanel.querySelector(targetBtn.dataset.focus);
 					clearTimeout(delayFocus);
@@ -151,7 +147,7 @@ class Toggle {
 						});
 					}, 300);
 
-				} else {
+				} else if (targetBtn.dataset.focus !== 'false') {
 					let focusable = targetPanel.querySelectorAll('button:not([data-close]), [href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])');
 					if (focusable.length) {
 						let firstFocusable = focusable[0];
@@ -164,19 +160,14 @@ class Toggle {
 						}, 300);
 					}
 				}
-
 			}
-
-
 		} else {
 			// closing an open panel
 			this.closePanel(targetBtn, targetPanel);
-
 		}
 	}
 
 	closePanel(btn, panel) {
-
 		// update state
 		btn.setAttribute('aria-expanded', 'false');
 		panel.setAttribute('aria-hidden', 'true');
@@ -207,7 +198,6 @@ class Toggle {
 			document.querySelector('html').classList.remove(btn.dataset.activeRoot);
 		}
 	}
-
 }
 
 // if you want to import this class from somewhere else, uncomment this:
