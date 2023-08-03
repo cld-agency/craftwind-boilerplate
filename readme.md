@@ -18,7 +18,7 @@ To use this Craft boilerplate:
 1. Create an entry in the Home Pages section
 1. Update `package.json` with project name
 1. `npm install`
-1. `npm run all` or `npm run prod` or `npm run watch` to start work at http://localhost:3000
+1. `npm run all` or `npm run prod` or `npm run watch` to start work at http://localhost:3000. If you're working with multiple developers you should have `nvm` installed locally and run `nvm use` prior to starting the build process. This automatically reads the `.nvmrc` file and uses the project's version of Node, which in turn avoids some unpleasant issues that can crop up if different developers are running different versions of Node.
 
 The `npm run all` task is configured to do both dev and production builds locally on save, so no need for separate dev/prod build processes here. If running both at the same time ever becomes too taxing on your CPU, you can run them separately with `npm run prod` and `npm run watch`.
 
@@ -35,7 +35,7 @@ This repo includes the following JS libraries:
 
 Example code for using the accessible toggle functionality (set this as an auto-expand snippet/live template in your editor):
 
-```
+```html
 <button type="button"
 	class="button-reset js-toggleAThing"
 	aria-controls="js-idOfThingToToggle"
@@ -59,11 +59,78 @@ new Toggle('.js-toggleAThing');
 
 If you want to transition-in the hidden thing instead of an instant show/hide, just use a transform class like `class="translate-x-full"` instead of `hidden`. (The `.is-active` modifier will remove all transforms, set opacity to 1 and enable pointer events (see utilities.scss)).
 
+If you want to disable the auto-focus functionality that shifts focus into the toggled element, pass in `data-focus="false"` on the trigger element. Be careful when doing this that any children of the toggled element are focusable in the right order.
+
 CSS functionality
 -------------------
 
 * A custom made SCSS `fluid` mixin for fluid values between two breakpoints. Useful for font-sizes and also vertical padding.
 * A mixin from <a href="http://text-crop.eightshapes.com">http://text-crop.eightshapes.com</a> called `text-crop` to prevent line-heights from affecting vertical box padding.
+
+Craft templates
+----------------
+
+This is a fairly opinionated repository, so here's a description of how certain templating techniques work.
+
+### `_partials/picture.twig`
+
+This boilerplate includes a powerful [picture](_partials/picture.twig) partial for outputting optimised responsive images natively in Craft without the use of any third-party image plugins or external image generation services. It handles:
+
+- srcset & sizes (the sizes attribute must still be figured out for each use case)
+- webp variant generation
+- lazyloading
+- focal point handling
+- optional aspect ratio box
+- svg inlining
+- captions
+
+Here's an example of including the picture partial with all available parameters:
+
+```twig
+{% include '_partials/picture.twig' with {
+    image: img,
+    transforms: craft.app.config.custom.globalTransforms.fullWidthContained,
+    sizes: '(min-width: XXXpx) XXXpx, (min-width: XXXpx) calc(XXXvw + XXpx), XXXpx',
+    alt: '',
+    extraImgClasses: '',
+    extraPictureClasses: '',
+    extraSVGClasses: '',
+    useInlineSVG: false,
+    useLazyLoading: true,
+    useRatioBox: false,
+    useFocalPoint: true,
+    useCaption: false
+} %}
+```
+
+Read the introduction in the picture partial file for a full description of how each parameter works.
+
+All image transforms should be stored globally in the custom config array at [config/custom.php](config/custom.php). Each transform array in `$globalTransforms` is dynamically duplicated into another array called `$transformsToEagerLoad` which includes the `webp` variant. The specific set of transforms from the `$globalTransforms` array should be passed in to the `picture` partial (which takes care of adding the webp variant), whilst eager loading of the transforms should be done via the `$transformsToEagerLoad` array. Here's an example of how to eager load some imgs contained inside a matrix field to clarify:
+
+```twig
+{% set blocks = entry.matrixField.with([
+	['someBlockTypeHandle:someImgBlockHandle', { withTransforms: craft.app.config.custom.transformsToEagerLoad.halfWidth }],
+	['anotherBlockTypeHandle:someImgBlockHandle', { withTransforms: craft.app.config.custom.transformsToEagerLoad.fullWidth }],
+]).all() %}
+```
+
+This approach ensures that both the `webp` and original format transforms are eager loaded so as to fully avoid an N+1 issue when looping through multiple images.
+
+### entry / listing routing
+
+Full description coming soon. See `_entry.twig` and `_listing.twig` in the meantime and follow the control flow.
+
+### Local SMTP overrides
+
+Full description coming soon. See `config/app.php` and `.env.sample` in the meantime.
+
+### `_partials/container.twig`
+
+Full description coming soon. The `container` partial outputs a vertically and horizontally padded container for a site section, along with various background colour options. It should always be used as a Twig `embed` so that you can populate its `content` block.
+
+### `_partials/flexGrid.twig`
+
+Full description coming soon. This is for outputting a collection of units arranged in columns - typically "card" elements. This currently uses flexbox with negative margins on the parent, but should be modernised to use CSS grid and `gap`.
 
 Craft plugins
 ----------------
@@ -78,7 +145,7 @@ This repo includes the following Craft plugins:
 
 MIT License
 
-Copyright &copy; 2022 Clever Little Design Ltd.
+Copyright &copy; 2023 Clever Little Design Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
