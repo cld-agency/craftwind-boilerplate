@@ -1,0 +1,90 @@
+{# ==================================
+BUTTON
+
+Params:
+
+* link (required unless `element` is not an anchor)
+* label (required)
+* element (default to anchor)
+* classes - string or array (extra classes on the button element)
+* attrs - (object) a hash of extra attributes for the button element.
+* variants - string for a single variant option, or array of variant options:
+	- secondary
+	- jumbo
+	- mini
+* icon - string, one of the following:
+	- forward
+
+Example:
+
+{% include '_partials/button.twig' with { label: block.buttonLabel, link: block.buttonLink, variants: ['jumbo','inverted'] } only %}
+===================================== #}
+
+{% set element = element ?? 'a' %}
+{% set variants = variants ?? [] %}
+{% set classes = classes ?? [] %}
+{% set icon = icon ?? null %}
+
+{# if variants was a string, convert to an array so we can use 'in' on it more reliably... #}
+{% set variants = variants is iterable ? variants : [variants] %}
+
+{# ==================================
+COLOUR
+===================================== #}
+
+{% set _buttonColor = 'secondary' in variants ?
+	'bg-dark' :
+	'bg-brand text-white'
+%}
+
+{# ==================================
+SIZE
+===================================== #}
+
+{% set _buttonSize = 'px-4 py-2 md:py-3 md:px-8 fl:text-base' %}
+{% if 'jumbo' in variants %}
+	{% set _buttonSize = 'px-8 py-3 md:py-4 md:px-10 fl:text-base' %}
+{% endif %}
+{% if 'mini' in variants %}
+	{% set _buttonSize = 'px-4 py-2 fl:text-sm' %}
+{% endif %}
+
+{# ==================================
+ICON
+===================================== #}
+
+{% if icon is defined and icon %}
+
+	{# negative y-margins here are to ensure the icon doesn't affect the button's height #}
+	{# set each icon's size using TW h- and w- classes per icon. Favour heroicons.com where feasible. #}
+	{% set baseIconClasses = 'shrink-0 pointer-events-none ml-3 -my-2' %}
+
+	{% set icon %}
+		{% switch icon %}
+			{% case 'forward' %}
+				<svg class="{{ baseIconClasses }} h-4 w-4" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C4.47715 0 0 4.47715 0 10C0 15.5229 4.47715 20 10 20C15.5229 20 20 15.5229 20 10C20 4.47715 15.5229 0 10 0ZM10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18ZM15 9.91V10C14.9997 10.134 14.9725 10.2667 14.92 10.39C14.8713 10.5092 14.7999 10.6178 14.71 10.71L11.71 13.71L11.7042 13.7158C11.3121 14.1047 10.6789 14.1021 10.29 13.71L10.2842 13.7042C9.89528 13.3121 9.89788 12.6789 10.29 12.29L11.59 11H6C5.44772 11 5 10.5523 5 10C5 9.44772 5.44772 9 6 9H11.66L10.43 7.69C10.0489 7.28959 10.0646 6.65608 10.465 6.275C10.8654 5.89392 11.4989 5.90959 11.88 6.31L14.74 9.31C14.7734 9.35089 14.8035 9.39436 14.83 9.44C14.8762 9.49734 14.9133 9.56142 14.94 9.63C14.9752 9.71943 14.9954 9.81402 15 9.91Z" fill="currentColor"/></svg>
+
+		{% endswitch %}
+	{% endset %}
+{% endif %}
+
+{# ==================================
+STITCH EVERYTHING TOGETHER...
+===================================== #}
+
+{% set classes = 'inline-flex items-center rounded-full leading-none justify-center text-center transition relative active:top-px' ~ ' ' ~ _buttonColor ~ ' ' ~ _buttonSize ~ ' ' ~ classes|join(' ') %}
+
+{# ======================================================================= #}
+
+<{{ element }} class="{{ classes }}"
+	{% if element == 'a' %}href="{{ link }}"{% endif %}
+	{{ attrs is defined ? attr(attrs) }}
+>
+	{% if icon is defined and icon %}
+		<span class="pointer-events-none">{{ label }}</span>
+		{{ icon|raw }}
+	{% else %}
+		{{ label }}
+	{% endif %}
+</{{ element }}>
+
