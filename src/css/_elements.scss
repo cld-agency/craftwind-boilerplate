@@ -187,7 +187,7 @@ thead {
 	font-weight: 600;
 	border-bottom: 1px solid theme('colors.gray.300');
 }
-td,th{ padding:.8em; }
+td,th{ padding:.8rem; }
 th{
 	text-transform:uppercase;
 	letter-spacing:1.2px;
@@ -200,4 +200,29 @@ tbody tr{ border-bottom: 1px solid theme('colors.gray.200'); }
 	td{ background:#fff; }
 	th{ background:theme('colors.gray.200'); }
 	tbody tr{ border-color:theme('colors.gray.300'); }
+}
+
+// --------------------------------------------
+// FORMS
+// --------------------------------------------
+
+[type=text],[type=email],[type=tel],[type=password],[type=search],[type=number],textarea,select{
+	margin-top:.5em;
+	appearance:none;
+	display:block;
+	width:100%;
+	background-color:#fff;
+	padding:12px 10px;
+	border: 1px solid theme('colors.gray.200');
+	color:theme('colors.body');
+	@include fluid(font-size, 20rem, 64rem, 1rem, 1.125rem);
+	line-height:1.5;
+	&:hover{
+		border-color:theme('colors.gray.300');
+	}
+	&:focus{
+		outline:0;
+		box-shadow:0 0 0 2px theme('colors.brand.DEFAULT');
+		border-color:transparent;
+	}
 }
