@@ -41,7 +41,7 @@ Examples:
 {% set variants = variants is iterable ? variants : [variants] %}
 
 {# set block background colours here #}
-{% if block is defined and block.sectionBG is defined or sectionBG is defined %}
+{% if block is defined and block['sectionBG'] is defined or sectionBG is defined %}
 	{% set sectionBG = sectionBG ?? block.sectionBG %}
 	{% switch sectionBG %}
 		{% case 'transparent' %}

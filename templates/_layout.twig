@@ -105,6 +105,8 @@
 		{{ scripts.bodyStartScripts|raw }}
 	{% endif %}
 
+	<a href="#main" class="is-active-on-focus absolute z-50 left-0 top-0 m-0 bg-dark p-4 text-white opacity-0 pointer-events-none">Skip to main content</a>
+
 	<div class="flex flex-col min-h-screen">
 
 		{# =============================================================================== #}
@@ -149,7 +151,7 @@
 				<span class="{{ naviconLineClasses }}"></span>
 			</button>
 
-			<div id="js-mobileNav" class="mobile-nav bg-gray-100 transition transform translate-x-full duration-320 ease-out fixed z-30 inset-0 overflow-y-auto" aria-hidden="true">
+			<div id="js-mobileNav" class="mobile-nav bg-gray-100 transition transform translate-x-full ease-out fixed z-30 inset-0 overflow-y-auto" aria-hidden="true">
 
 				<div class="p-8">
 					<ul class="space-y-4">
@@ -190,7 +192,7 @@
 
 		{# =============================================================================== #}
 
-		<main>
+		<main id="main">
 			{{ block('content') }}
 		</main>
 

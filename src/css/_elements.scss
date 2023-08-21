@@ -16,20 +16,19 @@ small,.small{
 // LINKS
 // --------------------------------------------
 
-$linkHover: 0 4px 0 0 theme('colors.accent.DEFAULT');
-$linkTransition: box-shadow .2s linear, color .2s linear;
+$linkHover:0 4px 0 0 theme('colors.accent.DEFAULT');
+$linkTransition:box-shadow .2s linear, color .2s linear;
 
-article p > a:not(.button),article li > a,.default-link,.default-links a{
+article p > a:not([class]),article li > a,.default-link,.default-links a{
 	color:#333;
 	box-shadow:0 4px 0 0 #a4def2;
 	font-weight:theme('_vars.boldWeight');
 	transition:$linkTransition;
 	&:hover{ color:#000;box-shadow:$linkHover }
-	@include fluid(font-size, 20rem, 64rem, 0.75rem, 1rem);
 }
 .standard-link-hover{
 	transition:$linkTransition;
-	&:hover,&:focus{ box-shadow: $linkHover; }
+	&:hover,&:focus{ box-shadow:$linkHover; }
 }
 
 // --------------------------------------------
@@ -71,7 +70,7 @@ ol{ margin-left:1.2em;}
 //bullets
 article ul{ list-style:none; }
 article ul li:before, dt:before{
-	content: "";
+	content:"";
 	width:6px;
 	height:6px;
 	background-color:theme('colors.brand.DEFAULT');
@@ -81,7 +80,7 @@ article ul li:before, dt:before{
 }
 
 article li{padding:0 0 0 2em;}
-article ol li{padding: 0 0 0 1em;}
+article ol li{padding:0 0 0 1em;}
 nav li{padding:0}
 nav li:before{display:none}
 
@@ -90,8 +89,8 @@ nav li:before{display:none}
 // should work. Nullify lobotomised owl approach here as it can't
 // really work...
 article ul ul, article ul ol, article ol ul, article ol ol, article ul > li p{
-	margin-top: 0.75em;
-	margin-bottom: 0.75em;
+	margin-top:0.75em;
+	margin-bottom:0.75em;
 }
 
 // --------------------------------------------
@@ -100,9 +99,9 @@ article ul ul, article ul ol, article ol ul, article ol ol, article ul > li p{
 
 hr {
 	border-color:theme('borderColor.DEFAULT');
-	border-top-width: 1px;
-	margin-top: 3em;
-	margin-bottom: 3em;
+	border-top-width:1px;
+	margin-top:3em;
+	margin-bottom:3em;
 }
 
 // --------------------------------------------
@@ -184,8 +183,8 @@ table {
 }
 table,tbody p{ @include fluid(font-size, 48rem, 80rem, 0.75rem, 1rem); }
 thead {
-	font-weight: 600;
-	border-bottom: 1px solid theme('colors.gray.300');
+	font-weight:600;
+	border-bottom:1px solid theme('colors.gray.300');
 }
 td,th{ padding:.8rem; }
 th{
@@ -194,7 +193,7 @@ th{
 	@include fluid(font-size, 48rem, 80rem, 0.6rem, 0.75rem);
 	background:theme('colors.gray.100');
 }
-tbody tr{ border-bottom: 1px solid theme('colors.gray.200'); }
+tbody tr{ border-bottom:1px solid theme('colors.gray.200'); }
 // overrides for tables on silver
 .bg-gray-100 table{
 	td{ background:#fff; }
@@ -213,7 +212,7 @@ tbody tr{ border-bottom: 1px solid theme('colors.gray.200'); }
 	width:100%;
 	background-color:#fff;
 	padding:12px 10px;
-	border: 1px solid theme('colors.gray.200');
+	border:1px solid theme('colors.gray.200');
 	color:theme('colors.body');
 	@include fluid(font-size, 20rem, 64rem, 1rem, 1.125rem);
 	line-height:1.5;

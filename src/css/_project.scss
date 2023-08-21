@@ -31,3 +31,22 @@
 		transition-timing-function:cubic-bezier(.54,.74,.02,.95);
 	}
 }
+
+// --------------------------------------------
+// SKIP NAV A11Y BUTTON
+// --------------------------------------------
+
+.skip-to-main {
+	position:absolute;
+	left:-9999px;
+	z-index:999;
+	padding:1em;
+	background-color:#2C2E37;
+	color:#fff;
+	opacity:0;
+}
+.skip-to-main:focus {
+	left:50%;
+	transform:translateX(-50%);
+	opacity:1;
+}
