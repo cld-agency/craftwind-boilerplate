@@ -79,7 +79,6 @@ Params:
 - headingOverride
 - variants
 	- jumbo
-	- letterbox
 
 ===================================== #}
 
@@ -100,7 +99,7 @@ Params:
 
 {# ======================================================================= #}
 
-<div class="group block rounded-lg overflow-hidden shadow-lg w-full h-full transition transform hover:-translate-y-1 any-pointer-coarse:!transform-none hover:shadow-xl focus:outline-none focus-visible:ring ring-accent {{ extraCardClasses ?? null }}" style="will-change:transform" {{ cardAttrs is defined ? attr(cardAttrs) }}>
+<div class="group block rounded-lg overflow-hidden shadow-lg w-full h-full transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus-visible:ring ring-accent {{ extraCardClasses ?? null }}" style="will-change:transform" {{ cardAttrs is defined ? attr(cardAttrs) }}>
 	<article class="flex flex-col bg-white shadow-sm min-w-xs w-full h-full" style="will-change:transform">
 
 		{% block cardContent %}
@@ -127,7 +126,7 @@ Params:
 							sizes: '(min-width: 1360px) 389px, (min-width: 1040px) calc(26.67vw + 32px), (min-width: 860px) calc(50vw - 36px), calc(97.04vw - 23px)',
 							useFocalPoint:true,
 							extraImgClasses: 'object-cover h-full w-full',
-							extraPictureClasses: 'letterbox' in variants ? 'aspect-letterbox relative' : 'aspect-16-9 relative'
+							extraPictureClasses: 'aspect-16-9 relative'
 						} only %}
 					{% endif %}
 				{% endif %}
@@ -139,7 +138,7 @@ Params:
 
 			<div class="flex flex-col flex-grow mt-auto {{ cardPadding }} line-height-compensation">
 				{% block cardBody %}
-					<h3 class="{{ _headingStyles }} font-display text-accent js-cardHeading leading-tight flex items-center">
+					<h3 class="{{ _headingStyles }} text-accent leading-tight">
 						{% if url %}
 							<a class="text-accent {{ css.breakoutLink }}" href="{{ url }}">
 								{{ headingOverride is defined ? headingOverride|raw : item.title }}
