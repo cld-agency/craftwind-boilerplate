@@ -70,7 +70,6 @@ D. You can also choose to only override the card header/body/footer separately l
 Params:
 
 - item
-- element
 - img
 - imgIsIcon (bool)
 - url
@@ -78,11 +77,9 @@ Params:
 - cardButtonLabel
 - extraCardClasses
 - headingOverride
-- disableHeading (bool)
 - variants
 	- jumbo
 	- letterbox
-	- showArrowByHeading
 
 ===================================== #}
 
@@ -90,7 +87,6 @@ Params:
 {% set imgIsIcon = imgIsIcon ?? false %}
 {% set useFallbackImg = useFallbackImg ?? false %}
 {% set disableHeading = disableHeading ?? false %}
-{% set element = element ?? 'a' %}
 {% set url = url ?? item.url() %}
 {% set desc = desc ?? item.summary ?? null %}
 {% set variants = variants ?? [] %}
@@ -104,7 +100,7 @@ Params:
 
 {# ======================================================================= #}
 
-<{{ element}} {% if element == 'a' and url %}href="{{ url }}"{% endif %} class="group block rounded-lg overflow-hidden shadow-lg w-full h-full transition transform hover:-translate-y-1 any-pointer-coarse:!transform-none hover:shadow-xl focus:outline-none focus-visible:ring ring-accent {{ extraCardClasses ?? null }}" style="will-change:transform" {{ cardAttrs is defined ? attr(cardAttrs) }}>
+<div class="group block rounded-lg overflow-hidden shadow-lg w-full h-full transition transform hover:-translate-y-1 any-pointer-coarse:!transform-none hover:shadow-xl focus:outline-none focus-visible:ring ring-accent {{ extraCardClasses ?? null }}" style="will-change:transform" {{ cardAttrs is defined ? attr(cardAttrs) }}>
 	<article class="flex flex-col bg-white shadow-sm min-w-xs w-full h-full" style="will-change:transform">
 
 		{% block cardContent %}
@@ -143,14 +139,15 @@ Params:
 
 			<div class="flex flex-col flex-grow mt-auto {{ cardPadding }} line-height-compensation">
 				{% block cardBody %}
-					{% if not disableHeading %}
-						<h3 class="{{ _headingStyles }} text-accent font-display js-cardHeading leading-tight flex items-center">
+					<h3 class="{{ _headingStyles }} font-display text-accent js-cardHeading leading-tight flex items-center">
+						{% if url %}
+							<a class="text-accent {{ css.breakoutLink }}" href="{{ url }}">
+								{{ headingOverride is defined ? headingOverride|raw : item.title }}
+							</a>
+						{% else %}
 							{{ headingOverride is defined ? headingOverride|raw : item.title }}
-							{% if 'showArrowByHeading' in variants %}
-								<svg class="ml-3" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z" fill="currentColor"/></svg>
-							{% endif %}
-						</h3>
-					{% endif %}
+						{% endif %}
+					</h3>
 					{% if desc %}
 						<p class="{{ _paraStyles }} text-body">{{ desc }}</p>
 					{% endif %}
@@ -178,4 +175,4 @@ Params:
 			{% endif %}
 		{% endblock %}
 	</article>
-</{{ element}}>
+</div>
