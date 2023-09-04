@@ -7,6 +7,7 @@ node_modules
 config/license.key
 /storage/*
 !/storage/rebrand/
+!/storage/rebrand/*
 public_html/cpresources/*
 public_html/_assets
 /vendor
