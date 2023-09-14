@@ -51,10 +51,14 @@ Params
 		SVGS & GIFS
 		===================================== #}
 
-		<img src="{{ image['extension'] is defined ? image.url : image }}"
-			alt="{{ alt ?? image.alt ?? '' }}"
-			{% if extraImgClasses is defined %} class="{{ extraImgClasses }}"{% endif %}
-		>
+		<picture{% if extraPictureClasses|length %} class="{{ extraPictureClasses }}"{% endif %}>
+			<img src="{{ image['extension'] is defined ? image.url : image }}"
+			     alt="{{ alt ?? image.alt ?? '' }}"
+			     height="{{ image.height() }}"
+			     width="{{ image.width() }}"
+					{% if extraImgClasses is defined %} class="{{ extraImgClasses }}"{% endif %}
+			>
+		</picture>
 	{% endif %}
 {% else %}
 
