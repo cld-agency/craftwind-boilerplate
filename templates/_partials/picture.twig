@@ -102,7 +102,17 @@ Params
 
 	{% for transform in transforms %}
 		{# only add to the srcset/srcsetWebp arrays if the original image is wide enough #}
-		{% if image.width >= transform.width %}
+		{% if transform.width is defined and transform.height is defined %}
+			{% set pullTheTrigger = image.width >= transform.width and image.height >= transform.height %}
+		{% elseif transform.width is defined %}
+			{% set pullTheTrigger = image.width >= transform.width %}
+		{% elseif transform.height is defined %}
+			{% set pullTheTrigger = image.height >= transform.height %}
+		{% else %}
+			{% set pullTheTrigger = false %}
+		{% endif %}
+
+		{% if pullTheTrigger %}
 			{% set srcset = srcset|merge([image.url(transform) ~ ' ' ~ image.width(transform) ~ 'w']) %}
 			{% set webpTransform = transform|merge({format:'webp'}) %}
 			{% set srcsetWebp = srcsetWebp|merge([image.url(webpTransform) ~ ' ' ~ image.width(webpTransform) ~ 'w']) %}
