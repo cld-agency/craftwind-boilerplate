@@ -32,6 +32,8 @@ Params
 - useCaption {bool} (default false) - output a caption under the image if it exists
 ===================================== #}
 
+{% set useLazyLoading = useLazyLoading ?? true %}
+
 {% if
 	image['extension'] is defined and image.extension == 'svg' or
 	image['extension'] is defined and image.extension == 'gif' or
@@ -56,7 +58,7 @@ Params
 			     alt="{{ alt ?? image.alt ?? '' }}"
 			     height="{{ image.height() }}"
 			     width="{{ image.width() }}"
-					{% if extraImgClasses is defined %} class="{{ extraImgClasses }}"{% endif %}
+					{% if extraImgClasses is defined %} class="{{ extraImgClasses }} {{ useLazyLoading ? 'js-lazyload' }}"{% endif %}
 			>
 		</picture>
 	{% endif %}
@@ -67,7 +69,6 @@ Params
 	===================================== #}
 
 	{% set extraPictureClasses = extraPictureClasses ?? null %}
-	{% set useLazyLoading = useLazyLoading ?? true %}
 	{% set useRatioBox = useRatioBox ?? false %}
 	{% set useFocalPoint = useFocalPoint ?? false %}
 	{% set useCaption = useCaption ?? false %}
