@@ -100,9 +100,12 @@ Params
 	{% set srcsetWebp = [] %}
 
 	{% for transform in transforms %}
-		{% set srcset = srcset|merge([image.url(transform) ~ ' ' ~ image.width(transform) ~ 'w']) %}
-		{% set webpTransform = transform|merge({format:'webp'}) %}
-		{% set srcsetWebp = srcsetWebp|merge([image.url(webpTransform) ~ ' ' ~ image.width(webpTransform) ~ 'w']) %}
+		{# only add to the srcset/srcsetWebp arrays if the original image is wide enough #}
+		{% if image.width >= transform.width %}
+			{% set srcset = srcset|merge([image.url(transform) ~ ' ' ~ image.width(transform) ~ 'w']) %}
+			{% set webpTransform = transform|merge({format:'webp'}) %}
+			{% set srcsetWebp = srcsetWebp|merge([image.url(webpTransform) ~ ' ' ~ image.width(webpTransform) ~ 'w']) %}
+		{% endif %}
 	{% endfor %}
 
 	{# ==================================
