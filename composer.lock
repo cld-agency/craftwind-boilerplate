@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ec69635f147642058b695d5c977b12e",
+    "content-hash": "7cebf73e5fc4c03be70741d7aac7857b",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -490,36 +490,56 @@
             "time": "2022-02-25T21:32:43+00:00"
         },
         {
-            "name": "container-interop/container-interop",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/container-interop/container-interop.git",
-                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e"
-            },
+            "name": "craftcms/ckeditor",
+            "version": "3.8.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/container-interop/container-interop/zipball/fc08354828f8fd3245f77a66b9e23a6bca48297e",
-                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e",
+                "url": "https://api.github.com/repos/craftcms/ckeditor/zipball/0fcc9b06296d46ea3299293fcaff8462a72975f1",
+                "reference": "0fcc9b06296d46ea3299293fcaff8462a72975f1",
                 "shasum": ""
             },
-            "type": "library",
+            "require": {
+                "craftcms/cms": "^4.5.0-beta.2",
+                "craftcms/html-field": "^2.0.0-alpha.2",
+                "nystudio107/craft-code-editor": ">=1.0.8 <=1.0.13 || ^1.0.16",
+                "php": "^8.0.2"
+            },
+            "type": "craft-plugin",
+            "extra": {
+                "name": "CKEditor",
+                "handle": "ckeditor",
+                "documentationUrl": "https://github.com/craftcms/ckeditor/blob/master/README.md"
+            },
             "autoload": {
                 "psr-4": {
-                    "Interop\\Container\\": "src/Interop/Container/"
+                    "craft\\ckeditor\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "GPL-3.0-or-later"
             ],
-            "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
+            "authors": [
+                {
+                    "name": "Pixel & Tonic",
+                    "homepage": "https://pixelandtonic.com/"
+                }
+            ],
+            "description": "Edit rich text content in Craft CMS using CKEditor.",
+            "keywords": [
+                "ckeditor",
+                "cms",
+                "craftcms",
+                "html",
+                "yii2"
+            ],
             "support": {
-                "issues": "https://github.com/container-interop/container-interop/issues",
-                "source": "https://github.com/container-interop/container-interop/tree/master"
+                "email": "support@craftcms.com",
+                "issues": "https://github.com/craftcms/ckeditor/issues?state=open",
+                "source": "https://github.com/craftcms/ckeditor",
+                "docs": "https://github.com/craftcms/ckeditor/blob/master/README.md",
+                "rss": "https://github.com/craftcms/ckeditor/commits/master.atom"
             },
-            "abandoned": "psr/container",
-            "time": "2014-12-30T15:22:37+00:00"
+            "time": "2024-02-21T19:26:46+00:00"
         },
         {
             "name": "craftcms/cms",
@@ -619,26 +639,15 @@
         },
         {
             "name": "craftcms/html-field",
-            "version": "2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/craftcms/html-field.git",
-                "reference": "a969a86e9b6d156b40f558ec57a1ff4543389ae8"
-            },
+            "version": "2.0.8",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/html-field/zipball/a969a86e9b6d156b40f558ec57a1ff4543389ae8",
-                "reference": "a969a86e9b6d156b40f558ec57a1ff4543389ae8",
+                "url": "https://api.github.com/repos/craftcms/html-field/zipball/4797c9cb0397e6d69d25d9716a75f7b47c69fd3a",
+                "reference": "4797c9cb0397e6d69d25d9716a75f7b47c69fd3a",
                 "shasum": ""
             },
             "require": {
-                "craftcms/cms": "^4.0.0-alpha.1",
                 "php": "^8.0.2"
-            },
-            "require-dev": {
-                "craftcms/ecs": "dev-main",
-                "craftcms/phpstan": "dev-main",
-                "craftcms/rector": "dev-main"
             },
             "type": "library",
             "autoload": {
@@ -646,7 +655,6 @@
                     "craft\\htmlfield\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -658,13 +666,13 @@
             ],
             "description": "Base class for Craft CMS field types with HTML values.",
             "support": {
-                "docs": "https://github.com/craftcms/html-field/blob/main/README.md",
                 "email": "support@craftcms.com",
                 "issues": "https://github.com/craftcms/html-field/issues?state=open",
-                "rss": "https://github.com/craftcms/html-field/commits/main.atom",
-                "source": "https://github.com/craftcms/html-field"
+                "source": "https://github.com/craftcms/html-field",
+                "docs": "https://github.com/craftcms/html-field/blob/main/README.md",
+                "rss": "https://github.com/craftcms/html-field/commits/main.atom"
             },
-            "time": "2022-06-29T11:33:11+00:00"
+            "time": "2023-09-17T11:24:51+00:00"
         },
         {
             "name": "craftcms/plugin-installer",
@@ -1619,11 +1627,6 @@
         {
             "name": "intervention/httpauth",
             "version": "3.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Intervention/httpauth.git",
-                "reference": "7742aa013e1a72f94379cb6623286f06fa1ea5f7"
-            },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Intervention/httpauth/zipball/7742aa013e1a72f94379cb6623286f06fa1ea5f7",
@@ -1632,10 +1635,6 @@
             },
             "require": {
                 "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.12.11",
-                "phpunit/phpunit": "^9.0"
             },
             "type": "library",
             "extra": {
@@ -1653,7 +1652,6 @@
                     "Intervention\\HttpAuth\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1671,10 +1669,6 @@
                 "http",
                 "laravel"
             ],
-            "support": {
-                "issues": "https://github.com/Intervention/httpauth/issues",
-                "source": "https://github.com/Intervention/httpauth/tree/3.0.3"
-            },
             "time": "2021-01-22T15:08:35+00:00"
         },
         {
@@ -1735,19 +1729,11 @@
         {
             "name": "marcusschwarz/lesserphp",
             "version": "v0.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/MarcusSchwarz/lesserphp.git",
-                "reference": "77ba82b5218ff228267d3b0e5ec8697be75e86a7"
-            },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/MarcusSchwarz/lesserphp/zipball/77ba82b5218ff228267d3b0e5ec8697be75e86a7",
                 "reference": "77ba82b5218ff228267d3b0e5ec8697be75e86a7",
                 "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=4.8.35 <8"
             },
             "bin": [
                 "plessc"
@@ -1763,7 +1749,6 @@
                     "lessc.inc.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT",
                 "GPL-3.0"
@@ -1782,10 +1767,6 @@
             ],
             "description": "lesserphp is a compiler for LESS written in PHP based on leafo's lessphp.",
             "homepage": "http://leafo.net/lessphp/",
-            "support": {
-                "issues": "https://github.com/MarcusSchwarz/lesserphp/issues",
-                "source": "https://github.com/MarcusSchwarz/lesserphp/tree/v0.5.5"
-            },
             "time": "2021-03-10T17:56:57+00:00"
         },
         {
@@ -2070,24 +2051,16 @@
         },
         {
             "name": "mrclay/jsmin-php",
-            "version": "2.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mrclay/jsmin-php.git",
-                "reference": "208e4122f8a273314e81c6b3bee897b5f3c1dc70"
-            },
+            "version": "2.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrclay/jsmin-php/zipball/208e4122f8a273314e81c6b3bee897b5f3c1dc70",
-                "reference": "208e4122f8a273314e81c6b3bee897b5f3c1dc70",
+                "url": "https://api.github.com/repos/mrclay/jsmin-php/zipball/49feaa85933458c15bb62ae65644bf22d60b7610",
+                "reference": "49feaa85933458c15bb62ae65644bf22d60b7610",
                 "shasum": ""
             },
             "require": {
                 "ext-pcre": "*",
                 "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.2"
             },
             "type": "library",
             "autoload": {
@@ -2095,7 +2068,6 @@
                     "JSMin\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2118,43 +2090,26 @@
                 "jsmin",
                 "minify"
             ],
-            "support": {
-                "email": "minify@googlegroups.com",
-                "issues": "https://github.com/mrclay/jsmin-php/issues",
-                "source": "https://github.com/mrclay/jsmin-php/tree/2.4.1"
-            },
-            "time": "2022-03-26T14:41:59+00:00"
+            "time": "2022-12-13T20:15:15+00:00"
         },
         {
             "name": "mrclay/minify",
-            "version": "3.0.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mrclay/minify.git",
-                "reference": "1962d3614c7ee1795a9fb74e49e603646b34207d"
-            },
+            "version": "3.0.14",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrclay/minify/zipball/1962d3614c7ee1795a9fb74e49e603646b34207d",
-                "reference": "1962d3614c7ee1795a9fb74e49e603646b34207d",
+                "url": "https://api.github.com/repos/mrclay/minify/zipball/dc02cdfba70737828c947fde33bc3f8235a742f5",
+                "reference": "dc02cdfba70737828c947fde33bc3f8235a742f5",
                 "shasum": ""
             },
             "require": {
                 "ext-pcre": "*",
                 "intervention/httpauth": "^2.0|^3.0",
-                "marcusschwarz/lesserphp": "^0.5.1",
-                "monolog/monolog": "~1.1|~2.0",
+                "marcusschwarz/lesserphp": "^0.5.5",
+                "monolog/monolog": "~1.1|~2.0|~3.0",
                 "mrclay/jsmin-php": "~2",
                 "mrclay/props-dic": "^2.2|^3.0",
                 "php": "^5.3.0 || ^7.0 || ^8.0",
                 "tubalmartin/cssmin": "~4"
-            },
-            "require-dev": {
-                "firephp/firephp-core": "~0.4.0",
-                "leafo/scssphp": "^0.3 || ^0.6 || ^0.7",
-                "meenie/javascript-packer": "~1.1",
-                "phpunit/phpunit": "^4.8.36",
-                "tedivm/jshrink": "~1.1.0"
             },
             "suggest": {
                 "firephp/firephp-core": "Use FirePHP for Log messages",
@@ -2171,7 +2126,6 @@
                     "lib/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2184,46 +2138,30 @@
             ],
             "description": "Minify is a PHP app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
             "homepage": "https://github.com/mrclay/minify",
-            "support": {
-                "email": "minify@googlegroups.com",
-                "issues": "https://github.com/mrclay/minify/issues",
-                "source": "https://github.com/mrclay/minify/tree/3.0.12",
-                "wiki": "https://github.com/mrclay/minify/blob/master/docs"
-            },
-            "time": "2022-05-14T11:11:27+00:00"
+            "time": "2023-05-05T12:03:06+00:00"
         },
         {
             "name": "mrclay/props-dic",
-            "version": "2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mrclay/Props.git",
-                "reference": "9ed6cf3a027f1eab03abdd134ec209467cf9c77e"
-            },
+            "version": "3.0.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrclay/Props/zipball/9ed6cf3a027f1eab03abdd134ec209467cf9c77e",
-                "reference": "9ed6cf3a027f1eab03abdd134ec209467cf9c77e",
+                "url": "https://api.github.com/repos/mrclay/Props/zipball/63fae3035770feee1836f57c7dd52c0a9b7e5b4d",
+                "reference": "63fae3035770feee1836f57c7dd52c0a9b7e5b4d",
                 "shasum": ""
             },
             "require": {
-                "container-interop/container-interop": "^1.1",
                 "php": ">=5.3.3",
-                "pimple/pimple": "~3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.8"
+                "pimple/pimple": "~3.0",
+                "psr/container": "^1.0|^2.0"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "Props\\": [
-                        "src/",
-                        "test/"
+                        "src/"
                     ]
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2242,28 +2180,65 @@
                 "di",
                 "di container"
             ],
-            "support": {
-                "issues": "https://github.com/mrclay/Props/issues",
-                "source": "https://github.com/mrclay/Props/tree/master"
-            },
-            "time": "2016-02-10T18:59:20+00:00"
+            "time": "2023-02-13T07:32:41+00:00"
         },
         {
-            "name": "nystudio107/craft-minify",
-            "version": "4.0.0-beta.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nystudio107/craft-minify.git",
-                "reference": "8ed542b3b67a52893c36814934e59914487da26a"
-            },
+            "name": "nystudio107/craft-code-editor",
+            "version": "1.0.17",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nystudio107/craft-minify/zipball/8ed542b3b67a52893c36814934e59914487da26a",
-                "reference": "8ed542b3b67a52893c36814934e59914487da26a",
+                "url": "https://api.github.com/repos/nystudio107/craft-code-editor/zipball/d2d9c8706fc1a6f40253fc78762101ce9b5ac386",
+                "reference": "d2d9c8706fc1a6f40253fc78762101ce9b5ac386",
                 "shasum": ""
             },
             "require": {
-                "craftcms/cms": "^4.0.0-alpha",
+                "craftcms/cms": "^3.0.0 || ^4.0.0 || ^5.0.0-alpha.1",
+                "phpdocumentor/reflection-docblock": "^5.0.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "nystudio107\\codeeditor\\CodeEditor"
+            },
+            "autoload": {
+                "psr-4": {
+                    "nystudio107\\codeeditor\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "nystudio107",
+                    "homepage": "https://nystudio107.com"
+                }
+            ],
+            "description": "Provides a code editor field with Twig & Craft API autocomplete",
+            "keywords": [
+                "Craft",
+                "Monaco",
+                "cms",
+                "code",
+                "craftcms",
+                "css",
+                "editor",
+                "javascript",
+                "markdown",
+                "twig"
+            ],
+            "time": "2024-01-30T03:18:54+00:00"
+        },
+        {
+            "name": "nystudio107/craft-minify",
+            "version": "4.0.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nystudio107/craft-minify/zipball/e3291ffbcc8fa53461663ed0d79c0a9d21d9fdd6",
+                "reference": "e3291ffbcc8fa53461663ed0d79c0a9d21d9fdd6",
+                "shasum": ""
+            },
+            "require": {
+                "craftcms/cms": "^4.0.0",
                 "mrclay/minify": "^3.0.10"
             },
             "type": "craft-plugin",
@@ -2277,7 +2252,6 @@
                     "nystudio107\\minify\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2289,8 +2263,8 @@
             ],
             "description": "A simple plugin that allows you to minify blocks of HTML, CSS, and JS inline in Craft CMS templates.",
             "keywords": [
-                "Craft",
                 "cms",
+                "craft",
                 "craft-plugin",
                 "craftcms",
                 "minify"
@@ -2300,13 +2274,7 @@
                 "issues": "https://nystudio107.com/plugins/minify/support",
                 "source": "https://github.com/nystudio107/craft-minify"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/khalwat",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-03-09T03:37:27+00:00"
+            "time": "2024-02-11T00:11:36+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2571,11 +2539,6 @@
         {
             "name": "pimple/pimple",
             "version": "v3.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/silexphp/Pimple.git",
-                "reference": "a94b3a4db7fb774b3d78dad2315ddc07629e1bed"
-            },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/silexphp/Pimple/zipball/a94b3a4db7fb774b3d78dad2315ddc07629e1bed",
@@ -2585,9 +2548,6 @@
             "require": {
                 "php": ">=7.2.5",
                 "psr/container": "^1.1 || ^2.0"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "^5.4@dev"
             },
             "type": "library",
             "extra": {
@@ -2600,7 +2560,6 @@
                     "Pimple": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2616,9 +2575,6 @@
                 "container",
                 "dependency injection"
             ],
-            "support": {
-                "source": "https://github.com/silexphp/Pimple/tree/v3.5.0"
-            },
             "time": "2021-10-28T11:13:42+00:00"
         },
         {
@@ -4600,11 +4556,6 @@
         {
             "name": "tubalmartin/cssmin",
             "version": "v4.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port.git",
-                "reference": "3cbf557f4079d83a06f9c3ff9b957c022d7805cf"
-            },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/tubalmartin/YUI-CSS-compressor-PHP-port/zipball/3cbf557f4079d83a06f9c3ff9b957c022d7805cf",
@@ -4615,10 +4566,6 @@
                 "ext-pcre": "*",
                 "php": ">=5.3.2"
             },
-            "require-dev": {
-                "cogpowered/finediff": "0.3.*",
-                "phpunit/phpunit": "4.8.*"
-            },
             "bin": [
                 "cssmin"
             ],
@@ -4628,7 +4575,6 @@
                     "tubalmartin\\CssMin\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -4648,10 +4594,6 @@
                 "minify",
                 "yui"
             ],
-            "support": {
-                "issues": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port/issues",
-                "source": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port"
-            },
             "time": "2018-01-15T15:26:51+00:00"
         },
         {
@@ -5780,9 +5722,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "nystudio107/craft-minify": 10
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
@@ -5790,5 +5730,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.6.0"
 }

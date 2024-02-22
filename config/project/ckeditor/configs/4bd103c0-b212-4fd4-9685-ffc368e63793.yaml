@@ -1,0 +1,16 @@
+headingLevels:
+  - 2
+  - 3
+  - 4
+name: Default
+toolbar:
+  - heading
+  - '|'
+  - bold
+  - italic
+  - blockQuote
+  - superscript
+  - bulletedList
+  - numberedList
+  - horizontalLine
+  - link
