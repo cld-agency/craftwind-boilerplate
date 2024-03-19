@@ -2,7 +2,6 @@
   "require": {
     "craftcms/ckeditor": "3.8.0",
     "craftcms/cms": "4.7.3",
-    "craftcms/redactor": "3.0.0",
     "misterbk/mix": "1.6.0",
     "mmikkel/cp-field-inspect": "1.4.4",
     "nystudio107/craft-minify": "4.0.1",
