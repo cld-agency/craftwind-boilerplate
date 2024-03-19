@@ -34,13 +34,14 @@ Examples:
 
 {% set element = element ?? 'section' %}
 {% set attrs = attrs ?? null %}
-{% set classes = classes ?? ['bg-cover'] %}
+{% set classes = classes ?? [] %}
 {% set variants = variants ?? [] %}
 {# if we were passed a string, let's convert it to an array (so we can reliably merge() later) #}
 {% set classes = classes is iterable ? classes : [classes] %}
 {% set variants = variants is iterable ? variants : [variants] %}
 
-{# set block background colours here #}
+{# set block background colours here. If you add/modify these, be sure to edit the
+consecutive section collapser functionality at the top of project.scss. #}
 {% if block is defined and block['sectionBG'] is defined or sectionBG is defined %}
 	{% set sectionBG = sectionBG ?? block.sectionBG %}
 	{% switch sectionBG %}
@@ -88,18 +89,11 @@ Examples:
 	{% set squeezeClass = 'max-w-screen-xl' %}
 {% endif %}
 
-{# is there a bg img? #}
-{% set bgImg = null %}
-
-{% if block is defined and block['sectionBGImg'] is defined and block.sectionBGImg|length  %}
-	{% set bgImg = block.sectionBGImg.one().url(transforms.heroBanner) %}
-{% endif %}
-
 {# ======================================================================= #}
 
-<{{ element }} class="relative {{ classes|join(' ') }}" {{ attrs ? attr(attrs) }} {% if bgImg %}style="background-image:url({{ bgImg }})"{% endif %}>
+<{{ element }} class="relative {{ classes|join(' ') }}" {{ attrs ? attr(attrs) }}>
 	{{ block('before') ?? null }}
-	<div class="{{ squeezeClass }} {{ 'withBrandBG' in variants ? 'relative' }} mx-auto px-4 sm:px-6 lg:px-8">
+	<div class="{{ squeezeClass }} mx-auto px-4 sm:px-6 lg:px-8">
 		{{ block('content') ?? null }}
 	</div>
 	{{ block('after') ?? null }}
