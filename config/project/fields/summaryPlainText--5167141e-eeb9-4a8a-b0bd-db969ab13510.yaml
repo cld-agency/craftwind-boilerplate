@@ -1,17 +1,17 @@
-columnSuffix: null
+columnSuffix: xlpimsrw
 contentColumnType: text
 fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
-handle: bodyStartScripts
-instructions: 'Anything you add here will be added to the start of the <body> tag on every page.'
-name: 'Body start scripts'
-searchable: false
+handle: summaryPlainText
+instructions: null
+name: Summary
+searchable: true
 settings:
   byteLimit: null
   charLimit: null
-  code: true
+  code: false
   columnType: null
-  initialRows: 8
-  multiline: true
+  initialRows: 4
+  multiline: false
   placeholder: null
   uiMode: normal
 translationKeyFormat: null

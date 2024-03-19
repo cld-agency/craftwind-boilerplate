@@ -1,0 +1,15 @@
+defaultPlacement: end
+enableVersioning: true
+handle: scripts
+name: Scripts
+propagationMethod: all
+siteSettings:
+  27fd5441-8230-4f21-8d4c-ae215e7076df: # Boilerplate
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: 1
+  uid: a34b11f3-45d2-42d7-8b77-734c97116692
+type: structure

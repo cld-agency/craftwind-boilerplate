@@ -1,0 +1,18 @@
+{% if craft.app.request.param('types')|length %}
+	{% set typeCats = craft.categories.group('cookieTypes').slug(craft.app.request.param('types')|split('|')).ids() %}
+	{% if typeCats|length %}
+		{% set scripts = craft.entries.section('scripts').cookieType(typeCats).all() %}
+		{% if scripts|length %}
+			<html lang="en">
+				<body>
+					{% for script in scripts %}
+						{{ script.script|raw }}
+					{% endfor %}
+				</body>
+			</html>
+		{% endif %}
+	{% endif %}
+{% else %}
+	{% redirect 404 %}
+{% endif %}
+

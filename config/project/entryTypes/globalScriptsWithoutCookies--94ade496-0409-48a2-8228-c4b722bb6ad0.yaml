@@ -1,0 +1,91 @@
+fieldLayouts:
+  c37af111-ad9b-4dad-969c-d3a93130e79b:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            dismissible: true
+            elementCondition: null
+            style: tip
+            tip: 'Scripts added using this Entry Type will be output for _all_ users on all pages, regardless of their chosen consent categories. Be sure not to add any script that sets cookies or performs any other kind of tracking here. Scripts added here will obviously not appear in your cookie policy table (because they do not set cookies!).'
+            type: craft\fieldlayoutelements\Tip
+            uid: eab7d68e-58d6-4218-ace9-365942aa28e1
+            userCondition: null
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 6ddf6921-4d99-4e72-b6e9-aabf78d11392
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 93f4db62-4e9e-46d9-aa94-e561f7360bb7 # Head scripts
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f594d606-adb6-4412-91e3-fa1971018a58
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 98b26e91-5911-4ff0-a800-b711b72e563c # Body start scripts
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d2f0a590-5f87-4d7b-92f1-7ee9a5838a34
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 7fc052f5-ca32-4ff6-aa15-69c9f63ac859 # Body end scripts
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 45306563-b8b8-4b47-83fc-553a56de3a14
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: e4ddb920-5f0f-4987-b88a-b9cf8b91ddbf
+        userCondition: null
+handle: globalScriptsWithoutCookies
+hasTitleField: true
+name: 'Global scripts without cookies'
+section: ffd2bbfd-6f01-4375-bdc6-1936c61409ed # Scripts
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+sortOrder: 2
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

@@ -1,12 +1,33 @@
+{% minify %}
+
 {% set css = {
 	navLink: 'uppercase group inline-flex items-center text-center font-semibold tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
 	navLinkOnLight: 'block uppercase text-base font-semibold tracking-widest leading-6',
 	breakoutLink: "!static content-[''] before:block before:absolute before:inset-0 before:cursor-pointer"
 } %}
 
+{# fetch any scripts marked as essential, or any cookieless ones from the globalScriptsWithoutCookies entry type #}
+{% set essentialTypeId = craft.categories.group('cookieTypes').slug('essential').ids() %}
+{% set scriptsToLoadUpfront = craft.entries.section('scripts')
+	.with(['cookieType'])
+	.all()|filter(script =>
+	(script.cookieType[0] is defined and essentialTypeId[0] is defined and script.cookieType[0].id == essentialTypeId[0]) or
+	(script.type == 'globalScriptsWithoutCookies')
+) %}
+{# filter that lot into 3 different groups for head/body-start/body-end #}
+{% set scriptsToLoadUpfrontAtHead = scriptsToLoadUpfront|filter(script =>
+	(script.type == 'globalScriptsWithoutCookies' and script.headScripts|length)
+) %}
+{% set scriptsToLoadUpfrontAtBodyStart = scriptsToLoadUpfront|filter(script =>
+	(script.type == 'globalScriptsWithoutCookies' and script.bodyStartScripts|length)
+) %}
+{% set scriptsToLoadUpfrontAtBodyEnd = scriptsToLoadUpfront|filter(script =>
+	(script.cookieType[0] is defined and script.cookieType[0].id == essentialTypeId[0]) or
+	(script.type == 'globalScriptsWithoutCookies' and script.bodyEndScripts|length)
+) %}
+
 {# =============================================================================== #}
 
-{% minify %}
 <!doctype html>
 <html prefix="og: https://ogp.me/ns#" class="no-js antialiased font-sans text-body" lang="en">
 <head>
@@ -89,8 +110,11 @@
 		{% endfor %}
 	{% endif %}
 
-	{% if not craft.app.request.isPreview and craft.app.config.env == 'live' %}
-		{{ scripts.headScripts|raw }}
+	{# load any cookieless scripts (head) from the globalScriptsWithoutCookies entry type #}
+	{% if scriptsToLoadUpfrontAtHead|length %}
+		{% for script in scriptsToLoadUpfrontAtHead %}
+			{{ script.headScripts|raw }}
+		{% endfor %}
 	{% endif %}
 
 	{{ head() }}
@@ -102,8 +126,11 @@
 
 	{{ beginBody() }}
 
-	{% if not craft.app.request.isPreview and craft.app.config.env == 'live' %}
-		{{ scripts.bodyStartScripts|raw }}
+	{# load any cookieless scripts (body-start) from the globalScriptsWithoutCookies entry type #}
+	{% if scriptsToLoadUpfrontAtBodyStart|length %}
+		{% for script in scriptsToLoadUpfrontAtHead %}
+			{{ script.bodyStartScripts|raw }}
+		{% endfor %}
 	{% endif %}
 
 	<a href="#main" class="is-active-on-focus absolute z-50 left-0 top-0 m-0 bg-dark p-4 text-white opacity-0 pointer-events-none">Skip to main content</a>
@@ -212,12 +239,27 @@
 
 	</div>
 
-	{# =============================================================================== #}
+	{# ==================================
+	COOKIE CONSENT & SITE SCRIPTS
+	===================================== #}
+
+	{% set cookieCatsInUse = craft.categories.group('cookieTypes').relatedTo(craft.entries.section('scripts').ids()).all() %}
+
+	{% if cookieCatsInUse %}
+		{% include '_partials/cookieConsent.twig' %}
+		<script src="/assets/js/postscribe.min.js"></script>
+	{% endif %}
 
 	<script src="{{ siteUrl|trim('/', 'right') }}{{ mix('js/main.js') }}"></script>
 
-	{% if not craft.app.request.isPreview and craft.app.config.env == 'live' %}
-		{{ scripts.bodyEndScripts|raw }}
+	{# load any scripts marked as essential, or any cookieless ones from the globalScriptsWithoutCookies entry type #}
+	{% if scriptsToLoadUpfrontAtBodyEnd|length %}
+		<div id="js-scriptsHolder" style="position:absolute;bottom:0;z-index:-1">
+			{% for script in scriptsToLoadUpfrontAtBodyEnd %}
+				{{ script.script|raw }}
+				{{ script.bodyEndScripts|raw }}
+			{% endfor %}
+		</div>
 	{% endif %}
 
 	{{ endBody() }}

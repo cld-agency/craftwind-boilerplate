@@ -1,4 +1,4 @@
-dateModified: 1708611377
+dateModified: 1710863485
 email:
   fromEmail: $SYSTEM_EMAIL
   fromName: $SYSTEM_NAME
@@ -32,13 +32,16 @@ meta:
     4d75c350-59e2-4ecc-b469-bb97f6ff276d: 'Section background colour' # Section background colour
     5b558113-9756-4bc6-98e9-97d78f191097: Matrix # Matrix
     5beb9697-853c-400d-825c-5dc6e8f9707e: 'No index' # No index
+    5f3c0617-ce2b-446f-a3ae-af263602d228: 'Global scripts with consentable or essential cookies' # Global scripts with consentable or essential cookies
     7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
     7fc052f5-ca32-4ff6-aa15-69c9f63ac859: 'Body end scripts' # Body end scripts
     9ba80f98-3521-4d95-8103-833cc54f9074: 'Twitter card' # Twitter card
     27fd5441-8230-4f21-8d4c-ae215e7076df: Boilerplate # Boilerplate
+    33b44401-118b-4a32-a630-4002586fb7a4: 'Cookie durations' # Cookie durations
     49e4be6b-31e8-4637-970f-72b746d0dd07: 'OG title override' # OG title override
     64ddacfa-0b2f-4cbc-a78c-b249a5c4621d: Text # Text
     93f4db62-4e9e-46d9-aa94-e561f7360bb7: 'Head scripts' # Head scripts
+    94ade496-0409-48a2-8228-c4b722bb6ad0: 'Global scripts without cookies' # Global scripts without cookies
     096e0833-599f-412d-96d1-e509f94c841e: 'Twitter creator' # Twitter creator
     98b26e91-5911-4ff0-a800-b711b72e563c: 'Body start scripts' # Body start scripts
     199e8ad4-4cc4-4407-b01f-23fbb2b30ac3: 'Listing pages' # Listing pages
@@ -48,19 +51,25 @@ meta:
     55409bef-f02b-43a6-87ba-6645890db160: 'Meta description' # Meta description
     75347aed-7cd3-4a88-a475-d94c64fff91b: 'OG type' # OG type
     93911dec-d597-4048-be70-3822341db5c8: 'OG image' # OG image
+    852616a3-f316-44d8-8654-2e748fd2fa02: 'Cookie types' # Cookie types
+    5167141e-eeb9-4a8a-b0bd-db969ab13510: Summary # Summary
     56716528-cd41-42c1-894c-9b5ee770b2ea: 'List entries from...' # List entries from...
+    a1463d28-087e-4d16-b583-08eaf19365b1: Body # Body
     aa0046e8-dcfd-4652-99b7-1234f595bfd5: Facebook # Facebook
     ab8a0a53-54af-4c10-90ea-d34258125fae: 'Linked In' # Linked In
     ac776189-eb45-4663-a943-42e6263a2928: 'OG description' # OG description
     b51c3bf7-bd4c-46f9-92d5-c548637e190a: Images # Images
     b99e46fe-a420-4fd0-abfc-8eb0989ea429: Boilerplate # Boilerplate
     c073d458-3743-4e75-acc2-84b4e3337f8f: SEO # SEO
+    cbac532f-c0ed-484c-9ba5-c39c664cfab9: Script # Script
     d6de9704-4f2d-488c-b526-7edee9635399: Scripts # Scripts
-    e525d53f-7298-43c3-8dca-edf8cfd1f8b2: Common # Common
+    ddf4f8a7-b482-4862-aac0-10e840fa7fa7: 'Cookie type' # Cookie type
+    e525d53f-7298-43c3-8dca-edf8cfd1f8b2: _ungrouped # _ungrouped
     ec768514-1ace-48d1-a39f-63b17f6e1fc6: 'Public Schema' # Public Schema
     ee12cfc1-e007-4254-bc36-f5ff21ea00bd: Body # Body
     f2d836d8-5576-4f7d-97a7-3cbe6aa415e7: 'Twitter username' # Twitter username
     fafbc7c6-c05b-4945-8db7-72ae3d199156: Downloads # Downloads
+    ffd2bbfd-6f01-4375-bdc6-1936c61409ed: Scripts # Scripts
 plugins:
   ckeditor:
     edition: standard

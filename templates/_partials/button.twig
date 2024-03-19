@@ -32,10 +32,8 @@ Example:
 COLOUR
 ===================================== #}
 
-{% set _buttonColor = 'secondary' in variants ?
-	'bg-dark' :
-	'bg-brand text-white'
-%}
+{% set _buttonColor = 'bg-brand text-white hover:text-white hover:bg-brand-highlight focus:bg-brand-highlight' %}
+{% set _buttonColor = 'secondary' in variants ? 'bg-dark text-white hover:text-white' : _buttonColor %}
 
 {# ==================================
 SIZE
@@ -87,4 +85,3 @@ STITCH EVERYTHING TOGETHER...
 		{{ label }}
 	{% endif %}
 </{{ element }}>
-

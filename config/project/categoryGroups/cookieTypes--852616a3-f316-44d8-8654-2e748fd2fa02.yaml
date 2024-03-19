@@ -1,0 +1,59 @@
+defaultPlacement: end
+fieldLayouts:
+  b0d4d9a0-2a9f-454d-9336-8bbc930ec2fc:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\TitleField
+            uid: 027b0425-55a7-4175-9c31-bad8bb9bb63b
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 5167141e-eeb9-4a8a-b0bd-db969ab13510 # Summary
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 32b60765-c42d-4d0f-9918-b7368f1c4aa0
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: dc09b797-9998-45dc-aadd-3f642bd1ed23
+        userCondition: null
+handle: cookieTypes
+name: 'Cookie types'
+siteSettings:
+  27fd5441-8230-4f21-8d4c-ae215e7076df: # Boilerplate
+    hasUrls: false
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: null
+  uid: 75f5fd25-d7a2-4631-88ad-286dc87449ef

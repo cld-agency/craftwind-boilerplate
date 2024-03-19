@@ -1,6 +1,6 @@
 columnSuffix: null
 contentColumnType: text
-fieldGroup: 2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1 # Globals
+fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
 handle: headScripts
 instructions: 'Anything you add here will be added to the global document <head> section. Wherever possible, put scripts in the body-end section instead, as anything added here will block the rendering of the site until all the extra assets have been downloaded and executed.'
 name: 'Head scripts'

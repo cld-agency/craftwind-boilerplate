@@ -1,0 +1,111 @@
+fieldLayouts:
+  50c4a011-ab98-40b8-998e-13f9de0bc050:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            dismissible: true
+            elementCondition: null
+            style: tip
+            tip: 'Scripts injected via this entry type will get output asynchronously after the page has loaded according to the visitor''s consent preferences, unless they are categorised as "Essential", in which case they''ll get output synchronously at the end of the body tag.'
+            type: craft\fieldlayoutelements\Tip
+            uid: ab3dbb3a-9d6b-4824-860c-4ed7aac42943
+            userCondition: null
+          -
+            dismissible: true
+            elementCondition: null
+            style: warning
+            tip: 'Please do not use Google Tag Manager to inject any scripts - they must be added here instead, otherwise we can''t load the right ones at the right times according to the user''s selections.'
+            type: craft\fieldlayoutelements\Tip
+            uid: 1e5b3c03-9159-4e39-b20d-bb5cda5553a9
+            userCondition: null
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: ac7acfa3-444a-4b34-a0a5-35226c810d4f
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: cbac532f-c0ed-484c-9ba5-c39c664cfab9 # Script
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3fec0627-b8f6-43fb-a71f-9b021239795c
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: ddf4f8a7-b482-4862-aac0-10e840fa7fa7 # Cookie type
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f2fc93f7-7b65-433a-a625-18fd60d66801
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 33b44401-118b-4a32-a630-4002586fb7a4 # Cookie durations
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8207c870-b0f4-4903-9aa4-d3a477dbd185
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: a1463d28-087e-4d16-b583-08eaf19365b1 # Body
+            instructions: null
+            label: 'Script/cookie description'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 81a29739-0f66-4caa-9c9e-a51dd1aa3ccc
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 716363fd-4dd8-4bae-91b7-2acd6991af4e
+        userCondition: null
+handle: default
+hasTitleField: true
+name: 'Global scripts with consentable or essential cookies'
+section: ffd2bbfd-6f01-4375-bdc6-1936c61409ed # Scripts
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

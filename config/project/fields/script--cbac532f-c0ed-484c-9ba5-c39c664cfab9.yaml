@@ -1,16 +1,16 @@
-columnSuffix: null
+columnSuffix: ltoedfbo
 contentColumnType: text
 fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
-handle: bodyStartScripts
-instructions: 'Anything you add here will be added to the start of the <body> tag on every page.'
-name: 'Body start scripts'
+handle: script
+instructions: null
+name: Script
 searchable: false
 settings:
   byteLimit: null
   charLimit: null
   code: true
   columnType: null
-  initialRows: 8
+  initialRows: 9
   multiline: true
   placeholder: null
   uiMode: normal

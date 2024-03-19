@@ -5,8 +5,8 @@
 *,::before,::after{box-sizing:border-box;border-radius:0;}
 div,main,article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,blockquote,fieldset,picture{display:block;margin:0;padding:0;}
 //audio,canvas,video{display:inline-block;}
-::selection {background:theme('colors.dark.DEFAULT');color:theme('colors.brand.DEFAULT');}
-::-moz-selection {background:theme('colors.dark.DEFAULT');color:theme('colors.brand.DEFAULT');}
+::selection {background:theme('colors.accent.DEFAULT');color:#222;}
+::-moz-selection {background:theme('colors.accent.DEFAULT');color:#222;}
 html{font-size:100%;text-size-adjust:100%;}
 nav ul{list-style:none;padding:0}
 a{text-decoration:none;}
@@ -113,7 +113,7 @@ span,li+li,i,option,br,hr,svg,svg *,.button+.button,blockquote:first-child,p:fir
 }
 
 // --------------------------------------------
-//
+// FORM EL RESETS
 // --------------------------------------------
 
 input,textarea,select,button{ color:inherit;font-family:inherit }

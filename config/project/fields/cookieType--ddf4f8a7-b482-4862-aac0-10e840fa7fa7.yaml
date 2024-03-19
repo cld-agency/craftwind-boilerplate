@@ -1,0 +1,23 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
+handle: cookieType
+instructions: null
+name: 'Cookie type'
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: 1
+  minRelations: null
+  selectionLabel: null
+  showSiteMenu: false
+  source: 'group:852616a3-f316-44d8-8654-2e748fd2fa02' # Cookie types
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Categories

@@ -1,0 +1,229 @@
+{# ==================================
+COOKIE BANNER
+===================================== #}
+
+<button type="button"
+	class="hidden fixed bottom-0 z-40 left-0 bg-gray-300 text-xs px-2 py-1 js-toggleCookieModal js-toggleScrollLock hover:text-white hover:bg-dark transition duration-200 rounded-tr shadow-xl uppercase border-l-4 border-brand"
+	aria-controls="js-cookieModal"
+	data-active-target-id="js-cookieModal"
+	data-scroll-allow-id="js-cookieModalScrollable"
+	data-active-target="is-active"
+	data-active="is-active"
+	aria-expanded="false"
+>
+	Cookies
+</button>
+
+<button type="button"
+	class="hidden js-toggleCookieBanner"
+	aria-controls="js-cookieBanner"
+	data-active-target-id="js-cookieBanner"
+	data-scroll-allow-id="js-cookieModalScrollable"
+	data-active-target="is-active"
+	data-focus="false"
+	aria-expanded="false"
+>
+	Toggle Cookie Banner
+</button>
+
+<div id="js-cookieBanner" aria-hidden="true" class="hidden max-w-screen-xl mx-auto mx-auto px-4 lg:px-8 fixed bottom-10 left-0 right-0 z-30">
+	<div class="bg-gray-600 text-white shadow-xl p-4 sm:p-6 lg:p-8 rounded-lg">
+		<div class="md:flex items-center justify-between">
+			<div class="md:w-1/2 md:mr-8">
+				<p class="">This website uses cookies to ensure you get the best experience on our website. <a class="default-link text-white" href="/cookies">Learn more about our cookies</a>.</p>
+			</div>
+			<div class="flex md:justify-end gap-2 mt-4 md:mt-0 md:w-1/2">
+				<button type="button" class="hidden" data-close>X</button>
+
+				{% include '_partials/button.twig' with {
+					label: 'Manage Cookies',
+					variants: ['secondary','mini'],
+					element: 'button',
+					classes: 'button-reset mt-0 js-toggleCookieModal js-toggleScrollLock',
+					attrs: {
+						'type': 'button',
+						'aria-controls': 'js-cookieModal',
+						'aria-expanded': 'false',
+						'data': {
+							'active-target-id': 'js-cookieModal',
+							'active-target': 'is-active',
+							'active': 'is-active',
+							'scroll-allow-id': 'js-cookieModalScrollable'
+						}
+					}
+				} only %}
+
+				{% include '_partials/button.twig' with {
+					label: 'Accept All',
+					variants: ['mini'],
+					element: 'button',
+					classes:'js-allCookies button-reset mt-0',
+					attrs: {
+						'type': 'button',
+						'data': {
+							'close':true
+						}
+					}
+				} only %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{# ==================================
+COOKIE MODAL
+===================================== #}
+
+<div id="js-cookieModal" class="fixed inset-0 z-50 flex justify-center items-center min-h-full p-8 hidden" aria-hidden="true">
+	<div class="fixed inset-0 bg-dark bg-opacity-90 transition-opacity"></div>
+
+	<button type="button" class="hidden" data-close>Close me</button>
+
+	<form class="mt-0 fixed flex flex-col bg-white rounded-lg overflow-hidden shadow-xl transition-all sm:max-w-4xl max-w-[90vw] max-h-[72vh]">
+		<h2 class="text-center px-8 py-4 md:py-8 md:px-12 bg-gray-100 fl:text-2xl">Allow the use of cookies in this browser?</h2>
+		<div id="js-cookieModalScrollable" class="overflow-auto px-8 py-6 md:px-12">
+			<p>This website uses cookies to ensure you get the best experience on our website. <a class="default-link" href="/cookies">Learn more about our cookies</a>.</p>
+			{% for cookieType in cookieCatsInUse %}
+				<div class="flex mt-6">
+					<div class="w-1/4 sm:w-1/6 mr-6 scale-75 md:scale-100">
+						<label class="relative {{ cookieType.slug == 'essential' ? 'cursor-not-allowed' : 'cursor-pointer js-cookieLightswitch' }}" for="{{ cookieType.slug }}">
+							<input {{ cookieType.slug == 'essential' ? 'checked disabled' }} type="checkbox" id="{{ cookieType.slug }}" name="cookieTypes[]" class="sr-only" value="1">
+							<span aria-hidden="true" class="lightswitch-bg transition duration-200 block rounded-full mx-auto h-9 w-20 flex items-center">
+								<span class="lightswitch-indicator transition duration-200 bg-white block rounded-full h-8 w-8 ml-[2px]"></span>
+								<span class="flex absolute w-20 justify-between" style="padding:0 11px 0 9px;font-size:0.5625rem;">
+									<span class="js-offLabel transition duration-200 lightswitch-label">OFF</span>
+									<span class="js-onLabel transition duration-200 lightswitch-label">ON</span>
+								</span>
+							</span>
+							<span class="block mt-2 text-xs text-center font-display font-semibold uppercase ">{{ cookieType.title }}</span>
+						</label>
+					</div>
+					{% if cookieType.summaryPlainText|length %}
+						<p class="mt-0 text-sm w-3/4 sm:w-5/6">{{ cookieType.summaryPlainText|nl2br }}</p>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+		<div class="flex justify-center border-t px-4 py-4 md:px-12 md:py-8 bg-gray-100">
+			<div class="mr-4">
+				{% include '_partials/button.twig' with {
+					element:'button',
+					label: 'Allow selected cookies',
+					classes:'js-selectedCookies button-reset',
+					attrs: { type:'button'},
+					variants: ['secondary']
+				} only %}
+			</div>
+			{% include '_partials/button.twig' with {
+				element:'button',
+				label: 'Accept all',
+				classes: 'js-allCookies button-reset',
+				attrs: { type:'button'}
+			} only %}
+		</div>
+	</form>
+</div>
+
+{# ==================================
+JS
+===================================== #}
+
+{% js %}
+	function getCookie(name) {
+		let value = `; ${document.cookie}`;
+		let parts = value.split(`; ${name}=`);
+		if (parts.length === 2) return parts.pop().split(';').shift();
+	}
+
+	function getScripts(typesToLoadArray){
+		var types = typesToLoadArray.join('|');
+		fetch('/get-scripts?types=' + types, {
+			headers: {'X-Requested-With': 'XMLHttpRequest'},
+			method: 'GET'
+		}).then(response => response.text()).then(data => {
+			// inject the scripts
+			postscribe('#js-scriptsHolder', data);
+		});
+	}
+
+	function showCookieBanner(){
+		if (!document.querySelector('#js-cookieBanner').classList.contains('is-active')){
+			document.querySelector('.js-toggleCookieBanner').click();
+		}
+	}
+
+	function showManageCookiesButton(){
+		document.querySelector('.js-toggleCookieModal').classList.remove('hidden');
+	}
+
+	function hideCookieBannerAndModal(){
+		document.querySelector('#js-cookieModal [data-close]').click();
+		if (document.querySelector('#js-cookieBanner').classList.contains('is-active')){
+			document.querySelector('.js-toggleCookieBanner').click();
+		}
+		showManageCookiesButton();
+	}
+
+	function setCookiesAcceptedCookie(){
+		// add overall cookiesAccepted cookie
+		document.cookie = 'cookiesAccepted=1;path=/;max-age=15768000'; // 6 months
+	}
+
+	// set lightswitch input values on page load and inject accepted scripts
+	var typesToLoad = [];
+	document.querySelectorAll('.js-cookieLightswitch').forEach(label => {
+		var type = label.getAttribute('for');
+		var input = label.querySelector('input');
+
+		// set the input checked states according to cookies if they've done this before
+		input.checked = !!getCookie(type);
+		// and inject the actual scripts if they've previously accepted cookies
+		if (getCookie('cookiesAccepted') && input.checked){
+			typesToLoad.push(type);
+		}
+	});
+	if (typesToLoad.length){
+		getScripts(typesToLoad);
+	}
+
+	// Handle submit button clicks (beware, this could be from banner or modal)
+	document.querySelectorAll('.js-allCookies, .js-selectedCookies').forEach(button => {
+		button.addEventListener('click', e => {
+
+			var typesToLoad2 = [];
+			// apply the chosen options
+			document.querySelectorAll('.js-cookieLightswitch').forEach(label => {
+				var type = label.getAttribute('for');
+				var input = label.querySelector('input');
+
+				// turn all the lightswitches on if it's one of the allCookies buttons
+				if (button.classList.contains('js-allCookies')){ input.checked = true; }
+
+				// only add to the array if it's selected and if we haven't already injected this type
+				if (input.checked && !getCookie(type)){
+					typesToLoad2.push(type);
+					// add cookie for this type so it gets loaded on page load next time
+					document.cookie = type + '=1;path=/;max-age=15768000'; // 6 months
+				} else {
+					// delete the cookie for this type so it doesn't get loaded on next page load
+					document.cookie = type + '=0;path=/;max-age=0';
+				}
+			});
+			// inject the chosen scripts
+			if (typesToLoad2.length){
+				getScripts(typesToLoad2);
+			}
+			// open the doors
+			hideCookieBannerAndModal();
+			// remember that this happened so we don't show the banner again
+			setCookiesAcceptedCookie();
+		});
+	});
+
+	if (getCookie('cookiesAccepted')){
+		showManageCookiesButton();
+	} else {
+		showCookieBanner();
+	}
+
+{% endjs %}

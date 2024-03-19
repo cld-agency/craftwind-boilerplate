@@ -28,7 +28,7 @@ const SITE = {
 	// --------------------------------------------
 
 	refreshCSRFs: function() {
-		fetch('/getCSRF', {
+		fetch('/get-csrf', {
 			headers: {
 				'X-Requested-With': 'XMLHttpRequest',
 			},
@@ -55,7 +55,7 @@ const SITE = {
 			"CRAFT_CSRF_TOKEN": window.csrfTokenValue
 		};
 
-		fetch('/getEditLink', {
+		fetch('/get-edit-link', {
 			headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/json' },
 			method: 'POST',
 			body: JSON.stringify(data)
@@ -82,6 +82,8 @@ const SITE = {
 		// --------------------------------------------
 
 		new Toggle('.js-toggle');
+		new Toggle('.js-toggleCookieModal');
+		new Toggle('.js-toggleCookieBanner');
 
 		// --------------------------------------------
 		// LAZY LOADER (https://github.com/verlok/vanilla-lazyload)

@@ -1,6 +1,6 @@
 columnSuffix: null
 contentColumnType: text
-fieldGroup: 2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1 # Globals
+fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
 handle: bodyEndScripts
 instructions: 'Anything you add here will be added to the end of the <body> tag on every page.'
 name: 'Body end scripts'

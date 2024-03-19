@@ -1,5 +1,8 @@
 // collapse consecutive blocks of the same colour... be sure to always use bg-white even if it seems redundant!
-.bg-white:not(.with-bg-img) + .bg-white:not(.with-bg-img),.bg-gray-100:not(.with-bg-img) + .bg-gray-100:not(.with-bg-img),.bg-brand:not(.with-bg-img) + .bg-brand:not(.with-bg-img){ padding-top:0; }
+.bg-white:not(.with-bg-img) + .bg-white:not(.with-bg-img),
+.bg-gray-100:not(.with-bg-img) + .bg-gray-100:not(.with-bg-img),
+.bg-brand:not(.with-bg-img) + .bg-brand:not(.with-bg-img)
+{ padding-top:0; }
 
 // --------------------------------------------
 // MOBILE NAV
@@ -33,20 +36,24 @@
 }
 
 // --------------------------------------------
-// SKIP NAV A11Y BUTTON
+// LIGHTSWITCHES
 // --------------------------------------------
 
-.skip-to-main {
-	position:absolute;
-	left:-9999px;
-	z-index:999;
-	padding:1em;
-	background-color:#2C2E37;
-	color:#fff;
-	opacity:0;
+.lightswitch-bg {
+	background:theme('colors.gray.300');
+	&:hover, input:focus-visible + &{
+		background:theme('colors.gray.400');
+		.lightswitch-label:nth-child(2){ color:#fff; }
+	}
+	input:focus-visible + &{
+		box-shadow:0 0 0 2px #fff, 0 0 0 4px theme('colors.accent.DEFAULT');
+	}
 }
-.skip-to-main:focus {
-	left:50%;
-	transform:translateX(-50%);
-	opacity:1;
+:checked + .lightswitch-bg, :disabled + .lightswitch-bg, input:focus-visible:checked + .lightswitch-bg{
+	background:theme('colors.brand.DEFAULT');
+	.lightswitch-label:nth-child(2){ color:inherit; }
 }
+:checked + .lightswitch-bg:hover{ background:theme('colors.brand.highlight'); }
+:checked + .lightswitch-bg .lightswitch-indicator, :disabled + .lightswitch-bg .lightswitch-indicator{ transform:translateX(44px); }
+:checked + span .lightswitch-label:first-child{ color:#fff; }
+:disabled + span .lightswitch-label:first-child{ visibility:hidden; }

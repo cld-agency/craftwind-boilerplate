@@ -1,0 +1,51 @@
+columnSuffix: ktaadfeu
+contentColumnType: text
+fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
+handle: cookieDurations
+instructions: 'Enter the duration of each cookie that this script creates e.g. 60 days, or "Browsing session"'
+name: 'Cookie durations'
+searchable: false
+settings:
+  addRowLabel: 'Add a row'
+  columnType: text
+  columns:
+    __assoc__:
+      -
+        - col1
+        -
+          __assoc__:
+            -
+              - heading
+              - 'Cookie name'
+            -
+              - handle
+              - cookieName
+            -
+              - width
+              - ''
+            -
+              - type
+              - singleline
+      -
+        - col2
+        -
+          __assoc__:
+            -
+              - heading
+              - Duration
+            -
+              - handle
+              - duration
+            -
+              - width
+              - ''
+            -
+              - type
+              - singleline
+  defaults: null
+  maxRows: null
+  minRows: null
+  staticRows: false
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Table
