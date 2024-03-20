@@ -1,4 +1,4 @@
-dateModified: 1710935670
+dateModified: 1710936274
 email:
   fromEmail: $SYSTEM_EMAIL
   fromName: $SYSTEM_NAME
@@ -28,7 +28,7 @@ meta:
     2dcc0933-0db0-4d99-b21d-b7bcfa05c2e1: Globals # Globals
     3a55636c-f114-4ca1-84a3-f568f17a51b0: 'Browser title' # Browser title
     3abf1c16-bab7-4d4a-a7a7-7720e06c217f: 'Listing pages' # Listing pages
-    3d55de4b-9675-4aa5-9975-690cc711a5ca: Cookie # Cookie
+    3d55de4b-9675-4aa5-9975-690cc711a5ca: 'Cookie details table' # Cookie details table
     4bd103c0-b212-4fd4-9685-ffc368e63793: Default # Default
     4d75c350-59e2-4ecc-b469-bb97f6ff276d: 'Section background colour' # Section background colour
     5b558113-9756-4bc6-98e9-97d78f191097: Matrix # Matrix
@@ -94,7 +94,7 @@ plugins:
     enabled: true
     schemaVersion: 1.0.0
 system:
-  edition: solo
+  edition: pro
   live: true
   name: $SYSTEM_NAME
   retryDuration: null

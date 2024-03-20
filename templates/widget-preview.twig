@@ -1,0 +1,52 @@
+{# ======================================
+WIDGET PREVIEW PAGE
+========================================= #}
+
+{% extends '_layout.twig' %}
+
+{# =============================================================================== #}
+
+{% set title = 'Widget Preview' %}
+{% set noIndex = true %}
+
+{# =============================================================================== #}
+
+{% block content %}
+
+	{% set block = craft.matrixBlocks.type('widget').relatedTo(entry).one() %}
+
+	{% if block|length %}
+		{% if craft.app.request.param('tryRealEntry') %}
+			{% redirect block.owner.url() %}
+		{% else %}
+			{% embed '_partials/container.twig' %}
+				{% block content %}
+					<h1 style="text-align:center">Standalone widget preview</h1>
+				{% endblock %}
+			{% endembed %}
+
+			{% set squeezeClass = craft.app.request.param('squeeze') ?? 'squeeze' %}
+			{% include [
+					'_widgets/' ~ entry.slug|camel,
+					'_widgets/' ~ entry.type
+				] ignore missing with { entry: entry, pageEntry: entry, blockID: 'dummy', block: {id: 'dummy'}, loop: {index:1} }
+			%}
+		{% endif %}
+	{% else %}
+		<h2 style="text-align:center">Standalone widget preview</h2>
+		<p style="text-align:center">No entries are currently using this widget, so here is a standalone example preview:</p>
+		{% set squeezeClass = craft.app.request.param('squeeze') ?? 'superSqueeze' %}
+		{% set longformContent = craft.app.request.param('squeeze') ? true %}
+		{% include [
+			'_widgets/' ~ entry.slug|camel,
+			'_widgets/' ~ entry.type
+		] ignore missing with {
+			entry: entry,
+			pageEntry: entry,
+			blockID: 'dummy',
+			block: { id: 'dummy' },
+			loop: { index:1 }
+		} %}
+	{% endif %}
+
+{% endblock %}

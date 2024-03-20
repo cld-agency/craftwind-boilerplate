@@ -1,0 +1,14 @@
+{% if element.section.handle == 'widgets' %}
+	{% set rels = craft.matrixBlocks.type('widget').relatedTo(element).all() %}
+{% endif %}
+
+{% if rels|length %}
+	<h2>This content is used by the following entr{{ rels|length == 1 ? 'y' : 'ies' }}:</h2>
+	<ul style="list-style: square; margin-left: 1rem;">
+		{% for rel in rels %}
+			<li><a href="{{ rel.owner.cpEditUrl }}">{{ rel.owner.title }}</a></li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<h2>This content appears to be unused by any entries at the moment</h2>
+{% endif %}

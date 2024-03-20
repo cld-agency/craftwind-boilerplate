@@ -13,6 +13,13 @@ fieldLayouts:
             uid: 87deb643-02e4-4e07-bdce-b8332b977e48
             userCondition: null
           -
+            elementCondition: null
+            template: _cp/relatedEntries.twig
+            type: craft\fieldlayoutelements\Template
+            uid: f541efa2-cd37-469c-83f9-7e70e4da3550
+            userCondition: null
+            width: 100
+          -
             autocapitalize: true
             autocomplete: false
             autocorrect: true
@@ -44,7 +51,7 @@ fieldLayouts:
         userCondition: null
 handle: cookieDetails
 hasTitleField: false
-name: Cookie
+name: 'Cookie details table'
 section: d29a5366-955f-4d0c-9ee7-271b104f835a # Widgets
 showStatusField: false
 slugTranslationKeyFormat: null

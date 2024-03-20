@@ -2,11 +2,34 @@ defaultPlacement: end
 enableVersioning: true
 handle: widgets
 name: Widgets
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Standalone widget preview'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+  -
+    __assoc__:
+      -
+        - label
+        - 'In-context preview (if available)'
+      -
+        - urlFormat
+        - '{url}?tryRealEntry=1'
+      -
+        - refresh
+        - '1'
 propagationMethod: all
 siteSettings:
   27fd5441-8230-4f21-8d4c-ae215e7076df: # Boilerplate
     enabledByDefault: true
-    hasUrls: false
-    template: null
-    uriFormat: null
+    hasUrls: true
+    template: widget-preview.twig
+    uriFormat: 'widget-preview/{slug}'
 type: channel
