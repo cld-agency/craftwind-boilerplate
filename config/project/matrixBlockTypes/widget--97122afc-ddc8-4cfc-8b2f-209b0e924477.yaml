@@ -1,0 +1,99 @@
+field: 661f0cbe-8667-4984-aea8-55239d2f6e8e # Body builder
+fieldLayouts:
+  1c5fea93-a0a8-4bac-a6f5-3e02fced6dd8:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: f2c8081f-84a9-49ec-8817-4d26788f8d1c # Widget entry
+            instructions: null
+            label: null
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 278db3c3-f1fb-453b-b71d-a3dd0a23ac94
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 9e1e8a49-f7f8-45f9-924b-523908f4a245 # Section background
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: fa1c515b-047e-4583-abc4-a5b57c00b25d
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: afaeacbd-df94-4deb-ab14-32709e9bb891
+        userCondition: null
+fields:
+  9e1e8a49-f7f8-45f9-924b-523908f4a245: # Section background
+    columnSuffix: eyevqpdi
+    contentColumnType: string(6)
+    fieldGroup: null
+    handle: sectionBG
+    instructions: null
+    name: 'Section background'
+    searchable: false
+    settings:
+      columnType: null
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - White
+            -
+              - value
+              - white
+            -
+              - default
+              - '1'
+        -
+          __assoc__:
+            -
+              - label
+              - Silver
+            -
+              - value
+              - silver
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Dropdown
+  f2c8081f-84a9-49ec-8817-4d26788f8d1c: # Widget entry
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: widget
+    instructions: null
+    name: 'Widget entry'
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: 1
+      minRelations: null
+      selectionLabel: null
+      showSiteMenu: true
+      sources:
+        - 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Widgets
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
+handle: widget
+name: Widget
+sortOrder: 2

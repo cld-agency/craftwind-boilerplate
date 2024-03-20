@@ -1,0 +1,30 @@
+{% set entries = craft.entries.section('scripts').type('default').with(['cookieType']).all() %}
+
+{% if entries|length %}
+	{% embed '_partials/container.twig' %}
+		{% block content %}
+			<table>
+				<thead>
+					<tr>
+						<th>{{ 'Cookies we use'|t }}</th>
+						<th>{{ 'Type of Cookie'|t }}</th>
+						<th>{{ 'Cookie Name'|t }}</th>
+						<th>{{ 'Cookie Duration'|t }}</th>
+						<th style="min-width:380px">{{ 'Purpose'|t }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for entry in entries %}
+						<tr>
+							<th scope="row">{{ entry.title }}</th>
+							<td>{{ entry.cookieType[0] ?? null }}</td>
+							<td>{{ entry.cookieDurations|length ? entry.cookieDurations|map(item => item.cookieName)|join('<br>')|raw }}</td>
+							<td>{{ entry.cookieDurations|length ? entry.cookieDurations|map(item => item.duration)|join('<br>')|raw }}</td>
+							<td>{{ entry.body ?? null }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endblock %}
+	{% endembed %}
+{% endif %}

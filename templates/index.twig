@@ -282,9 +282,7 @@ HOME.
 		{% endblock %}
 	{% endembed %}
 
-	{% set blocks = entry.bodyBuilder.with([]).all() %}
-	{% if blocks|length %}
-		{% include '_partials/bodyBuilder.twig' with { blocks:blocks } %}
-	{% endif %}
+
+	{% include '_partials/bodyBuilder.twig' %}
 
 {% endblock %}

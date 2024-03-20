@@ -1,0 +1,12 @@
+defaultPlacement: end
+enableVersioning: true
+handle: widgets
+name: Widgets
+propagationMethod: all
+siteSettings:
+  27fd5441-8230-4f21-8d4c-ae215e7076df: # Boilerplate
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

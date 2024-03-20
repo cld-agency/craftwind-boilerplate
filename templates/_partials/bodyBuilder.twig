@@ -1,20 +1,28 @@
-{% set blocks = blocks ?? entry.bodyBuilder.with([]).all() %}
+{# ==================================
+BODY BUILDER
+===================================== #}
 
-{% for block in blocks %}
-	{% if block.type == 'widget' and block.widget|length %}
-		{% set widgetEntry = block.widget[0] %}
-		{% include [
-			'_widgets/' ~ widgetEntry.slug|camel,
-			'_widgets/' ~ widgetEntry.type.handle
+{% set blocksQuery = blocksQuery ?? entry.bodyBuilder ?? null %}
+{% set blocks = blocksQuery ? blocksQuery.with([
+	'widget:widget'
+]).all() : null %}
+
+{% if blocks|length %}
+	{% for block in blocks %}
+		{% if block.type == 'widget' and block.widget|length %}
+			{% set widgetEntry = block.widget[0] %}
+			{% include [
+				'_widgets/' ~ widgetEntry.slug|camel,
+				'_widgets/' ~ widgetEntry.type.handle
 			] ignore missing with {
-			entry: widgetEntry,
-			pageEntry: entry,
-		} %}
-	{% else %}
-		{% include
-			'_blocks/' ~ block.type
-			ignore missing
-		%}
-	{% endif %}
-{% endfor %}
-
+				entry: widgetEntry,
+				pageEntry: entry,
+			} %}
+		{% else %}
+			{% include
+				'_blocks/' ~ block.type
+				ignore missing
+			%}
+		{% endif %}
+	{% endfor %}
+{% endif %}
