@@ -44,6 +44,30 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
+          -
+            elementCondition: null
+            fieldUid: ca55cc2e-9a52-4b33-bc18-2f6cafe277f3 # GTM consents
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b80a871a-0859-4851-b0f9-167d798ee946
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: cbac532f-c0ed-484c-9ba5-c39c664cfab9 # Script
+            instructions: 'If you need to get very granular with the GTM consents, or execute other scripts upon acceptance of this category, add them here. (For example, you could change GTM default consents based on the user''s location: https://developers.google.com/tag-platform/security/guides/consent?consentmode=advanced)'
+            label: 'Extra arbitrary scripts or GTM Consent overrides'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6cb40c0f-2a88-4802-a218-5c3bd0884fbe
+            userCondition: null
+            warning: null
+            width: 100
         name: Content
         uid: dc09b797-9998-45dc-aadd-3f642bd1ed23
         userCondition: null

@@ -95,12 +95,34 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\fields\conditions\RelationalFieldConditionRule
+                  elementId: '{{ craft.categories.group(''cookieTypes'').slug(''essential'').one().id }}'
+                  fieldUid: ddf4f8a7-b482-4862-aac0-10e840fa7fa7 # Cookie type
+                  operator: relatedTo
+                  uid: d9860564-898d-47b1-a1ce-db241be73c9b
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: c9cbf2d5-a33a-4631-bb00-58ac64015efd # Script output location
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: eff93706-43a8-417c-9729-32868ba3fa8c
+            userCondition: null
+            warning: null
+            width: 100
         name: Content
         uid: 716363fd-4dd8-4bae-91b7-2acd6991af4e
         userCondition: null
 handle: default
 hasTitleField: true
-name: 'Global scripts with consentable or essential cookies'
+name: Default
 section: ffd2bbfd-6f01-4375-bdc6-1936c61409ed # Scripts
 showStatusField: true
 slugTranslationKeyFormat: null

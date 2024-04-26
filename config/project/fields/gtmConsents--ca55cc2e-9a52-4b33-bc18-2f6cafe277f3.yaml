@@ -1,0 +1,119 @@
+columnSuffix: dyumssxl
+contentColumnType: text
+fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
+handle: gtmConsents
+instructions: 'When a user consents to this cookie category, you can optionally send `granted` or `denied` signals to GTM for each of the following keys:'
+name: 'GTM consents'
+searchable: false
+settings:
+  addRowLabel: 'Add a row'
+  columnType: text
+  columns:
+    __assoc__:
+      -
+        - col1
+        -
+          __assoc__:
+            -
+              - heading
+              - Key
+            -
+              - handle
+              - key
+            -
+              - width
+              - ''
+            -
+              - type
+              - heading
+      -
+        - col2
+        -
+          __assoc__:
+            -
+              - heading
+              - Value
+            -
+              - handle
+              - value
+            -
+              - width
+              - ''
+            -
+              - type
+              - select
+            -
+              - options
+              -
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'Please select...'
+                    -
+                      - value
+                      - ''
+                    -
+                      - default
+                      - true
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Granted
+                    -
+                      - value
+                      - granted
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Denied
+                    -
+                      - value
+                      - denied
+                    -
+                      - default
+                      - false
+  defaults:
+    -
+      __assoc__:
+        -
+          - col1
+          - ad_user_data
+        -
+          - col2
+          - ''
+    -
+      __assoc__:
+        -
+          - col1
+          - ad_personalization
+        -
+          - col2
+          - ''
+    -
+      __assoc__:
+        -
+          - col1
+          - ad_storage
+        -
+          - col2
+          - ''
+    -
+      __assoc__:
+        -
+          - col1
+          - analytics_storage
+        -
+          - col2
+          - ''
+  maxRows: null
+  minRows: null
+  staticRows: true
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Table

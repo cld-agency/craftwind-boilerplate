@@ -6,25 +6,18 @@
 	breakoutLink: "!static content-[''] before:block before:absolute before:inset-0 before:cursor-pointer"
 } %}
 
-{# fetch any scripts marked as essential, or any cookieless ones from the globalScriptsWithoutCookies entry type #}
-{% set essentialTypeId = craft.categories.group('cookieTypes').slug('essential').ids() %}
-{% set scriptsToLoadUpfront = craft.entries.section('scripts')
+{# fetch any scripts marked as essential from the Scripts section #}
+{% set essentialCat = craft.categories.group('cookieTypes').slug('essential').one() %}
+{% set scriptsToLoadUpfront = essentialCat ? craft.entries.section('scripts')
 	.with(['cookieType'])
-	.all()|filter(script =>
-	(script.cookieType[0] is defined and essentialTypeId[0] is defined and script.cookieType[0].id == essentialTypeId[0]) or
-	(script.type == 'globalScriptsWithoutCookies')
-) %}
-{# filter that lot into 3 different groups for head/body-start/body-end #}
-{% set scriptsToLoadUpfrontAtHead = scriptsToLoadUpfront|filter(script =>
-	(script.type == 'globalScriptsWithoutCookies' and script.headScripts|length)
-) %}
-{% set scriptsToLoadUpfrontAtBodyStart = scriptsToLoadUpfront|filter(script =>
-	(script.type == 'globalScriptsWithoutCookies' and script.bodyStartScripts|length)
-) %}
-{% set scriptsToLoadUpfrontAtBodyEnd = scriptsToLoadUpfront|filter(script =>
-	(script.cookieType[0] is defined and script.cookieType[0].id == essentialTypeId[0]) or
-	(script.type == 'globalScriptsWithoutCookies' and script.bodyEndScripts|length)
-) %}
+	.cookieType(essentialCat)
+	.all()
+%}
+
+{# filter essential scripts  into 3 different groups for head/body-start/body-end #}
+{% set scriptsToLoadUpfrontAtHead = essentialCat ? scriptsToLoadUpfront|filter(script => script.scriptOutputLocation == 'head') %}
+{% set scriptsToLoadUpfrontAtBodyStart = essentialCat ? scriptsToLoadUpfront|filter(script => script.scriptOutputLocation == 'bodyStart') %}
+{% set scriptsToLoadUpfrontAtBodyEnd = essentialCat ? scriptsToLoadUpfront|filter(script => script.scriptOutputLocation == 'bodyEnd') %}
 
 {# =============================================================================== #}
 
@@ -110,10 +103,31 @@
 		{% endfor %}
 	{% endif %}
 
-	{# load any cookieless scripts (head) from the globalScriptsWithoutCookies entry type #}
+	{# load any scripts directly held against the "Essential" category (not the stuff from the Scripts section, but the category itself) #}
+	{% if essentialCat|length %}
+
+		{# GTM consent preset ones... #}
+		{% if essentialCat.gtmConsents|filter(row => row.value)|length %}
+			<script>
+				// Define dataLayer and the gtag function.
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('consent', 'default', {
+					{%- for row in essentialCat.gtmConsents|filter(row => row.value) -%}
+						'{{ row.key }}': '{{ row.value }}'{{ not loop.last ? ',' }}
+					{%- endfor -%}
+				});
+			</script>
+		{% endif %}
+
+		{# and arbitrary ones... #}
+		{% if essentialCat.script|length %}{{ essentialCat.script|raw }}{% endif %}
+	{% endif %}
+
+	{# load any essential scripts from the Scripts section set to appear in head #}
 	{% if scriptsToLoadUpfrontAtHead|length %}
 		{% for script in scriptsToLoadUpfrontAtHead %}
-			{{ script.headScripts|raw }}
+			{{ script.script|raw }}
 		{% endfor %}
 	{% endif %}
 
@@ -126,10 +140,10 @@
 
 	{{ beginBody() }}
 
-	{# load any cookieless scripts (body-start) from the globalScriptsWithoutCookies entry type #}
+	{# load any essential scripts from the Scripts section set to appear at body-start #}
 	{% if scriptsToLoadUpfrontAtBodyStart|length %}
-		{% for script in scriptsToLoadUpfrontAtHead %}
-			{{ script.bodyStartScripts|raw }}
+		{% for script in scriptsToLoadUpfrontAtBodyStart%}
+			{{ script.script|raw }}
 		{% endfor %}
 	{% endif %}
 
@@ -243,7 +257,12 @@
 	COOKIE CONSENT & SITE SCRIPTS
 	===================================== #}
 
-	{% set cookieCatsInUse = craft.categories.group('cookieTypes').relatedTo(craft.entries.section('scripts').ids()).all() %}
+	{% set cookieCatsInUse = craft.categories.group('cookieTypes').relatedTo(
+			craft.entries.section('scripts').ids()
+		).all()|filter(
+			cat => cat.id != essentialCat.id ?? null
+		)
+	%}
 
 	{% if cookieCatsInUse %}
 		{% include '_partials/cookieConsent.twig' %}
@@ -252,15 +271,13 @@
 
 	<script src="{{ siteUrl|trim('/', 'right') }}{{ mix('js/main.js') }}"></script>
 
-	{# load any scripts marked as essential, or any cookieless ones from the globalScriptsWithoutCookies entry type #}
+	{# load any essential scripts from the Scripts section set to appear at body-end #}
 	{% if scriptsToLoadUpfrontAtBodyEnd|length %}
-		<div id="js-scriptsHolder" style="position:absolute;bottom:0;z-index:-1">
-			{% for script in scriptsToLoadUpfrontAtBodyEnd %}
-				{{ script.script|raw }}
-				{{ script.bodyEndScripts|raw }}
-			{% endfor %}
-		</div>
+		{% for script in scriptsToLoadUpfrontAtBodyEnd %}
+			{{ script.script|raw }}
+		{% endfor %}
 	{% endif %}
+	<div id="js-scriptsHolder" style="position:absolute;bottom:0;z-index:-1"></div>
 
 	{{ endBody() }}
 

@@ -1,0 +1,46 @@
+columnSuffix: ekxlbloh
+contentColumnType: string(9)
+fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
+handle: scriptOutputLocation
+instructions: 'This only applies to scripts categorised as "essential" (because all other types get output after the page has rendered, making the output location moot!). If you''re not sure, choose "Body end" for best performance.'
+name: 'Script output location'
+searchable: false
+settings:
+  columnType: null
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - Head
+        -
+          - value
+          - head
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Body start'
+        -
+          - value
+          - bodyStart
+        -
+          - default
+          - ''
+    -
+      __assoc__:
+        -
+          - label
+          - 'Body end'
+        -
+          - value
+          - bodyEnd
+        -
+          - default
+          - '1'
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown
