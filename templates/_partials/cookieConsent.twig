@@ -88,7 +88,7 @@ COOKIE MODAL
 					<div class="w-1/4 sm:w-1/6 mr-6 scale-75 md:scale-100">
 						<label class="relative {{ cookieType.slug == 'essential' ? 'cursor-not-allowed' : 'cursor-pointer js-cookieLightswitch' }}" for="{{ cookieType.slug }}">
 							<input {{ cookieType.slug == 'essential' ? 'checked disabled' }} type="checkbox" id="{{ cookieType.slug }}" name="cookieTypes[]" class="sr-only" value="1">
-							<span aria-hidden="true" class="lightswitch-bg transition duration-200 block rounded-full mx-auto h-9 w-20 flex items-center">
+							<span aria-hidden="true" class="lightswitch-bg transition duration-200 rounded-full mx-auto h-9 w-20 flex items-center">
 								<span class="lightswitch-indicator transition duration-200 bg-white block rounded-full h-8 w-8 ml-[2px]"></span>
 								<span class="flex absolute w-20 justify-between" style="padding:0 11px 0 9px;font-size:0.5625rem;">
 									<span class="js-offLabel transition duration-200 lightswitch-label">OFF</span>
