@@ -2,6 +2,7 @@ fieldLayouts:
   cca509a6-6857-4659-994c-5d7d5fc367e4:
     tabs:
       -
+        elementCondition: null
         elements:
           -
             autocapitalize: true
@@ -9,7 +10,9 @@ fieldLayouts:
             autocorrect: true
             class: null
             disabled: false
+            elementCondition: null
             id: null
+            inputType: null
             instructions: null
             label: null
             max: null
@@ -25,6 +28,7 @@ fieldLayouts:
             title: null
             type: craft\fieldlayoutelements\assets\AssetTitleField
             uid: 70ae530d-92e4-432d-b961-e09b07502bae
+            userCondition: null
             warning: null
             width: 100
           -
@@ -32,6 +36,7 @@ fieldLayouts:
             class: null
             cols: null
             disabled: false
+            elementCondition: null
             id: null
             instructions: null
             label: null
@@ -46,10 +51,12 @@ fieldLayouts:
             title: null
             type: craft\fieldlayoutelements\assets\AltField
             uid: 0a8c2e2d-bb7d-4b64-a6cb-4d068cb6b85f
+            userCondition: null
             warning: null
             width: 100
         name: Content
         uid: f91c1b67-423e-415f-998c-661286d845cc
+        userCondition: null
 fs: images
 handle: images
 name: Images

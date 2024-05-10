@@ -2,6 +2,7 @@ fieldLayouts:
   8e23bc6b-34dc-450a-99ce-044597b86fc4:
     tabs:
       -
+        elementCondition: null
         elements:
           -
             autocapitalize: true
@@ -9,7 +10,9 @@ fieldLayouts:
             autocorrect: true
             class: null
             disabled: false
+            elementCondition: null
             id: null
+            inputType: null
             instructions: null
             label: null
             max: null
@@ -25,9 +28,11 @@ fieldLayouts:
             title: null
             type: craft\fieldlayoutelements\entries\EntryTitleField
             uid: 2cab2678-0dbc-40f5-a57d-9551adc452f7
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             fieldUid: 56716528-cd41-42c1-894c-9b5ee770b2ea # List entries from...
             instructions: null
             label: null
@@ -35,14 +40,19 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: fc38e852-2785-4efe-aa04-dca03001a0ed
+            userCondition: null
             warning: null
             width: 100
         name: Content
         uid: be8e96b4-2e07-46f0-a6db-5c214032c5a6
+        userCondition: null
 handle: listingPages
 hasTitleField: true
 name: 'Listing pages'
 section: 3abf1c16-bab7-4d4a-a7a7-7720e06c217f # Listing pages
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

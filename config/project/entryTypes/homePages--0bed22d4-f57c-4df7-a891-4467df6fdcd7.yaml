@@ -2,6 +2,7 @@ fieldLayouts:
   219cc855-2268-4bc0-8f1e-497f8a02c1a9:
     tabs:
       -
+        elementCondition: null
         elements:
           -
             autocapitalize: true
@@ -9,7 +10,9 @@ fieldLayouts:
             autocorrect: true
             class: null
             disabled: false
+            elementCondition: null
             id: null
+            inputType: null
             instructions: null
             label: null
             max: null
@@ -25,9 +28,11 @@ fieldLayouts:
             title: null
             type: craft\fieldlayoutelements\entries\EntryTitleField
             uid: 3e53abff-3c4f-48db-a9cf-8777bca2afe1
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             fieldUid: 661f0cbe-8667-4984-aea8-55239d2f6e8e # Body builder
             instructions: null
             label: null
@@ -35,13 +40,17 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 9f75574a-a555-4fb8-87cb-4c2aff1e8151
+            userCondition: null
             warning: null
             width: 100
         name: Content
         uid: 8e6842d0-a61a-4d89-9e15-1e2e63d36e30
+        userCondition: null
       -
+        elementCondition: null
         elements:
           -
+            elementCondition: null
             fieldUid: 5beb9697-853c-400d-825c-5dc6e8f9707e # No index
             instructions: null
             label: null
@@ -49,12 +58,16 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: f7cba193-8102-4d19-9e75-b4196c506d7a
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: b228af6c-ab3c-48ea-89a5-20501be8c410
+            userCondition: null
           -
+            elementCondition: null
             fieldUid: 3a55636c-f114-4ca1-84a3-f568f17a51b0 # Browser title
             instructions: null
             label: null
@@ -62,9 +75,11 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: b139da86-97e8-411a-ae76-0097acc1605e
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             fieldUid: 49e4be6b-31e8-4637-970f-72b746d0dd07 # OG title override
             instructions: null
             label: null
@@ -72,12 +87,16 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 3a4be984-7dc2-4d7a-82f6-07c16410e5f8
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: 47b8671e-6789-4928-b582-ee3fad666370
+            userCondition: null
           -
+            elementCondition: null
             fieldUid: 55409bef-f02b-43a6-87ba-6645890db160 # Meta description
             instructions: null
             label: null
@@ -85,9 +104,11 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 4c7fcb8c-f17c-49e2-bbb0-97ff44f582ce
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             fieldUid: ac776189-eb45-4663-a943-42e6263a2928 # OG description
             instructions: null
             label: null
@@ -95,12 +116,16 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: f5f48482-1686-42d2-b3cd-c4a17b5cac83
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: f57c40bd-efdb-4fc7-9afd-516c26bcad8d
+            userCondition: null
           -
+            elementCondition: null
             fieldUid: 93911dec-d597-4048-be70-3822341db5c8 # OG image
             instructions: null
             label: null
@@ -108,12 +133,16 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 5875378a-7b9f-4b7d-9ad3-e9613439db8a
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: 988640e0-8eb5-4467-bce5-4258562c9182
+            userCondition: null
           -
+            elementCondition: null
             fieldUid: 75347aed-7cd3-4a88-a475-d94c64fff91b # OG type
             instructions: null
             label: null
@@ -121,9 +150,11 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 56310623-6cdd-4547-ac43-f262b2bb6100
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             fieldUid: 9ba80f98-3521-4d95-8103-833cc54f9074 # Twitter card
             instructions: null
             label: null
@@ -131,9 +162,11 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 9754a70d-8b22-43a3-bba3-c4115d2824fe
+            userCondition: null
             warning: null
             width: 50
           -
+            elementCondition: null
             fieldUid: 096e0833-599f-412d-96d1-e509f94c841e # Twitter creator
             instructions: null
             label: null
@@ -141,14 +174,19 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: f11823c5-aac6-4f97-9560-5357edb07449
+            userCondition: null
             warning: null
             width: 50
         name: SEO
         uid: 4a908d80-1cad-4095-9f6d-b296a26c996b
+        userCondition: null
 handle: homePages
 hasTitleField: true
 name: 'Home pages'
 section: 329fb3c3-eacd-4f5a-8086-8cd96ac705fc # Home pages
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

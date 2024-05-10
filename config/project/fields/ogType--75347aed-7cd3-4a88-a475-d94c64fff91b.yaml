@@ -6,6 +6,7 @@ instructions: 'This changes how your content is shown in social sharing services
 name: 'OG type'
 searchable: false
 settings:
+  columnType: string
   options:
     -
       __assoc__:

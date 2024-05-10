@@ -2,8 +2,10 @@ fieldLayouts:
   d26d4596-ddbf-490a-9583-41b88b736393:
     tabs:
       -
+        elementCondition: null
         elements:
           -
+            elementCondition: null
             fieldUid: aa0046e8-dcfd-4652-99b7-1234f595bfd5 # Facebook
             instructions: null
             label: null
@@ -11,9 +13,11 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: fd8aae1d-a599-4356-b19b-eb5abfbb36fe
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             fieldUid: 6238be16-9290-47d5-9dde-43e33a167037 # Facebook admins
             instructions: null
             label: null
@@ -21,9 +25,11 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 0f9de512-2134-413f-99e9-7c325b2e3133
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             fieldUid: ab8a0a53-54af-4c10-90ea-d34258125fae # Linked In
             instructions: null
             label: null
@@ -31,9 +37,11 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 79621cd8-e988-4a65-b776-73aff820f99b
+            userCondition: null
             warning: null
             width: 100
           -
+            elementCondition: null
             fieldUid: f2d836d8-5576-4f7d-97a7-3cbe6aa415e7 # Twitter username
             instructions: null
             label: null
@@ -41,10 +49,12 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 83125e57-f9c4-4b25-96b4-4c909a2718b6
+            userCondition: null
             warning: null
             width: 100
         name: Content
         uid: fab4646b-d859-4d9b-991c-ce877a318ddf
+        userCondition: null
 handle: socialLinks
 name: 'Social links'
 sortOrder: 2

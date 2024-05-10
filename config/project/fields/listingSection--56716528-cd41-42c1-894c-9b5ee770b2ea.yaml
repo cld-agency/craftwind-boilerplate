@@ -6,6 +6,7 @@ instructions: null
 name: 'List entries from...'
 searchable: false
 settings:
+  columnType: string
   options:
     -
       __assoc__:
