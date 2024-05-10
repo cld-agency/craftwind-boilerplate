@@ -1,16 +1,14 @@
-columnSuffix: ltoedfbo
-contentColumnType: text
-handle: script
+columnSuffix: vaqmferu
+handle: heading
 instructions: null
-name: Script
-searchable: false
+name: 'Body builder - Text - Heading'
+searchable: true
 settings:
   byteLimit: null
   charLimit: null
-  code: true
-  columnType: null
-  initialRows: 9
-  multiline: true
+  code: false
+  initialRows: 4
+  multiline: false
   placeholder: null
   uiMode: normal
 translationKeyFormat: null

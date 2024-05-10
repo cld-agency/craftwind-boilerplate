@@ -1,6 +1,5 @@
 columnSuffix: null
 contentColumnType: text
-fieldGroup: c073d458-3743-4e75-acc2-84b4e3337f8f # SEO
 handle: twitterCreator
 instructions: '@username for the content creator / author of this entry. Note that this should NOT be the generic Twitter account of the company. It is only used in conjunction with the Summary Large Image type.'
 name: 'Twitter creator'

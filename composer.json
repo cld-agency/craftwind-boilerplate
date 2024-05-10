@@ -1,11 +1,11 @@
 {
   "require": {
-    "craftcms/ckeditor": "3.8.3",
-    "craftcms/cms": "4.9.2",
+    "craftcms/ckeditor": "4.0.4",
+    "craftcms/cms": "^5.0.0",
     "misterbk/mix": "v1.7.1",
-    "mmikkel/cp-field-inspect": "1.4.4",
-    "nystudio107/craft-minify": "4.0.1",
-    "vlucas/phpdotenv": "^5.4.0"
+    "mmikkel/cp-field-inspect": "2.0.1",
+    "nystudio107/craft-minify": "5.0.0",
+    "vlucas/phpdotenv": "^5.6.0"
   },
   "require-dev": {
     "yiisoft/yii2-shell": "^2.0.3"
@@ -23,7 +23,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.1"
+      "php": "8.2"
     }
   },
   "scripts": {

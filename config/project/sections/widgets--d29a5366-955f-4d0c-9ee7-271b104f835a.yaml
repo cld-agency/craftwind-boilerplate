@@ -1,5 +1,7 @@
 defaultPlacement: end
 enableVersioning: true
+entryTypes:
+  - 3d55de4b-9675-4aa5-9975-690cc711a5ca # Cookie details table
 handle: widgets
 name: Widgets
 previewTargets:

@@ -1,8 +1,7 @@
 columnSuffix: null
-contentColumnType: string
-handle: cookieType
+handle: widget
 instructions: null
-name: 'Cookie type'
+name: 'Body builder - Widget - Widget entry'
 searchable: false
 settings:
   allowSelfRelations: false
@@ -12,11 +11,13 @@ settings:
   maxRelations: 1
   minRelations: null
   selectionLabel: null
-  showSiteMenu: false
-  source: 'group:852616a3-f316-44d8-8654-2e748fd2fa02' # Cookie types
+  showCardsInGrid: false
+  showSiteMenu: true
+  sources:
+    - 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Widgets
   targetSiteId: null
   validateRelatedElements: false
   viewMode: null
 translationKeyFormat: null
 translationMethod: site
-type: craft\fields\Categories
+type: craft\fields\Entries

@@ -1,16 +1,15 @@
-columnSuffix: vdsfkohy
-contentColumnType: text
-handle: body
+columnSuffix: null
+handle: body2
 instructions: null
-name: Body
+name: 'Body builder - Text - Body'
 searchable: true
 settings:
   availableTransforms: ''
-  availableVolumes: ''
-  ckeConfig: 4bd103c0-b212-4fd4-9685-ffc368e63793 # Default
-  columnType: text
+  availableVolumes: '*'
+  ckeConfig: 5b558113-9756-4bc6-98e9-97d78f191097 # Matrix
+  createButtonLabel: null
   defaultTransform: null
-  enableSourceEditingForNonAdmins: true
+  enableSourceEditingForNonAdmins: false
   purifierConfig: null
   purifyHtml: true
   showUnpermittedFiles: false

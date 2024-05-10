@@ -1,31 +1,29 @@
-columnSuffix: null
-contentColumnType: string
-handle: twitterCard
-instructions: 'Select the type of Twitter Card you want to use. Default will be ''summary'' if you make no selection.'
-name: 'Twitter card'
+columnSuffix: eyevqpdi
+handle: sectionBG2
+instructions: null
+name: 'Body builder - Widget - Section background'
 searchable: false
 settings:
-  columnType: string
   options:
     -
       __assoc__:
         -
           - label
-          - Summary
+          - White
         -
           - value
-          - summary
+          - white
         -
           - default
-          - ''
+          - '1'
     -
       __assoc__:
         -
           - label
-          - 'Summary Large Image'
+          - Silver
         -
           - value
-          - summary_large_image
+          - silver
         -
           - default
           - ''

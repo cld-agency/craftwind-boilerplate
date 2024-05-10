@@ -52,7 +52,6 @@ fieldLayouts:
 handle: cookieDetails
 hasTitleField: false
 name: 'Cookie details table'
-section: d29a5366-955f-4d0c-9ee7-271b104f835a # Widgets
 showStatusField: false
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

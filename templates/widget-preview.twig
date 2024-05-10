@@ -13,7 +13,7 @@ WIDGET PREVIEW PAGE
 
 {% block content %}
 
-	{% set block = craft.matrixBlocks.type('widget').relatedTo(entry).one() %}
+	{% set block = craft.entries.type('widget').relatedTo(entry).one() %}
 
 	{% if block|length %}
 		{% if craft.app.request.param('tryRealEntry') %}

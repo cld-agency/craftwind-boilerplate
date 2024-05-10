@@ -1,16 +1,18 @@
 columnSuffix: null
 contentColumnType: string
-fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
 handle: bodyBuilder
 instructions: null
 name: 'Body builder'
 searchable: true
 settings:
-  contentTable: '{{%matrixcontent_bodybuilder}}'
-  maxBlocks: null
-  minBlocks: null
+  entryTypes:
+    - 64ddacfa-0b2f-4cbc-a78c-b249a5c4621d
+    - 97122afc-ddc8-4cfc-8b2f-209b0e924477
+  maxEntries: null
+  minEntries: null
   propagationKeyFormat: null
   propagationMethod: all
+  viewMode: blocks
 translationKeyFormat: null
 translationMethod: site
 type: craft\fields\Matrix

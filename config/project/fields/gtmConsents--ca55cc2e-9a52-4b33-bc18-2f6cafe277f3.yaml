@@ -1,6 +1,5 @@
 columnSuffix: dyumssxl
 contentColumnType: text
-fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
 handle: gtmConsents
 instructions: 'When a user consents to this cookie category, you can optionally send `granted` or `denied` signals to GTM for each of the following keys:'
 name: 'GTM consents'

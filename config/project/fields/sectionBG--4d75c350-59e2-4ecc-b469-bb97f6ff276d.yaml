@@ -1,23 +1,32 @@
 columnSuffix: null
-contentColumnType: string
-handle: listingSection
+handle: sectionBG
 instructions: null
-name: 'List entries from...'
+name: 'Body builder - Text - Section background colour'
 searchable: false
 settings:
-  columnType: string
   options:
     -
       __assoc__:
         -
           - label
-          - 'Please select...'
+          - White
         -
           - value
-          - ''
+          - white
         -
           - default
           - '1'
+    -
+      __assoc__:
+        -
+          - label
+          - Silver
+        -
+          - value
+          - silver
+        -
+          - default
+          - ''
 translationKeyFormat: null
 translationMethod: none
 type: craft\fields\Dropdown

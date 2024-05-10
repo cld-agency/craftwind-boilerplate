@@ -183,7 +183,6 @@ fieldLayouts:
 handle: homePages
 hasTitleField: true
 name: 'Home pages'
-section: 329fb3c3-eacd-4f5a-8086-8cd96ac705fc # Home pages
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

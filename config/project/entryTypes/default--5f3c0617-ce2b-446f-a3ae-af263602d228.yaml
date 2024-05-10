@@ -123,7 +123,6 @@ fieldLayouts:
 handle: default
 hasTitleField: true
 name: Default
-section: ffd2bbfd-6f01-4375-bdc6-1936c61409ed # Scripts
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
