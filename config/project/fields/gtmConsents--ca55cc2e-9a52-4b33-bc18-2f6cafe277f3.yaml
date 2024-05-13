@@ -49,7 +49,7 @@ settings:
                   __assoc__:
                     -
                       - label
-                      - 'Please select...'
+                      - 'Do not change'
                     -
                       - value
                       - ''

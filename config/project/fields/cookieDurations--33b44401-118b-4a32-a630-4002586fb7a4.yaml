@@ -2,7 +2,7 @@ columnSuffix: ktaadfeu
 contentColumnType: text
 fieldGroup: e525d53f-7298-43c3-8dca-edf8cfd1f8b2 # _ungrouped
 handle: cookieDurations
-instructions: 'Enter the duration of each cookie that this script creates e.g. 60 days, or "Browsing session"'
+instructions: 'Enter the duration of each cookie (or local storage / session storage entry) that this script creates e.g. 60 days/Session/Persistent'
 name: 'Cookie durations'
 searchable: false
 settings:
