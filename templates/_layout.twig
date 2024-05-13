@@ -257,14 +257,9 @@
 	COOKIE CONSENT & SITE SCRIPTS
 	===================================== #}
 
-	{% set cookieCatsInUse = craft.categories.group('cookieTypes').relatedTo(
-			craft.entries.section('scripts').ids()
-		).all()|filter(
-			cat => cat.id != essentialCat.id ?? null
-		)
-	%}
+	{% set cookieCatsInUse = craft.categories.group('cookieTypes').relatedTo(craft.entries.section('scripts').ids()).all() %}
 
-	{% if cookieCatsInUse %}
+	{% if cookieCatsInUse|filter(cat => cat.id != essentialCat.id) %}
 		{% include '_partials/cookieConsent.twig' %}
 		<script src="/assets/js/postscribe.min.js"></script>
 	{% endif %}
