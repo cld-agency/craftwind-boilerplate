@@ -5,5 +5,5 @@ hasUrls: true
 language: en-GB
 name: Boilerplate
 primary: true
-siteGroup: b99e46fe-a420-4fd0-abfc-8eb0989ea429 # Boilerplate
+siteGroup: b99e46fe-a420-4fd0-abfc-8eb0989ea429 # Default
 sortOrder: 1

@@ -1,5 +1,5 @@
 {% if element.section.handle in ['widgets'] %}
-	{% set rels = craft.entries.type('widget').relatedTo(element).all() %}
+	{% set rels = craft.entries.type('widgetBlock').relatedTo(element).all() %}
 {% endif %}
 
 <div class="pane">

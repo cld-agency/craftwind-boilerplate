@@ -1,23 +1,43 @@
-dateModified: 1715331306
+dateModified: 1717425962
 elementSources:
   craft\elements\Entry:
     -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
       key: '*'
+      tableAttributes:
+        - section
+        - postDate
+        - expiryDate
+        - authors
+        - link
       type: native
     -
-      heading: Channels
-      type: heading
-    -
-      key: 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Widgets
-      type: native
-    -
-      heading: Structures
-      type: heading
-    -
+      defaultSort:
+        - structure
+        - asc
+      disabled: false
       key: 'section:329fb3c3-eacd-4f5a-8086-8cd96ac705fc' # Home pages
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - authors
+        - link
       type: native
     -
+      defaultSort:
+        - structure
+        - asc
+      disabled: false
       key: 'section:3abf1c16-bab7-4d4a-a7a7-7720e06c217f' # Listing pages
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - authors
+        - link
+        - 'field:56716528-cd41-42c1-894c-9b5ee770b2ea' # List entries from...
       type: native
     -
       defaultSort:
@@ -28,8 +48,19 @@ elementSources:
       tableAttributes:
         - type
         - 'field:ddf4f8a7-b482-4862-aac0-10e840fa7fa7' # Cookie type
-        - author
         - postDate
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Widgets
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - authors
+        - type
       type: native
 email:
   fromEmail: $SYSTEM_EMAIL
@@ -47,6 +78,13 @@ fs:
       path: '@webroot/media/downloads'
     type: craft\fs\Local
     url: /media/downloads
+  imageTransforms:
+    hasUrls: true
+    name: 'Image transforms'
+    settings:
+      path: '@webroot/media/transforms'
+    type: craft\fs\Local
+    url: /media/transforms
   images:
     hasUrls: true
     name: Images
@@ -61,14 +99,17 @@ meta:
     3abf1c16-bab7-4d4a-a7a7-7720e06c217f: 'Listing pages' # Listing pages
     3d55de4b-9675-4aa5-9975-690cc711a5ca: 'Cookie details table' # Cookie details table
     4bd103c0-b212-4fd4-9685-ffc368e63793: Default # Default
+    4d75c350-59e2-4ecc-b469-bb97f6ff276d: 'Section background colour' # Section background colour
     5b558113-9756-4bc6-98e9-97d78f191097: Matrix # Matrix
     5beb9697-853c-400d-825c-5dc6e8f9707e: 'No index' # No index
-    5f3c0617-ce2b-446f-a3ae-af263602d228: Default # Default
+    5f3c0617-ce2b-446f-a3ae-af263602d228: Scripts # Scripts
+    6ccbc724-739d-41a1-aff1-c1047e767fd7: Heading # Heading
     7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
     9ba80f98-3521-4d95-8103-833cc54f9074: 'Twitter card' # Twitter card
     27fd5441-8230-4f21-8d4c-ae215e7076df: Boilerplate # Boilerplate
     33b44401-118b-4a32-a630-4002586fb7a4: 'Cookie durations' # Cookie durations
     49e4be6b-31e8-4637-970f-72b746d0dd07: 'OG title override' # OG title override
+    64ddacfa-0b2f-4cbc-a78c-b249a5c4621d: 'Text block' # Text block
     096e0833-599f-412d-96d1-e509f94c841e: 'Twitter creator' # Twitter creator
     199e8ad4-4cc4-4407-b01f-23fbb2b30ac3: 'Listing pages' # Listing pages
     329fb3c3-eacd-4f5a-8086-8cd96ac705fc: 'Home pages' # Home pages
@@ -77,6 +118,7 @@ meta:
     55409bef-f02b-43a6-87ba-6645890db160: 'Meta description' # Meta description
     75347aed-7cd3-4a88-a475-d94c64fff91b: 'OG type' # OG type
     93911dec-d597-4048-be70-3822341db5c8: 'OG image' # OG image
+    97122afc-ddc8-4cfc-8b2f-209b0e924477: 'Widget block' # Widget block
     852616a3-f316-44d8-8654-2e748fd2fa02: 'Cookie types' # Cookie types
     5167141e-eeb9-4a8a-b0bd-db969ab13510: Summary # Summary
     56716528-cd41-42c1-894c-9b5ee770b2ea: 'List entries from...' # List entries from...
@@ -85,14 +127,14 @@ meta:
     ab8a0a53-54af-4c10-90ea-d34258125fae: 'Linked In' # Linked In
     ac776189-eb45-4663-a943-42e6263a2928: 'OG description' # OG description
     b51c3bf7-bd4c-46f9-92d5-c548637e190a: Images # Images
-    b99e46fe-a420-4fd0-abfc-8eb0989ea429: Boilerplate # Boilerplate
+    b99e46fe-a420-4fd0-abfc-8eb0989ea429: Default # Default
     c9cbf2d5-a33a-4631-bb00-58ac64015efd: 'Script output location' # Script output location
     ca55cc2e-9a52-4b33-bc18-2f6cafe277f3: 'GTM consents' # GTM consents
     cbac532f-c0ed-484c-9ba5-c39c664cfab9: Script # Script
-    d6de9704-4f2d-488c-b526-7edee9635399: Scripts # Scripts
     d29a5366-955f-4d0c-9ee7-271b104f835a: Widgets # Widgets
     ddf4f8a7-b482-4862-aac0-10e840fa7fa7: 'Cookie type' # Cookie type
     ec768514-1ace-48d1-a39f-63b17f6e1fc6: 'Public Schema' # Public Schema
+    f2c8081f-84a9-49ec-8817-4d26788f8d1c: Widget # Widget
     f2d836d8-5576-4f7d-97a7-3cbe6aa415e7: 'Twitter username' # Twitter username
     fafbc7c6-c05b-4945-8db7-72ae3d199156: Downloads # Downloads
     ffd2bbfd-6f01-4375-bdc6-1936c61409ed: Scripts # Scripts
@@ -119,7 +161,7 @@ system:
   name: $SYSTEM_NAME
   retryDuration: null
   schemaVersion: 5.0.0.20
-  timeZone: America/Los_Angeles
+  timeZone: UTC
 users:
   allowPublicRegistration: false
   deactivateByDefault: false

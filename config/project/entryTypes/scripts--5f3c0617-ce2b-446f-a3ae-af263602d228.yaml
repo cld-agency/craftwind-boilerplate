@@ -1,3 +1,4 @@
+color: null
 fieldLayouts:
   50c4a011-ab98-40b8-998e-13f9de0bc050:
     tabs:
@@ -28,6 +29,7 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
             inputType: null
             instructions: null
             label: null
@@ -36,6 +38,7 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -50,8 +53,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: cbac532f-c0ed-484c-9ba5-c39c664cfab9 # Script
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -62,8 +68,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: ddf4f8a7-b482-4862-aac0-10e840fa7fa7 # Cookie type
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -74,8 +83,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 33b44401-118b-4a32-a630-4002586fb7a4 # Cookie durations
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -86,8 +98,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: a1463d28-087e-4d16-b583-08eaf19365b1 # Body
+            handle: null
+            includeInCards: false
             instructions: null
             label: 'Script/cookie description'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -108,8 +123,11 @@ fieldLayouts:
               elementType: craft\elements\Entry
               fieldContext: global
             fieldUid: c9cbf2d5-a33a-4631-bb00-58ac64015efd # Script output location
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -120,13 +138,14 @@ fieldLayouts:
         name: Content
         uid: 716363fd-4dd8-4bae-91b7-2acd6991af4e
         userCondition: null
-handle: default
+handle: scripts
 hasTitleField: true
-name: Default
+icon: ''
+name: Scripts
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-sortOrder: 1
-titleFormat: null
+titleFormat: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

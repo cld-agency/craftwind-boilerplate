@@ -3,8 +3,8 @@ const tailwind = require("tailwindcss");
 
 // --------------------------------------------
 
-// set MIX_LOCAL_SITE_URL to your local domain in your .env file...
-let localDomain = process.env.MIX_LOCAL_SITE_URL || 'example.test';
+// set PRIMARY_SITE_URL to your local domain in your .env file...
+let localDomain = process.env.PRIMARY_SITE_URL || 'example.test';
 let srcPath = 'src';
 let buildPath = mix.inProduction() ? 'public_html/assets' : 'public_html/_assets';
 

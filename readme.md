@@ -1,10 +1,10 @@
-This is an opinionated starter boilerplate for Craft CMS 4 + Tailwind-JIT and Vanilla JS via Laravel Mix 6. No JavaScript frameworks are included.
+This is an opinionated starter boilerplate for Craft CMS 5 + Tailwind and Vanilla JS via Laravel Mix 6. No JavaScript frameworks are included.
 
 This branch does *not* use Tailwind's base styles (we're setting `preflight: false` in the Tailwind config), because we prefer to have at least _some_ base styling - instead we use our own CSS reset and base styles (see global.scss and elements.scss respectively).
 
 Unlike many other boilerplates, this one prioritises simplicity. We don't want or need node/npm anywhere near our production server thank-you very much, and we don't want a complex deployment process, so builds are done locally on save (when running `npm run all`), and compiled files are committed to the repo and pushed to the remote. If for some reason you prefer a complicated deployment process and don't want to commit compiled files to your repo, you can run `npm run watch` and `npm run prod` separately for dev/production builds, and gitignore the public `assets` directory.
 
-As a minimum, though, your deployment process will need to run `composer install && ./craft migrate/all` if `composer.lock` has changed, and `composer install && ./craft project-config/apply` if `config/project/project.yaml` has changed. Depending on how you write your templates, you might also want to clear Craft's template caches. (We tend to prefer full page static caching, which makes using Craft's `{% cache %}` tags redundant).
+As a minimum, though, your deployment process will need to run `craft up` after deployment in order to run migrations and project config updates and manage composer dependencies. Depending on how you write your templates, you might also want to clear Craft's template caches. (We tend to prefer full page static caching, which makes using Craft's `{% cache %}` tags mostly redundant).
 
 To use this Craft boilerplate:
 ====================================
@@ -147,7 +147,7 @@ This repo includes the following Craft plugins:
 
 MIT License
 
-Copyright &copy; 2023 Clever Little Design Ltd.
+Copyright &copy; 2024 Clever Little Design Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

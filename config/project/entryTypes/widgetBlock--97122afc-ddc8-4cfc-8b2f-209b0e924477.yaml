@@ -1,7 +1,6 @@
-altTranslationKeyFormat: null
-altTranslationMethod: none
+color: purple
 fieldLayouts:
-  cca509a6-6857-4659-994c-5d7d5fc367e4:
+  1c5fea93-a0a8-4bac-a6f5-3e02fced6dd8:
     tabs:
       -
         elementCondition: null
@@ -30,45 +29,52 @@ fieldLayouts:
             step: null
             tip: null
             title: null
-            type: craft\fieldlayoutelements\assets\AssetTitleField
-            uid: 70ae530d-92e4-432d-b961-e09b07502bae
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 6b28ae2a-ba83-4fad-922b-70d04626c42b
             userCondition: null
             warning: null
             width: 100
           -
-            attribute: alt
-            class: null
-            cols: null
-            disabled: false
             elementCondition: null
-            id: null
+            fieldUid: f2c8081f-84a9-49ec-8817-4d26788f8d1c # Widget
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: 'Widget entry'
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 278db3c3-f1fb-453b-b71d-a3dd0a23ac94
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 4d75c350-59e2-4ecc-b469-bb97f6ff276d # Section background colour
+            handle: null
             includeInCards: false
             instructions: null
             label: null
-            name: null
-            orientation: null
-            placeholder: null
             providesThumbs: false
-            readonly: false
-            requirable: true
             required: false
-            rows: null
             tip: null
-            title: null
-            type: craft\fieldlayoutelements\assets\AltField
-            uid: 0a8c2e2d-bb7d-4b64-a6cb-4d068cb6b85f
+            type: craft\fieldlayoutelements\CustomField
+            uid: 53656ca8-502d-4dee-a5a2-ee3a7f0a56ec
             userCondition: null
             warning: null
             width: 100
         name: Content
-        uid: f91c1b67-423e-415f-998c-661286d845cc
+        uid: afaeacbd-df94-4deb-ab14-32709e9bb891
         userCondition: null
-fs: images
-handle: images
-name: Images
-sortOrder: 1
-subpath: ''
+handle: widgetBlock
+hasTitleField: false
+icon: layer-group
+name: 'Widget block'
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
-transformFs: imageTransforms
-transformSubpath: ''

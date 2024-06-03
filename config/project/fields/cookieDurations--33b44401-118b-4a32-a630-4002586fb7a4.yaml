@@ -1,12 +1,10 @@
 columnSuffix: ktaadfeu
-contentColumnType: text
 handle: cookieDurations
-instructions: 'Enter the duration of each cookie that this script creates e.g. 60 days, or "Browsing session"'
+instructions: "Enter the duration of each cookie (or local storage / session storage entry) that this script creates e.g. 60 days/Session/Persistent\r\n"
 name: 'Cookie durations'
 searchable: false
 settings:
   addRowLabel: 'Add a row'
-  columnType: text
   columns:
     __assoc__:
       -

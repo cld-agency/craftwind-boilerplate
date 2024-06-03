@@ -1,4 +1,4 @@
-{% set entries = craft.entries.section('scripts').type('default').with(['cookieType']).all() %}
+{% set entries = craft.entries.section('scripts').with(['cookieType']).all() %}
 
 {% if entries|length %}
 	{% embed '_partials/container.twig' %}

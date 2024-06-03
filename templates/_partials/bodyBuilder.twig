@@ -4,12 +4,12 @@ BODY BUILDER
 
 {% set blocksQuery = blocksQuery ?? entry.bodyBuilder ?? null %}
 {% set blocks = blocksQuery ? blocksQuery.with([
-	'widget:widget'
+	'widgetBlock:widget'
 ]).all() : null %}
 
 {% if blocks|length %}
 	{% for block in blocks %}
-		{% if block.type == 'widget' and block.widget|length %}
+		{% if block.type == 'widgetBlock' and block.widget|length %}
 			{% set widgetEntry = block.widget[0] %}
 			{% include [
 				'_widgets/' ~ widgetEntry.slug|camel,

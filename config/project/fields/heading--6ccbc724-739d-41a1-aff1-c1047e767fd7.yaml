@@ -1,7 +1,7 @@
 columnSuffix: vaqmferu
 handle: heading
 instructions: null
-name: 'Body builder - Text - Heading'
+name: Heading
 searchable: true
 settings:
   byteLimit: null

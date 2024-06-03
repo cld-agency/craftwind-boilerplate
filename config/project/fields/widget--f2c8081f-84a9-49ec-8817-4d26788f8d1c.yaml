@@ -1,7 +1,7 @@
 columnSuffix: null
 handle: widget
 instructions: null
-name: 'Body builder - Widget - Widget entry'
+name: Widget
 searchable: false
 settings:
   allowSelfRelations: false
@@ -17,7 +17,7 @@ settings:
     - 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Widgets
   targetSiteId: null
   validateRelatedElements: false
-  viewMode: null
+  viewMode: list
 translationKeyFormat: null
 translationMethod: site
 type: craft\fields\Entries
