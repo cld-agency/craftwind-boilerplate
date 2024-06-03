@@ -9,7 +9,7 @@ const SITE = {
 	// --------------------------------------------
 
 	getSettings: function(){
-
+		this.csrfInputs = document.querySelectorAll('[name="CRAFT_CSRF_TOKEN"]');
 	},
 
 	// --------------------------------------------
@@ -19,7 +19,9 @@ const SITE = {
 	init: function(){
 		SITE.getSettings();
 		SITE.bindUI();
-		SITE.refreshCSRFs();
+		if (SITE.csrfInputs) {
+			SITE.refreshCSRFs();
+		}
 		SITE.getEditLink();
 	},
 
@@ -36,7 +38,7 @@ const SITE = {
 		})
 			.then(response => response.text())
 			.then(data => {
-				document.querySelectorAll('[name="CRAFT_CSRF_TOKEN"]').forEach(item => {
+				SITE.csrfInputs.forEach(item => {
 					item.value = data;
 				});
 				// also store in window so it can be reused by other scripts
