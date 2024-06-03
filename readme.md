@@ -9,15 +9,16 @@ As a minimum, though, your deployment process will need to run `craft up` after 
 To use this Craft boilerplate:
 ====================================
 
-1. Be sure that your CLI is running at least PHP 8.1, then run `composer install`
+1. Be sure that your CLI is running at least PHP 8.2, then run `composer install`
 1. Create a new local blank database and local virtual host
 1. Update your control panel trigger word in `config/general.php` to something unique
 1. Create your local `.env` file from the sample and populate with all relevant details
-1. Run `./craft setup/app-id && ./craft setup/security-key` to recreate a new app ID and security key (copy these values to the remote env files manually later)
+1. Run `php craft setup/app-id && php craft setup/security-key` to recreate a new app ID and security key (copy these values to the remote env files manually later)
 1. Install Craft by visiting the control panel and following the on-screen instructions. Keep the site name as $PRIMARY_SITE_URL so it will pull from .env
 1. Create an entry in the Home Pages section
+1. Run `php craft update all` to upgrade Craft and plugins to their latest point-releases.
 1. Update `package.json` with project name
-1. `npm install`
+1. `nvm use && npm install`
 1. `npm run all` or `npm run prod` or `npm run watch` to start work at http://localhost:3000. If you're working with multiple developers you should have `nvm` installed locally and run `nvm use` prior to starting the build process. This automatically reads the `.nvmrc` file and uses the project's version of Node, which in turn avoids some unpleasant issues that can crop up if different developers are running different versions of Node.
 
 The `npm run all` task is configured to do both dev and production builds locally on save, so no need for separate dev/prod build processes here. If running both at the same time ever becomes too taxing on your CPU, you can run them separately with `npm run prod` and `npm run watch`.
@@ -133,6 +134,10 @@ Full description coming soon. The `container` partial outputs a vertically and h
 ### `_partials/flexGrid.twig`
 
 Full description coming soon. This is for outputting a collection of units arranged in columns - typically "card" elements. This currently uses flexbox with negative margins on the parent, but should be modernised to use CSS grid and `gap`.
+
+### Native Cookie Consent
+
+Full article coming soon detailing how this works.
 
 Craft plugins
 ----------------
