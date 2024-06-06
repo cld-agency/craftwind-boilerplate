@@ -1,12 +1,32 @@
 {% if craft.app.request.param('types')|length %}
-	{% set typeCats = craft.categories.group('cookieTypes').slug(craft.app.request.param('types')|split('|')).ids() %}
+	{% set typeCats = craft.categories.group('cookieTypes').slug(craft.app.request.param('types')|split('|')).all() %}
 	{% if typeCats|length %}
 		{% set scripts = craft.entries.section('scripts').cookieType(typeCats).all() %}
 		{% if scripts|length %}
 			<html lang="en">
 				<body>
-					{% for script in scripts %}
+					{# load the scripts held in the Scripts section under the chosen categories #}
+					{% for script in scripts|filter(script => script.script|length) %}
 						{{ script.script|raw }}
+					{% endfor %}
+
+					{# load any scripts directly held against the category (not the stuff from the Scripts section, but the category itself) #}
+					{% for cat in typeCats %}
+						{# GTM consent preset ones... #}
+						{% if cat.gtmConsents|filter(row => row.value)|length %}
+							<script>
+								if (typeof gtag !== 'undefined') {
+									gtag('consent', 'update', {
+										{%- for row in cat.gtmConsents|filter(row => row.value) -%}
+										'{{ row.key }}': '{{ row.value }}'{{ not loop.last ? ',' }}
+										{%- endfor -%}
+									});
+								}
+							</script>
+						{% endif %}
+
+						{# and arbitrary ones... #}
+						{% if cat.script|length %}{{ cat.script|raw }}{% endif %}
 					{% endfor %}
 				</body>
 			</html>
@@ -15,4 +35,3 @@
 {% else %}
 	{% redirect 404 %}
 {% endif %}
-
