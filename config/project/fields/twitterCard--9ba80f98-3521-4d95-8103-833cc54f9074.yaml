@@ -1,11 +1,9 @@
 columnSuffix: null
-contentColumnType: string
 handle: twitterCard
 instructions: 'Select the type of Twitter Card you want to use. Default will be ''summary'' if you make no selection.'
-name: 'Twitter card'
+name: 'X/Twitter card'
 searchable: false
 settings:
-  columnType: string
   options:
     -
       __assoc__:
@@ -17,7 +15,7 @@ settings:
           - summary
         -
           - default
-          - ''
+          - '1'
     -
       __assoc__:
         -

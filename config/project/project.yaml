@@ -1,4 +1,4 @@
-dateModified: 1718621220
+dateModified: 1718639668
 elementSources:
   craft\elements\Entry:
     -
@@ -104,7 +104,7 @@ meta:
     5b558113-9756-4bc6-98e9-97d78f191097: Matrix # Matrix
     5f3c0617-ce2b-446f-a3ae-af263602d228: Script # Script
     7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
-    9ba80f98-3521-4d95-8103-833cc54f9074: 'Twitter card' # Twitter card
+    9ba80f98-3521-4d95-8103-833cc54f9074: 'X/Twitter card' # X/Twitter card
     27fd5441-8230-4f21-8d4c-ae215e7076df: $SYSTEM_NAME # $SYSTEM_NAME
     33b44401-118b-4a32-a630-4002586fb7a4: 'Cookie durations' # Cookie durations
     64ddacfa-0b2f-4cbc-a78c-b249a5c4621d: 'Text block' # Text block
