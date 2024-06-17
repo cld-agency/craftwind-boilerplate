@@ -1,5 +1,4 @@
 columnSuffix: ltoedfbo
-contentColumnType: text
 handle: script
 instructions: null
 name: Script
@@ -8,7 +7,6 @@ settings:
   byteLimit: null
   charLimit: null
   code: true
-  columnType: null
   initialRows: 9
   multiline: true
   placeholder: null

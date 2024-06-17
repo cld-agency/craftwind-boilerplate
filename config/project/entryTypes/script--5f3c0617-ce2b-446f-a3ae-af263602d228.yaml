@@ -97,8 +97,8 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: a1463d28-087e-4d16-b583-08eaf19365b1 # Body
-            handle: null
+            fieldUid: caf5530a-8747-49b5-9d85-553de2e90c6f # Body - default config (searchable)
+            handle: body
             includeInCards: false
             instructions: null
             label: 'Script/cookie description'
@@ -106,7 +106,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 81a29739-0f66-4caa-9c9e-a51dd1aa3ccc
+            uid: 8928658e-1341-4106-b0e3-c2c64245d1a2
             userCondition: null
             warning: null
             width: 100
@@ -138,10 +138,10 @@ fieldLayouts:
         name: Content
         uid: 716363fd-4dd8-4bae-91b7-2acd6991af4e
         userCondition: null
-handle: scripts
+handle: script
 hasTitleField: true
 icon: ''
-name: Scripts
+name: Script
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null

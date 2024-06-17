@@ -1,3 +1,4 @@
+color: null
 fieldLayouts:
   219cc855-2268-4bc0-8f1e-497f8a02c1a9:
     tabs:
@@ -12,6 +13,7 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
             inputType: null
             instructions: null
             label: null
@@ -20,6 +22,7 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -34,8 +37,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 661f0cbe-8667-4984-aea8-55239d2f6e8e # Body builder
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -51,13 +57,16 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 5beb9697-853c-400d-825c-5dc6e8f9707e # No index
-            instructions: null
-            label: null
+            fieldUid: cac312e5-9dfa-4d00-8bf4-ce5af69a0035 # Lightswitch (default off)
+            handle: noIndex
+            includeInCards: false
+            instructions: 'Adds a meta noindex tag to the page to stop search engines indexing it'
+            label: 'No index'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: f7cba193-8102-4d19-9e75-b4196c506d7a
+            uid: be87ef81-2986-4d9b-bdfc-f5c910fe121b
             userCondition: null
             warning: null
             width: 100
@@ -68,25 +77,31 @@ fieldLayouts:
             userCondition: null
           -
             elementCondition: null
-            fieldUid: 3a55636c-f114-4ca1-84a3-f568f17a51b0 # Browser title
+            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
+            handle: titleTag
+            includeInCards: false
             instructions: null
-            label: null
+            label: 'Browser title'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: b139da86-97e8-411a-ae76-0097acc1605e
+            uid: 58e4b421-848c-4ee6-b9bf-391391300685
             userCondition: null
             warning: null
             width: 100
           -
             elementCondition: null
-            fieldUid: 49e4be6b-31e8-4637-970f-72b746d0dd07 # OG title override
-            instructions: null
-            label: null
+            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # Plain text field (non-searchable)
+            handle: ogTitle
+            includeInCards: false
+            instructions: 'Override both the browser title and the entry title for services that consume OG meta data.'
+            label: 'OG title override'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 3a4be984-7dc2-4d7a-82f6-07c16410e5f8
+            uid: 29825384-81f4-4b48-883b-4716e14fd402
             userCondition: null
             warning: null
             width: 100
@@ -97,25 +112,31 @@ fieldLayouts:
             userCondition: null
           -
             elementCondition: null
-            fieldUid: 55409bef-f02b-43a6-87ba-6645890db160 # Meta description
+            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
+            handle: metaDesc
+            includeInCards: false
             instructions: null
-            label: null
+            label: 'Meta description'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 4c7fcb8c-f17c-49e2-bbb0-97ff44f582ce
+            uid: 59819c9c-811b-426c-8346-d947d7489f61
             userCondition: null
             warning: null
             width: 100
           -
             elementCondition: null
-            fieldUid: ac776189-eb45-4663-a943-42e6263a2928 # OG description
-            instructions: null
-            label: null
+            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
+            handle: ogDesc
+            includeInCards: false
+            instructions: 'The description that will appear on the Twitter Card or Facebook post or any other third party service that consumes OG meta data.'
+            label: 'OG description'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: f5f48482-1686-42d2-b3cd-c4a17b5cac83
+            uid: 4a9ea221-d463-4d01-b300-4a3a42ab993a
             userCondition: null
             warning: null
             width: 100
@@ -127,8 +148,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 93911dec-d597-4048-be70-3822341db5c8 # OG image
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -144,8 +168,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 75347aed-7cd3-4a88-a475-d94c64fff91b # OG type
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -156,8 +183,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: 9ba80f98-3521-4d95-8103-833cc54f9074 # Twitter card
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -167,26 +197,30 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 096e0833-599f-412d-96d1-e509f94c841e # Twitter creator
-            instructions: null
-            label: null
+            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
+            handle: twitterCreator
+            includeInCards: false
+            instructions: '@username for the content creator / author of this entry. Note that this should NOT be the generic Twitter/X account of the company. It is only used in conjunction with the Summary Large Image type.'
+            label: 'Twitter/X creator'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: f11823c5-aac6-4f97-9560-5357edb07449
+            uid: 46fd1836-af07-4989-baa7-6ba649b4fb28
             userCondition: null
             warning: null
             width: 50
         name: SEO
         uid: 4a908d80-1cad-4095-9f6d-b296a26c996b
         userCondition: null
-handle: homePages
+handle: page
 hasTitleField: true
-name: 'Home pages'
+icon: ''
+name: 'Generic page'
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-sortOrder: 1
-titleFormat: null
+titleFormat: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

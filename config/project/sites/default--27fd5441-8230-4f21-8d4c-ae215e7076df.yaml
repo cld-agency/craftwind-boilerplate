@@ -3,7 +3,7 @@ enabled: true
 handle: default
 hasUrls: true
 language: en-GB
-name: Boilerplate
+name: $SYSTEM_NAME
 primary: true
 siteGroup: b99e46fe-a420-4fd0-abfc-8eb0989ea429 # Default
 sortOrder: 1

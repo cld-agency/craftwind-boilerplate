@@ -13,6 +13,7 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
+            includeInCards: false
             inputType: null
             instructions: null
             label: null
@@ -21,6 +22,7 @@ fieldLayouts:
             name: null
             orientation: null
             placeholder: null
+            providesThumbs: false
             readonly: false
             requirable: false
             size: null
@@ -34,21 +36,27 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: 5167141e-eeb9-4a8a-b0bd-db969ab13510 # Summary
+            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # Plain text field (non-searchable)
+            handle: summaryPlainText
+            includeInCards: false
             instructions: null
-            label: null
+            label: Summary
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 32b60765-c42d-4d0f-9918-b7368f1c4aa0
+            uid: f3976f89-093f-43bc-9392-2b3b5821851d
             userCondition: null
             warning: null
             width: 100
           -
             elementCondition: null
             fieldUid: ca55cc2e-9a52-4b33-bc18-2f6cafe277f3 # GTM consents
+            handle: null
+            includeInCards: false
             instructions: null
             label: null
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -59,8 +67,11 @@ fieldLayouts:
           -
             elementCondition: null
             fieldUid: cbac532f-c0ed-484c-9ba5-c39c664cfab9 # Script
+            handle: null
+            includeInCards: false
             instructions: 'If you need to get very granular with the GTM consents, or execute other scripts upon acceptance of this category, add them here. (For example, you could change GTM default consents based on the user''s location: https://developers.google.com/tag-platform/security/guides/consent?consentmode=advanced)'
             label: 'Extra arbitrary scripts or GTM Consent overrides'
+            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -74,7 +85,7 @@ fieldLayouts:
 handle: cookieTypes
 name: 'Cookie types'
 siteSettings:
-  27fd5441-8230-4f21-8d4c-ae215e7076df: # Boilerplate
+  27fd5441-8230-4f21-8d4c-ae215e7076df: # $SYSTEM_NAME
     hasUrls: false
     template: null
     uriFormat: null

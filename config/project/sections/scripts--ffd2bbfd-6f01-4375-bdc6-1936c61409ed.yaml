@@ -1,12 +1,12 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - 5f3c0617-ce2b-446f-a3ae-af263602d228 # Scripts
+  - 5f3c0617-ce2b-446f-a3ae-af263602d228 # Script
 handle: scripts
 name: Scripts
 propagationMethod: all
 siteSettings:
-  27fd5441-8230-4f21-8d4c-ae215e7076df: # Boilerplate
+  27fd5441-8230-4f21-8d4c-ae215e7076df: # $SYSTEM_NAME
     enabledByDefault: true
     hasUrls: false
     template: null

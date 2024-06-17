@@ -29,7 +29,7 @@ previewTargets:
         - '1'
 propagationMethod: all
 siteSettings:
-  27fd5441-8230-4f21-8d4c-ae215e7076df: # Boilerplate
+  27fd5441-8230-4f21-8d4c-ae215e7076df: # $SYSTEM_NAME
     enabledByDefault: true
     hasUrls: true
     template: widget-preview.twig

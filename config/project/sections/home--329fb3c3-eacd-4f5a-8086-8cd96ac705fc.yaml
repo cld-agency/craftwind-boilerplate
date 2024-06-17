@@ -1,7 +1,7 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - 0bed22d4-f57c-4df7-a891-4467df6fdcd7 # Home pages
+  - 0bed22d4-f57c-4df7-a891-4467df6fdcd7 # Generic page
 handle: home
 maxAuthors: 1
 name: 'Home pages'
@@ -19,7 +19,7 @@ previewTargets:
         - '1'
 propagationMethod: all
 siteSettings:
-  27fd5441-8230-4f21-8d4c-ae215e7076df: # Boilerplate
+  27fd5441-8230-4f21-8d4c-ae215e7076df: # $SYSTEM_NAME
     enabledByDefault: true
     hasUrls: true
     template: index

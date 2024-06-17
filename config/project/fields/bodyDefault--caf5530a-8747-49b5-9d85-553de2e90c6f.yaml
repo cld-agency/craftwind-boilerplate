@@ -1,12 +1,12 @@
-columnSuffix: vdsfkohy
-handle: body
+columnSuffix: null
+handle: bodyDefault
 instructions: null
-name: 'Body - matrix body (searchable)'
+name: 'Body - default config (searchable)'
 searchable: true
 settings:
   availableTransforms: ''
-  availableVolumes: ''
-  ckeConfig: 5b558113-9756-4bc6-98e9-97d78f191097 # Matrix
+  availableVolumes: '*'
+  ckeConfig: 4bd103c0-b212-4fd4-9685-ffc368e63793 # Default
   createButtonLabel: null
   defaultTransform: null
   enableSourceEditingForNonAdmins: true

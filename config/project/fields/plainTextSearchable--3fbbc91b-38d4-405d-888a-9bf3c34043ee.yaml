@@ -1,7 +1,7 @@
-columnSuffix: vaqmferu
-handle: heading
+columnSuffix: null
+handle: plainTextSearchable
 instructions: null
-name: Heading
+name: 'Plain text field (searchable)'
 searchable: true
 settings:
   byteLimit: null
