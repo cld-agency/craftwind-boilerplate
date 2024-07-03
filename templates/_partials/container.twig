@@ -15,7 +15,7 @@ Params:
 
 	- squeeze
 	- superSqueeze
-	- uberSqueeze
+	[- uberSqueeze]
 	- full-x
 
 * classes (array or string) Extra classes for the main wrapper
@@ -56,10 +56,13 @@ consecutive section collapser functionality at the top of project.scss. #}
 		{% case 'dark' %}
 			{% set classes = classes|merge(['bg-dark text-white']) %}
 		{% default %}
-			{% set classes = classes|merge(['bg-transparent']) %}
+			{% set classes = classes|merge(['bg-white']) %}
 	{% endswitch %}
 {% else %}
-	{% set classes = classes|merge(['bg-transparent']) %}
+	{# we're defaulting to bg-white so that we can reliably collapse v-padding
+	between consecutive sections of the same colour. (i.e. with .bg-white + .bg-white.
+	So be sure to include the bg-white class even if it seems redundant #}
+	{% set classes = classes|merge(['bg-white']) %}
 {% endif %}
 
 {# Vertical padding variants #}
