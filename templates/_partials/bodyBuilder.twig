@@ -2,10 +2,9 @@
 BODY BUILDER
 ===================================== #}
 
-{% set blocksQuery = blocksQuery ?? entry.bodyBuilder ?? null %}
-{% set blocks = blocksQuery ? blocksQuery.with([
+{% set blocks = blocks ?? entry.bodyBuilder.with([
 	'widgetBlock:widget'
-]).all() : null %}
+]).all() %}
 
 {% if blocks|length %}
 	{% for block in blocks %}

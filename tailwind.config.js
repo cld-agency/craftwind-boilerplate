@@ -11,8 +11,8 @@ module.exports = {
 	theme: {
 		screens: {
 			'sm': '500px',
-			'md': '858px',
-			'lg': '1024px',
+			'md': '864px',
+			'lg': '1074px',
 			'xl': '1280px',
 			'2xl': '1536px',
 			'any-pointer-coarse': { 'raw': '(any-pointer: coarse)' },
