@@ -33,6 +33,8 @@ Params
 ===================================== #}
 
 {% set useLazyLoading = useLazyLoading ?? true %}
+{% set extraPictureClasses = extraPictureClasses ?? null %}
+{% set extraImgClasses = extraImgClasses ?? null %}
 
 {% if
 	image['extension'] is defined and image.extension == 'svg' or
@@ -58,7 +60,7 @@ Params
 			     alt="{{ alt ?? image.alt ?? '' }}"
 			     height="{{ image.height() }}"
 			     width="{{ image.width() }}"
-					{% if extraImgClasses is defined %} class="{{ extraImgClasses }} {{ useLazyLoading ? 'js-lazyload' }}"{% endif %}
+					{% if extraImgClasses|length %} class="{{ extraImgClasses }} {{ useLazyLoading ? 'js-lazyload' }}"{% endif %}
 			>
 		</picture>
 	{% endif %}
@@ -68,7 +70,6 @@ Params
 	ALL OTHER IMAGE TYPES
 	===================================== #}
 
-	{% set extraPictureClasses = extraPictureClasses ?? null %}
 	{% set useRatioBox = useRatioBox ?? false %}
 	{% set useFocalPoint = useFocalPoint ?? false %}
 	{% set useCaption = useCaption ?? false %}
@@ -141,7 +142,7 @@ Params
 	{# ======================================================================= #}
 
 	{% set innards %}
-		<picture{% if pictureClass|length %} class="{{ pictureClass }}"{% endif %}>
+		<picture{% if pictureClass|length and not (useCaption and image.caption|length) %} class="{{ pictureClass }}"{% endif %}>
 			<source type="image/webp"
 				{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetWebp|join(',') }}"
 				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
@@ -151,8 +152,8 @@ Params
 				{{ useLazyLoading ? 'data-' }}srcset="{{ srcset|join(',') }}"
 				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
 				alt="{{ alt ?? image.alt ?? image.title }}"
-				height="{{ image.height(transforms|last) }}"
-				width="{{ image.width(transforms|last) }}"
+				height="{{ image.height(transforms|first) }}"
+				width="{{ image.width(transforms|first) }}"
 				class="{{ useLazyLoading ? 'js-lazyload'}} {{ focalPointClass ?? null }} {{ extraImgClasses ?? null }}"
 				{% if useFocalPoint %}style="{{ focalPointPosition }}"{% endif %}
 			>
@@ -166,8 +167,8 @@ Params
 		<div class="relative overflow-hidden w-full" style="padding-top: {{ (image.height(transforms[0]) / image.width(transforms[0])) * 100 }}%">
 			{{ innards }}
 		</div>
-	{% elseif useCaption %}
-		<figure>
+	{% elseif useCaption and image.caption|length %}
+		<figure{% if pictureClass|length %} class="{{ pictureClass }}"{% endif %}>
 			{{ innards }}
 			{% if image.caption|length %}
 				<figcaption>{{ image.caption }}</figcaption>

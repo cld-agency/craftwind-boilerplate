@@ -2,7 +2,8 @@ defaultPlacement: end
 enableVersioning: true
 entryTypes:
   - 199e8ad4-4cc4-4407-b01f-23fbb2b30ac3 # Listing page
-handle: listingPages
+handle: listings
+maxAuthors: 1
 name: 'Listing pages'
 propagationMethod: all
 siteSettings:

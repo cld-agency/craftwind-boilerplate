@@ -19,7 +19,7 @@ small,.small{
 $linkHover:0 4px 0 0 theme('colors.accent.DEFAULT');
 $linkTransition:box-shadow .2s linear, color .2s linear;
 
-article p > a:not([class]),article li > a,.default-link,.default-links a{
+article p > a:not([class]),article li > a:not([class]),.default-link,.default-links a{
 	color:#333;
 	box-shadow:0 4px 0 0 #a4def2;
 	font-weight:theme('_vars.boldWeight');
@@ -152,7 +152,7 @@ blockquote,.quote{
 		content:"“";
 		font-family:theme('fontFamily.display');
 		font-size:48px;
-		font-weight:700;
+		// font-weight:theme('_vars.boldWeight');
 		position:absolute;
 		top:0;left:.5em;
 	}
@@ -188,13 +188,13 @@ table {
 }
 table,tbody p{ @include fluid(font-size, 48rem, 80rem, 0.75rem, 1rem); }
 thead {
-	font-weight:600;
 	border-bottom:1px solid theme('colors.gray.300');
 }
 td,th{ padding:.8rem; }
 th{
 	text-transform:uppercase;
 	letter-spacing:1.2px;
+	font-weight:theme('_vars.boldWeight');
 	@include fluid(font-size, 48rem, 80rem, 0.6rem, 0.75rem);
 	background:theme('colors.gray.100');
 }
