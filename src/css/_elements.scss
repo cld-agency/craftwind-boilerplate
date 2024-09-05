@@ -38,7 +38,6 @@ article p > a:not([class]),article li > a:not([class]),.default-link,.default-li
 h1,h2,h3,h4,h5,h6,dt,th,.fauxH2,.fauxH3{
 	font-family:theme('fontFamily.display');
 	font-weight:theme('_vars.headingWeight');
-	color:theme('colors.dark.DEFAULT');
 	margin-bottom:0;
 }
 h1{
