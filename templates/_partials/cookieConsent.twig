@@ -200,10 +200,13 @@ JS
 				if (button.classList.contains('js-allCookies')){ input.checked = true; }
 
 				// only add to the array if it's selected and if we haven't already injected this type
-				if (input.checked && !getCookie(type)){
-					typesToLoad2.push(type);
-					// add cookie for this type so it gets loaded on page load next time
-					document.cookie = type + '=1;path=/;max-age=15768000'; // 6 months
+				if (input.checked){
+					// don't combine this into the outer condition or the `else` won't work properly
+					if (!getCookie(type)) {
+						typesToLoad2.push(type);
+						// add cookie for this type so it gets loaded on page load next time
+						document.cookie = type + '=1;path=/;max-age=15768000'; // 6 months
+					}
 				} else {
 					// delete the cookie for this type so it doesn't get loaded on next page load
 					document.cookie = type + '=0;path=/;max-age=0';
