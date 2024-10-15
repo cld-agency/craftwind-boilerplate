@@ -79,11 +79,11 @@ article ul li::before, dt::before{
 	margin:.7em 0 0 -2em;
 	border-radius:50%;
 }
-dt::before{ margin-left: -1.65em; }
+dt::before{ margin-left: -1.33em; }
 article li{padding:0 0 0 2em;}
 article ol li{padding:0 0 0 1em;}
 nav li{padding:0}
-nav li:before{display:none}
+nav li::before{display:none}
 
 // horrible nested lists and list items with multiple paras.
 // ideally steer clients away from doing this, but at least it
