@@ -31,6 +31,8 @@ article p > a:not([class]),article li > a:not([class]),.default-link,.default-li
 	&:hover,&:focus{ box-shadow:$linkHover; }
 }
 
+:visited:not([class]){ color:inherit; }
+
 // --------------------------------------------
 // HEADINGS
 // --------------------------------------------
