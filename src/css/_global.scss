@@ -2,7 +2,11 @@
 // GLOBAL NORMALISER
 // --------------------------------------------
 
-*,::before,::after{box-sizing:border-box;border-radius:0;}
+*,::before,::after{
+	box-sizing:border-box;
+	border-radius:0;
+	--tw-ring-color: theme('colors.brand.DEFAULT');
+}
 div,main,article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,blockquote,fieldset,picture{display:block;margin:0;padding:0;}
 //audio,canvas,video{display:inline-block;}
 html{font-size:100%;text-size-adjust:100%;}
@@ -74,14 +78,10 @@ table{border-collapse:collapse;}
 	&:hover{ color:inherit; }
 }
 
-// reset default focus state for buttons and links...
+// reset default focus state for buttons and links in favour of TW `ring` functionality
 // https://tailwindcss.com/docs/ring-width
-button:focus, a:focus{
+button:focus, a:focus, button:focus-visible, a:focus-visible,[role="button"]:focus-visible{
 	outline:none;
-}
-button:focus-visible, a:focus-visible,[role="button"]:focus-visible{
-	outline:none;
-	box-shadow: 0 0 0 3px theme('colors.brand.DEFAULT');
 }
 
 // --------------------------------------------
