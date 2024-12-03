@@ -4,7 +4,6 @@
 
 p,address,ul,ol,dl,dd{
 	margin-bottom:0;
-	// this should always be identical to .fl:text-base
 	@include fluid(font-size, 20rem, 64rem, 0.8125rem, 1rem);
 	line-height:1.77;
 }
