@@ -1,0 +1,75 @@
+.is-active,.is-active-on-focus:focus{
+	transform:none;
+	opacity:1;
+	visibility:visible;
+	pointer-events:all;
+	display:block;
+	&.flex{ display:flex; }
+	&.inline-flex{ display:inline-flex; }
+}
+.no-js .no-js-show.hidden{ display:block; }
+
+/*// aspect ratios lifted from the Tailwind aspect ratio plugin...*/
+/*// no need for a whole plugin just for these really...*/
+.aspect-16-9{
+	position:relative;
+	padding-bottom:calc(9 / 16 * 100%);
+	> *{
+		position:absolute;
+		height:100%;
+		width:100%;
+		top:0;right:0;bottom:0;left:0
+	}
+}
+
+/*// FLUID UTIITIES*/
+/*// at full size, the values should match tailwind's equivalent class.*/
+/*// If you want in-betweeney values, create a new class.*/
+
+.fl\:py-16 {
+	padding-top:fluid(1.5rem, 6rem, 20rem, 64rem);
+	padding-bottom:fluid(1.5rem, 6rem, 20rem, 64rem);
+}
+.fl\:py-12 {
+	padding-top:fluid(1rem, 3.875rem, 20rem, 64rem);
+	padding-bottom:fluid(1rem, 3.875rem, 20rem, 64rem);
+}
+.fl\:py-8{
+	padding-top:fluid(0.75rem, 2rem, 20rem, 64rem);
+	padding-bottom:fluid(0.75rem, 2rem, 20rem, 64rem);
+}
+
+.fl\:text-sm{
+	font-size:fluid(0.6875rem, 0.875rem, 48rem, 80rem);
+}
+.fl\:text-base{
+	font-size:fluid(0.8125rem, 1rem, 20rem, 80rem);
+}
+.fl\:text-lg,.lead p{
+	font-size:fluid(1rem, 1.125rem, 20rem, 80rem);
+}
+.fl\:text-3xl{
+	font-size:fluid(1.5rem, 1.875rem, 20rem, 80rem);
+}
+.fl\:text-4xl{
+	font-size:fluid(1.75rem, 2.25rem, 20rem, 80rem);
+}
+.fl\:text-5xl{
+	font-size:fluid(2rem, 3rem, 20rem, 80rem);
+}
+
+/*// --------------------------------------------*/
+/*// line-height-compensation*/
+/* haven't found a good migration from SCSS for this yet... but
+equally, it's always been a bit complicated and fiddly.
+*/
+/*// --------------------------------------------*/
+
+.line-height-compensation, .line-height-compensation-first-children > p:first-child{
+	/*@include mixins.text-crop();*/
+}
+/*// 1.238 seems to be what firefox at least for Montserrat considers to be "line-height:normal".*/
+/*// Tweak according to your heading font*/
+.line-height-compensation-normal, .line-height-compensation-first-children > h2:first-child{
+	/*@include mixins.text-crop(1.238);*/
+}

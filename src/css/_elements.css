@@ -1,40 +1,30 @@
-// --------------------------------------------
-// CORE CONTENT STYLING
-// --------------------------------------------
+/*// --------------------------------------------*/
+/*// CORE CONTENT STYLING*/
+/*// --------------------------------------------*/
 
 p,address,ul,ol,dl,dd{
 	margin-bottom:0;
-	@include fluid(font-size, 20rem, 64rem, 0.8125rem, 1rem);
+	font-size:fluid(0.8125rem, 1rem, 20rem, 64rem);
 	line-height:1.77;
 }
-small,.small{
-	@include fluid(font-size, 20rem, 64rem, 0.75rem, 1rem);
-}
 
-// --------------------------------------------
-// LINKS
-// --------------------------------------------
-
-$linkHover:0 4px 0 0 theme('colors.accent.DEFAULT');
-$linkTransition:box-shadow .2s linear, color .2s linear;
+/*// --------------------------------------------*/
+/*// LINKS*/
+/*// --------------------------------------------*/
 
 article p > a:not([class]),article li > a:not([class]),.default-link,.default-links a{
 	color:#333;
 	box-shadow:0 4px 0 0 #a4def2;
 	font-weight:theme('_vars.boldWeight');
-	transition:$linkTransition;
-	&:hover{ color:#000;box-shadow:$linkHover }
-}
-.standard-link-hover{
-	transition:$linkTransition;
-	&:hover,&:focus{ box-shadow:$linkHover; }
+	transition:box-shadow .2s linear, color .2s linear;
+	&:hover{ color:#000;box-shadow:0 4px 0 0 theme('colors.accent.DEFAULT') }
 }
 
 :visited:not([class]){ color:inherit; }
 
-// --------------------------------------------
-// HEADINGS
-// --------------------------------------------
+/*// --------------------------------------------*/
+/*// HEADINGS*/
+/*// --------------------------------------------*/
 
 h1,h2,h3,h4,h5,h6,dt,th,.fauxH2,.fauxH3{
 	font-family:theme('fontFamily.display');
@@ -42,24 +32,24 @@ h1,h2,h3,h4,h5,h6,dt,th,.fauxH2,.fauxH3{
 	margin-bottom:0;
 }
 h1{
-	@include fluid(font-size, 20rem, 64rem, 2rem, 2.5rem);
+	font-size:fluid(2rem, 2.5rem, 20rem, 64rem);
 	+ h2{ margin-top:0.5em; }
 }
 h2,.fauxH2{
-	@include fluid(font-size, 20rem, 64rem, 1.5625rem, 1.75rem);
+	font-size:fluid(1.5625rem, 1.75rem, 20rem, 64rem);
 	+ h3{ margin-top:0.5em; }
 }
 h3,dt,.fauxH3{
-	@include fluid(font-size, 20rem, 64rem, 1.3125rem, 1.5rem);
+	font-size:fluid(1.3125rem, 1.5rem, 20rem, 64rem);
 	+ h4{ margin-top:1em; }
 }
 h4,h5,h6{
-	@include fluid(font-size, 20rem, 64rem, 1rem, 1.1875rem);
+	font-size:fluid(1rem, 1.1875rem, 20rem, 64rem);
 }
 
-// --------------------------------------------
-// LISTS
-// --------------------------------------------
+/*// --------------------------------------------*/
+/*// LISTS*/
+/*// --------------------------------------------*/
 
 article ul,dl,ol{
 	padding:0 30px 0 0;
@@ -67,7 +57,7 @@ article ul,dl,ol{
 }
 ol{ margin-left:1.2em;}
 
-//bullets
+/*//bullets*/
 article ul{ list-style:none; }
 article ul li::before, dt::before{
 	content:"";
@@ -84,10 +74,10 @@ article ol li{padding:0 0 0 1em;}
 nav li{padding:0}
 nav li::before{display:none}
 
-// horrible nested lists and list items with multiple paras.
-// ideally steer clients away from doing this, but at least it
-// should work. Nullify lobotomised owl approach here as it can't
-// really work...
+/*// horrible nested lists and list items with multiple paras.*/
+/*// ideally steer clients away from doing this, but at least it*/
+/*// should work. Nullify lobotomised owl approach here as it can't*/
+/*// really work...*/
 article ul ul, article ul ol, article ol ul, article ol ol, article ul > li p{
 	margin-top:0.75em;
 	margin-bottom:0.75em;
@@ -98,9 +88,9 @@ dd + dt{ margin-top:.5em; }
 dd{ margin:0; }
 dd p{ margin-top:.5em; }
 
-// --------------------------------------------
-// HR
-// --------------------------------------------
+/*// --------------------------------------------*/
+/*// HR*/
+/*// --------------------------------------------*/
 
 hr {
 	border-color:theme('borderColor.DEFAULT');
@@ -109,12 +99,12 @@ hr {
 	margin-bottom:3em;
 }
 
-// --------------------------------------------
-// IMG & FIGURE & CAPTION
-// --------------------------------------------
+/*// --------------------------------------------*/
+/*// IMG & FIGURE & CAPTION*/
+/*// --------------------------------------------*/
 
-// because figures get automatically inserted by Redactor,
-// we need to style the defaults here.
+/*// because figures get automatically inserted by Redactor,*/
+/*// we need to style the defaults here.*/
 figure{
 	display:table;
 	img{
@@ -133,10 +123,10 @@ figure:not(.quote) figcaption {
 	margin:1.5em auto 0;
 }
 
-// --------------------------------------------
-// BLOCKQUOTES
-// https://maedi.com/code/semantic-blockquote-html5/
-// --------------------------------------------
+/*// --------------------------------------------*/
+/*// BLOCKQUOTES*/
+/*// https://maedi.com/code/semantic-blockquote-html5/*/
+/*// --------------------------------------------*/
 
 blockquote,.quote{
 	position:relative;
@@ -144,15 +134,15 @@ blockquote,.quote{
 	border-left-width:.25rem;
 	border-left-color:theme('colors.brand.DEFAULT');
 	padding:2em 3em;
-	// in case it comes from redactor and there are no p tags...
-	@include fluid(font-size, 20rem, 64rem, 1.2rem, 1.4375rem);
+	/*// in case it comes from redactor and there are no p tags...*/
+	font-size:fluid(1.2rem, 1.4375rem, 20rem, 64rem);
 	line-height:1.6;
 	color:theme('colors.brand.DEFAULT');
 	&::before, &::after{
 		content:"“";
 		font-family:theme('fontFamily.display');
 		font-size:48px;
-		// font-weight:theme('_vars.boldWeight');
+		/*// font-weight:theme('_vars.boldWeight');*/
 		position:absolute;
 		top:0;left:.5em;
 	}
@@ -162,10 +152,10 @@ blockquote,.quote{
 		right:.5em;bottom:0;
 	}
 }
-// ideally we're in a <figure> element,
-// but keep the styles above on the blockquote
-// in case it's come from Redactor which will not
-// wrap a blockquote in a figure.
+/*// ideally we're in a <figure> element,*/
+/*// but keep the styles above on the blockquote*/
+/*// in case it's come from Redactor which will not*/
+/*// wrap a blockquote in a figure.*/
 figure blockquote{
 	margin:0;
 	border:0;
@@ -173,12 +163,12 @@ figure blockquote{
 	&::before,&::after{ display:none; }
 }
 blockquote p{
-	@include fluid(font-size, 20rem, 64rem, 1.2rem, 1.4375rem);
+	font-size: fluid(1.2rem, 1.4375rem, 20rem, 64rem);
 }
 
-// --------------------------------------------
-// TABLES
-// --------------------------------------------
+/*// --------------------------------------------*/
+/*// TABLES*/
+/*// --------------------------------------------*/
 
 table {
 	width:100%;
@@ -186,7 +176,7 @@ table {
 	text-align:left;
 	line-height:1.4;
 }
-table,tbody p{ @include fluid(font-size, 48rem, 80rem, 0.75rem, 1rem); }
+table,tbody p{ font-size:fluid(0.75rem, 1rem, 48rem, 80rem); }
 thead {
 	border-bottom:1px solid theme('colors.gray.300');
 }
@@ -195,20 +185,20 @@ th{
 	text-transform:uppercase;
 	letter-spacing:1.2px;
 	font-weight:theme('_vars.boldWeight');
-	@include fluid(font-size, 48rem, 80rem, 0.6rem, 0.75rem);
+	font-size: fluid(0.6rem, 0.75rem, 48rem, 80rem);
 	background:theme('colors.gray.100');
 }
 tbody tr{ border-bottom:1px solid theme('colors.gray.200'); }
-// overrides for tables on silver
+/*// overrides for tables on silver*/
 .bg-gray-100 table{
 	td{ background:#fff; }
 	th{ background:theme('colors.gray.200'); }
 	tbody tr{ border-color:theme('colors.gray.300'); }
 }
 
-// --------------------------------------------
-// FORMS
-// --------------------------------------------
+/*// --------------------------------------------*/
+/*// FORMS*/
+/*// --------------------------------------------*/
 
 [type=text],[type=email],[type=url],[type=tel],[type=password],[type=search],[type=number],textarea,select{
 	margin-top:.5em;
@@ -219,7 +209,7 @@ tbody tr{ border-bottom:1px solid theme('colors.gray.200'); }
 	padding:12px 10px;
 	border:1px solid theme('colors.gray.200');
 	color:theme('colors.body');
-	@include fluid(font-size, 20rem, 64rem, 1rem, 1.125rem);
+	font-size:fluid(1rem, 1.125rem, 20rem, 64rem);
 	line-height:1.5;
 	&:hover{
 		border-color:theme('colors.gray.300');

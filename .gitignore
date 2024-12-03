@@ -9,5 +9,4 @@ config/license.key
 !/storage/rebrand/
 !/storage/rebrand/*
 public_html/cpresources/*
-public_html/_assets
 /vendor

@@ -29,9 +29,14 @@
 	<meta charset="utf-8">
 	<title>{{ title is defined ? title ~ ' | ' ~ siteName : siteName }}</title>
 	<meta name="description" content="{{ metaDesc is defined ? metaDesc|striptags : null }}">
-	<link rel="stylesheet" href="{{ siteUrl|trim('/', 'right') }}{{ mix('css/main.css') }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{% if noIndex is defined and noIndex == 1 or craft.app.config.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
+
+	{# Load our main CSS file to avoid FOUC in dev mode #}
+	{% if craft.vite.devServerRunning() %}
+		<link rel="stylesheet" href="{{ craft.vite.asset("src/css/main.css") }}">
+	{% endif %}
+	{{ craft.vite.script('src/js/main.js', false) }}
 
 	{# ======================================
 	SOCIAL META. Use OG fallbacks to minimise complexity here.
@@ -267,8 +272,6 @@
 		{% include '_partials/cookieConsent.twig' %}
 		<script src="/assets/js/postscribe.min.js"></script>
 	{% endif %}
-
-	<script src="{{ siteUrl|trim('/', 'right') }}{{ mix('js/main.js') }}"></script>
 
 	{# load any essential scripts from the Scripts section set to appear at body-end #}
 	{% if scriptsToLoadUpfrontAtBodyEnd|length %}

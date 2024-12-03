@@ -2,9 +2,9 @@
   "require": {
     "craftcms/ckeditor": "4.1.0",
     "craftcms/cms": "5.2.0",
-    "misterbk/mix": "v1.7.1",
     "mmikkel/cp-field-inspect": "2.0.1",
     "nystudio107/craft-minify": "5.0.0",
+    "nystudio107/craft-vite": "5.0.1",
     "vlucas/phpdotenv": "^5.6.0"
   },
   "require-dev": {

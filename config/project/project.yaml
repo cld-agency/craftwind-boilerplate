@@ -1,4 +1,4 @@
-dateModified: 1725035955
+dateModified: 1733235287
 elementSources:
   craft\elements\Entry:
     -
@@ -145,7 +145,7 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
-  mix:
+  vite:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
