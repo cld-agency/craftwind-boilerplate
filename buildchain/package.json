@@ -10,7 +10,7 @@
   },
   "watch": {
     "build": {
-      "patterns": ["src", "templates"],
+      "patterns": ["src", "../templates"],
       "extensions": "js,css,twig",
       "inherit": true,
       "quiet": true,
