@@ -10,12 +10,8 @@
   },
   "watch": {
     "build": {
-      "patterns": [
-        "src/**/*"
-      ],
-      "ignore": "manifest.json",
-      "extensions": "js,css,scss",
-      "runOnChangeOnly": true,
+      "patterns": ["src", "templates"],
+      "extensions": "js,css,twig",
       "inherit": true,
       "quiet": true,
       "silent": true

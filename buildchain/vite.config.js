@@ -2,14 +2,18 @@ import fs from 'node:fs';
 import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ command, mode }) => {
-	const env = loadEnv(mode, process.cwd(), '');
+	const env = loadEnv(mode, '../', '');
 	const config = {
-		// In dev mode, we serve assets at the root of http://localhost:3000
+		// In dev mode, we serve assets at the root of http://localhost:4000
 		// In production, files live in the /assets directory
 		base: command === 'serve' ? '' : '/dist/',
 		build: {
 			manifest: true,
-			outDir: 'public_html/dist/',
+			outDir: '../public_html/dist/',
+
+			// need this to force compiling outside of Vite's root.
+			emptyOutDir: true,
+
 			rollupOptions: {
 				input: {
 					app: 'src/js/main.js'
@@ -18,9 +22,9 @@ export default defineConfig(({ command, mode }) => {
 		},
 		server: {
 			host: env.VITE_HOST ?? env.PRIMARY_SITE_URL.replace(/^http:\/\//, ""),
-			// Use a strict port because we have to hard code this in vite.php
+			// Use a strict port because we have to hard code this in config/vite.php
 			strictPort: true,
-			port: env.VITE_PORT ?? 3000
+			port: env.VITE_PORT ?? 4000
 		}
 	};
 

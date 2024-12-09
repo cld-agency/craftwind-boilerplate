@@ -2,7 +2,7 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
 	content: [
-		'templates/**/*.twig'
+		'../templates/**/*.twig'
 	],
 	corePlugins: {
 		preflight: false,
