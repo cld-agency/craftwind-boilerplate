@@ -1,8 +1,8 @@
 {% minify %}
 
 {% set css = {
-	navLink: 'uppercase group inline-flex items-center text-center font-semibold tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
-	navLinkOnLight: 'block uppercase text-base font-semibold tracking-widest leading-6',
+	navLink: 'uppercase group inline-flex items-center text-center font-medium tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
+	navLinkOnLight: 'block uppercase text-base font-medium tracking-widest leading-6',
 	breakoutLink: "!static content-[''] before:block before:absolute before:inset-0 before:cursor-pointer"
 } %}
 
@@ -28,57 +28,54 @@
 	<script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');</script>
 	<meta charset="utf-8">
 	<title>{{ title is defined ? title ~ ' | ' ~ siteName : siteName }}</title>
+
+	{# ==================================
+	FONTS.
+	===================================== #}
+
+	<style>
+		@font-face {
+			font-display: swap;
+			font-family: 'Bricolage Grotesque';
+			font-style: normal;
+			font-weight: 400;
+			src: url('/assets/fonts/bricolage-grotesque-v2-latin-regular.woff2') format('woff2');
+		}
+		@font-face {
+			font-display: swap;
+			font-family: 'Poppins';
+			font-style: normal;
+			font-weight: 400;
+			src: url('/assets/fonts/poppins-v21-latin-regular.woff2') format('woff2');
+		}
+		@font-face {
+			font-display: swap;
+			font-family: 'Poppins';
+			font-style: italic;
+			font-weight: 400;
+			src: url('/assets/fonts/poppins-v21-latin-italic.woff2') format('woff2');
+		}
+		@font-face {
+			font-display: swap;
+			font-family: 'Poppins';
+			font-style: normal;
+			font-weight: 500;
+			src: url('/assets/fonts/poppins-v21-latin-500.woff2') format('woff2');
+		}
+		[x-cloak]{ display:none!important; }
+	</style>
+
 	<meta name="description" content="{{ metaDesc is defined ? metaDesc|striptags : null }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{% if noIndex is defined and noIndex == 1 or craft.app.config.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
 
-	{# Load our main CSS file to avoid FOUC in dev mode #}
-	{% if craft.vite.devServerRunning() %}
-		<link rel="stylesheet" href="{{ craft.vite.asset("src/css/main.css") }}">
-	{% endif %}
-	{{ craft.vite.script('src/js/main.js', false) }}
-
 	{# ======================================
 	SOCIAL META. Use OG fallbacks to minimise complexity here.
-
-	NB: null coalescence operator doesn't seem to work as expected
-	here, so swapping out for nested ternaries :-/ I think that's
-	because Craft treats empty variables as non-null.
-
-	Don't be tempted to directly inject OG content here (i.e.
-	{{ entry.ogTitle }} - instead, keep the definition of that
-	data in each child template.
-
-	This approach has several advantages:
-	1) You can set cascading fallbacks per content type with a final fallback here.
-	2) This layout template becomes more reusable as it's not reliant on the existence of an 'entry'.
-	3) You can pass hardcoded content easily - no need to create singles for everything
-
-	Here's a sample child section for setting all available meta (exact implementation should vary depending on the available fallback fields so that authors don't have to enter explicit OG data every time):
-
-	{% set title = entry.titleTag ? entry.titleTag : entry.title %}
-	{% set metaDesc = entry.metaDesc ? entry.metaDesc : entry.summary ? entry.summary : null %}
-	{% set noIndex = entry.noIndex ?? null %}
-
-	{% set ogTitle = entry.ogTitle ?? null %}
-	{% set ogDesc =  entry.ogDesc ?? null %}
-	{% set ogImg = entry.ogImage.one() ?? entry.productImage.one() ?? null %}
-	{% set ogType = entry.ogType ?? null %}
-	{% set twitterCreator = entry.twitterCreator ?? null %}
-	{% set twitterCard = entry.twitterCard ?? null %}
 	========================================= #}
 
 	{% set ogTitle = ogTitle is defined and ogTitle ? ogTitle : title is defined and title ? title : siteName %}
 	{% set ogDesc = ogDesc is defined and ogDesc ? ogDesc : metaDesc is defined and metaDesc ? metaDesc : null %}
 
-	{#
-	We prefer to use site-root relative URIs for our asset base URLs, which means
-	we'll need to manually append the siteUrl onto externally referenced images such
-	as the OG image. Craft forces siteUrl to use a trailing slash, so we'll need to
-	trim it here to avoid a double-slash.
-	Also specify OG width and height for better rendering perf:
-	https://developers.facebook.com/docs/sharing/best-practices
-	 #}
 	{% if ogImg is defined and ogImg %}
 		{% set ogImgUrl = siteUrl|trim('/', 'right') ~ ogImg.url(craft.app.config.custom.globalTransforms.ogImg[0]) %}
 		{% set ogWidth = ogImg.width() %}
@@ -107,6 +104,13 @@
 			<meta property="fb:admins" content="{{ fbAdmin.fbAccountNo }}">
 		{% endfor %}
 	{% endif %}
+
+	{# Load our main CSS file to avoid FOUC in dev mode #}
+	{% if craft.vite.devServerRunning() %}
+		<link rel="stylesheet" href="{{ craft.vite.asset("src/css/main.css") }}">
+	{% endif %}
+	{# confusingly, this tag actually outputs both JS AND CSS assets when in production: #}
+	{{ craft.vite.script('src/js/main.js', false) }}
 
 	{# load any scripts directly held against the "Essential" category (not the stuff from the Scripts section, but the category itself) #}
 	{% if essentialCat|length %}
@@ -141,7 +145,7 @@
 
 <body class="m-0 {{ bodyClass ?? null }}">
 
-	<div class="js-edit-this" data-thing="{{ entry.id ?? category.id ?? null }}"></div>
+	<div data-edit-this data-thing="{{ entry.id ?? category.id ?? null }}"></div>
 
 	{{ beginBody() }}
 
@@ -166,7 +170,7 @@
 		} %}
 			{% block content %}
 				<nav class="flex justify-between items-center">
-					<a class="flex" href="/"><img alt="" style="height:50px" src="/assets/img/no-image.svg"></a>
+					<a class="flex" href="/"><img alt="" style="height:50px" src="/assets/img/logo.svg"></a>
 
 					<ul class="hidden md:flex space-x-8 ml-8">
 						<li><a href="#" class="{{ css.navLink }}">Link</a></li>
@@ -261,16 +265,10 @@
 	COOKIE CONSENT & SITE SCRIPTS
 	===================================== #}
 
-	{% set cookieCatsInUse = craft.categories.group('cookieTypes').relatedTo(
-			craft.entries.section('scripts').ids()
-		).all()|filter(
-			cat => cat.id != essentialCat.id ?? null
-		)
-	%}
+	{% set cookieCatsInUse = craft.categories.group('cookieTypes').relatedTo(craft.entries.section('scripts').ids()).all() %}
 
-	{% if cookieCatsInUse %}
+	{% if cookieCatsInUse|filter(cat => cat.id != essentialCat.id) %}
 		{% include '_partials/cookieConsent.twig' %}
-		<script src="/assets/js/postscribe.min.js"></script>
 	{% endif %}
 
 	{# load any essential scripts from the Scripts section set to appear at body-end #}
@@ -279,7 +277,7 @@
 			{{ script.script|raw }}
 		{% endfor %}
 	{% endif %}
-	<div id="js-scriptsHolder" style="position:absolute;bottom:0;z-index:-1"></div>
+	<div data-consented-scripts style="position:absolute;bottom:0;z-index:-1"></div>
 
 	{{ endBody() }}
 

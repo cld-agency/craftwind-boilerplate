@@ -1,14 +1,48 @@
-// import Toggle from './_toggle.js';
-// import LazyLoad from './_vanilla-lazyload.js';
-// import { lock, unlock, clearBodyLocks } from './_tua-body-scroll-lock.js';
+import '../css/main.css';
+import Alpine from 'alpinejs';
+import focus from '@alpinejs/focus';
+import consent from './modules/consent';
 
-/**
- * Accept HMR as per: https://vitejs.dev/guide/api-hmr.html & https://nystudio107.com/docs/vite/
- */
+window.Alpine = Alpine;
+Alpine.data('consent', consent);
+Alpine.plugin(focus);
+Alpine.start();
+
+// Accept HMR as per: https://vitejs.dev/guide/api-hmr.html and https://nystudio107.com/docs/vite/#entry-script-hmr
 if (import.meta.hot) {
 	import.meta.hot.accept(() => {
-		console.log('HMR')
-	})
+		console.log("HMR");
+	});
 }
 
-import '../css/main.css';
+// --------------------------------------------
+// DYNAMIC IMPORTS, technique cribbed from here:
+// https://www.mostlyserious.io/news-updates/process-spotlight-how-we-do-javascript-at-mostly-serious
+// --------------------------------------------
+
+const modules = {
+	'[name="CRAFT_CSRF_TOKEN"], craft-csrf-input': () => import('./modules/csrf-refresh'),
+	'[data-edit-this]': () => import('./modules/edit-this')
+};
+
+(() => {
+	const initModules = (scope) => {
+		Object.keys(modules).forEach(selector => {
+			const request = modules[selector];
+
+			(els => {
+				if (els && els.length) {
+					request().then(({ default: module }) => module(els));
+				}
+			})(scope.querySelectorAll(selector));
+		});
+	};
+
+	if (document.readyState !== 'loading') {
+		initModules(document);
+	} else {
+		document.addEventListener('DOMContentLoaded', () => initModules(document));
+	}
+
+	// Any additional global code can go here. Maybe set up an Alpine global $store??
+})();

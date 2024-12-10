@@ -1,36 +1,39 @@
 {% if craft.app.request.param('types')|length %}
 	{% set typeCats = craft.categories.group('cookieTypes').slug(craft.app.request.param('types')|split('|')).all() %}
+	{% set typeCatIds = typeCats|column('id') %}
+	{% set mode = craft.app.request.param('mode') %}
 	{% if typeCats|length %}
-		{% set scripts = craft.entries.section('scripts').cookieType(typeCats).all() %}
-		{% if scripts|length %}
-			<html lang="en">
-				<body>
-					{# load the scripts held in the Scripts section under the chosen categories #}
-					{% for script in scripts|filter(script => script.script|length) %}
-						{{ script.script|raw }}
-					{% endfor %}
-
-					{# load any scripts directly held against the category (not the stuff from the Scripts section, but the category itself) #}
-					{% for cat in typeCats %}
-						{# GTM consent preset ones... #}
-						{% if cat.gtmConsents|filter(row => row.value)|length %}
-							<script>
-								if (typeof gtag !== 'undefined') {
-									gtag('consent', 'update', {
-										{%- for row in cat.gtmConsents|filter(row => row.value) -%}
-										'{{ row.key }}': '{{ row.value }}'{{ not loop.last ? ',' }}
-										{%- endfor -%}
-									});
-								}
-							</script>
-						{% endif %}
-
-						{# and arbitrary ones... #}
-						{% if cat.script|length %}{{ cat.script|raw }}{% endif %}
-					{% endfor %}
-				</body>
-			</html>
+		{% set scriptsQuery = craft.entries.section('scripts').cookieType(typeCatIds) %}
+		{% if mode != 'ignoreFacades' %}
+			{% do scriptsQuery.facades('none') %}
 		{% endif %}
+		{% set scripts = scriptsQuery.all() %}
+
+		{% if scripts|length %}
+			{# load the scripts held in the Scripts section under the chosen categories #}
+			{% for script in scripts|filter(script => script.script|length) %}
+				{{ script.script|raw }}
+			{% endfor %}
+		{% endif %}
+
+		{# load any scripts directly held against the category (not the stuff from the Scripts section, but the category itself) #}
+		{% for cat in typeCats %}
+			{# GTM consent preset ones... #}
+			{% if cat.gtmConsents|filter(row => row.value)|length %}
+				<script>
+					if (typeof gtag !== 'undefined') {
+						gtag('consent', 'update', {
+							{%- for row in cat.gtmConsents|filter(row => row.value) -%}
+							'{{ row.key }}': '{{ row.value }}'{{ not loop.last ? ',' }}
+							{%- endfor -%}
+						});
+					}
+				</script>
+			{% endif %}
+
+			{# and arbitrary ones... #}
+			{% if cat.script|length %}{{ cat.script|raw }}{% endif %}
+		{% endfor %}
 	{% endif %}
 {% else %}
 	{% redirect 404 %}

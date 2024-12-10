@@ -6,6 +6,10 @@ use craft\helpers\App;
  * More docs here
  * https://nystudio107.com/blog/using-vite-js-next-generation-frontend-tooling-with-craft-cms
  */
+
+ $devServer = (!empty(App::env('VITE_SSL_KEY')) ? 'https://' : 'http://') .
+	 App::env('VITE_HOST') . ':' . (App::env('VITE_PORT') ?: '3000');
+
 return [
 	/**
 	 * This setting controls whether or not the Vite plugin will attempt to load
@@ -22,9 +26,10 @@ return [
 	/**
 	 * The browser-facing URL for the Vite dev server.
 	 */
-	'devServerPublic' =>
-		(!empty(App::env('VITE_SSL_KEY')) ? 'https://' : 'http://') .
-		App::env('VITE_HOST') . ':' . (App::env('VITE_PORT') ?: '3000'),
+	'devServerPublic' => $devServer,
+	// these two are necessary so that the built assets are output locally when the dev server isn't running.
+	'devServerInternal' => $devServer,
+	'checkDevServer' => true,
 
 	/**
 	 * The URL/path to the folder in which built files will reside.

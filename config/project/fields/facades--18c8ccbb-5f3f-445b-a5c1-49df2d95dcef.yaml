@@ -1,0 +1,21 @@
+columnSuffix: null
+handle: facades
+instructions: null
+name: Facades
+searchable: false
+settings:
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - None
+        -
+          - value
+          - none
+        -
+          - default
+          - '1'
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Dropdown

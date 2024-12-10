@@ -64,7 +64,22 @@ fieldLayouts:
             uid: 3fec0627-b8f6-43fb-a71f-9b021239795c
             userCondition: null
             warning: null
-            width: 100
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 18c8ccbb-5f3f-445b-a5c1-49df2d95dcef # Facades
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 03bb96f1-2541-47bd-bb7b-da594393e17d
+            userCondition: null
+            warning: null
+            width: 25
           -
             elementCondition: null
             fieldUid: ddf4f8a7-b482-4862-aac0-10e840fa7fa7 # Cookie type
