@@ -3,11 +3,13 @@ export default () => ({
 	openBanner: false,
 	showModalTrigger: false,
 	typesToLoad: [],
-	lightswitches: document.querySelectorAll('.js-cookieLightswitch'),
+	lightswitches: null,
 
 	init() {
 		// open the cookie banner if user has not yet made any choice
 		this.openBanner = !this.getCookie('cookiesAccepted');
+
+		this.lightswitches = this.$root.querySelectorAll('.js-cookieLightswitch');
 
 		// set lightswitch input values on page load and inject accepted scripts
 		this.lightswitches.forEach(label => {
