@@ -24,7 +24,7 @@ export default defineConfig(({ command, mode }) => {
 			host: env.VITE_HOST ?? env.PRIMARY_SITE_URL.replace(/^http:\/\//, ""),
 			// Use a strict port because we have to hard code this in config/vite.php
 			strictPort: true,
-			port: env.VITE_PORT ?? 4000
+			port: env.VITE_PORT ?? 3000
 		}
 	};
 
