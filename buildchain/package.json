@@ -17,6 +17,9 @@
       "silent": true
     }
   },
+  "browserslist": [
+    "> 1%"
+  ],
   "devDependencies": {
     "@lehoczky/postcss-fluid": "^1.0.3",
     "autoprefixer": "^10.4.19",

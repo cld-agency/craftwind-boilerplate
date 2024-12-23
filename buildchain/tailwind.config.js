@@ -10,12 +10,13 @@ module.exports = {
 	},
 	theme: {
 		screens: {
-			'sm': '500px',
+			'xs': '450px',
+			'2xs': '550px',
+			'sm': '654px',
 			'md': '864px',
 			'lg': '1074px',
 			'xl': '1280px',
-			'2xl': '1536px',
-			'any-pointer-coarse': { 'raw': '(any-pointer: coarse)' },
+			'2xl': '1536px'
 		},
 		fontFamily: {
 			'sans': ["Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif"],
@@ -50,8 +51,5 @@ module.exports = {
 				}
 			}
 		}
-	},
-	plugins: [
-
-	],
+	}
 }
