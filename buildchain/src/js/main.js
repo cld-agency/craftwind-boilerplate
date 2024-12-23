@@ -22,7 +22,8 @@ if (import.meta.hot) {
 
 const modules = {
 	'[name="CRAFT_CSRF_TOKEN"], craft-csrf-input': () => import('./modules/csrf-refresh'),
-	'[data-edit-this]': () => import('./modules/edit-this')
+	'[data-edit-this]': () => import('./modules/edit-this'),
+	'.js-lazyload': () => import('./modules/lazyload')
 };
 
 (() => {
