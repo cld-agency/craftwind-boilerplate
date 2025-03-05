@@ -1,4 +1,4 @@
-Experimental work-in-progrss Vite-based build
+Experimental work-in-progress Vite-based build
 =============================
 
 Notes

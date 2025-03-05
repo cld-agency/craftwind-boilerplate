@@ -53,6 +53,17 @@ return [
 		'aliases' => [
 			'@web' => App::env('PRIMARY_SITE_URL')
 		],
+
+		// Switch this on if you're using static caching.
+		// 1. Prevents Craft from sending no-cache headers
+		// anytime a {{ csrfInput() }} function is used on a page.
+		// 2. Outputs a JS call to /actions/users/session-info that
+		// refreshes Craft's custom <craft-csrf-input> element.
+		// Consider discussion here https://github.com/craftcms/cms/discussions/15427 -
+		// especially if you want to fetch additional private data
+		// in the same request: https://github.com/craftcms/cms/discussions/15427#discussioncomment-10408351
+
+		//'asyncCsrfInputs' => true,
 	],
 
 	// Live (production) environment

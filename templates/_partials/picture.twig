@@ -57,10 +57,10 @@ Params
 
 		<picture{% if extraPictureClasses|length %} class="{{ extraPictureClasses }}"{% endif %}>
 			<img src="{{ image['extension'] is defined ? image.url : image }}"
-			     alt="{{ alt ?? image.alt ?? '' }}"
-			     height="{{ image.height() }}"
-			     width="{{ image.width() }}"
-					{% if extraImgClasses|length %} class="{{ extraImgClasses }} {{ useLazyLoading ? 'js-lazyload' }}"{% endif %}
+				alt="{{ alt ?? image.alt ?? '' }}"
+				height="{{ image.height() }}"
+				width="{{ image.width() }}"
+				{% if extraImgClasses|length or useLazyLoading %} class="{{ extraImgClasses }} {{ useLazyLoading ? 'js-lazyload' }}"{% endif %}
 			>
 		</picture>
 	{% endif %}
