@@ -30,7 +30,14 @@ export default () => ({
 
 	// Handle submit button clicks (beware, this could be from banner or modal)
 	setChoices(mode) {
-		mode = mode || '';
+		mode = mode || 'some';
+
+		if (mode === 'none') {
+			// remember that this happened so we don't show the banner again
+			document.cookie = 'cookiesAccepted=1;path=/;max-age=15768000'; // 6 months
+			return;
+		}
+
 		this.typesToLoad = [];
 		// apply the chosen options
 		this.lightswitches.forEach(label => {
