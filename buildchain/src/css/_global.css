@@ -130,4 +130,4 @@ noscript+*,
 /*// FORM EL RESETS*/
 /*// --------------------------------------------*/
 
-input,textarea,select,button{ color:inherit;font-family:inherit }
+input,textarea,select,button{ color:inherit;font-family:inherit;font-weight:inherit; }

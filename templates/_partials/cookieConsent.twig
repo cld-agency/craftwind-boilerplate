@@ -18,9 +18,7 @@
 	<div id="cookie-modal" x-cloak x-show="openModal" x-trap.inert.noscroll="openModal" :aria-hidden="!openModal" class="fixed inset-0 z-50 flex justify-center items-center min-h-full p-8">
 		<div class="fixed inset-0 bg-dark bg-opacity-90 transition-opacity"></div>
 
-		<button type="button" class="hidden" data-close>Close me</button>
-
-		<form class="mt-0 fixed flex flex-col bg-white rounded-lg overflow-hidden shadow-xl transition-all sm:max-w-4xl max-w-[90vw] max-h-[72vh]">
+		<form class="mt-0 fixed flex flex-col bg-white rounded-lg overflow-hidden shadow-xl transition-all md:max-w-4xl max-w-[90vw] max-h-[72vh]">
 			<h2 class="text-center px-8 py-4 md:py-8 md:px-12 bg-gray-100 fl:text-2xl">Allow the use of cookies in this browser?</h2>
 			<div class="overflow-auto px-8 py-6 md:px-12">
 				<p>This website uses cookies to ensure you get the best experience on our website. <a class="default-link" href="/cookies">Learn more about our cookies</a>.</p>
@@ -136,4 +134,49 @@
 			</div>
 		</div>
 	</div>
+
+
+	{# ==================================
+	FUNCTIONALTIY COOKIES EXTRA PERMISSION MODAL.
+	This appears when people who haven't consented
+	to functionality cookies attempt to do something
+	that requires that consent. E.g. for playing an
+	embedded video, or filling in a form protected
+	by reCAPTCHA, engaging with Live Chat, whatever.
+	===================================== #}
+
+	<div x-cloak x-show="openFunctionalityConsentModal" x-trap.inert.noscroll="openFunctionalityConsentModal" :aria-hidden="!openFunctionalityConsentModal" class="fixed inset-0 z-50 flex justify-center items-center min-h-full">
+			<div class="fixed inset-0 bg-dark bg-opacity-90 transition-opacity"></div>
+			<div class="mt-0 fixed flex flex-col bg-white overflow-hidden shadow-xl transition-all md:max-w-4xl max-w-[90vw] max-h-[72vh] p-8 default-links">
+				<h2>We need your permission.</h2>
+
+				{# you can override this message per instance. See e.g. lazyload-scripts.js #}
+				<p x-text="functionalityModalMessage">To do that, please confirm that we may use functionality cookies.</p>
+
+				<p>Find out more in our <a target="_blank" href="/cookies">Cookie Policy</a> and <a target="_blank" href="/privacy-policy">Privacy Policy</a>.</p>
+
+				<div class="spacing flex gap-4">
+					{% include '_partials/button.twig' with {
+						element: 'button',
+						variants: 'secondary',
+						label: 'No thanks',
+						attrs: {
+							'type': 'button',
+							'@click': "declineConsentableFunctionality()"
+						}
+					} only %}
+
+					{% include '_partials/button.twig' with {
+						element: 'button',
+						label: 'OK, I accept',
+						classes: 'mt-0',
+						attrs: {
+							'type': 'button',
+							'@click': "openFunctionalityConsentModal = false; enableConsentableFunctionality(true)"
+						}
+					} only %}
+				</div>
+			</div>
+		</div>
+
 </div>

@@ -23,7 +23,8 @@ if (import.meta.hot) {
 const modules = {
 	'[name="CRAFT_CSRF_TOKEN"], craft-csrf-input': () => import('./modules/csrf-refresh'),
 	'[data-edit-this]': () => import('./modules/edit-this'),
-	'.js-lazyload': () => import('./modules/lazyload')
+	'.js-lazyload': () => import('./modules/lazyload'),
+	'.js-lazyloadScriptsWhenFieldFocussed': () => import('./modules/lazyload-scripts'),
 };
 
 (() => {
@@ -45,5 +46,14 @@ const modules = {
 		document.addEventListener('DOMContentLoaded', () => initModules(document));
 	}
 
-	// Any additional global code can go here. Maybe set up an Alpine global $store??
+	// // Alpine Store for any global JS code.
+	// // external access like this: const getCookie = Alpine.store('utils').someGlobalFunction;
+	// document.addEventListener('alpine:init', () => {
+	// 	Alpine.store('utils', {
+	// 		someGlobalFunction() {
+	// 			console.log('hi from Alpine Store');
+	// 		}
+	// 	});
+	// });
+
 })();
