@@ -55,14 +55,29 @@ const modules = {
 			el.parentNode.insertBefore(wrapper, el);
 			wrapper.appendChild(el);
 		});
+	};
+
+	// --------------------------------------------
+	// Global SITE object for shared functions
+	// --------------------------------------------
+
+	window.SITE = {
 
 	};
+
+	// --------------------------------------------
+	// IGNITION...
+	// --------------------------------------------
 
 	if (document.readyState !== 'loading') {
 		init(document);
 	} else {
 		document.addEventListener('DOMContentLoaded', () => init(document));
 	}
+
+	// --------------------------------------------
+	// ALPINE STORE
+	// --------------------------------------------
 
 	// // Alpine Store for any global JS code that needs to interact with Alpine components.
 	// // external access like this: Alpine.store('utils').someGlobalFunction;
