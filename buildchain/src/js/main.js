@@ -48,8 +48,8 @@ const modules = {
 		// WRAP TABLES
 		// --------------------------------------------
 
-		Array.from(document.getElementsByTagName('table')).forEach(el => {
-			const wrapper = document.createElement('div');
+		Array.from(scope.getElementsByTagName('table')).forEach(el => {
+			const wrapper = scope.createElement('div');
 			wrapper.style.overflowX = 'auto';
 			wrapper.className = 'spacing';
 			el.parentNode.insertBefore(wrapper, el);
