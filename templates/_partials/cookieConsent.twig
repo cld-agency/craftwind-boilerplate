@@ -146,37 +146,37 @@
 	===================================== #}
 
 	<div x-cloak x-show="openFunctionalityConsentModal" x-trap.inert.noscroll="openFunctionalityConsentModal" :aria-hidden="!openFunctionalityConsentModal" class="fixed inset-0 z-50 flex justify-center items-center min-h-full">
-			<div class="fixed inset-0 bg-dark bg-opacity-90 transition-opacity"></div>
-			<div class="mt-0 fixed flex flex-col bg-white overflow-hidden shadow-xl transition-all md:max-w-4xl max-w-[90vw] max-h-[72vh] p-8 default-links">
-				<h2>We need your permission.</h2>
+		<div class="fixed inset-0 bg-dark bg-opacity-90 transition-opacity"></div>
+		<div class="mt-0 fixed flex flex-col bg-white overflow-hidden shadow-xl transition-all md:max-w-4xl max-w-[90vw] max-h-[72vh] p-8 default-links">
+			<h2>We need your permission.</h2>
 
-				{# you can override this message per instance. See e.g. lazyload-scripts.js #}
-				<p x-text="functionalityModalMessage">To do that, please confirm that we may use functionality cookies.</p>
+			{# you can override this message per instance. See e.g. lazyload-scripts.js #}
+			<p x-text="functionalityModalMessage">To do that, please confirm that we may use functionality cookies.</p>
 
-				<p>Find out more in our <a target="_blank" href="/cookies">Cookie Policy</a> and <a target="_blank" href="/privacy-policy">Privacy Policy</a>.</p>
+			<p>Find out more in our <a target="_blank" href="/cookies">Cookie Policy</a> and <a target="_blank" href="/privacy-policy">Privacy Policy</a>.</p>
 
-				<div class="spacing flex gap-4">
-					{% include '_partials/button.twig' with {
-						element: 'button',
-						variants: 'secondary',
-						label: 'No thanks',
-						attrs: {
-							'type': 'button',
-							'@click': "declineConsentableFunctionality()"
-						}
-					} only %}
+			<div class="spacing flex gap-4">
+				{% include '_partials/button.twig' with {
+					element: 'button',
+					variants: 'secondary',
+					label: 'No thanks',
+					attrs: {
+						'type': 'button',
+						'@click': "declineConsentableFunctionality()"
+					}
+				} only %}
 
-					{% include '_partials/button.twig' with {
-						element: 'button',
-						label: 'OK, I accept',
-						classes: 'mt-0',
-						attrs: {
-							'type': 'button',
-							'@click': "openFunctionalityConsentModal = false; enableConsentableFunctionality(true)"
-						}
-					} only %}
-				</div>
+				{% include '_partials/button.twig' with {
+					element: 'button',
+					label: 'OK, I accept',
+					classes: 'mt-0',
+					attrs: {
+						'type': 'button',
+						'@click': "openFunctionalityConsentModal = false; enableConsentableFunctionality(true)"
+					}
+				} only %}
 			</div>
 		</div>
+	</div>
 
 </div>
