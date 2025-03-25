@@ -28,7 +28,12 @@ const modules = {
 };
 
 (() => {
-	const initModules = (scope) => {
+	const init = (scope) => {
+
+		// --------------------------------------------
+		// INITIALISE MODULES
+		// --------------------------------------------
+
 		Object.keys(modules).forEach(selector => {
 			const request = modules[selector];
 
@@ -38,16 +43,29 @@ const modules = {
 				}
 			})(scope.querySelectorAll(selector));
 		});
+
+		// --------------------------------------------
+		// WRAP TABLES
+		// --------------------------------------------
+
+		Array.from(document.getElementsByTagName('table')).forEach(el => {
+			const wrapper = document.createElement('div');
+			wrapper.style.overflowX = 'auto';
+			wrapper.className = 'spacing';
+			el.parentNode.insertBefore(wrapper, el);
+			wrapper.appendChild(el);
+		});
+
 	};
 
 	if (document.readyState !== 'loading') {
-		initModules(document);
+		init(document);
 	} else {
-		document.addEventListener('DOMContentLoaded', () => initModules(document));
+		document.addEventListener('DOMContentLoaded', () => init(document));
 	}
 
-	// // Alpine Store for any global JS code.
-	// // external access like this: const getCookie = Alpine.store('utils').someGlobalFunction;
+	// // Alpine Store for any global JS code that needs to interact with Alpine components.
+	// // external access like this: Alpine.store('utils').someGlobalFunction;
 	// document.addEventListener('alpine:init', () => {
 	// 	Alpine.store('utils', {
 	// 		someGlobalFunction() {
