@@ -62,7 +62,7 @@ table{border-collapse:collapse;}
 	> li{ &::before{display:none} }
 }
 .button-reset{
-	border:none;
+	border-width:0;
 	margin:0;
 	padding:0;
 	width:auto;

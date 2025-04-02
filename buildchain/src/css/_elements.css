@@ -78,7 +78,7 @@ nav li::before{display:none}
 /*// ideally steer clients away from doing this, but at least it*/
 /*// should work. Nullify lobotomised owl approach here as it can't*/
 /*// really work...*/
-article ul ul, article ul ol, article ol ul, article ol ol, article ul > li p{
+article ul ul, article ul ol, article ol ul, article ol ol, article ul:not(.list-reset) > li p{
 	margin-top:0.75em;
 	margin-bottom:0.75em;
 }
