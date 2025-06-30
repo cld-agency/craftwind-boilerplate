@@ -1,4 +1,4 @@
-{% extends "_layout" %}
+{% extends '_layout.twig' %}
 
 {# =============================================================================== #}
 
@@ -7,5 +7,10 @@
 {# =============================================================================== #}
 
 {% block content %}
-	<h1>Page not found</h1>
+	{% embed '_partials/container.twig' %}
+		{% block content %}
+			<h1>Page not found</h1>
+			<p>Sorry, we couldn't find the page you're looking for.</p>
+		{% endblock %}
+	{% endembed %}
 {% endblock %}

@@ -54,6 +54,8 @@ return [
 			'@web' => App::env('PRIMARY_SITE_URL')
 		],
 
+		'defaultCountryCode' => 'GB',
+
 		// Switch this on if you're using static caching.
 		// 1. Prevents Craft from sending no-cache headers
 		// anytime a {{ csrfInput() }} function is used on a page.
