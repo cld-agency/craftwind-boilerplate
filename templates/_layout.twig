@@ -77,6 +77,7 @@
 	{% set ogDesc = ogDesc is defined and ogDesc ? ogDesc : metaDesc is defined and metaDesc ? metaDesc : null %}
 
 	{% if ogImg is defined and ogImg %}
+		{# Beware, this approach relies on your assets filesystem in Craft having a root-relative Base URL. If it doesn't for some reason, you'll need to change this next line to remove the siteUrl prefix.  #}
 		{% set ogImgUrl = siteUrl|trim('/', 'right') ~ ogImg.url(craft.app.config.custom.globalTransforms.ogImg[0]) %}
 		{% set ogWidth = ogImg.width() %}
 		{% set ogHeight = ogImg.height() %}

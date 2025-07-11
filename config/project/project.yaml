@@ -1,4 +1,4 @@
-dateModified: 1733842497
+dateModified: 1752250679
 elementSources:
   craft\elements\Entry:
     -
@@ -104,7 +104,8 @@ meta:
     5b558113-9756-4bc6-98e9-97d78f191097: Matrix # Matrix
     5f3c0617-ce2b-446f-a3ae-af263602d228: Script # Script
     7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
-    9ba80f98-3521-4d95-8103-833cc54f9074: 'X/Twitter card' # X/Twitter card
+    8a50c654-ee15-4c10-bba1-5b9e304972ac: 'SEO metadata' # SEO metadata
+    9ba80f98-3521-4d95-8103-833cc54f9074: 'X (Twitter) card' # X (Twitter) card
     18c8ccbb-5f3f-445b-a5c1-49df2d95dcef: Facades # Facades
     27fd5441-8230-4f21-8d4c-ae215e7076df: $SYSTEM_NAME # $SYSTEM_NAME
     33b44401-118b-4a32-a630-4002586fb7a4: 'Cookie durations' # Cookie durations
@@ -138,10 +139,6 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 3.0.0.0
-  cp-field-inspect:
-    edition: standard
-    enabled: true
-    schemaVersion: 1.0.0
   minify:
     edition: standard
     enabled: true
@@ -155,7 +152,7 @@ system:
   live: true
   name: $SYSTEM_NAME
   retryDuration: null
-  schemaVersion: 5.0.0.20
+  schemaVersion: 5.8.0.3
   timeZone: UTC
 users:
   allowPublicRegistration: false

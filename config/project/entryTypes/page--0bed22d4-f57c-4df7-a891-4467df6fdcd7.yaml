@@ -1,6 +1,8 @@
 color: null
+description: null
 fieldLayouts:
   219cc855-2268-4bc0-8f1e-497f8a02c1a9:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
@@ -10,6 +12,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2025-07-11T16:15:11+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -24,7 +27,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -35,6 +38,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2025-07-11T16:15:11+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: 661f0cbe-8667-4984-aea8-55239d2f6e8e # Body builder
             handle: null
@@ -56,98 +61,10 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: '2025-07-11T16:16:37+00:00'
+            editCondition: null
             elementCondition: null
-            fieldUid: cac312e5-9dfa-4d00-8bf4-ce5af69a0035 # Lightswitch (default off)
-            handle: noIndex
-            includeInCards: false
-            instructions: 'Adds a meta noindex tag to the page to stop search engines indexing it'
-            label: 'No index'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: be87ef81-2986-4d9b-bdfc-f5c910fe121b
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: b228af6c-ab3c-48ea-89a5-20501be8c410
-            userCondition: null
-          -
-            elementCondition: null
-            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
-            handle: titleTag
-            includeInCards: false
-            instructions: null
-            label: 'Browser title'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 58e4b421-848c-4ee6-b9bf-391391300685
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # Plain text field (non-searchable)
-            handle: ogTitle
-            includeInCards: false
-            instructions: 'Override both the browser title and the entry title for services that consume OG meta data.'
-            label: 'OG title override'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 29825384-81f4-4b48-883b-4716e14fd402
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: 47b8671e-6789-4928-b582-ee3fad666370
-            userCondition: null
-          -
-            elementCondition: null
-            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
-            handle: metaDesc
-            includeInCards: false
-            instructions: null
-            label: 'Meta description'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 59819c9c-811b-426c-8346-d947d7489f61
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
-            handle: ogDesc
-            includeInCards: false
-            instructions: 'The description that will appear on the Twitter Card or Facebook post or any other third party service that consumes OG meta data.'
-            label: 'OG description'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 4a9ea221-d463-4d01-b300-4a3a42ab993a
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: f57c40bd-efdb-4fc7-9afd-516c26bcad8d
-            userCondition: null
-          -
-            elementCondition: null
-            fieldUid: 93911dec-d597-4048-be70-3822341db5c8 # OG image
+            fieldUid: 8a50c654-ee15-4c10-bba1-5b9e304972ac # SEO metadata
             handle: null
             includeInCards: false
             instructions: null
@@ -156,71 +73,21 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 5875378a-7b9f-4b7d-9ad3-e9613439db8a
+            uid: 6b13051c-2927-4f1b-8f23-cae56ba88611
             userCondition: null
             warning: null
             width: 100
-          -
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: 988640e0-8eb5-4467-bce5-4258562c9182
-            userCondition: null
-          -
-            elementCondition: null
-            fieldUid: 75347aed-7cd3-4a88-a475-d94c64fff91b # OG type
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 56310623-6cdd-4547-ac43-f262b2bb6100
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 9ba80f98-3521-4d95-8103-833cc54f9074 # X/Twitter card
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 9754a70d-8b22-43a3-bba3-c4115d2824fe
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
-            handle: twitterCreator
-            includeInCards: false
-            instructions: '@username for the content creator / author of this entry. Note that this should NOT be the generic Twitter/X account of the company. It is only used in conjunction with the Summary Large Image type.'
-            label: 'Twitter/X creator'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 46fd1836-af07-4989-baa7-6ba649b4fb28
-            userCondition: null
-            warning: null
-            width: 50
         name: SEO
-        uid: 4a908d80-1cad-4095-9f6d-b296a26c996b
+        uid: fb25c046-cc38-4bad-9789-830dacad7883
         userCondition: null
 handle: page
 hasTitleField: true
-icon: ''
+icon: null
 name: 'Generic page'
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
+titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

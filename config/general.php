@@ -25,8 +25,6 @@ return [
 			'subRight' => true,
 		),
 
-		// prevent /cpresources/ path showing up on the front end
-		'generateTransformsBeforePageLoad' => true,
 		'upscaleImages' => false,
 
 		// remove index.php from auto-generated URLs
@@ -48,11 +46,6 @@ return [
 		//     '@basePathSite1' => 'public_site1',
 		//     '@basePathSite2' => 'public_site2',
 		// ],
-
-		// reset the @web alias to prevent cache-poisoning attacks
-		'aliases' => [
-			'@web' => App::env('PRIMARY_SITE_URL')
-		],
 
 		'defaultCountryCode' => 'GB',
 

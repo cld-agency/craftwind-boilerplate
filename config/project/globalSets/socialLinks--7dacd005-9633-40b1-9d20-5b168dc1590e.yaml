@@ -54,7 +54,7 @@ fieldLayouts:
             fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # Plain text field (non-searchable)
             handle: twitterHandle
             includeInCards: false
-            instructions: 'PLEASE DO NOT INCLUDE the @ symbol or the twitter.com/x.com domain name. This is so we can reuse this field''s value more easily.'
+            instructions: "PLEASE DO NOT INCLUDE the @ symbol or the twitter.com/x.com domain name. This is so we can reuse this field's value more easily."
             label: 'X (Twitter) username'
             providesThumbs: false
             required: false

@@ -17,7 +17,7 @@ fieldLayouts:
             dismissible: true
             elementCondition: null
             style: warning
-            tip: 'Please do not use Google Tag Manager to inject any scripts - they must be added here instead, otherwise we can''t load the right ones at the right times according to the user''s selections.'
+            tip: "Please do not use Google Tag Manager to inject any scripts - they must be added here instead, otherwise we can't load the right ones at the right times according to the user's selections."
             type: craft\fieldlayoutelements\Tip
             uid: 1e5b3c03-9159-4e39-b20d-bb5cda5553a9
             userCondition: null
@@ -131,7 +131,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: craft\fields\conditions\RelationalFieldConditionRule
-                  elementId: '{{ craft.categories.group(''cookieTypes'').slug(''essential'').one().id }}'
+                  elementId: "{{ craft.categories.group('cookieTypes').slug('essential').one().id }}"
                   fieldUid: ddf4f8a7-b482-4862-aac0-10e840fa7fa7 # Cookie type
                   operator: relatedTo
                   uid: d9860564-898d-47b1-a1ce-db241be73c9b

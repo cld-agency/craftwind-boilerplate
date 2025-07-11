@@ -69,7 +69,7 @@ fieldLayouts:
             fieldUid: cbac532f-c0ed-484c-9ba5-c39c664cfab9 # Script
             handle: null
             includeInCards: false
-            instructions: 'If you need to get very granular with the GTM consents, or execute other scripts upon acceptance of this category, add them here. (For example, you could change GTM default consents based on the user''s location: https://developers.google.com/tag-platform/security/guides/consent?consentmode=advanced)'
+            instructions: "If you need to get very granular with the GTM consents, or execute other scripts upon acceptance of this category, add them here. (For example, you could change GTM default consents based on the user's location: https://developers.google.com/tag-platform/security/guides/consent?consentmode=advanced)"
             label: 'Extra arbitrary scripts or GTM Consent overrides'
             providesThumbs: false
             required: false
