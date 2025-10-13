@@ -39,7 +39,7 @@
 								<input {{ cookieType.slug == 'essential' ? 'checked disabled' }} type="checkbox" id="{{ cookieType.slug }}" name="cookieTypes[]" class="sr-only" value="1">
 								<span aria-hidden="true" class="lightswitch-bg transition duration-200 rounded-full mx-auto h-9 w-20 flex items-center">
 									<span class="lightswitch-indicator transition duration-200 bg-white block rounded-full h-8 w-8 ml-[2px]"></span>
-									<span class="flex absolute w-20 justify-between" style="padding:0 11px 0 9px;font-size:0.5625rem;">
+									<span class="flex absolute w-20 h-full items-center justify-between" style="padding:0 11px 0 9px;font-size:0.5625rem;">
 										<span class="transition duration-200 lightswitch-label">OFF</span>
 										<span class="transition duration-200 lightswitch-label">ON</span>
 									</span>
@@ -88,49 +88,47 @@
 	COOKIE BANNER
 	===================================== #}
 
-	<div x-show="openBanner" x-cloak :aria-hidden="!openBanner" class="max-w-screen-xl mx-auto mx-auto px-4 lg:px-8 fixed bottom-10 left-0 right-0 z-30">
-		<div class="bg-gray-600 text-white shadow-xl p-4 sm:p-6 lg:p-8 rounded-lg">
-			<div class="flex flex-col gap-8 justify-between">
-				<div class="">
-					<p class="fl:text-sm">This website uses cookies to ensure you get the best experience on our website. <a class="default-link" href="/cookies">Learn more about our cookies</a>.</p>
-				</div>
-				<div class="flex flex-wrap w-full gap-4">
+	<div x-show="openBanner" x-cloak :aria-hidden="!openBanner" class="max-w-[350px] mx-auto fixed bottom-10 bottom-8 left-4 right-4 sm:right-auto z-30 shadow-xl rounded-lg p-4 sm:p-6 lg:p-8">
+		<div class="flex flex-col gap-8 justify-between">
+			<div class="">
+				<p class="fl:text-sm">This website uses cookies to ensure you get the best experience on our website. <a class="default-link" href="/cookies">Learn more about our cookies</a>.</p>
+			</div>
+			<div class="flex flex-wrap w-full gap-4">
 
-					{% include '_partials/button.twig' with {
-						label: 'Manage',
-						variants: ['secondary','mini'],
-						element: 'button',
-						classes: 'button-reset mt-0 grow',
-						attrs: {
-							'type': 'button',
-							'aria-controls': 'cookie-modal',
-							':aria-expanded': 'openBanner',
-							'@click': "openModal = true;"
-						}
-					} only %}
+				{% include '_partials/button.twig' with {
+					label: 'Manage',
+					variants: ['secondary','mini'],
+					element: 'button',
+					classes: 'button-reset mt-0 grow',
+					attrs: {
+						'type': 'button',
+						'aria-controls': 'cookie-modal',
+						':aria-expanded': 'openBanner',
+						'@click': "openModal = true;"
+					}
+				} only %}
 
-					{% include '_partials/button.twig' with {
-						label: 'Reject',
-						variants: ['secondary','mini'],
-						element: 'button',
-						classes:'button-reset mt-0 grow no-collapse',
-						attrs: {
-							'type': 'button',
-							'@click': "openBanner = false; showModalTrigger = true; setChoices('none')"
-						}
-					} only %}
+				{% include '_partials/button.twig' with {
+					label: 'Reject',
+					variants: ['secondary','mini'],
+					element: 'button',
+					classes:'button-reset mt-0 grow no-collapse',
+					attrs: {
+						'type': 'button',
+						'@click': "openBanner = false; showModalTrigger = true; setChoices('none')"
+					}
+				} only %}
 
-					{% include '_partials/button.twig' with {
-						label: 'Accept',
-						variants: ['mini'],
-						element: 'button',
-						classes:'button-reset mt-0 w-full no-collapse',
-						attrs: {
-							'type': 'button',
-							'@click': "openBanner = false; showModalTrigger = true; setChoices('all')"
-						}
-					} only %}
-				</div>
+				{% include '_partials/button.twig' with {
+					label: 'Accept',
+					variants: ['mini'],
+					element: 'button',
+					classes:'button-reset mt-0 w-full no-collapse',
+					attrs: {
+						'type': 'button',
+						'@click': "openBanner = false; showModalTrigger = true; setChoices('all')"
+					}
+				} only %}
 			</div>
 		</div>
 	</div>

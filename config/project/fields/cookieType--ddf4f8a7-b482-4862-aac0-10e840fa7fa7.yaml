@@ -13,10 +13,11 @@ settings:
   minRelations: null
   selectionLabel: null
   showSiteMenu: false
-  source: 'group:852616a3-f316-44d8-8654-2e748fd2fa02' # Cookie types
+  sources:
+    - 'section:d876412f-9cec-4b48-b307-7dd826e29b71' # Cookie types
   targetSiteId: null
   validateRelatedElements: false
   viewMode: null
 translationKeyFormat: null
 translationMethod: site
-type: craft\fields\Categories
+type: craft\fields\Entries

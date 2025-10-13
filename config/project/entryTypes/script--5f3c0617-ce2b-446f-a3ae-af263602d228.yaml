@@ -1,11 +1,14 @@
 color: null
+description: null
 fieldLayouts:
   50c4a011-ab98-40b8-998e-13f9de0bc050:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
         elements:
           -
+            dateAdded: '2025-09-05T11:31:41+00:00'
             dismissible: true
             elementCondition: null
             style: tip
@@ -14,6 +17,7 @@ fieldLayouts:
             uid: ab3dbb3a-9d6b-4824-860c-4ed7aac42943
             userCondition: null
           -
+            dateAdded: '2025-09-05T11:31:41+00:00'
             dismissible: true
             elementCondition: null
             style: warning
@@ -26,6 +30,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2025-09-05T11:31:41+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -40,7 +45,7 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
@@ -51,6 +56,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2025-09-05T11:31:41+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: cbac532f-c0ed-484c-9ba5-c39c664cfab9 # Script
             handle: null
@@ -66,6 +73,8 @@ fieldLayouts:
             warning: null
             width: 75
           -
+            dateAdded: '2025-09-05T11:31:41+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: 18c8ccbb-5f3f-445b-a5c1-49df2d95dcef # Facades
             handle: null
@@ -81,6 +90,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: '2025-09-05T11:31:41+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: ddf4f8a7-b482-4862-aac0-10e840fa7fa7 # Cookie type
             handle: null
@@ -96,6 +107,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: '2025-09-05T11:31:41+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: 33b44401-118b-4a32-a630-4002586fb7a4 # Cookie durations
             handle: null
@@ -111,8 +124,10 @@ fieldLayouts:
             warning: null
             width: 75
           -
+            dateAdded: '2025-09-05T11:31:41+00:00'
+            editCondition: null
             elementCondition: null
-            fieldUid: caf5530a-8747-49b5-9d85-553de2e90c6f # Body - default config (searchable)
+            fieldUid: caf5530a-8747-49b5-9d85-553de2e90c6f # _Body - default config (searchable)
             handle: body
             includeInCards: false
             instructions: null
@@ -126,12 +141,14 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2025-09-05T11:31:41+00:00'
+            editCondition: null
             elementCondition:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
                 -
                   class: craft\fields\conditions\RelationalFieldConditionRule
-                  elementId: "{{ craft.categories.group('cookieTypes').slug('essential').one().id }}"
+                  elementIds: "{{ craft.entries.section('cookieTypes').slug('essential').one().id }}"
                   fieldUid: ddf4f8a7-b482-4862-aac0-10e840fa7fa7 # Cookie type
                   operator: relatedTo
                   uid: d9860564-898d-47b1-a1ce-db241be73c9b
@@ -155,12 +172,12 @@ fieldLayouts:
         userCondition: null
 handle: script
 hasTitleField: true
-icon: ''
+icon: null
 name: Script
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
+titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

@@ -14,7 +14,7 @@ settings:
   showCardsInGrid: false
   showSiteMenu: true
   sources:
-    - 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Widgets
+    - 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Reusable widgets
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list

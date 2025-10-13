@@ -1,8 +1,8 @@
 columnSuffix: null
-handle: plainText
-instructions: null
-name: '_Plain text field (non-searchable)'
-searchable: false
+handle: ogDesc
+instructions: 'The description that will appear on the X (Twitter) Card or Facebook post or any other third party service that consumes OG meta data.'
+name: 'OG description'
+searchable: true
 settings:
   byteLimit: null
   charLimit: null

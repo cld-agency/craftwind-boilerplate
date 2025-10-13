@@ -1,10 +1,7 @@
 {% embed '_partials/container.twig' %}
 	{% block content %}
-		{% if block.heading|length %}
-			<h2>{{ block.heading }}</h2>
-		{% endif %}
 		{% if block.body|length %}
-			<div class="default-links {{ block.heading|length ? 'spacing' }}">
+			<div class="default-links">
 				{{ block.body }}
 			</div>
 		{% endif %}

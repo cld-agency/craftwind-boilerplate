@@ -48,8 +48,8 @@ using the exact same cat).
 {% endswitch %}
 
 {# when using routes.php to route here instead of a CP-defined Category URI Format,
-Craft won't automatically populate a `category` variable, so we need to set it ourselves...#}
-{% set category = category ?? craft.categories.slug(route_cat).one() %}
+Craft won't automatically populate an `entry` variable (previously `category` pre-entrification!), so we need to set it ourselves...#}
+{% set category = entry ?? craft.entries.slug(route_cat).one() %}
 {#{% set noIndexOverride = 1 %}#}
 
 {% set theLimit = 12 %}

@@ -1,0 +1,19 @@
+defaultPlacement: end
+enableVersioning: false
+entryTypes:
+  -
+    uid: 91c58004-ff40-4e25-96b2-0e73cbbf60ab # Cookie types
+handle: cookieTypes
+maxAuthors: 1
+name: 'Cookie types'
+propagationMethod: all
+siteSettings:
+  27fd5441-8230-4f21-8d4c-ae215e7076df: # $SYSTEM_NAME
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+structure:
+  maxLevels: null
+  uid: 61774882-43a6-426c-a9fc-9564ba9703ef
+type: structure

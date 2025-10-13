@@ -1,5 +1,5 @@
 {% if craft.app.request.param('types')|length %}
-	{% set typeCats = craft.categories.group('cookieTypes').slug(craft.app.request.param('types')|split('|')).all() %}
+	{% set typeCats = craft.entries.section('cookieTypes').slug(craft.app.request.param('types')|split('|')).all() %}
 	{% set typeCatIds = typeCats|column('id') %}
 	{% set mode = craft.app.request.param('mode') %}
 	{% if typeCats|length %}

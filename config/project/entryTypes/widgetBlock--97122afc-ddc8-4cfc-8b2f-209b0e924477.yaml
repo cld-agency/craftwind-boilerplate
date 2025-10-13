@@ -1,40 +1,15 @@
 color: purple
+description: null
 fieldLayouts:
   1c5fea93-a0a8-4bac-a6f5-3e02fced6dd8:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
         elements:
           -
-            autocapitalize: true
-            autocomplete: false
-            autocorrect: true
-            class: null
-            disabled: false
-            elementCondition: null
-            id: null
-            includeInCards: false
-            inputType: null
-            instructions: null
-            label: null
-            max: null
-            min: null
-            name: null
-            orientation: null
-            placeholder: null
-            providesThumbs: false
-            readonly: false
-            requirable: false
-            size: null
-            step: null
-            tip: null
-            title: null
-            type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: 6b28ae2a-ba83-4fad-922b-70d04626c42b
-            userCondition: null
-            warning: null
-            width: 100
-          -
+            dateAdded: '2025-07-14T11:49:01+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: f2c8081f-84a9-49ec-8817-4d26788f8d1c # Widget
             handle: null
@@ -50,6 +25,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2025-07-14T11:49:01+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: 4d75c350-59e2-4ecc-b469-bb97f6ff276d # Section background colour
             handle: null
@@ -70,11 +47,11 @@ fieldLayouts:
 handle: widgetBlock
 hasTitleField: false
 icon: layer-group
-name: 'Widget block'
+name: 'Reusable widget block'
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
+titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

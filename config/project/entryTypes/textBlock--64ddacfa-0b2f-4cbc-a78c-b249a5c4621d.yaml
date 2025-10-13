@@ -1,42 +1,17 @@
 color: null
+description: null
 fieldLayouts:
   a0b73357-c352-4da0-a14f-23235c80fa59:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
         elements:
           -
-            autocapitalize: true
-            autocomplete: false
-            autocorrect: true
-            class: null
-            disabled: false
+            dateAdded: '2025-09-23T15:06:47+00:00'
+            editCondition: null
             elementCondition: null
-            id: null
-            includeInCards: false
-            inputType: null
-            instructions: null
-            label: null
-            max: null
-            min: null
-            name: null
-            orientation: null
-            placeholder: null
-            providesThumbs: false
-            readonly: false
-            requirable: false
-            size: null
-            step: null
-            tip: null
-            title: null
-            type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: 8c804ba0-78ff-4904-9699-88ca3162f3ac
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: a1463d28-087e-4d16-b583-08eaf19365b1 # Body - matrix body (searchable)
+            fieldUid: a1463d28-087e-4d16-b583-08eaf19365b1 # _Body - matrix body (searchable)
             handle: null
             includeInCards: false
             instructions: null
@@ -50,21 +25,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
-            elementCondition: null
-            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # Plain text field (searchable)
-            handle: heading
-            includeInCards: true
-            instructions: null
-            label: Heading
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 05376015-86ef-4266-b1a3-180cf63c9250
-            userCondition: null
-            warning: null
-            width: 100
-          -
+            dateAdded: '2025-09-23T15:06:47+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: 4d75c350-59e2-4ecc-b469-bb97f6ff276d # Section background colour
             handle: null
@@ -90,6 +52,6 @@ showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
+titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

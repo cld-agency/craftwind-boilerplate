@@ -1,4 +1,4 @@
-.is-active,.is-active-on-focus:focus{
+.is-active{
 	transform:none;
 	opacity:1;
 	visibility:visible;
@@ -10,8 +10,8 @@
 }
 .no-js .no-js-show.hidden{ display:block; }
 
-/*// aspect ratios lifted from the Tailwind aspect ratio plugin...*/
-/*// no need for a whole plugin just for these really...*/
+/* aspect ratios lifted from the Tailwind aspect ratio plugin...*/
+/* no need for a whole plugin just for these really...*/
 .aspect-16-9{
 	position:relative;
 	padding-bottom:calc(9 / 16 * 100%);
@@ -23,9 +23,9 @@
 	}
 }
 
-/*// FLUID UTIITIES*/
-/*// at full size, the values should match tailwind's equivalent class.*/
-/*// If you want in-betweeney values, create a new class.*/
+/* FLUID UTIITIES*/
+/* at full size, the values should match tailwind's equivalent class.*/
+/* If you want in-betweeney values, create a new class.*/
 
 .fl\:py-16 {
 	padding-top:fluid(1.5rem, 6rem, 20rem, 64rem);
@@ -59,25 +59,25 @@
 	font-size:fluid(2rem, 3rem, 20rem, 80rem);
 }
 
-/*// --------------------------------------------*/
-/*// line-height-compensation*/
+/* -------------------------------------------- */
+/* line-height-compensation*/
 /* haven't found a good migration from SCSS for this yet... but
 equally, it's always been a bit complicated and fiddly.
 */
-/*// --------------------------------------------*/
+/* -------------------------------------------- */
 
 .line-height-compensation, .line-height-compensation-first-children > p:first-child{
 	/*@include mixins.text-crop();*/
 }
-/*// 1.238 seems to be what firefox at least for Montserrat considers to be "line-height:normal".*/
-/*// Tweak according to your heading font*/
+/* 1.238 seems to be what firefox at least for Montserrat considers to be "line-height:normal".*/
+/* Tweak according to your heading font*/
 .line-height-compensation-normal, .line-height-compensation-first-children > h2:first-child{
 	/*@include mixins.text-crop(1.238);*/
 }
 
-/*// --------------------------------------------*/
-/*// TRANSITION to height:auto*/
-/*// --------------------------------------------*/
+/* -------------------------------------------- */
+/* TRANSITION to height:auto*/
+/* -------------------------------------------- */
 
 .transition-to-height-auto{
 	transition: grid-template-rows .3s cubic-bezier(0.3,0,1,1);
@@ -89,9 +89,9 @@ equally, it's always been a bit complicated and fiddly.
    }
 }
 
-/*// --------------------------------------------*/
-/*// COLUMNISE*/
-/*// --------------------------------------------*/
+/* -------------------------------------------- */
+/* COLUMNISE*/
+/* -------------------------------------------- */
 
 @media (min-width:590px){
 	.columnise{

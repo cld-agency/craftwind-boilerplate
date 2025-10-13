@@ -1,8 +1,8 @@
 columnSuffix: null
-handle: plainText
+handle: titleTag
 instructions: null
-name: '_Plain text field (non-searchable)'
-searchable: false
+name: 'Browser title'
+searchable: true
 settings:
   byteLimit: null
   charLimit: null

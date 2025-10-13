@@ -1,6 +1,5 @@
 @import 'tailwindcss/base';
 
-@import '_mixins.css';
 @import '_global.css';
 @import '_elements.css';
 @import '_project.css';

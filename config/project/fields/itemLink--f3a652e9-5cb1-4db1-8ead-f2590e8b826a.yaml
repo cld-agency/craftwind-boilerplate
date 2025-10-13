@@ -2,13 +2,30 @@ columnSuffix: null
 handle: itemLink
 instructions: null
 name: Link
-searchable: false
+searchable: true
 settings:
+  fullGraphqlData: false
   maxLength: 255
+  showLabelField: false
+  typeSettings:
+    __assoc__:
+      -
+        - url
+        -
+          __assoc__:
+            -
+              - allowRootRelativeUrls
+              - '1'
+            -
+              - allowAnchors
+              - '1'
+            -
+              - allowCustomSchemes
+              - ''
   types:
     - url
     - tel
     - email
 translationKeyFormat: null
 translationMethod: none
-type: craft\fields\Url
+type: craft\fields\Link

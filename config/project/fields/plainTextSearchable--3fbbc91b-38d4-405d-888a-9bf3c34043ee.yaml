@@ -1,7 +1,7 @@
 columnSuffix: null
 handle: plainTextSearchable
 instructions: null
-name: 'Plain text field (searchable)'
+name: '_Plain text field (searchable)'
 searchable: true
 settings:
   byteLimit: null

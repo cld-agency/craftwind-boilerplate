@@ -1,4 +1,4 @@
-dateModified: 1752250679
+dateModified: 1758640222
 elementSources:
   craft\elements\Entry:
     -
@@ -27,18 +27,37 @@ elementSources:
         - link
       type: native
     -
+      key: 'section:fee487bb-86af-4918-b6c4-9d72e0f9f559' # Pages
+      type: native
+    -
       defaultSort:
         - structure
         - asc
       disabled: false
-      key: 'section:3abf1c16-bab7-4d4a-a7a7-7720e06c217f' # Listing pages
+      key: 'section:3abf1c16-bab7-4d4a-a7a7-7720e06c217f'
       tableAttributes:
         - postDate
         - expiryDate
         - authors
         - link
-        - 'field:56716528-cd41-42c1-894c-9b5ee770b2ea' # List entries from...
+        - 'field:56716528-cd41-42c1-894c-9b5ee770b2ea'
       type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Reusable widgets
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - authors
+        - type
+      type: native
+    -
+      heading: 'Third party scripts and cookies'
+      key: 'heading:62b857a4-3146-492d-a3c1-4e4f3dfac548'
+      type: heading
     -
       defaultSort:
         - structure
@@ -52,15 +71,17 @@ elementSources:
       type: native
     -
       defaultSort:
-        - postDate
-        - desc
+        - structure
+        - asc
+      defaultViewMode: ''
       disabled: false
-      key: 'section:d29a5366-955f-4d0c-9ee7-271b104f835a' # Widgets
+      key: 'section:d876412f-9cec-4b48-b307-7dd826e29b71' # Cookie types
       tableAttributes:
+        - status
         - postDate
         - expiryDate
         - authors
-        - type
+        - link
       type: native
 email:
   fromEmail: $SYSTEM_EMAIL
@@ -95,44 +116,49 @@ fs:
 meta:
   __names__:
     0bed22d4-f57c-4df7-a891-4467df6fdcd7: 'Generic page' # Generic page
-    2be967b7-c0bf-4806-874b-29ca2ddd277b: 'Plain text field (non-searchable)' # Plain text field (non-searchable)
-    3abf1c16-bab7-4d4a-a7a7-7720e06c217f: 'Listing pages' # Listing pages
+    2be967b7-c0bf-4806-874b-29ca2ddd277b: '_Plain text field (non-searchable)' # _Plain text field (non-searchable)
     3d55de4b-9675-4aa5-9975-690cc711a5ca: 'Cookie details table' # Cookie details table
-    3fbbc91b-38d4-405d-888a-9bf3c34043ee: 'Plain text field (searchable)' # Plain text field (searchable)
+    3fbbc91b-38d4-405d-888a-9bf3c34043ee: '_Plain text field (searchable)' # _Plain text field (searchable)
     4bd103c0-b212-4fd4-9685-ffc368e63793: Default # Default
     4d75c350-59e2-4ecc-b469-bb97f6ff276d: 'Section background colour' # Section background colour
-    5b558113-9756-4bc6-98e9-97d78f191097: Matrix # Matrix
     5f3c0617-ce2b-446f-a3ae-af263602d228: Script # Script
     7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
-    8a50c654-ee15-4c10-bba1-5b9e304972ac: 'SEO metadata' # SEO metadata
     9ba80f98-3521-4d95-8103-833cc54f9074: 'X (Twitter) card' # X (Twitter) card
     18c8ccbb-5f3f-445b-a5c1-49df2d95dcef: Facades # Facades
+    21b95f37-bd38-474a-b929-0e274ef3ff0f: 'Inline only' # Inline only
     27fd5441-8230-4f21-8d4c-ae215e7076df: $SYSTEM_NAME # $SYSTEM_NAME
     33b44401-118b-4a32-a630-4002586fb7a4: 'Cookie durations' # Cookie durations
     64ddacfa-0b2f-4cbc-a78c-b249a5c4621d: 'Text block' # Text block
-    199e8ad4-4cc4-4407-b01f-23fbb2b30ac3: 'Listing page' # Listing page
+    79a71552-1529-49ac-bdad-66f9d7933c82: 'OG description' # OG description
+    91c58004-ff40-4e25-96b2-0e73cbbf60ab: 'Cookie types' # Cookie types
     329fb3c3-eacd-4f5a-8086-8cd96ac705fc: 'Home pages' # Home pages
     661f0cbe-8667-4984-aea8-55239d2f6e8e: 'Body builder' # Body builder
+    929d6347-0e60-4edd-bbce-0f3873ab5186: 'X (Twitter) creator' # X (Twitter) creator
     6238be16-9290-47d5-9dde-43e33a167037: 'Facebook admins' # Facebook admins
+    37749f60-e94f-4311-94fd-13dfc366cf91: 'OG title override' # OG title override
     75347aed-7cd3-4a88-a475-d94c64fff91b: 'OG type' # OG type
     93911dec-d597-4048-be70-3822341db5c8: 'OG image' # OG image
-    97122afc-ddc8-4cfc-8b2f-209b0e924477: 'Widget block' # Widget block
-    852616a3-f316-44d8-8654-2e748fd2fa02: 'Cookie types' # Cookie types
-    56716528-cd41-42c1-894c-9b5ee770b2ea: 'List entries from...' # List entries from...
-    a1463d28-087e-4d16-b583-08eaf19365b1: 'Body - matrix body (searchable)' # Body - matrix body (searchable)
+    97122afc-ddc8-4cfc-8b2f-209b0e924477: 'Reusable widget block' # Reusable widget block
+    4987257a-9b9a-4a35-8f7d-a9f5fb988d5b: 'Meta description' # Meta description
+    11997218-93ee-4a98-a30e-1b311f82513f: 'Social links' # Social links
+    a1463d28-087e-4d16-b583-08eaf19365b1: '_Body - matrix body (searchable)' # _Body - matrix body (searchable)
+    a4987faf-b4a7-4b0c-aa64-c08d95af6c0a: 'Browser title' # Browser title
     b51c3bf7-bd4c-46f9-92d5-c548637e190a: Images # Images
     b99e46fe-a420-4fd0-abfc-8eb0989ea429: Default # Default
     c9cbf2d5-a33a-4631-bb00-58ac64015efd: 'Script output location' # Script output location
     ca55cc2e-9a52-4b33-bc18-2f6cafe277f3: 'GTM consents' # GTM consents
-    cac312e5-9dfa-4d00-8bf4-ce5af69a0035: 'Lightswitch (default off)' # Lightswitch (default off)
-    caf5530a-8747-49b5-9d85-553de2e90c6f: 'Body - default config (searchable)' # Body - default config (searchable)
+    cac312e5-9dfa-4d00-8bf4-ce5af69a0035: '_Lightswitch (default off)' # _Lightswitch (default off)
+    caf5530a-8747-49b5-9d85-553de2e90c6f: '_Body - default config (searchable)' # _Body - default config (searchable)
     cbac532f-c0ed-484c-9ba5-c39c664cfab9: Script # Script
-    d29a5366-955f-4d0c-9ee7-271b104f835a: Widgets # Widgets
+    d29a5366-955f-4d0c-9ee7-271b104f835a: 'Reusable widgets' # Reusable widgets
+    d876412f-9cec-4b48-b307-7dd826e29b71: 'Cookie types' # Cookie types
     ddf4f8a7-b482-4862-aac0-10e840fa7fa7: 'Cookie type' # Cookie type
     ec768514-1ace-48d1-a39f-63b17f6e1fc6: 'Public Schema' # Public Schema
+    ed6ddf7e-2928-4004-81ea-f294c8f3da5f: 'No index?' # No index?
     f2c8081f-84a9-49ec-8817-4d26788f8d1c: Widget # Widget
     f3a652e9-5cb1-4db1-8ead-f2590e8b826a: Link # Link
     fafbc7c6-c05b-4945-8db7-72ae3d199156: Downloads # Downloads
+    fee487bb-86af-4918-b6c4-9d72e0f9f559: Pages # Pages
     ffd2bbfd-6f01-4375-bdc6-1936c61409ed: Scripts # Scripts
 plugins:
   ckeditor:

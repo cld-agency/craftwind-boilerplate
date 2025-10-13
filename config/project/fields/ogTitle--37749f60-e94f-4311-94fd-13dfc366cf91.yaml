@@ -1,8 +1,8 @@
 columnSuffix: null
-handle: plainText
-instructions: null
-name: '_Plain text field (non-searchable)'
-searchable: false
+handle: ogTitle
+instructions: 'Override both the browser title and the entry title for services that consume OG meta data.'
+name: 'OG title override'
+searchable: true
 settings:
   byteLimit: null
   charLimit: null

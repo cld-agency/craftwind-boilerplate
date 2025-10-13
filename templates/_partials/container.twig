@@ -43,7 +43,7 @@ Examples:
 {# set block background colours here. If you add/modify these, be sure to edit the
 consecutive section collapser functionality at the top of project.scss. #}
 {% if block is defined and block['sectionBG'] is defined or sectionBG is defined %}
-	{% set sectionBG = sectionBG ?? block.sectionBG %}
+	{% set sectionBG = sectionBG ?? block.sectionBG.value ?? block.sectionBG %}
 	{% switch sectionBG %}
 		{% case 'transparent' %}
 			{% set classes = classes|merge(['bg-transparent']) %}

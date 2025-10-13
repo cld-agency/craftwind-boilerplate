@@ -1,10 +1,11 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - 3d55de4b-9675-4aa5-9975-690cc711a5ca # Cookie details table
+  -
+    uid: 3d55de4b-9675-4aa5-9975-690cc711a5ca # Cookie details table
 handle: widgets
 maxAuthors: 1
-name: Widgets
+name: 'Reusable widgets'
 previewTargets:
   -
     __assoc__:

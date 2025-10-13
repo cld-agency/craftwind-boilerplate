@@ -1,10 +1,13 @@
 fieldLayouts:
   d26d4596-ddbf-490a-9583-41b88b736393:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
         elements:
           -
+            dateAdded: '2025-09-05T11:19:18+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: 6238be16-9290-47d5-9dde-43e33a167037 # Facebook admins
             handle: null
@@ -20,47 +23,19 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2025-09-05T11:20:30+00:00'
+            editCondition: null
             elementCondition: null
-            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # Plain text field (non-searchable)
-            handle: facebook
+            fieldUid: 11997218-93ee-4a98-a30e-1b311f82513f # Social links
+            handle: null
             includeInCards: false
-            instructions: 'Full link to your Facebook profile'
-            label: Facebook
+            instructions: null
+            label: null
             providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 77001e3a-ee86-4d91-9ea6-ee423ba86915
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # Plain text field (non-searchable)
-            handle: linkedIn
-            includeInCards: false
-            instructions: 'Full link to your LinkedIn profile'
-            label: LinkedIn
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: e2e5dd0c-64bc-4e02-9a07-5af71274dc59
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # Plain text field (non-searchable)
-            handle: twitterHandle
-            includeInCards: false
-            instructions: "PLEASE DO NOT INCLUDE the @ symbol or the twitter.com/x.com domain name. This is so we can reuse this field's value more easily."
-            label: 'X (Twitter) username'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 1e5dcad3-be6d-48d3-9e8b-b1626693c791
+            uid: bef472da-7cf2-407d-86ed-c004d188a01f
             userCondition: null
             warning: null
             width: 100

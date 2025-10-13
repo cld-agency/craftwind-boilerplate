@@ -1,12 +1,12 @@
-/*// collapse consecutive blocks of the same colour... be sure to always use bg-white even if it seems redundant!*/
+/*  collapse consecutive blocks of the same colour... be sure to always use bg-white even if it seems redundant!*/
 .bg-white:not(.no-collapse) + .bg-white:not(.no-collapse),
 .bg-gray-100:not(.no-collapse) + .bg-gray-100:not(.no-collapse),
 .bg-brand:not(.no-collapse) + .bg-brand:not(.no-collapse)
 { padding-top:0; }
 
-/*// --------------------------------------------*/
-/*// MOBILE NAV*/
-/*// --------------------------------------------*/
+/* -------------------------------------------- */
+/*  MOBILE NAV*/
+/* -------------------------------------------- */
 
 .mobile-nav-button{
 	span{
@@ -35,9 +35,9 @@
 	}
 }
 
-/*// --------------------------------------------*/
-/*// LIGHTSWITCHES*/
-/*// --------------------------------------------*/
+/* -------------------------------------------- */
+/*  LIGHTSWITCHES*/
+/* -------------------------------------------- */
 
 .lightswitch-bg {
 	background:theme('colors.gray.300');

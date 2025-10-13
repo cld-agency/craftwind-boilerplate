@@ -1,6 +1,8 @@
-defaultPlacement: end
+color: null
+description: null
 fieldLayouts:
-  b0d4d9a0-2a9f-454d-9336-8bbc930ec2fc:
+  ebbee96f-f549-4219-acb8-03cc79e0a645:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
@@ -10,6 +12,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2025-09-23T14:21:49+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -35,8 +38,10 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2025-09-23T14:21:49+00:00'
+            editCondition: null
             elementCondition: null
-            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # Plain text field (non-searchable)
+            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # _Plain text field (non-searchable)
             handle: summaryPlainText
             includeInCards: false
             instructions: null
@@ -50,6 +55,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2025-09-23T14:21:49+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: ca55cc2e-9a52-4b33-bc18-2f6cafe277f3 # GTM consents
             handle: null
@@ -65,6 +72,8 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2025-09-23T14:21:49+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: cbac532f-c0ed-484c-9ba5-c39c664cfab9 # Script
             handle: null
@@ -83,12 +92,13 @@ fieldLayouts:
         uid: dc09b797-9998-45dc-aadd-3f642bd1ed23
         userCondition: null
 handle: cookieTypes
+hasTitleField: true
+icon: null
 name: 'Cookie types'
-siteSettings:
-  27fd5441-8230-4f21-8d4c-ae215e7076df: # $SYSTEM_NAME
-    hasUrls: false
-    template: null
-    uriFormat: null
-structure:
-  maxLevels: null
-  uid: 75f5fd25-d7a2-4631-88ad-286dc87449ef
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

@@ -1,20 +1,24 @@
 columnSuffix: null
 handle: bodyDefault
 instructions: null
-name: 'Body - default config (searchable)'
+name: '_Body - default config (searchable)'
 searchable: true
 settings:
   availableTransforms: ''
   availableVolumes: '*'
+  characterLimit: null
   ckeConfig: 4bd103c0-b212-4fd4-9685-ffc368e63793 # Default
   createButtonLabel: null
   defaultTransform: null
-  enableSourceEditingForNonAdmins: true
+  expandEntryButtons: false
+  fullGraphqlData: false
+  parseEmbeds: false
   purifierConfig: null
   purifyHtml: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   showWordCount: false
+  sourceEditingGroups: '*'
   wordLimit: null
 translationKeyFormat: null
 translationMethod: none

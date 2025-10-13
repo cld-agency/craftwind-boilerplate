@@ -3,18 +3,18 @@
 $globalTransforms = $transformsToEagerLoad = [
 	'ogImg' => [[ 'mode' =>'crop', 'width' => 1200, 'height' => 1200 ]],
 	'halfWidth' => [
-		['width' => 200],
+		['width' => 280],
 		['width' => 400],
 		['width' => 600],
-		['width' => 800],
+		// ['width' => 800],
 		['width' => 1000],
 		['width' => 1200]
 	],
 	'fullWidth' => [
-		['width' => 400],
+		['width' => 580],
 		['width' => 800],
 		['width' => 1200],
-		['width' => 1600],
+		// ['width' => 1600],
 		['width' => 1920],
 		['width' => 2200]
 	],

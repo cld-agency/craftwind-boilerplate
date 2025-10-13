@@ -9,7 +9,5 @@ listing (e.g. /blog/category/cat-slug),
 we'll need to fetch the listing entry ourselves.
 ===================================== #}
 
-{% set entry = entry is defined ? entry : route_listing is defined ? craft.entries.section('listings').slug(route_listing).one() %}
-{% set listingType = category is defined or route_cat is defined ? 'elementsByCategory' : 'elements' %}
-
+{% set listingType = entry.type == 'category' ? 'elementsByCategory' : 'elements' %}
 {% include '_listings/handlers/' ~ listingType %}

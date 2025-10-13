@@ -1,20 +1,24 @@
 columnSuffix: vdsfkohy
 handle: body
 instructions: null
-name: 'Body - matrix body (searchable)'
+name: '_Body - matrix body (searchable)'
 searchable: true
 settings:
   availableTransforms: ''
   availableVolumes: ''
-  ckeConfig: 5b558113-9756-4bc6-98e9-97d78f191097 # Matrix
+  characterLimit: null
+  ckeConfig: 4bd103c0-b212-4fd4-9685-ffc368e63793 # Default
   createButtonLabel: null
   defaultTransform: null
-  enableSourceEditingForNonAdmins: true
+  expandEntryButtons: false
+  fullGraphqlData: false
+  parseEmbeds: false
   purifierConfig: null
   purifyHtml: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   showWordCount: false
+  sourceEditingGroups: '*'
   wordLimit: null
 translationKeyFormat: null
 translationMethod: none

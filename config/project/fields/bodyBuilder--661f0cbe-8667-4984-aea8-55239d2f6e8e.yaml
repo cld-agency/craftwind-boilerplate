@@ -7,7 +7,7 @@ settings:
   createButtonLabel: 'Add a block'
   entryTypes:
     - 64ddacfa-0b2f-4cbc-a78c-b249a5c4621d # Text block
-    - 97122afc-ddc8-4cfc-8b2f-209b0e924477 # Widget block
+    - 97122afc-ddc8-4cfc-8b2f-209b0e924477 # Reusable widget block
   includeTableView: false
   maxEntries: null
   minEntries: null

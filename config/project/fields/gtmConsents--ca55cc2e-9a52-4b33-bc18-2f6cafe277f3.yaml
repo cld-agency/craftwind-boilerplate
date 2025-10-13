@@ -1,12 +1,10 @@
 columnSuffix: dyumssxl
-contentColumnType: text
 handle: gtmConsents
 instructions: 'When a user consents to this cookie category, you can optionally send `granted` or `denied` signals to GTM for each of the following keys:'
 name: 'GTM consents'
 searchable: false
 settings:
   addRowLabel: 'Add a row'
-  columnType: text
   columns:
     __assoc__:
       -
@@ -107,6 +105,30 @@ settings:
         -
           - col1
           - analytics_storage
+        -
+          - col2
+          - ''
+    -
+      __assoc__:
+        -
+          - col1
+          - functionality_storage
+        -
+          - col2
+          - ''
+    -
+      __assoc__:
+        -
+          - col1
+          - personalization_storage
+        -
+          - col2
+          - ''
+    -
+      __assoc__:
+        -
+          - col1
+          - security_storage
         -
           - col2
           - ''

@@ -1,8 +1,5 @@
-headingLevels:
-  - 2
-  - 3
-  - 4
-name: Default
+headingLevels: false
+name: 'Inline only'
 options:
   link:
     decorators:
@@ -13,13 +10,6 @@ options:
         label: 'Open in new tab?'
         mode: manual
 toolbar:
-  - heading
-  - '|'
   - bold
   - italic
-  - blockQuote
-  - superscript
-  - bulletedList
-  - numberedList
-  - horizontalLine
   - link

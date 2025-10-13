@@ -1,8 +1,8 @@
 columnSuffix: null
-handle: plainText
+handle: metaDesc
 instructions: null
-name: '_Plain text field (non-searchable)'
-searchable: false
+name: 'Meta description'
+searchable: true
 settings:
   byteLimit: null
   charLimit: null

@@ -1,7 +1,7 @@
 columnSuffix: null
-handle: lightswitch
-instructions: null
-name: '_Lightswitch (default off)'
+handle: noIndex
+instructions: 'Adds a meta noindex tag to the page to stop search engines indexing it.'
+name: 'No index?'
 searchable: false
 settings:
   default: false

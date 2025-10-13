@@ -1,6 +1,12 @@
 {# ==================================
 CARD.
 
+NB flexGrid.twig is now deprecated in favour of a manual approach with CSS Grid. Ignore references to flexGrid
+until we can edit these instructions more accurately.
+
+
+
+
 Usage options:
 
 A. If you're happy with all the defaults, then typically you can just use
@@ -140,7 +146,7 @@ Params:
 				{% block cardBody %}
 					<h3 class="{{ _headingStyles }} text-accent leading-tight">
 						{% if url %}
-							<a class="text-accent {{ css.breakoutLink }}" href="{{ url }}">
+							<a class="text-accent {{ _globals.get('css').breakoutLink }}" href="{{ url }}">
 								{{ headingOverride is defined ? headingOverride|raw : item.title }}
 							</a>
 						{% else %}
