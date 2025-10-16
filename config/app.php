@@ -25,8 +25,9 @@ return [
 		'id' => App::env('CRAFT_APP_ID') ?: 'CraftCMS',
 		'modules' => [
 			'my-module' => \modules\Module::class,
+			'edit-this' => \modules\EditThis::class,
 		],
-		//'bootstrap' => ['my-module'],
+		'bootstrap' => ['edit-this'],
 	],
 	'local' => [
 		// override local env to use a different Mailer component so

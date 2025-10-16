@@ -1,4 +1,16 @@
 export default els => {
+	// Helper function to get cookie value
+	const getCookie = (name) => {
+		let value = `; ${document.cookie}`;
+		let parts = value.split(`; ${name}=`);
+		if (parts.length === 2) return parts.pop().split(';').shift();
+	};
+
+	// Only proceed if logged-in cookie exists and is 'true'
+	if (getCookie('logged-in') !== 'true') {
+		return;
+	}
+
 	const editMarker = els[0];
 	const data = {
 		"thing": editMarker.dataset.thing,
