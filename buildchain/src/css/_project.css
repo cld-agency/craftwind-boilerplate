@@ -40,20 +40,20 @@
 /* -------------------------------------------- */
 
 .lightswitch-bg {
-	background:theme('colors.gray.300');
+	background:var(--color-gray-300);
 	&:hover, input:focus-visible + &{
-		background:theme('colors.gray.400');
+		background:var(--color-gray-400);
 		.lightswitch-label:nth-child(2){ color:#fff; }
 	}
 	input:focus-visible + &{
-		box-shadow:0 0 0 2px #fff, 0 0 0 4px theme('colors.accent.DEFAULT');
+		box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--color-accent);
 	}
 }
 :checked + .lightswitch-bg, :disabled + .lightswitch-bg, input:focus-visible:checked + .lightswitch-bg{
-	background:theme('colors.brand.DEFAULT');
+	background:var(--color-brand);
 	.lightswitch-label:nth-child(2){ color:inherit; }
 }
-:checked + .lightswitch-bg:hover{ background:theme('colors.brand.highlight'); }
+:checked + .lightswitch-bg:hover{ background:var(--color-brand-highlight); }
 :checked + .lightswitch-bg .lightswitch-indicator, :disabled + .lightswitch-bg .lightswitch-indicator{ transform:translateX(44px); }
 :checked + span .lightswitch-label:first-child{ color:#fff; }
 :disabled + span .lightswitch-label:first-child{ visibility:hidden; }

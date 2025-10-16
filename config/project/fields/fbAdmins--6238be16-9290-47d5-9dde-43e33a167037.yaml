@@ -1,12 +1,10 @@
 columnSuffix: null
-contentColumnType: text
 handle: fbAdmins
 instructions: "Add the numeric Facebook account numbers who administer the company's Facebook page"
 name: 'Facebook admins'
 searchable: false
 settings:
   addRowLabel: 'Add a row'
-  columnType: text
   columns:
     __assoc__:
       -
@@ -25,6 +23,7 @@ settings:
             -
               - type
               - number
+  defaults: null
   maxRows: null
   minRows: null
   staticRows: false

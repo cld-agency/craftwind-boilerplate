@@ -107,7 +107,7 @@ settings:
                   __assoc__:
                     -
                       - label
-                      - 'X (Twitter'
+                      - 'X (Twitter)'
                     -
                       - value
                       - x
@@ -146,18 +146,7 @@ settings:
             -
               - type
               - singleline
-  defaults:
-    -
-      __assoc__:
-        -
-          - col1
-          - ''
-        -
-          - col2
-          - ''
-        -
-          - col3
-          - ''
+  defaults: null
   maxRows: null
   minRows: null
   staticRows: false

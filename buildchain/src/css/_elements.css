@@ -1,5 +1,5 @@
 /* -------------------------------------------- */
-/*// CORE CONTENT STYLING*/
+/* CORE CONTENT STYLING */
 /* -------------------------------------------- */
 
 p,address,ul,ol,dl,dd{
@@ -9,15 +9,15 @@ p,address,ul,ol,dl,dd{
 }
 
 /* -------------------------------------------- */
-/*// LINKS*/
+/* LINKS */
 /* -------------------------------------------- */
 
 article p > a:not([class]),article li > a:not([class]),.default-link,.default-links a{
 	color:#333;
-	box-shadow:0 4px 0 0 #a4def2;
-	font-weight:theme('_vars.boldWeight');
+	box-shadow:0 4px 0 0 var(--color-accent);
+	font-weight:var(--bold-weight);
 	transition:box-shadow .2s linear, color .2s linear;
-	&:hover{ color:#000;box-shadow:0 4px 0 0 theme('colors.accent.DEFAULT') }
+	&:hover{ color:#000;box-shadow:0 4px 0 0 var(--color-accent) }
 }
 
 :visited:not([class]){ color:inherit; }
@@ -27,8 +27,8 @@ article p > a:not([class]),article li > a:not([class]),.default-link,.default-li
 /* -------------------------------------------- */
 
 h1,h2,h3,h4,h5,h6,dt,th,.faux-h2,.faux-h3{
-	font-family:theme('fontFamily.display');
-	font-weight:theme('_vars.headingWeight');
+	font-family:var(--font-display);
+	font-weight:var(--heading-weight);
 	margin-bottom:0;
 }
 h1{
@@ -48,7 +48,7 @@ h4,h5,h6{
 }
 
 /* -------------------------------------------- */
-/*// LISTS*/
+/* LISTS */
 /* -------------------------------------------- */
 
 article ul,dl,ol{
@@ -63,7 +63,7 @@ article ul li::before, dt::before{
 	content:"";
 	width:6px;
 	height:6px;
-	background-color:theme('colors.brand.DEFAULT');
+	background-color:var(--color-brand);
 	float:left;
 	margin:.7em 0 0 -2em;
 	border-radius:50%;
@@ -89,33 +89,33 @@ dd{ margin:0; }
 dd p{ margin-top:.5em; }
 
 /* -------------------------------------------- */
-/*// HR*/
+/* HR */
 /* -------------------------------------------- */
 
 hr {
-	border-color:theme('borderColor.DEFAULT');
+	border-color:var(--color-gray-200);
 	border-top-width:1px;
 	margin-top:3em;
 	margin-bottom:3em;
 }
 
 /* -------------------------------------------- */
-/*// IMG & FIGURE & CAPTION*/
+/* IMG & FIGURE & CAPTION */
+/* https://jeffbridgforth.com/having-figure-match-width-of-contained-image/ */
+/* https://frontendmasters.com/blog/the-figcaption-problem/ */
 /* -------------------------------------------- */
 
-/*// because figures get automatically inserted by Redactor,*/
-/*// we need to style the defaults here.*/
 figure{
-	display:table;
+	inline-size:fit-content;
+	margin-inline:auto;
 	img{
 		box-shadow:0 30px 60px -10px rgba(0,0,0,.3);
 		padding:1px;
-		border:1px solid theme('borderColor.DEFAULT');
+		border:1px solid var(--color-gray-200);
 	}
 }
 figure:not(.quote) figcaption {
-	display:table-caption;
-	caption-side:bottom;
+	contain:inline-size;
 	font-size:0.875em;
 	line-height:1.6;
 	max-width:60ch;
@@ -130,17 +130,17 @@ figure:not(.quote) figcaption {
 
 blockquote,.quote{
 	position:relative;
-	background:theme('colors.light.DEFAULT');
+	background:var(--color-light);
 	border-left-width:.25rem;
-	border-left-color:theme('colors.brand.DEFAULT');
+	border-left-color:var(--color-brand);
 	padding:2em 3em;
 	/*// in case it comes from redactor and there are no p tags...*/
 	font-size:fluid(1.2rem, 1.4375rem, 20rem, 64rem);
 	line-height:1.6;
-	color:theme('colors.brand.DEFAULT');
+	color:var(--color-brand);
 	&::before, &::after{
 		content:"“";
-		font-family:theme('fontFamily.display');
+		font-family:var(--font-display);
 		font-size:48px;
 		/*// font-weight:theme('_vars.boldWeight');*/
 		position:absolute;
@@ -167,7 +167,7 @@ blockquote p{
 }
 
 /* -------------------------------------------- */
-/*// TABLES*/
+/* TABLES */
 /* -------------------------------------------- */
 
 table {
@@ -178,26 +178,26 @@ table {
 }
 table,tbody p{ font-size:fluid(0.75rem, 1rem, 48rem, 80rem); }
 thead {
-	border-bottom:1px solid theme('colors.gray.300');
+	border-bottom:1px solid var(--color-gray-300);
 }
 td,th{ padding:.8rem; }
 th{
 	text-transform:uppercase;
 	letter-spacing:1.2px;
-	font-weight:theme('_vars.boldWeight');
+	font-weight:var(--bold-weight);
 	font-size: fluid(0.6rem, 0.75rem, 48rem, 80rem);
-	background:theme('colors.gray.100');
+	background:var(--color-gray-300);
 }
-tbody tr{ border-bottom:1px solid theme('colors.gray.200'); }
+tbody tr{ border-bottom:1px solid var(--color-gray-200); }
 /*// overrides for tables on silver*/
 .bg-gray-100 table{
 	td{ background:#fff; }
-	th{ background:theme('colors.gray.200'); }
-	tbody tr{ border-color:theme('colors.gray.300'); }
+	th{ background:var(--color-gray-200); }
+	tbody tr{ border-color:var(--color-gray-300); }
 }
 
 /* -------------------------------------------- */
-/*// FORMS*/
+/* FORMS */
 /* -------------------------------------------- */
 
 [type=text],[type=email],[type=url],[type=tel],[type=password],[type=search],[type=number],textarea,select{
@@ -207,16 +207,16 @@ tbody tr{ border-bottom:1px solid theme('colors.gray.200'); }
 	width:100%;
 	background-color:#fff;
 	padding:12px 10px;
-	border:1px solid theme('colors.gray.200');
-	color:theme('colors.body');
+	border:1px solid var(--color-gray-200);
+	color:var(--color-body);
 	font-size:fluid(1rem, 1.125rem, 20rem, 64rem);
 	line-height:1.5;
 	&:hover{
-		border-color:theme('colors.gray.300');
+		border-color:var(--color-gray-300);
 	}
 	&:focus{
 		outline:0;
-		box-shadow:0 0 0 2px theme('colors.brand.DEFAULT');
+		box-shadow:0 0 0 2px var(--color-brand);
 		border-color:transparent;
 	}
 }

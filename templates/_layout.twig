@@ -4,10 +4,10 @@
 	navLink: 'uppercase group inline-flex items-center text-center font-medium tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
 	navLinkOnLight: 'block uppercase text-base font-medium tracking-widest leading-6',
 	breakoutLink: "!static content-[''] before:block before:absolute before:inset-0 before:cursor-pointer"
-} %}
+}) %}
 
 {# fetch any scripts marked as essential from the Scripts section #}
-{% set essentialCat = craft.categories.group('cookieTypes').slug('essential').one() %}
+{% set essentialCat = craft.entries.type('cookieTypes').slug('essential').one() %}
 {% set scriptsToLoadUpfront = essentialCat ? craft.entries.section('scripts')
 	.with(['cookieType'])
 	.cookieType(essentialCat)
@@ -288,7 +288,7 @@
 	COOKIE CONSENT & SITE SCRIPTS
 	===================================== #}
 
-	{% set cookieCatsInUse = craft.categories.group('cookieTypes').relatedTo(craft.entries.section('scripts').ids()).all() %}
+	{% set cookieCatsInUse = craft.entries.type('cookieTypes').relatedTo(craft.entries.section('scripts').ids()).all() %}
 
 	{% if cookieCatsInUse|filter(cat => cat.id != essentialCat.id) %}
 		{% include '_partials/cookieConsent.twig' %}
