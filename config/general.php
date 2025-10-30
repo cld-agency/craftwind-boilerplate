@@ -27,6 +27,14 @@ return [
 
 		'upscaleImages' => false,
 
+		// this allows us to limit asset fields to SVGs only.
+		'extraFileKinds' => [
+			'svg' => [
+				'label' => 'SVG',
+				'extensions' => ['svg'],
+			],
+		],
+
 		// remove index.php from auto-generated URLs
 		'omitScriptNameInUrls' => true,
 

@@ -3,10 +3,11 @@ PICTURE
 
 Generate a picture element with:
 - srcset & sizes
-- webp variant
+- webp & avif variants
 - lazyloading
+- fetchpriority for the LCP
 - focal point handling
-- aspect ratio box
+- aspect ratio box (deprecated in favour of aspect-ratio css)
 - svg inlining
 
 Params
@@ -21,8 +22,10 @@ Params
 - alt {string} (default to image.alt ?? '' (image.title is also available but is auto-populated with the filename, which is never good enough as editors don't change it!))
 
 - extraPictureClasses {string} - extra classes for the picture tag
+- extraFigureClasses {string} - extra classes for the figure tag (if using captions)
 - extraImgClasses {string} - extra classes for the img tag
 - extraSVGClasses {string} - extra classes for an inline SVG element
+- extraCaptionClasses {string} - extra classes for captions
 
 - useInlineSVG {bool} (default false) - whether to inline an SVG
 - useLazyLoading {bool} (default true) - turn this off if your image is likely to be near the top of the viewport
@@ -30,11 +33,15 @@ Params
 	output an appropriately proportioned wrapper element per image so that you can use lazyloading without incurring layout shifts as the images load in. (Note: if you want to have e.g. a set of cards which all share the same img aspect ratio, instead of useRatioBox you should use the following settings: `extraImgClasses: 'object-cover h-full w-full',extraPictureClasses: 'aspect-16-9 relative'` ... The aspect-16-9 class is defined in utilities.scss.
 - useFocalPoint {bool} (default false) - you'll need a wrapper element with some fixed dimensions for this to work (or define dimensions on the picture element via extraPictureClasses)
 - useCaption {bool} (default false) - output a caption under the image if it exists
+- isLCP {bool} (default false) - add fetchpriority=high to the img tag for LCP requests
 ===================================== #}
 
 {% set useLazyLoading = useLazyLoading ?? true %}
 {% set extraPictureClasses = extraPictureClasses ?? null %}
 {% set extraImgClasses = extraImgClasses ?? null %}
+{% set extraFigureClasses = extraFigureClasses ?? null %}
+{% set imageCaption = captionOverride ?? image.caption ?? null %}
+{% set isLCP = isLCP ?? false %}
 
 {% if
 	image['extension'] is defined and image.extension == 'svg' or
@@ -57,7 +64,7 @@ Params
 
 		<picture{% if extraPictureClasses|length %} class="{{ extraPictureClasses }}"{% endif %}>
 			<img src="{{ image['extension'] is defined ? image.url : image }}"
-				alt="{{ alt ?? image.alt ?? '' }}"
+			    alt="{{ alt ?? image.alt ?? '' }}"
 				height="{{ image.height() }}"
 				width="{{ image.width() }}"
 				{% if extraImgClasses|length or useLazyLoading %} class="{{ extraImgClasses }} {{ useLazyLoading ? 'js-lazyload' }}"{% endif %}
@@ -100,6 +107,7 @@ Params
 
 	{% set srcset = [] %}
 	{% set srcsetWebp = [] %}
+	{% set srcsetAvif = [] %}
 
 	{% for transform in transforms %}
 		{# only add to the srcset/srcsetWebp arrays if the original image is wide enough #}
@@ -116,7 +124,9 @@ Params
 		{% if pullTheTrigger %}
 			{% set srcset = srcset|merge([image.url(transform) ~ ' ' ~ image.width(transform) ~ 'w']) %}
 			{% set webpTransform = transform|merge({format:'webp'}) %}
+			{% set avifTransform = transform|merge({format:'avif'}) %}
 			{% set srcsetWebp = srcsetWebp|merge([image.url(webpTransform) ~ ' ' ~ image.width(webpTransform) ~ 'w']) %}
+			{% set srcsetAvif = srcsetAvif|merge([image.url(avifTransform) ~ ' ' ~ image.width(avifTransform) ~ 'w']) %}
 		{% endif %}
 	{% endfor %}
 
@@ -142,7 +152,14 @@ Params
 	{# ======================================================================= #}
 
 	{% set innards %}
-		<picture{% if pictureClass|length and not (useCaption and image.caption|length) %} class="{{ pictureClass }}"{% endif %}>
+		<picture{% if pictureClass|length %} class="{{ pictureClass }}"{% endif %} {{ pictureAttrs is defined ? attr(pictureAttrs) }}>
+			{# ffs MAMP PRO, get your act together and start supporting AVIF please! #}
+			{% if getenv('AVIF_SUPPORT') %}
+				<source type="image/avif"
+					{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetAvif|join(',') }}"
+					{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
+				>
+			{% endif %}
 			<source type="image/webp"
 				{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetWebp|join(',') }}"
 				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
@@ -156,6 +173,7 @@ Params
 				width="{{ image.width(transforms|first) }}"
 				class="{{ useLazyLoading ? 'js-lazyload'}} {{ focalPointClass ?? null }} {{ extraImgClasses ?? null }}"
 				{% if useFocalPoint %}style="{{ focalPointPosition }}"{% endif %}
+				{% if isLCP %}fetchpriority="high"{% endif %}
 			>
 		</picture>
 	{% endset %}
@@ -167,12 +185,10 @@ Params
 		<div class="relative overflow-hidden w-full" style="padding-top: {{ (image.height(transforms[0]) / image.width(transforms[0])) * 100 }}%">
 			{{ innards }}
 		</div>
-	{% elseif useCaption and image.caption|length %}
-		<figure{% if pictureClass|length %} class="{{ pictureClass }}"{% endif %}>
+	{% elseif useCaption and imageCaption|length %}
+		<figure{% if extraFigureClasses|length %} class="{{ extraFigureClasses }}"{% endif %}>
 			{{ innards }}
-			{% if image.caption|length %}
-				<figcaption>{{ image.caption }}</figcaption>
-			{% endif %}
+			<figcaption class="{{ extraCaptionClasses ?? null }}">{{ imageCaption }}</figcaption>
 		</figure>
 	{% else %}
 		{{ innards }}

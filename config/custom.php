@@ -34,6 +34,7 @@ $globalTransforms = $transformsToEagerLoad = [
 foreach ($transformsToEagerLoad as &$transformArray) {
 	foreach ($transformArray as &$transform) {
 		$transform += ['format' => 'webp'];
+		$transform += ['format' => 'avif'];
 	}
 }
 

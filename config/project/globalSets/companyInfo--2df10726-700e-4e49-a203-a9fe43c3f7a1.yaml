@@ -1,0 +1,47 @@
+fieldLayouts:
+  fae3cbb7-8c06-45c5-a28c-222d4ed3fa9b:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            dateAdded: '2025-10-30T09:40:49+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 7f75a3a3-bfc1-45da-821e-200988c43407 # _Plain text multiline (non-searchable)
+            handle: address
+            includeInCards: false
+            instructions: null
+            label: Address
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: dae50d22-e491-4a4e-ad78-a6a08123cd96
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-10-30T09:40:49+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # _Plain text field (non-searchable)
+            handle: phone
+            includeInCards: false
+            instructions: null
+            label: Phone
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 577f7eb8-2e79-4344-b2ff-12f9939e0a53
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: b5f848b5-ad5f-472b-a8f7-39d0f6b63d9f
+        userCondition: null
+handle: companyInfo
+name: 'Company info'
+sortOrder: 3

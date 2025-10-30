@@ -2,6 +2,7 @@ altTranslationKeyFormat: null
 altTranslationMethod: none
 fieldLayouts:
   cca509a6-6857-4659-994c-5d7d5fc367e4:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
@@ -11,6 +12,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2025-10-29T16:20:32+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -39,6 +41,7 @@ fieldLayouts:
             attribute: alt
             class: null
             cols: null
+            dateAdded: '2025-10-29T16:20:32+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -57,6 +60,23 @@ fieldLayouts:
             title: null
             type: craft\fieldlayoutelements\assets\AltField
             uid: 0a8c2e2d-bb7d-4b64-a6cb-4d068cb6b85f
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-10-29T16:21:57+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 3fbbc91b-38d4-405d-888a-9bf3c34043ee # _Plain text field (searchable)
+            handle: caption
+            includeInCards: false
+            instructions: 'Visible caption for UI elements that implement captioning.'
+            label: Caption
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0099039e-37f6-49db-aa9e-6159cf09f979
             userCondition: null
             warning: null
             width: 100
