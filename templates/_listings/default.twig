@@ -10,19 +10,26 @@ LISTING DEFAULT. Used by:
 
 {% set pageElement = category ?? entry %}
 
-{% set theLayout = craft.app.request.isAjax and not craft.app.request.isLivePreview ? '_ajaxLayout' : '_layout' %}
-{% extends theLayout %}
+{% extends '_layout' %}
 
 {% set title = pageElement.titleTag ?? pageElement.title %}
 {% set metaDesc = pageElement.metaDesc ?? null %}
 {% set noIndex = pageElement.noIndex ?? null %}
 
 {% set ogTitle = pageElement.ogTitle ?? null %}
-{% set ogDesc =  pageElement.ogDesc ?? pageElement.intro ?? null %}
-{% set ogImg = pageElement.ogImage.one() ?? pageElement.featuredImg.one() ?? null %}
+{% set ogDesc = pageElement.ogDesc ?? pageElement.intro ?? null %}
+{% set ogImg = pageElement.ogImage.exists() ? pageElement.ogImage.one() %}
 {% set ogType = pageElement.ogType ?? null %}
 {% set twitterCreator = pageElement.twitterCreator ?? null %}
 {% set twitterCard = pageElement.twitterCard ?? null %}
+
+{# SEO-friendly pagination links #}
+{% block extraHeadData %}
+	{% if withPagination is defined and withPagination and (pageInfo.prevUrl or pageInfo.nextUrl)%}
+		{% if pageInfo.prevUrl %}<link rel="prev" href="{{ pageInfo.prevUrl }}">{% endif %}
+		{% if pageInfo.nextUrl %}<link rel="next" href="{{ pageInfo.nextUrl }}">{% endif %}
+	{% endif %}
+{% endblock %}
 
 {# ======================================================================= #}
 
@@ -52,41 +59,24 @@ LISTING DEFAULT. Used by:
 
 	{% if withPagination is defined and withPagination and (pageInfo.prevUrl or pageInfo.nextUrl)%}
 
-		{# let's only output the load more button on the first page, otherwise the JS gets very complicated #}
-		{% if pageInfo.nextUrl and pageInfo.currentPage == 1 %}
-			{# Load More AJAX button #}
-			{% embed '_partials/container.twig' with {variants: 'full-y'} %}
-				{% block content %}
-					<div class="text-center mb-12">
-						{% include '_partials/button.twig' with {
-							label: 'Load more',
-							link: withPagination is defined and withPagination ? '/' ~ craft.app.request.pathInfo ~ '/p' ~ (pageInfo.currentPage + 1),
-							classes: 'js-loadMore',
-							variants: 'jumbo'
-						} only %}
-					</div>
-				{% endblock %}
-			{% endembed %}
-		{% endif %}
-
 		{% set queryString = craft.app.request.getQueryStringWithoutPath() ? '?' ~ craft.app.request.getQueryStringWithoutPath() : '' %}
 
-		{% embed '_partials/container.twig' with {sectionBG: 'silver', variants: 'compact'} %}
+		{% embed '_partials/container.twig' with {sectionBG: 'silver', variants: 'squash'} %}
 			{% block content %}
 				{% set paginationCSS = {
-					base: 'mt-0 px-8 !py-4 relative inline-flex items-center border border-gray-300 bg-white font-bold text-gray-700 hover:bg-gray-50 focus:bg-gray-50',
+					base: 'mt-0 px-8 !py-4 relative flex grow justify-center items-center border border-gray-300 bg-white font-bold text-body hover:bg-gray-50 focus:bg-gray-50',
 				} %}
 
 				{# ==================================
 				Just two buttons @mobile...
 				===================================== #}
 
-				<div class="flex-1 flex justify-between sm:hidden">
+				<div class="flex justify-between sm:hidden">
 					{% if pageInfo.prevUrl %}
 						{% include '_partials/button.twig' with { link: pageInfo.prevUrl ~ queryString, label:'Previous', variants: 'jumbo'} only %}
 					{% endif %}
 					{% if pageInfo.nextUrl %}
-						{% include '_partials/button.twig' with { link: pageInfo.nextUrl ~ queryString, label:'Next', variants: 'jumbo'} only %}
+						{% include '_partials/button.twig' with { classes: 'mt-0', link: pageInfo.nextUrl ~ queryString, label:'Next', variants: 'jumbo'} only %}
 					{% endif %}
 				</div>
 
@@ -95,7 +85,7 @@ LISTING DEFAULT. Used by:
 				===================================== #}
 
 				<div class="hidden sm:block">
-					<nav class="relative inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+					<nav class="relative flex {{ pageInfo.totalPages <= 5 ? 'max-w-[50%]' }} rounded-md shadow-sm -space-x-px" aria-label="Pagination">
 
 						{# ==================================
 						PREV PAGE BUTTON
@@ -122,7 +112,7 @@ LISTING DEFAULT. Used by:
 						CURRENT FAUX-LINK
 						===================================== #}
 
-						<span class="{{ paginationCSS.base }} bg-gray-200 hover:bg-gray-200">{{ pageInfo.currentPage }}</span>
+						<span class="{{ paginationCSS.base }} !bg-gray-200 hover:bg-gray-200">{{ pageInfo.currentPage }}</span>
 
 						{# ==================================
 						NEXT PAGES LINKS
@@ -150,57 +140,4 @@ LISTING DEFAULT. Used by:
 		{% endembed %}
 	{% endif %}
 
-	{# ==================================
-	EXTRAS (populated in child templates)
-	===================================== #}
-
-	{{ block('extras') ?? null }}
-
 {% endblock %}
-
-{% block ajaxContent %}
-	{{ block('listingContent') }}
-{% endblock %}
-
-{# ======================================
-AJAX PAGINATION SCRIPT
-========================================= #}
-
-{% if pageInfo is defined and pageInfo.total > 12 %}
-	{% js %}
-		var currentPage = 1;
-		var perPage = 12;
-		var count = perPage;
-
-		document.querySelector('.js-loadMore').addEventListener('click', e => {
-			e.preventDefault();
-			e.currentTarget.classList.add('disabled', 'pointer-events-none');
-			var originalWidth = e.currentTarget.offsetWidth;
-			var buttonText = document.querySelector('.js-loadMore').textContent;
-			e.currentTarget.style.width = originalWidth;
-			e.currentTarget.textContent = 'Loading...';
-			if({{ pageInfo.total }} > count){
-				fetch(e.currentTarget.getAttribute('href'), {
-					headers: {
-						'X-Requested-With': 'XMLHttpRequest',
-					},
-					method: 'GET'
-				}).then(response => response.text()).then(data => {
-
-					document.querySelector('.js-ajaxPagination').insertAdjacentHTML('beforeend', data);
-					var button = document.querySelector('.js-loadMore');
-					button.textContent = buttonText;
-					// increment the counters
-					count = count + perPage;
-					currentPage++;
-					button.style.display = 'block';
-					button.href = '/{{ craft.app.request.pathInfo }}/p' + (currentPage + 1);
-					button.classList.remove('disabled', 'pointer-events-none');
-					if({{ pageInfo.total }} <= count){
-						button.remove();
-					}
-				});
-			}
-		});
-	{% endjs %}
-{% endif %}

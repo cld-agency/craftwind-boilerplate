@@ -126,7 +126,9 @@ Params
 			{% set webpTransform = transform|merge({format:'webp'}) %}
 			{% set avifTransform = transform|merge({format:'avif'}) %}
 			{% set srcsetWebp = srcsetWebp|merge([image.url(webpTransform) ~ ' ' ~ image.width(webpTransform) ~ 'w']) %}
-			{% set srcsetAvif = srcsetAvif|merge([image.url(avifTransform) ~ ' ' ~ image.width(avifTransform) ~ 'w']) %}
+			{% if getenv('AVIF_SUPPORT') %}
+				{% set srcsetAvif = srcsetAvif|merge([image.url(avifTransform) ~ ' ' ~ image.width(avifTransform) ~ 'w']) %}
+			{% endif %}
 		{% endif %}
 	{% endfor %}
 

@@ -67,6 +67,7 @@
 
 	<meta name="description" content="{{ metaDesc is defined ? metaDesc|striptags : null }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone=no">
 	{% if noIndex is defined and noIndex == 1 or craft.app.config.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
 
 	{# ======================================
@@ -147,6 +148,8 @@
 			{{ script.script|raw }}
 		{% endfor %}
 	{% endif %}
+
+	{{ block('extraHeadData') ?? null }}
 
 	{{ head() }}
 </head>

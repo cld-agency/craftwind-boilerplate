@@ -47,6 +47,10 @@ return [
 		// and a bit redundant given how careful we usually are...
 		'backupOnUpdate' => false,
 
+		// disable GraphQL endpoint to better protect against potential security risks.
+		// also removes the item from the Craft CP sidebar, so that's good.
+		'enableGql' => false,
+
 		// if multi-site and not sharing a symlinked assets path, specify them like this
 		// and then use these aliases as prefixes in the control panel (Settings > Assets > File System Path)
 		// - so site-1's images directory would be `@basePathSite1/media/images`

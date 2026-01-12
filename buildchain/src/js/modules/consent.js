@@ -6,6 +6,7 @@ export default () => ({
 	typesToLoad: [],
 	lightswitches: null,
 	functionalityModalMessage: '',
+	consentCallbacks: { onAccept: null, onDecline: null },
 
 	init() {
 		// open the cookie banner if user has not yet made any choice
@@ -134,11 +135,11 @@ export default () => ({
 			el.classList.add('hidden');
 		});
 
-		// reCAPTCHA
-		const scriptContainers = document.querySelectorAll('.js-lazyloadScriptsWhenFieldFocussed');
-		if (scriptContainers) {
-			this.switchOnPlaceholderScripts(scriptContainers);
-		}
+		// reCAPTCHA. Currently unused as we might end up with Friendly Captcha instead.
+		// const focusScriptContainers = document.querySelectorAll('.js-lazyloadScriptsWhenFieldFocussed');
+		// if (focusScriptContainers.length) {
+		// 	this.switchOnPlaceholderScripts(focusScriptContainers);
+		// }
 
 		// For some functionality we know in advance that we can skip the ajax fetching of scripts
 		// as that's already being handled elsewhere (e.g. for videos it's handled in lite-youtube
@@ -150,26 +151,59 @@ export default () => ({
 		// set the functionality accepted cookie...
 		document.cookie = 'functionality=1;path=/;max-age=15768000';
 		// ...and autocheck the lightswitch on just in case they open the cookie modal
-		Array.from(this.lightswitches).filter(lightswitch => lightswitch.id === 'functionality').checked = true;
+		Array.from(this.lightswitches)
+			.filter(label => label.getAttribute('for') === 'functionality')
+			.forEach(label => label.querySelector('input').checked = true);
+
+		// call the onAccept callback if one was registered
+		this.consentCallbacks.onAccept?.();
+		this.consentCallbacks = { onAccept: null, onDecline: null };
 	},
 
 	declineConsentableFunctionality() {
-		// take the easy way out for now!
-		window.location.reload();
+		// call the onDecline callback if one was registered, otherwise reload
+		if (this.consentCallbacks.onDecline) {
+			this.consentCallbacks.onDecline();
+		} else {
+			window.location.reload();
+		}
+		this.consentCallbacks = { onAccept: null, onDecline: null };
 	},
 
 	// often an easier way to inject scripts is to have a placeholder one in the DOM with a data-src
 	// that can be swapped out and then appended to the container to execute it.
-	switchOnPlaceholderScripts(scriptContainers) {
+	switchOnPlaceholderScripts(scriptContainers, onComplete) {
+		const allScripts = [];
+
 		scriptContainers.forEach(el => {
 			const scripts = el.querySelectorAll('script[data-src]');
-			if (scripts.length) {
-				scripts.forEach(script => {
-					const scriptTag = document.createElement('script');
-					scriptTag.src = script.dataset.src;
-					el.appendChild(scriptTag);
-				});
-			}
+			scripts.forEach(script => {
+				allScripts.push({ script, container: el });
+			});
+		});
+
+		if (allScripts.length === 0) {
+			onComplete?.();
+			return;
+		}
+
+		let loadedCount = 0;
+
+		allScripts.forEach(({ script, container }) => {
+			const scriptTag = document.createElement('script');
+
+			const handleComplete = () => {
+				loadedCount++;
+				if (loadedCount === allScripts.length) {
+					onComplete?.();
+				}
+			};
+
+			scriptTag.addEventListener('load', handleComplete);
+			scriptTag.addEventListener('error', handleComplete);
+
+			container.appendChild(scriptTag);
+			scriptTag.src = script.dataset.src;
 		});
 	}
 

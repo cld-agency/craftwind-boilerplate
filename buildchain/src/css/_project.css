@@ -1,7 +1,9 @@
 /*  collapse consecutive blocks of the same colour... be sure to always use bg-white even if it seems redundant!*/
-.bg-white:not(.no-collapse) + .bg-white:not(.no-collapse),
-.bg-gray-100:not(.no-collapse) + .bg-gray-100:not(.no-collapse),
-.bg-brand:not(.no-collapse) + .bg-brand:not(.no-collapse)
+/* Optionally use .no-collapse-after or .no-collapse to opt-out of this - typically if you
+have a full cover bg image on a section */
+.bg-white:not(.no-collapse-after) + .bg-white:not(.no-collapse),
+.bg-gray-100:not(.no-collapse-after) + .bg-gray-100:not(.no-collapse),
+.bg-brand:not(.no-collapse-after) + .bg-brand:not(.no-collapse)
 { padding-top:0; }
 
 /* -------------------------------------------- */

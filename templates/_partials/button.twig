@@ -76,7 +76,7 @@ STITCH EVERYTHING TOGETHER...
 
 <{{ element }} class="{{ classes }}"
 	{% if element == 'a' %}href="{{ link }}"{% endif %}
-	{{ attrs is defined ? attr(attrs) }}
+	{{ attrs is defined and attrs|length ? attr(attrs) }}
 >
 	{% if icon is defined and icon %}
 		<span class="pointer-events-none">{{ label }}</span>

@@ -18,7 +18,12 @@ export default defineConfig(({ command, mode }) => {
 			rollupOptions: {
 				input: {
 					app: 'src/js/main.js'
-				}
+				},
+				// in case you ever need to reference assets in CSS files, tell Vite to ignore them:
+				external: [
+					/^\/assets\/img/,
+					/^\/assets\/fonts/,
+				]
 			},
 		},
 		server: {

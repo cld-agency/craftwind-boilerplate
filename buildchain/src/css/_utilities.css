@@ -1,5 +1,8 @@
 .is-active{
-	transform:none;
+	transform:none!important; /*need !important here because postcss (I think) seems to be doing some poor optimisations that obliterate this down to `transform: translate(0)rotate(0)scale(1)` whic is not good enough to override the composable properties coming from Tailwind even though they're later in the cascade */
+	translate:0;
+	rotate:0;
+	scale:1;
 	opacity:1;
 	visibility:visible;
 	pointer-events:all;
