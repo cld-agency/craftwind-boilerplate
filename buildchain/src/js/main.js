@@ -2,6 +2,8 @@ import '../css/main.css';
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
 import collapse from '@alpinejs/collapse';
+import consent from './modules/consent';
+import editThis from './modules/edit-this';
 
 // ============================================
 // ALPINE SETUP
@@ -13,10 +15,9 @@ window.Alpine = Alpine;
 Alpine.plugin(focus);
 Alpine.plugin(collapse);
 
-async function registerStaticComponents() {
-	Alpine.data('consent', (await import('./modules/consent')).default);
-	// Alpine.data('somethingElse', (await import('./modules/something-else')).default);
-}
+// Static Alpine components (used globally)
+Alpine.data('consent', consent);
+Alpine.data('primaryNav', primaryNav);
 
 // Dynamic Alpine components - loaded only if their DOM elements exist
 const ALPINE_COMPONENTS = {
@@ -33,16 +34,14 @@ async function registerConditionalComponents() {
 			Alpine.data(name, component);
 		}
 	});
-
 	await Promise.all(promises);
 }
 
 // Start Alpine after conditional registration
 (async () => {
-	await registerStaticComponents();
 	await registerConditionalComponents();
 	// beware, alpine actually inits components in the order it finds them in the DOM,
-	// so despite the 2 awaited functions above, we're really at the mercy of Alpine
+	// so despite the awaited function above, we're really at the mercy of Alpine
 	// in terms of execution order :-/
 	Alpine.start();
 })();
@@ -52,10 +51,11 @@ async function registerConditionalComponents() {
 // ============================================
 
 const MODULES = {
-	'[data-edit-this]': () => import('./modules/edit-this'),
-	'.js-lazyload': () => import('./modules/lazyload'),
-	// '.js-heroCarousel': () => import('./modules/carousels'),
+	// '.js-lazyload': () => import('./modules/lazyload'),
+	// '.js-heroCarousel, .js-newsCarousel': () => import('./modules/carousels'),
 	// '.js-formieForm': () => import('./modules/formie-forms'),
+	// 'lite-youtube': () => import('./modules/video-facade-youtube.js'),
+	// 'lite-vimeo': () => import('./modules/video-facade-vimeo.js'),
 };
 
 function loadModules(scope = document) {
@@ -87,6 +87,7 @@ function wrapTables() {
 // ============================================
 
 function init() {
+	editThis(document.querySelectorAll('[data-edit-this]'));
 	loadModules();
 	wrapTables();
 }
