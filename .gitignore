@@ -10,3 +10,4 @@ config/license.key
 !/storage/rebrand/*
 public_html/cpresources/*
 /vendor
+.claude

@@ -13,7 +13,7 @@ WIDGET PREVIEW PAGE
 
 {% block content %}
 
-	{% set block = craft.entries.type('widget').relatedTo(entry).one() %}
+	{% set block = craft.entries.type('widgetBlock').relatedTo(entry).one() %}
 
 	{% if block|length %}
 		{% if craft.app.request.param('tryRealEntry') %}
@@ -25,27 +25,34 @@ WIDGET PREVIEW PAGE
 				{% endblock %}
 			{% endembed %}
 
-			{% set squeezeClass = craft.app.request.param('squeeze') ?? 'squeeze' %}
+			{# Overwrite the `block` object with the widget entry, but also inject the widget block's section layout fields, as they should be changeable according to the context of their neighbouring blocks. #}
+			{% set block = entry|merge({
+				sectionBG: { value: block.sectionBG.value }
+			}) %}
+
 			{% include [
-					'_widgets/' ~ entry.slug|camel,
-					'_widgets/' ~ entry.type
-				] ignore missing with { entry: entry, pageEntry: entry, blockID: 'dummy', block: {id: 'dummy'}, loop: {index:1} }
-			%}
+				'_blocks/' ~ entry.type.handle,
+				'_widgets/' ~ entry.type.handle
+			] ignore missing with {
+				block: entry,
+				blockSlug: entry.slug
+			} %}
+
 		{% endif %}
 	{% else %}
-		<h2 style="text-align:center">Standalone widget preview</h2>
-		<p style="text-align:center">No entries are currently using this widget, so here is a standalone example preview:</p>
-		{% set squeezeClass = craft.app.request.param('squeeze') ?? 'superSqueeze' %}
-		{% set longformContent = craft.app.request.param('squeeze') ? true %}
+		{% embed '_partials/container.twig' %}
+			{% block content %}
+				<h2 style="text-align:center">Standalone widget preview</h2>
+				<p style="text-align:center">No entries are currently using this widget, so here is a standalone example preview:</p>
+			{% endblock %}
+		{% endembed %}
+
 		{% include [
-			'_widgets/' ~ entry.slug|camel,
-			'_widgets/' ~ entry.type
+			'_blocks/' ~ entry.type.handle,
+			'_widgets/' ~ entry.type.handle
 		] ignore missing with {
-			entry: entry,
-			pageEntry: entry,
-			blockID: 'dummy',
-			block: { id: 'dummy' },
-			loop: { index:1 }
+			block: entry,
+			blockSlug: entry.slug
 		} %}
 	{% endif %}
 

@@ -8,6 +8,11 @@ HOME.
 
 {% set entry = entry is defined ? entry : craft.entries.section('home').one() %}
 
+{# Redirect anything not at root to / if not previewing #}
+{% if entry and craft.app.request.getPathInfo() and not craft.app.request.isPreview %}
+	{% redirect '/' 301 %}
+{% endif %}
+
 {% set title = entry.titleTag ? entry.titleTag : entry.title %}
 {% set metaDesc = entry.metaDesc ?? null %}
 {% set noIndex = entry.noIndex ?? null %}
