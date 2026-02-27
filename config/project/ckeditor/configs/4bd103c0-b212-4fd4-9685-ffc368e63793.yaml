@@ -12,6 +12,9 @@ options:
           target: _blank
         label: 'Open in new tab?'
         mode: manual
+  list:
+    properties:
+      styles: false
 toolbar:
   - heading
   - '|'
