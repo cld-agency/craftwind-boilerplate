@@ -27,6 +27,10 @@ return [
 
 		'upscaleImages' => false,
 
+		// We use AVIF with a fallback to WebP for all images by default.
+		// AVIF compresses very well, so you can go a bit lower with the default quality (82).
+		'defaultImageQuality' => 75,
+
 		// this allows us to limit asset fields to SVGs only.
 		'extraFileKinds' => [
 			'svg' => [
@@ -34,6 +38,10 @@ return [
 				'extensions' => ['svg'],
 			],
 		],
+
+		'defaultTokenDuration' => 'P7D',
+		'previewTokenDuration' => 'P7D',
+		'verificationCodeDuration' => 'P7D',
 
 		// remove index.php from auto-generated URLs
 		'omitScriptNameInUrls' => true,
