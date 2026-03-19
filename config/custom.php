@@ -1,7 +1,7 @@
 <?php
 
 $globalTransforms = $transformsToEagerLoad = [
-	'ogImg' => [[ 'mode' =>'crop', 'width' => 1200, 'height' => 1200 ]],
+	'ogImg' => [[ 'mode' =>'crop', 'width' => 1200, 'height' => 630 ]],
 	'halfWidth' => [
 		['width' => 280],
 		['width' => 400],
