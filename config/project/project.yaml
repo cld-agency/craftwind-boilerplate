@@ -1,4 +1,4 @@
-dateModified: 1772184670
+dateModified: 1774014731
 elementSources:
   craft\elements\Entry:
     -
@@ -144,7 +144,6 @@ meta:
     97122afc-ddc8-4cfc-8b2f-209b0e924477: 'Reusable widget block' # Reusable widget block
     4987257a-9b9a-4a35-8f7d-a9f5fb988d5b: 'Meta description' # Meta description
     11997218-93ee-4a98-a30e-1b311f82513f: 'Social links' # Social links
-    a1463d28-087e-4d16-b583-08eaf19365b1: '_Body - matrix body (searchable)' # _Body - matrix body (searchable)
     a4987faf-b4a7-4b0c-aa64-c08d95af6c0a: 'Browser title' # Browser title
     b51c3bf7-bd4c-46f9-92d5-c548637e190a: Images # Images
     b99e46fe-a420-4fd0-abfc-8eb0989ea429: Default # Default
