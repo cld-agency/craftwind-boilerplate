@@ -1,4 +1,4 @@
-dateModified: 1774014731
+dateModified: 1776495864
 elementSources:
   craft\elements\Entry:
     -
@@ -131,20 +131,14 @@ meta:
     27fd5441-8230-4f21-8d4c-ae215e7076df: $SYSTEM_NAME # $SYSTEM_NAME
     33b44401-118b-4a32-a630-4002586fb7a4: 'Cookie durations' # Cookie durations
     64ddacfa-0b2f-4cbc-a78c-b249a5c4621d: 'Text block' # Text block
-    79a71552-1529-49ac-bdad-66f9d7933c82: 'OG description' # OG description
     91c58004-ff40-4e25-96b2-0e73cbbf60ab: 'Cookie types' # Cookie types
     329fb3c3-eacd-4f5a-8086-8cd96ac705fc: 'Home pages' # Home pages
     661f0cbe-8667-4984-aea8-55239d2f6e8e: 'Body builder' # Body builder
-    929d6347-0e60-4edd-bbce-0f3873ab5186: 'X (Twitter) creator' # X (Twitter) creator
     6238be16-9290-47d5-9dde-43e33a167037: 'Facebook admins' # Facebook admins
-    37749f60-e94f-4311-94fd-13dfc366cf91: 'OG title override' # OG title override
     75347aed-7cd3-4a88-a475-d94c64fff91b: 'OG type' # OG type
-    77077e71-392c-494f-847c-164da66d9c87: Image # Image
     93911dec-d597-4048-be70-3822341db5c8: 'OG image' # OG image
     97122afc-ddc8-4cfc-8b2f-209b0e924477: 'Reusable widget block' # Reusable widget block
-    4987257a-9b9a-4a35-8f7d-a9f5fb988d5b: 'Meta description' # Meta description
     11997218-93ee-4a98-a30e-1b311f82513f: 'Social links' # Social links
-    a4987faf-b4a7-4b0c-aa64-c08d95af6c0a: 'Browser title' # Browser title
     b51c3bf7-bd4c-46f9-92d5-c548637e190a: Images # Images
     b99e46fe-a420-4fd0-abfc-8eb0989ea429: Default # Default
     c9cbf2d5-a33a-4631-bb00-58ac64015efd: 'Script output location' # Script output location
@@ -155,6 +149,7 @@ meta:
     d29a5366-955f-4d0c-9ee7-271b104f835a: 'Reusable widgets' # Reusable widgets
     d876412f-9cec-4b48-b307-7dd826e29b71: 'Cookie types' # Cookie types
     ddf4f8a7-b482-4862-aac0-10e840fa7fa7: 'Cookie type' # Cookie type
+    eb46c946-96c8-4ddf-ba2e-d4290e9e2e60: 'SEO metadata' # SEO metadata
     ec768514-1ace-48d1-a39f-63b17f6e1fc6: 'Public Schema' # Public Schema
     ed6ddf7e-2928-4004-81ea-f294c8f3da5f: 'No index?' # No index?
     f2c8081f-84a9-49ec-8817-4d26788f8d1c: Widget # Widget

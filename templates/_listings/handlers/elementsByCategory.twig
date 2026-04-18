@@ -20,53 +20,40 @@ tweaks and keep all that logic in the same place,
 whilst retaining this common handler logic
 between all of the types.
 
-route_listing and route_cat are required
-params, and are set in routes.php. This is
-so that categories are not tied to a single
-CP-defined URI format, increasing reusability
-of categories (i.e., you could have both
-/blog/category/something and /case-studies/category/something
-using the exact same cat).
 ========================================= #}
 
-{% set _listing = route_listing is defined ? route_listing : craft.app.request.getSegment(1) %}
+{% set theLimit = 12 %}
+{% set isFiltered = true %}
 
-{% extends '_listings/' ~ _listing|camel %}
+{% switch entry.section.handle %}
+	{% case 'articleCategories' %}
+		{% set indexSectionHandle = 'articlesListing' %}
+
+		{% set eagerLoad = [
+			'articleCategories',
+			['img', { withTransforms: craft.app.config.custom.transformsToEagerLoad.cardTransforms }]
+		] %}
+
+		{# Get IDs of all relevant entries for category filtering #}
+		{% set theStuffIds = craft.entries()
+			.section('articles')
+			.ids()
+		%}
+
+		{# Prep the element query for entries related to this category #}
+		{% set theStuff = craft.entries()
+			.section('articles')
+			.relatedTo(entry)
+			.with(eagerLoad)
+			.limit(theLimit)
+		%}
+{% endswitch %}
 
 {# =============================================================================== #}
 
-{% switch _listing %}
-	{% case 'downloads' %}
-		{% set elementType = 'assets' %}
-		{% set eagerLoad = [] %}
-	{% case 'products' %}
-		{% set elementType = 'entries' %}
-		{% set eagerLoad = ['productImgs','installedProductImg'] %}
-	{% default %}
-		{% set elementType = 'entries' %}
-		{% set eagerLoad = [] %}
-{% endswitch %}
-
-{# when using routes.php to route here instead of a CP-defined Category URI Format,
-Craft won't automatically populate an `entry` variable (previously `category` pre-entrification!), so we need to set it ourselves...#}
-{% set category = entry ?? craft.entries.slug(route_cat).one() %}
-{#{% set noIndexOverride = 1 %}#}
-
-{% set theLimit = 12 %}
-
-{% switch elementType %}
-	{% case 'assets' %}
-		{# remember, don't call .all() on this ElementCriteriaModel object as it needs to be
-		passed into the paginate tag which will work it all out - https://docs.craftcms.com/v3/dev/tags/paginate.html #}
-		{% set theStuff = craft.assets.volume('downloads').relatedTo(category).with(eagerLoad).limit(theLimit) %}
-		{# these ids are used to ensure we only output cats that have entries. See categoryButtons.twig #}
-		{% set theStuffIds = craft.assets.volume('downloads').ids() %}
-	{% case 'entries' %}
-		{% set theStuff = craft.entries.section(_listing).relatedTo(category).with(eagerLoad).limit(theLimit) %}
-		{% set theStuffIds = craft.entries.section(_listing).ids() %}
-{% endswitch %}
+{% extends '_listings/' ~ indexSectionHandle %}
 
 {# set the main `pageEntries` and `pageInfo` vars #}
 {% paginate theStuff as pageInfo, pageEntries %}
 
-{% set withPagination = theStuffIds|length < theLimit ? false : true %}
+{% set withPagination = pageInfo.total < theLimit ? false : true %}

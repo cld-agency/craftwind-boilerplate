@@ -1,0 +1,344 @@
+columnSuffix: null
+handle: seo
+instructions: null
+name: 'SEO metadata'
+searchable: true
+settings:
+  fieldLayouts:
+    __assoc__:
+      -
+        - d6a58849-1bbd-481d-b30c-7305f5233513
+        -
+          __assoc__:
+            0:
+              - tabs
+              -
+                -
+                  __assoc__:
+                    1:
+                      - uid
+                      - 10b8fd63-38bf-4e1c-8457-08b73d03ef31
+                    4:
+                      - elements
+                      -
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - 14e05f83-85b6-4b20-9a6e-b8e2921963ef
+                            14:
+                              - fieldUid
+                              - ed6ddf7e-2928-4004-81ea-f294c8f3da5f # No index?
+                        -
+                          __assoc__:
+                            -
+                              - type
+                              - craft\fieldlayoutelements\HorizontalRule
+                            -
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            -
+                              - uid
+                              - a36935c7-1287-448b-b0c3-2974b71bfde7
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            1:
+                              - handle
+                              - titleTag
+                            2:
+                              - label
+                              - 'Browser title override'
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - 7b14f4ee-6dea-477e-8ac5-49e3926adbf5
+                            14:
+                              - fieldUid
+                              - 3fbbc91b-38d4-405d-888a-9bf3c34043ee # _Plain text field (searchable)
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            1:
+                              - handle
+                              - ogTitle
+                            2:
+                              - label
+                              - 'OG title override'
+                            3:
+                              - instructions
+                              - 'Override both the entry title and the browser title for services that consume OG meta data.'
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - ecc91b24-bf46-47e9-a703-893a55953b0e
+                            14:
+                              - fieldUid
+                              - 3fbbc91b-38d4-405d-888a-9bf3c34043ee # _Plain text field (searchable)
+                        -
+                          __assoc__:
+                            -
+                              - type
+                              - craft\fieldlayoutelements\HorizontalRule
+                            -
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            -
+                              - uid
+                              - b66ff54c-fb73-40ac-ba04-c489196857e6
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            1:
+                              - handle
+                              - metaDesc
+                            2:
+                              - label
+                              - 'Meta description'
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - 3698a717-15ed-4c24-9596-7f3d08f9e674
+                            14:
+                              - fieldUid
+                              - 3fbbc91b-38d4-405d-888a-9bf3c34043ee # _Plain text field (searchable)
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            1:
+                              - handle
+                              - ogDesc
+                            2:
+                              - label
+                              - 'OG description override'
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - b29776f2-d8c8-408c-80bd-22e625e564b8
+                            14:
+                              - fieldUid
+                              - 3fbbc91b-38d4-405d-888a-9bf3c34043ee # _Plain text field (searchable)
+                        -
+                          __assoc__:
+                            -
+                              - type
+                              - craft\fieldlayoutelements\HorizontalRule
+                            -
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            -
+                              - uid
+                              - 84ec9be7-36aa-47a3-88ac-7b7a2854eeaf
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - 00b2f4c0-e070-438f-ac72-77109250d5af
+                            14:
+                              - fieldUid
+                              - 93911dec-d597-4048-be70-3822341db5c8 # OG image
+                        -
+                          __assoc__:
+                            -
+                              - type
+                              - craft\fieldlayoutelements\HorizontalRule
+                            -
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            -
+                              - uid
+                              - d8c3cd51-02c0-4b20-a89f-0a7794a9a2f5
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - 941db2f2-8866-4311-a6cf-386df3dd0f74
+                            14:
+                              - fieldUid
+                              - 75347aed-7cd3-4a88-a475-d94c64fff91b # OG type
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - 59494fb2-08db-4a2a-94fd-54a4df040b9d
+                            14:
+                              - fieldUid
+                              - 9ba80f98-3521-4d95-8103-833cc54f9074 # X (Twitter) card
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            1:
+                              - handle
+                              - twitterCreator
+                            2:
+                              - label
+                              - 'X (Twitter) creator'
+                            3:
+                              - instructions
+                              - '@username for the content creator / author of this entry. Note that this should NOT be the generic Twitter/X account of the company. It is only used in conjunction with the Summary Large Image type.'
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2026-04-18T07:02:59+00:00'
+                            11:
+                              - uid
+                              - 112b5466-b8f6-47cf-994a-80a1ffbae0a3
+                            14:
+                              - fieldUid
+                              - 2be967b7-c0bf-4806-874b-29ca2ddd277b # _Plain text field (non-searchable)
+            3:
+              - cardThumbAlignment
+              - end
+  viewMode: grouped
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\ContentBlock

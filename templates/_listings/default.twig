@@ -10,18 +10,18 @@ LISTING DEFAULT. Used by:
 
 {% set pageElement = category ?? entry %}
 
-{% extends '_layout' %}
+{% extends '_layout.twig' %}
 
-{% set title = pageElement.titleTag ?? pageElement.title %}
-{% set metaDesc = pageElement.metaDesc ?? null %}
-{% set noIndex = pageElement.noIndex ?? null %}
+{% set title = pageElement.seo.titleTag ?? pageElement.title %}
+{% set metaDesc = pageElement.seo.metaDesc ?? null %}
+{% set noIndex = pageElement.seo.noIndex ?? null %}
 
-{% set ogTitle = pageElement.ogTitle ?? null %}
-{% set ogDesc = pageElement.ogDesc ?? pageElement.intro ?? null %}
-{% set ogImg = pageElement.ogImage.exists() ? pageElement.ogImage.one() %}
-{% set ogType = pageElement.ogType ?? null %}
-{% set twitterCreator = pageElement.twitterCreator ?? null %}
-{% set twitterCard = pageElement.twitterCard ?? null %}
+{% set ogTitle = pageElement.seo.ogTitle ?? null %}
+{% set ogDesc = pageElement.seo.ogDesc ?? null %}
+{% set ogImg = pageElement.seo.ogImage.exists() ? pageElement.seo.ogImage.one() %}
+{% set ogType = pageElement.seo.ogType ?? null %}
+{% set twitterCreator = pageElement.seo.twitterCreator ?? null %}
+{% set twitterCard = pageElement.seo.twitterCard ?? null %}
 
 {# SEO-friendly pagination links #}
 {% block extraHeadData %}

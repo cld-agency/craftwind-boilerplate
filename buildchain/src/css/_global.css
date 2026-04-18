@@ -85,7 +85,9 @@ table{border-collapse:collapse;}
 button:focus, a:focus, button:focus-visible, a:focus-visible,[role="button"]:focus-visible{
 	outline:none;
 }
-
+button:focus-visible, a:focus-visible,[role="button"]:focus-visible{
+	box-shadow:0 0 0 2px var(--color-brand);
+}
 /* -------------------------------------------- */
 /*  LOBOTOMISED OWL*/
 /*  http://alistapart.com/article/axiomatic-css-and-lobotomized-owls*/

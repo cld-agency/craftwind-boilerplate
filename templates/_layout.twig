@@ -65,10 +65,20 @@
 		[x-cloak]{ display:none!important; }
 	</style>
 
-	<meta name="description" content="{{ metaDesc is defined ? metaDesc|striptags : null }}">
+	<meta name="description" content="{{ metaDesc is defined ? metaDesc|replace({'</li>': '. ','</ul>': ' ','</p>': ' ', '</h2>': ' ', '</h3>': ' '})|striptags : null }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="format-detection" content="telephone=no">
 	{% if noIndex is defined and noIndex == 1 or craft.app.config.env != 'live' %}<meta name="robots" content="noindex, nofollow">{% endif %}
+
+	{#
+		Because we insist on using a Structure section to store home pages instead of a Single,
+		we should ensure that /home is canonicalised. Can't redirect or else live preview won't work.
+		There's also a redirect in index.twig for cases where we're not in preview mode or viewing a
+		home entry draft.
+	 #}
+	{% if craft.app.request.segment(1) == 'home' %}
+		<link rel="canonical" href="{{ siteUrl }}">
+	{% endif %}
 
 	{# ======================================
 	SOCIAL META. Use OG fallbacks to minimise complexity here.
@@ -155,6 +165,21 @@
 </head>
 
 <body class="m-0 {{ bodyClass ?? null }}">
+
+	{# ==================================
+	COOKIE CONSENT & SITE SCRIPTS.
+	We need cookieConsent.twig to be at the top here
+	so that Alpine initialises it before other
+	components that might rely on it!
+	===================================== #}
+
+	{% set cookieCatsInUse = craft.entries.type('cookieTypes').relatedTo(craft.entries.section('scripts').ids()).all() %}
+
+	{% if cookieCatsInUse|filter(cat => cat.id != essentialCat.id) %}
+		{% include '_partials/cookieConsent.twig' %}
+	{% endif %}
+
+	{# ======================================================================= #}
 
 	<div data-edit-this data-thing="{{ craft.app.urlManager.matchedElement.id ?? entry.id ?? null }}"></div>
 
@@ -286,16 +311,6 @@
 		{% endembed %}
 
 	</div>
-
-	{# ==================================
-	COOKIE CONSENT & SITE SCRIPTS
-	===================================== #}
-
-	{% set cookieCatsInUse = craft.entries.type('cookieTypes').relatedTo(craft.entries.section('scripts').ids()).all() %}
-
-	{% if cookieCatsInUse|filter(cat => cat.id != essentialCat.id) %}
-		{% include '_partials/cookieConsent.twig' %}
-	{% endif %}
 
 	{# load any essential scripts from the Scripts section set to appear at body-end #}
 	{% if scriptsToLoadUpfrontAtBodyEnd|length %}

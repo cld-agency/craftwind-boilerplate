@@ -10,4 +10,4 @@ config/license.key
 !/storage/rebrand/*
 public_html/cpresources/*
 /vendor
-.claude
+.claude/settings.local.json

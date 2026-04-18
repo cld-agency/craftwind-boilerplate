@@ -7,16 +7,16 @@ but also provides base skeleton to inherit from for other entries
 
 {# =============================================================================== #}
 
-{% set title = entry.titleTag ? entry.titleTag : entry.title %}
-{% set metaDesc = metaDesc ?? entry.metaDesc ?? null %}
-{% set noIndex = entry.noIndex ?? null %}
+{% set title = entry.seo.titleTag ? entry.seo.titleTag : entry.title %}
+{% set metaDesc = metaDesc ?? entry.seo.metaDesc ?? null %}
+{% set noIndex = entry.seo.noIndex ?? null %}
 
-{% set ogTitle = entry.ogTitle ?? null %}
-{% set ogDesc = entry.ogDesc ?? null %}
-{% set ogImg = ogImg is defined and ogImg|length ? ogImg : entry.ogImage.exists() ? entry.ogImage.one() : null %}
-{% set ogType = entry.ogType ?? null %}
-{% set twitterCreator = entry.twitterCreator ?? null %}
-{% set twitterCard = entry.twitterCard ?? null %}
+{% set ogTitle = entry.seo.ogTitle ?? null %}
+{% set ogDesc = entry.seo.ogDesc ?? null %}
+{% set ogImg = ogImg is defined and ogImg|length ? ogImg : entry.seo.ogImage.exists() ? entry.seo.ogImage.one() : null %}
+{% set ogType = entry.seo.ogType ?? null %}
+{% set twitterCreator = entry.seo.twitterCreator ?? null %}
+{% set twitterCard = entry.seo.twitterCard ?? null %}
 
 {# =============================================================================== #}
 

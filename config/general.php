@@ -98,7 +98,9 @@ return [
 		'allowUpdates' => true,
 		'devMode' => true,
 		'enableTemplateCaching' => false,
-		'testToEmailAddress' => App::env('SYSTEM_EMAIL'),
+		// this is pointless if you're redirecting all mail to Mailhog in app.php
+		// 'testToEmailAddress' => App::env('SYSTEM_EMAIL'),
+
 		// this marks any strings that are translated, making it easier to spot ones which are not...
 		//'translationDebugOutput' => true,
 	],

@@ -51,7 +51,7 @@ async function registerConditionalComponents() {
 // ============================================
 
 const MODULES = {
-	// '.js-lazyload': () => import('./modules/lazyload'),
+	'.js-lazyload': () => import('./modules/lazyload'),
 	// '.js-heroCarousel, .js-newsCarousel': () => import('./modules/carousels'),
 	// '.js-formieForm': () => import('./modules/formie-forms'),
 	// 'lite-youtube': () => import('./modules/video-facade-youtube.js'),

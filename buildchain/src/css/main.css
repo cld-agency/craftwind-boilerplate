@@ -4,30 +4,46 @@ https://github.com/tailwindlabs/tailwindcss/discussions/13188#discussioncomment-
 */
 
 @source '../../../templates/**/*.twig';
+/* disable TW's container utility as we use our own.*/
+@source not inline("container");
 
 @import 'tailwindcss/theme.css';
 
 @theme {
 
-  --breakpoint-*: initial;
-  --breakpoint-xs: 450px;
-  --breakpoint-2xs: 550px;
-  --breakpoint-sm: 654px;
-  --breakpoint-md: 864px;
-  --breakpoint-lg: 1074px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
+	--breakpoint-*: initial;
+	--breakpoint-xs: 450px;
+	--breakpoint-2xs: 550px;
+	--breakpoint-sm: 654px;
+	--breakpoint-md: 864px;
+	--breakpoint-lg: 1074px;
+	--breakpoint-xl: 1280px;
+	--breakpoint-2xl: 1536px;
 
-  --font-sans-primary: "Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif";
-  --font-body: "Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif";
-  --font-display: "Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif";
+	--font-sans-primary: "Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif";
+	--font-body: "Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif";
+	--font-display: "Helvetica Neue", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "Noto Sans", "sans-serif";
 
+	--semibold-weight: 600;
+	--bold-weight: 700;
+	--heading-weight: 200;
 }
 
 /* for vars that don't require integration with TW utilities */
 /* https://tailwindcss.com/docs/theme#why-theme-instead-of-root */
 :root{
+	--color-light: #F8F8F8;
+	--color-dark: #1C1C1C;
 
+	--color-brand: #000;
+	--color-accent: #184362;
+
+	--color-text: var(--color-dark);
+
+	/* TW palette overrides */
+	/* https://find-nearest-tailwind-colour.netlify.app/ */
+	--color-gray-100: var(--color-light);
+	--color-gray-500: #68686B;
 }
 
 /* we prefer our own base layer, so omit tailwind's one */
