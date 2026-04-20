@@ -12,7 +12,7 @@ div,main,article,aside,details,figcaption,figure,footer,header,hgroup,nav,sectio
 html{font-size:100%;text-size-adjust:100%;}
 nav ul{list-style:none;padding:0}
 a{text-decoration:none;}
-iframe,object,embed,img{display:block;border:0;max-width:100%;height:auto;vertical-align:middle;}
+iframe,object,embed,img,svg{display:block;border:0;max-width:100%;height:auto;vertical-align:middle;}
 abbr{border-bottom:1px dotted #666;cursor:help;text-decoration:none;}
 address{font-style:normal;}
 b,strong{font-weight:var(--_vars-bold-weight);}
@@ -126,6 +126,7 @@ source+*,
 noscript+*,
 .grid>*,
 .sr-only + *
+*+.absolute
 {
 	margin-top:0;
 }
