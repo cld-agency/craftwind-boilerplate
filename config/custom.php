@@ -31,14 +31,18 @@ $globalTransforms = $transformsToEagerLoad = [
 	]
 ];
 
-foreach ($transformsToEagerLoad as &$transformArray) {
-	foreach ($transformArray as &$transform) {
-		$transform += ['format' => 'webp'];
-		$transform += ['format' => 'avif'];
+// add webp and avif transforms for each of the above keys
+$expanded = [];
+foreach ($transformsToEagerLoad as $key => $transformArray) {
+	$expanded[$key] = [];
+	foreach ($transformArray as $transform) {
+		$expanded[$key][] = $transform;
+		$expanded[$key][] = $transform + ['format' => 'webp'];
+		$expanded[$key][] = $transform + ['format' => 'avif'];
 	}
 }
 
-$transformsToEagerLoad = array_merge_recursive($globalTransforms, $transformsToEagerLoad);
+$transformsToEagerLoad = $expanded;
 
 return [
 	'globalTransforms' => $globalTransforms,
