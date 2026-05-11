@@ -63,36 +63,6 @@
 }
 
 /* -------------------------------------------- */
-/* line-height-compensation*/
-/* haven't found a good migration from SCSS for this yet... but
-equally, it's always been a bit complicated and fiddly.
-*/
-/* -------------------------------------------- */
-
-.line-height-compensation, .line-height-compensation-first-children > p:first-child{
-	/*@include mixins.text-crop();*/
-}
-/* 1.238 seems to be what firefox at least for Montserrat considers to be "line-height:normal".*/
-/* Tweak according to your heading font*/
-.line-height-compensation-normal, .line-height-compensation-first-children > h2:first-child{
-	/*@include mixins.text-crop(1.238);*/
-}
-
-/* -------------------------------------------- */
-/* TRANSITION to height:auto*/
-/* -------------------------------------------- */
-
-.transition-to-height-auto{
-	transition: grid-template-rows .3s cubic-bezier(0.3,0,1,1);
-	grid-template-rows:0fr;
-	&.is-active{
-		grid-template-rows:1fr;
-		transition-timing-function:cubic-bezier(0,0,0,1);
-		transition-duration:.4s;
-   }
-}
-
-/* -------------------------------------------- */
 /* COLUMNISE*/
 /* -------------------------------------------- */
 
@@ -101,3 +71,15 @@ equally, it's always been a bit complicated and fiddly.
 		column-count:2;column-gap:4rem
 	}
 }
+
+/* -------------------------------------------- */
+/* GRID HELPERS */
+/* -------------------------------------------- */
+
+.grid-area-1\/1 { grid-area:1/1 }
+
+/*.max-w-4-cols{ max-width: calc(var(--gridCol) * 4 + var(--gridGap) * 3) }*/
+/*.max-w-6-cols{ max-width: calc(var(--gridCol) * 6 + var(--gridGap) * 5) }
+.max-w-7-cols{ max-width: calc(var(--gridCol) * 7 + var(--gridGap) * 6) }
+.max-w-8-cols{ max-width: calc(var(--gridCol) * 8 + var(--gridGap) * 7) }
+.max-w-10-cols{ max-width: calc(var(--gridCol) * 10 + var(--gridGap) * 9) }*/

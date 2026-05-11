@@ -15,7 +15,7 @@ a{text-decoration:none;}
 iframe,object,embed,img,svg{display:block;border:0;max-width:100%;height:auto;vertical-align:middle;}
 abbr{border-bottom:1px dotted #666;cursor:help;text-decoration:none;}
 address{font-style:normal;}
-b,strong{font-weight:var(--_vars-bold-weight);}
+b,strong{font-weight:var(--bold-weight);}
 i,em{font-style:italic;}
 button{cursor:pointer;}
 table{border-collapse:collapse;}
