@@ -1,9 +1,8 @@
 {% minify %}
 
 {% do _globals.set('css', {
-	navLink: 'uppercase group inline-flex items-center text-center font-medium tracking-widest lg:leading-6 hover:text-gray-900 focus:text-gray-900 transition ease-in-out duration-150 focus:outline-none',
-	navLinkOnLight: 'block uppercase text-base font-medium tracking-widest leading-6',
-	breakoutLink: "!static content-[''] before:block before:absolute before:inset-0 before:cursor-pointer"
+	grid: 'grid grid-cols-12 gap-4 md:gap-6 lg:gap-8',
+	breakoutLink: "!static content-[''] before:block before:absolute before:inset-0 before:cursor-pointer before:z-20"
 }) %}
 
 {# fetch any scripts marked as essential from the Scripts section #}
@@ -165,22 +164,51 @@
 	{# load any scripts directly held against the "Essential" category (not the stuff from the Scripts section, but the category itself) #}
 	{% if essentialCat|length %}
 
-		{# GTM consent preset ones... #}
-		{% if essentialCat.gtmConsents|filter(row => row.value)|length %}
-			<script>
-				// Define dataLayer and the gtag function.
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('consent', 'default', {
-					{%- for row in essentialCat.gtmConsents|filter(row => row.value) -%}
-						'{{ row.key }}': '{{ row.value }}'{{ not loop.last ? ',' }}
-					{%- endfor -%}
-				});
-			</script>
-		{% endif %}
-
-		{# and arbitrary ones... #}
+		{# Arbitrary ones... #}
 		{% if essentialCat.script|length %}{{ essentialCat.script|raw }}{% endif %}
+
+		{# set default GTM consent values... #}
+		<script>
+			(function() {
+				// Read consent cookies (value of "1" means granted)
+				function hasCookie(name) {
+					return new RegExp('(?:^|;\\s*)' + name + '=1(?:;|$)').test(document.cookie);
+				}
+
+				var advertising   = hasCookie('advertising');
+				var performance   = hasCookie('performance');
+				var functionality = hasCookie('functionality');
+
+				function state(granted) {
+					return granted ? 'granted' : 'denied';
+				}
+
+				// Build the consent object once — reused across GTM, UET, Clarity
+				var consent = {
+					'ad_user_data':            state(advertising),
+					'ad_personalization':      state(advertising),
+					'ad_storage':              state(advertising),
+					'analytics_storage':       state(performance),
+					'functionality_storage':   state(functionality),
+					'personalization_storage': 'denied',
+					'security_storage':        'granted'
+				};
+
+				// Google Tag Manager / GA4
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){ dataLayer.push(arguments); }
+				gtag('consent', 'default', consent);
+
+				// Microsoft / Bing UET
+				window.uetq = window.uetq || [];
+				window.uetq.push('consent', 'default', consent);
+
+				// Microsoft Clarity
+				if (typeof window.clarity !== 'undefined') {
+					window.clarity('consentv2', consent);
+				}
+			})();
+		</script>
 	{% endif %}
 
 	{# load any essential scripts from the Scripts section set to appear in head #}

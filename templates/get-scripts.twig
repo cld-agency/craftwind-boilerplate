@@ -19,15 +19,30 @@
 		{# load any scripts directly held against the category (not the stuff from the Scripts section, but the category itself) #}
 		{% for cat in typeCats %}
 			{# GTM consent preset ones... #}
+			{% set consentRows = cat.gtmConsents|filter(row => row.value) %}
+			{% set consentJson = {} %}
+			{% for row in consentRows %}
+				{% set consentJson = consentJson|merge({ (row.key): row.value }) %}
+			{% endfor %}
 			{% if cat.gtmConsents|filter(row => row.value)|length %}
 				<script>
-					if (typeof gtag !== 'undefined') {
-						gtag('consent', 'update', {
-							{%- for row in cat.gtmConsents|filter(row => row.value) -%}
-							'{{ row.key }}': '{{ row.value }}'{{ not loop.last ? ',' }}
-							{%- endfor -%}
-						});
-					}
+					(function() {
+						var consent = {{ consentJson|json_encode|raw }};
+
+						// Google Tag Manager / GA4
+						if (typeof gtag !== 'undefined') {
+							gtag('consent', 'update', consent);
+						}
+
+						// Microsoft / Bing UET
+						//window.uetq = window.uetq || [];
+						//window.uetq.push('consent', 'update', consent);
+
+						// Microsoft Clarity
+						//if (typeof window.clarity !== 'undefined') {
+						//	window.clarity('consentv2', consent);
+						//}
+					})();
 				</script>
 			{% endif %}
 
