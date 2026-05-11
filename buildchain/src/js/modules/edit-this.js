@@ -1,13 +1,8 @@
-export default els => {
-	// Helper function to get cookie value
-	const getCookie = (name) => {
-		let value = `; ${document.cookie}`;
-		let parts = value.split(`; ${name}=`);
-		if (parts.length === 2) return parts.pop().split(';').shift();
-	};
+import { getCookie } from '../utils/cookies';
 
-	// Only proceed if logged-in cookie exists and is 'true'
-	if (getCookie('logged-in') !== 'true') {
+export default els => {
+	// Only proceed if logged-in-with-cp-access cookie exists and is 'true'
+	if (getCookie('logged-in-with-cp-access') !== 'true') {
 		return;
 	}
 

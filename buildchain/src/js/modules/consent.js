@@ -1,3 +1,5 @@
+import { getCookie } from '../utils/cookies';
+
 export default () => ({
 	openModal: false,
 	openFunctionalityConsentModal: false,
@@ -26,7 +28,7 @@ export default () => ({
 				this.typesToLoad.push(type);
 				// enable any functionality on the current page that needs functionality consent
 				if (this.getCookie('functionality')) {
-					this.enableConsentableFunctionality();
+					this.enableConsentableFunctionality(true);
 				}
 			}
 		});
@@ -34,8 +36,6 @@ export default () => ({
 		if (this.typesToLoad.length){
 			this.getScripts(this.typesToLoad);
 		}
-		// Make some functions globally available
-		window.getCookie = this.getCookie;
 	},
 
 	// Handle submit button clicks in the cookie modal (beware, this could be from banner or modal)
@@ -71,7 +71,7 @@ export default () => ({
 			}
 			// enable any functionality on the current page that needs functionality consent
 			if (type === 'functionality' && input.checked) {
-				this.enableConsentableFunctionality();
+				this.enableConsentableFunctionality(true);
 			}
 		});
 		// inject the chosen scripts
@@ -82,15 +82,19 @@ export default () => ({
 		document.cookie = 'cookiesAccepted=1;path=/;max-age=15768000'; // 6 months
 	},
 
+	// Thin wrapper around the shared cookie helper. Kept on the
+	// component so templates (cookieConsent.twig, videoBlock.twig) can
+	// call `getCookie(...)` from inside the consent x-data scope and
+	// `consentData.getCookie(...)` via Alpine.$data() from outside.
 	getCookie(name) {
-		let value = `; ${document.cookie}`;
-		let parts = value.split(`; ${name}=`);
-		if (parts.length === 2) return parts.pop().split(';').shift();
+		return getCookie(name);
 	},
 
-	getScripts(typesToLoadArray, mode = 'normal') {
+	getScripts(typesToLoadArray, mode = 'normal', facade = null) {
 		const types = typesToLoadArray.join('|');
-		fetch('/get-scripts?types=' + types + '&mode=' + mode, {
+		let url = '/get-scripts?types=' + types + '&mode=' + mode;
+		if (facade) url += '&facade=' + encodeURIComponent(facade);
+		fetch(url, {
 			headers: {'X-Requested-With': 'XMLHttpRequest'},
 			method: 'GET'
 		}).then(response => response.text()).then(data => {

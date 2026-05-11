@@ -4,6 +4,7 @@ import focus from '@alpinejs/focus';
 import collapse from '@alpinejs/collapse';
 import consent from './modules/consent';
 import editThis from './modules/edit-this';
+// import thingStore from './modules/thing-store';
 
 // ============================================
 // ALPINE SETUP
@@ -15,64 +16,84 @@ window.Alpine = Alpine;
 Alpine.plugin(focus);
 Alpine.plugin(collapse);
 
-// Static Alpine components (used globally)
+// Static Alpine components + stores (registered globally on every page)
 Alpine.data('consent', consent);
-Alpine.data('primaryNav', primaryNav);
+// Alpine.store('thing', cartStore);
 
-// Dynamic Alpine components - loaded only if their DOM elements exist
-const ALPINE_COMPONENTS = {
-	// componentName: {
-	// 	selector: '[x-data="componentName"]',
-	// 	module: () => import('./modules/component-name')
-	// },
-};
+// ============================================
+// CONDITIONAL MODULE REGISTRY
+// ============================================
+//
+// One unified list of selector-gated dynamic imports. Each entry is:
+//
+//   kind     'alpine' | 'vanilla'
+//   selector CSS selector that gates the dynamic import (must match
+//            something in the page or the module won't load)
+//   load     () => import('./modules/...') — the module's default
+//            export is either an Alpine component factory ('alpine')
+//            or an init function called with the matched NodeList
+//            ('vanilla')
+//   name     Alpine component name — required for kind:'alpine'
+//
+// Alpine entries are awaited before Alpine.start(); vanilla entries
+// fire after DOMContentLoaded.
+const COMPONENTS = [
+	// Alpine components
+	// { kind: 'alpine', name: 'someAlpineThing', selector: '[x-data^="someAlpineThing"]', load: () => import('./modules/some-alpine-thing') },
+	// { kind: 'alpine', name: 'anotherAlpineThing', selector: '[x-data^="anotherAlpineThing"]', load: () => import('./modules/another-alpine-thing') },
 
-async function registerConditionalComponents() {
-	const promises = Object.entries(ALPINE_COMPONENTS).map(async ([name, { selector, module }]) => {
-		if (document.querySelector(selector)) {
-			const { default: component } = await module();
-			Alpine.data(name, component);
-		}
-	});
-	await Promise.all(promises);
-}
+	// Vanilla modules
+	{ kind: 'vanilla', selector: '.js-lazyload', load: () => import('./modules/lazyload') },
+	// { kind: 'vanilla', selector: '.js-heroCarousel, .js-cardCarousel', load: () => import('./modules/carousels') },
+	// { kind: 'vanilla', selector: 'lite-youtube', load: () => import('./modules/video-facade-youtube.js') },
+	// { kind: 'vanilla', selector: 'lite-vimeo', load: () => import('./modules/video-facade-vimeo.js') },
+];
 
-// Start Alpine after conditional registration
-(async () => {
-	await registerConditionalComponents();
-	// beware, alpine actually inits components in the order it finds them in the DOM,
-	// so despite the awaited function above, we're really at the mercy of Alpine
-	// in terms of execution order :-/
+// ============================================
+// INITIALISATION
+// ============================================
+
+async function init() {
+
+	// --------------------------------------------
+	// LOAD ALPINE MODULES, then start Alpine.
+	// --------------------------------------------
+
+	const alpineRegistrations = [];
+	for (const { kind, name, selector, load } of COMPONENTS) {
+		if (kind !== 'alpine') continue;
+		if (!document.querySelector(selector)) continue;
+		alpineRegistrations.push(
+			load().then(({ default: factory }) => Alpine.data(name, factory))
+		);
+	}
+	await Promise.all(alpineRegistrations);
+	// The await above only guarantees all components are *registered* before
+	// Alpine starts. Alpine itself walks the DOM and inits components in DOM
+	// order, so don't rely on the COMPONENTS list ordering for init order.
 	Alpine.start();
-})();
 
-// ============================================
-// VANILLA JS MODULES (Dynamic Imports)
-// ============================================
+	// --------------------------------------------
+	// LOAD VANILLA MODULES
+	// --------------------------------------------
 
-const MODULES = {
-	'.js-lazyload': () => import('./modules/lazyload'),
-	// '.js-heroCarousel, .js-newsCarousel': () => import('./modules/carousels'),
-	// '.js-formieForm': () => import('./modules/formie-forms'),
-	// 'lite-youtube': () => import('./modules/video-facade-youtube.js'),
-	// 'lite-vimeo': () => import('./modules/video-facade-vimeo.js'),
-};
+	for (const { kind, selector, load } of COMPONENTS) {
+		if (kind !== 'vanilla') continue;
+		const elements = document.querySelectorAll(selector);
+		if (!elements.length) continue;
+		// load the module; once it resolves, grab its default export, call it "initModule", and invoke it with the matched elements.
+		load().then(({ default: initModule }) => initModule(elements));
+	}
 
-function loadModules(scope = document) {
-	Object.entries(MODULES).forEach(([selector, importModule]) => {
-		const elements = scope.querySelectorAll(selector);
+	// --------------------------------------------
+	// DOM TWEAKS
+	// --------------------------------------------
 
-		if (elements.length) {
-			importModule().then(({ default: module }) => module(elements));
-		}
-	});
-}
+	// add the Edit This button...
+	editThis(document.querySelectorAll('[data-edit-this]'));
 
-// ============================================
-// DOM UTILITIES
-// ============================================
-
-function wrapTables() {
+	// Wrap every <table> in an overflow-x:auto div so wide tables scroll
+	// horizontally on narrow viewports instead of overflowing the page.
 	document.querySelectorAll('table').forEach(table => {
 		const wrapper = document.createElement('div');
 		wrapper.style.overflowX = 'auto';
@@ -82,21 +103,7 @@ function wrapTables() {
 	});
 }
 
-// ============================================
-// INITIALISATION
-// ============================================
-
-function init() {
-	editThis(document.querySelectorAll('[data-edit-this]'));
-	loadModules();
-	wrapTables();
-}
-
-if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', init);
-} else {
-	init();
-}
+init();
 
 // ============================================
 // HMR in local dev
@@ -104,6 +111,10 @@ if (document.readyState === 'loading') {
 // https://nystudio107.com/docs/vite/#entry-script-hmr
 // ============================================
 
+// note, we'd need proper teardown methods in each module
+// to actually get this working properly (+ reinit on
+// the inside of this, I think?) If necessary, just do it for
+// modules that would benefit from HMR.
 if (import.meta.hot) {
 	import.meta.hot.accept(() => console.log('HMR'));
 }
