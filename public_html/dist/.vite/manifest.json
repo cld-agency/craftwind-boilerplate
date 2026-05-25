@@ -1,27 +1,20 @@
 {
   "src/js/main.js": {
-    "file": "assets/app-B2NhaW-s.js",
+    "file": "assets/app-Ci--MCng.js",
     "name": "app",
     "src": "src/js/main.js",
     "isEntry": true,
     "dynamicImports": [
-      "src/js/modules/csrf-refresh.js",
-      "src/js/modules/edit-this.js"
+      "src/js/modules/lazyload.js"
     ],
     "css": [
-      "assets/app-CqmjKCQG.css"
+      "assets/app-2-hZEjIz.css"
     ]
   },
-  "src/js/modules/csrf-refresh.js": {
-    "file": "assets/csrf-refresh-CyG1aVG2.js",
-    "name": "csrf-refresh",
-    "src": "src/js/modules/csrf-refresh.js",
-    "isDynamicEntry": true
-  },
-  "src/js/modules/edit-this.js": {
-    "file": "assets/edit-this-DzeAk7J8.js",
-    "name": "edit-this",
-    "src": "src/js/modules/edit-this.js",
+  "src/js/modules/lazyload.js": {
+    "file": "assets/lazyload-C_sg4a27.js",
+    "name": "lazyload",
+    "src": "src/js/modules/lazyload.js",
     "isDynamicEntry": true
   }
 }

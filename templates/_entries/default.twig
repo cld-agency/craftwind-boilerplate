@@ -7,7 +7,7 @@ but also provides base skeleton to inherit from for other entries
 
 {# =============================================================================== #}
 
-{% set title = entry.seo.titleTag ? entry.seo.titleTag : entry.title %}
+{% set title = entry.seo.titleTag ?? entry.title %}
 {% set metaDesc = metaDesc ?? entry.seo.metaDesc ?? null %}
 {% set noIndex = entry.seo.noIndex ?? null %}
 
@@ -22,6 +22,32 @@ but also provides base skeleton to inherit from for other entries
 
 {% block content %}
 	<article>
-		<p>NB: The outer article tag here ensures that global link styles and list bullet styles are correctly applied</p>
+
+		{# ==================================
+        HEADER/HERO BANNER
+        ===================================== #}
+
+		{% block header %}
+			{% include '_partials/header.twig' %}
+		{% endblock %}
+
+		{# ==================================
+        BEFORE BB
+        ===================================== #}
+
+		{% block before %}{% endblock %}
+
+		{# ==================================
+        BODYBUILDER
+        ===================================== #}
+
+		{% include '_partials/bodyBuilder.twig' %}
+
+		{# ==================================
+        AFTER BB
+        ===================================== #}
+
+		{% block after %}{% endblock %}
+
 	</article>
 {% endblock %}

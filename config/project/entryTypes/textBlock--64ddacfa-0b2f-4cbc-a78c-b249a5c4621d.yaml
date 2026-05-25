@@ -1,3 +1,4 @@
+allowLineBreaksInTitles: false
 color: null
 description: null
 fieldLayouts:
@@ -8,19 +9,18 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
-            dateAdded: '2026-03-20T13:52:01+00:00'
+            dateAdded: '2026-05-25T16:44:06+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: caf5530a-8747-49b5-9d85-553de2e90c6f # _Body - default config (searchable)
+            elementEditCondition: null
+            fieldUid: 0c282155-4eb4-4c74-b817-af7be4f901c9 # _Body - embedded entries (searchable)
             handle: body
-            includeInCards: false
             instructions: null
             label: Body
-            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 28a2e554-4b7c-407f-bff3-ac8b117ef493
+            uid: 565a7d5b-576c-43fc-b82e-e779be73c6de
             userCondition: null
             warning: null
             width: 100
@@ -28,12 +28,11 @@ fieldLayouts:
             dateAdded: '2025-09-23T15:06:47+00:00'
             editCondition: null
             elementCondition: null
+            elementEditCondition: null
             fieldUid: 4d75c350-59e2-4ecc-b469-bb97f6ff276d # Section background colour
             handle: null
-            includeInCards: false
             instructions: null
             label: 'Section background colour'
-            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -44,6 +43,7 @@ fieldLayouts:
         name: Content
         uid: 6b3c7060-eeb5-433e-9cd2-5fd0090f1e66
         userCondition: null
+    thumbFieldKey: null
 handle: textBlock
 hasTitleField: false
 icon: text
@@ -55,3 +55,4 @@ slugTranslationMethod: site
 titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
+uiLabelFormat: '{title}'

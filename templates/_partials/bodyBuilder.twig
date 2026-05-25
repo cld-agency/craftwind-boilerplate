@@ -8,29 +8,11 @@ BODY BUILDER
 
 {% if blocks|length %}
 	{% for block in blocks %}
+
 		{# set a slug for use as id attribute for in-page anchor linking #}
 		{% set blockSlug = block.slug starts with '__temp' ? ('block-' ~ block.id) : block.slug %}
-		{% if block.type.handle == 'widgetBlock' and block.widget|length %}
-			{% set widgetEntry = block.widget[0] %}
 
-			{# Overwrite the `block` object with the widget entry, but also inject the widget block's section layout fields, as they should be changeable according to the context of their neighbouring blocks. #}
-			{% set block = widgetEntry|merge({
-				sectionBG: { value: block.sectionBG.value }
-			}) %}
-
-			{#
-			Try to include _blocks/{template} first before falling back to _widgets/{template}.
-			This allows us to reuse entry types between the body builder and the reusable widgets.
-			#}
-			{% include [
-				'_blocks/' ~ widgetEntry.type.handle,
-				'_widgets/' ~ widgetEntry.type.handle
-			] ignore missing with {
-				entry: widgetEntry,
-				pageEntry: entry,
-			} %}
-		{% else %}
-			{% include '_blocks/' ~ block.type ignore missing %}
-		{% endif %}
+		{# Use Craft's auto-rendering to pluck a template out of _partials/entry/{entryTypeHandle}.twig #}
+		{{ block.render({ block: block, entry: entry }) }}
 	{% endfor %}
 {% endif %}

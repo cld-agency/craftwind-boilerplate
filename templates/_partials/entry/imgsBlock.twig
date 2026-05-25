@@ -1,0 +1,56 @@
+{# This is the new CK Editor injected blocks auto rendering for anything inside _partials/entry/x.twig #}
+
+{# NB: this is _not_ the imagesBlock that's used in the body builder matrix - it's a very different context
+there, so it's a completely separate template and entry type. #}
+
+{# ...but still keep the name "block" for now anyway... #}
+{% set block = entry %}
+
+<div class="spacing">
+	{% set items = block.imgs.withTransforms(
+		craft.app.config.custom.transformsToEagerLoad.longformBodyImageFull
+		|merge(craft.app.config.custom.transformsToEagerLoad.longformBodyImageHalf)
+		|merge(craft.app.config.custom.transformsToEagerLoad.longformBodyImageThirds)
+		|merge(craft.app.config.custom.transformsToEagerLoad.fullWidth)
+	).eagerly().all() %}
+
+	{% if items|length %}
+		{% switch items|length %}
+			{% case 1 %}
+				{% set transforms = craft.app.config.custom.globalTransforms.longformBodyImageFull %}
+				{% set sizesAttr = '(min-width: 1480px) 880px, (min-width: 864px) calc(57.93vw + 34px), calc(97.14vw - 23px)' %}
+			{% case 2 or 4 %}
+				{% set gridSize = 'xs:grid-cols-2' %}
+				{% set transforms = craft.app.config.custom.globalTransforms.longformBodyImageHalf %}
+				{% set sizesAttr = '(min-width: 1480px) 428px, (min-width: 864px) calc(28.28vw + 15px), (min-width: 460px) 48vw, calc(100vw - 32px)' %}
+			{% default %}
+				{% set gridSize = 'xs:grid-cols-2 sm:grid-cols-3' %}
+				{% set transforms = craft.app.config.custom.globalTransforms.longformBodyImageThirds %}
+				{% set sizesAttr = '(min-width: 1480px) 277px, (min-width: 864px) calc(18.28vw + 10px), (min-width: 660px) calc(33vw - 19px), (min-width: 460px) calc(50vw - 20px), calc(100vw - 32px)' %}
+		{% endswitch %}
+
+		{% if items|length == 1 %}
+			{% include '_partials/picture.twig' with {
+				image: items[0],
+				transforms: transforms,
+				sizes: sizesAttr,
+				extraImgClasses: 'w-full mx-auto',
+				extraPictureClasses: 'mx-auto'
+			} %}
+		{% else %}
+			<ul class="list-reset grid gap-2 md:gap-4 lg:gap-6 {{ gridSize }}">
+				{% for item in items %}
+					<li>
+						{% include '_partials/picture.twig' with {
+							image: item,
+							transforms: transforms,
+							sizes: sizesAttr,
+							extraImgClasses: 'w-full',
+							useLazyLoading:false
+						} %}
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	{% endif %}
+</div>

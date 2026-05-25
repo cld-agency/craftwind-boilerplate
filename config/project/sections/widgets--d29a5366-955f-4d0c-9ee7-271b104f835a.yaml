@@ -5,30 +5,17 @@ entryTypes:
     uid: 3d55de4b-9675-4aa5-9975-690cc711a5ca # Cookie details table
 handle: widgets
 maxAuthors: 1
+minAuthors: 1
 name: 'Reusable widgets'
 previewTargets:
   -
-    __assoc__:
-      -
-        - label
-        - 'Standalone widget preview'
-      -
-        - urlFormat
-        - '{url}'
-      -
-        - refresh
-        - '1'
+    label: 'Standalone widget preview'
+    refresh: '1'
+    urlFormat: '{url}'
   -
-    __assoc__:
-      -
-        - label
-        - 'In-context preview (if available)'
-      -
-        - urlFormat
-        - '{url}?tryRealEntry=1'
-      -
-        - refresh
-        - '1'
+    label: 'In-context preview (if available)'
+    refresh: '1'
+    urlFormat: '{url}?tryRealEntry=1'
 propagationMethod: all
 siteSettings:
   27fd5441-8230-4f21-8d4c-ae215e7076df: # $SYSTEM_NAME

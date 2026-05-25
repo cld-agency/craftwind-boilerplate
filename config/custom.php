@@ -25,6 +25,20 @@ $globalTransforms = $transformsToEagerLoad = [
 		['width' => 1600],
 		['width' => 1824]
 	],
+	'longformBodyImageFull' => [
+		['width' => 500],
+		['width' => 900],
+		['width' => 1200],
+		['width' => 1600]
+	],
+	'longformBodyImageHalf' => [
+		['width' => 400],
+		['width' => 642]
+	],
+	'longformBodyImageThirds' => [
+		['width' => 250],
+		['width' => 444]
+	],
 	'cardTransforms' =>[
 		['width' =>576],
 		['width' =>888]

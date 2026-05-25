@@ -1,4 +1,4 @@
-dateModified: 1776495864
+dateModified: 1779727566
 elementSources:
   craft\elements\Entry:
     -
@@ -116,18 +116,17 @@ fs:
 meta:
   __names__:
     0bed22d4-f57c-4df7-a891-4467df6fdcd7: 'Generic page' # Generic page
+    0c282155-4eb4-4c74-b817-af7be4f901c9: '_Body - embedded entries (searchable)' # _Body - embedded entries (searchable)
     2be967b7-c0bf-4806-874b-29ca2ddd277b: '_Plain text field (non-searchable)' # _Plain text field (non-searchable)
     2df10726-700e-4e49-a203-a9fe43c3f7a1: 'Company info' # Company info
     3d55de4b-9675-4aa5-9975-690cc711a5ca: 'Cookie details table' # Cookie details table
     3fbbc91b-38d4-405d-888a-9bf3c34043ee: '_Plain text field (searchable)' # _Plain text field (searchable)
-    4bd103c0-b212-4fd4-9685-ffc368e63793: Default # Default
     4d75c350-59e2-4ecc-b469-bb97f6ff276d: 'Section background colour' # Section background colour
     5f3c0617-ce2b-446f-a3ae-af263602d228: Script # Script
     7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
     7f75a3a3-bfc1-45da-821e-200988c43407: '_Plain text multiline (non-searchable)' # _Plain text multiline (non-searchable)
     9ba80f98-3521-4d95-8103-833cc54f9074: 'X (Twitter) card' # X (Twitter) card
     18c8ccbb-5f3f-445b-a5c1-49df2d95dcef: Facades # Facades
-    21b95f37-bd38-474a-b929-0e274ef3ff0f: 'Inline only' # Inline only
     27fd5441-8230-4f21-8d4c-ae215e7076df: $SYSTEM_NAME # $SYSTEM_NAME
     33b44401-118b-4a32-a630-4002586fb7a4: 'Cookie durations' # Cookie durations
     64ddacfa-0b2f-4cbc-a78c-b249a5c4621d: 'Text block' # Text block
@@ -142,12 +141,14 @@ meta:
     b51c3bf7-bd4c-46f9-92d5-c548637e190a: Images # Images
     b99e46fe-a420-4fd0-abfc-8eb0989ea429: Default # Default
     c9cbf2d5-a33a-4631-bb00-58ac64015efd: 'Script output location' # Script output location
+    c6076260-49c3-4ef3-9936-0422c81a12c7: Image(s) # Image(s)
     ca55cc2e-9a52-4b33-bc18-2f6cafe277f3: 'GTM consents' # GTM consents
     cac312e5-9dfa-4d00-8bf4-ce5af69a0035: '_Lightswitch (default off)' # _Lightswitch (default off)
-    caf5530a-8747-49b5-9d85-553de2e90c6f: '_Body - default config (searchable)' # _Body - default config (searchable)
+    caf5530a-8747-49b5-9d85-553de2e90c6f: '_Body - default (searchable)' # _Body - default (searchable)
     cbac532f-c0ed-484c-9ba5-c39c664cfab9: Script # Script
     d29a5366-955f-4d0c-9ee7-271b104f835a: 'Reusable widgets' # Reusable widgets
     d876412f-9cec-4b48-b307-7dd826e29b71: 'Cookie types' # Cookie types
+    dc2be494-e4fe-4b74-a3bd-64b4f09e0e65: 'Image(s) block' # Image(s) block
     ddf4f8a7-b482-4862-aac0-10e840fa7fa7: 'Cookie type' # Cookie type
     eb46c946-96c8-4ddf-ba2e-d4290e9e2e60: 'SEO metadata' # SEO metadata
     ec768514-1ace-48d1-a39f-63b17f6e1fc6: 'Public Schema' # Public Schema
@@ -161,7 +162,7 @@ plugins:
   ckeditor:
     edition: standard
     enabled: true
-    schemaVersion: 3.0.0.0
+    schemaVersion: 5.6.0.0
   minify:
     edition: standard
     enabled: true
@@ -175,7 +176,7 @@ system:
   live: true
   name: $SYSTEM_NAME
   retryDuration: null
-  schemaVersion: 5.8.0.3
+  schemaVersion: 5.10.0.0
   timeZone: UTC
 users:
   allowPublicRegistration: false

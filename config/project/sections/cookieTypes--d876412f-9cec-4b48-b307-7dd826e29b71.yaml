@@ -5,6 +5,7 @@ entryTypes:
     uid: 91c58004-ff40-4e25-96b2-0e73cbbf60ab # Cookie types
 handle: cookieTypes
 maxAuthors: 1
+minAuthors: 1
 name: 'Cookie types'
 propagationMethod: all
 siteSettings:

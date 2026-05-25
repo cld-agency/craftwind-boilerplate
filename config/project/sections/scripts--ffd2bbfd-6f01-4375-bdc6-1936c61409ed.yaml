@@ -1,9 +1,11 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - 5f3c0617-ce2b-446f-a3ae-af263602d228 # Script
+  -
+    uid: 5f3c0617-ce2b-446f-a3ae-af263602d228 # Script
 handle: scripts
 maxAuthors: 1
+minAuthors: 1
 name: Scripts
 propagationMethod: all
 siteSettings:

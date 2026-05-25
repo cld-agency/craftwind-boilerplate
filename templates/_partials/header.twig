@@ -1,0 +1,7 @@
+{% embed '_partials/container.twig' with {
+	element: 'header'
+} %}
+	{% block content %}
+		<h1>{{ entry.title }}</h1>
+	{% endblock %}
+{% endembed %}

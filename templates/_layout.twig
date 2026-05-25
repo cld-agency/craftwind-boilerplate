@@ -225,6 +225,11 @@
 
 <body class="m-0 {{ bodyClass ?? null }}">
 
+	{% set primaryNavItems = [
+		{href: '/', label: 'Link 1'},
+		{href: '/', label: 'Link 2'},
+	] %}
+
 	{# ==================================
 	COOKIE CONSENT & SITE SCRIPTS.
 	We need cookieConsent.twig to be at the top here
@@ -270,8 +275,8 @@
 					<a class="flex" href="/"><img alt="" style="height:50px" src="/assets/img/logo.svg"></a>
 
 					<ul class="hidden md:flex space-x-8 ml-8">
-						<li><a href="#" class="{{ _globals.get('css').navLink }}">Link</a></li>
-						<li><a href="#" class="{{ _globals.get('css').navLink }}">Another</a></li>
+						<li><a href="#" class="">Link</a></li>
+						<li><a href="#" class="">Another</a></li>
 					</ul>
 				</nav>
 			{% endblock %}

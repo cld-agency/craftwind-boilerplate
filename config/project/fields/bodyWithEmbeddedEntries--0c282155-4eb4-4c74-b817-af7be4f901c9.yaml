@@ -1,7 +1,7 @@
 columnSuffix: null
-handle: bodyDefault
+handle: bodyWithEmbeddedEntries
 instructions: null
-name: '_Body - default (searchable)'
+name: '_Body - embedded entries (searchable)'
 searchable: true
 settings:
   advancedLinkFields:
@@ -14,13 +14,22 @@ settings:
   defaultTransform: null
   defaultUploadLocationSubpath: null
   defaultUploadLocationVolume: null
+  entryTypes:
+    -
+      __assoc__:
+        -
+          - uid
+          - dc2be494-e4fe-4b74-a3bd-64b4f09e0e65 # Image(s) block
+        -
+          - expanded
+          - false
   fullGraphqlData: true
   headingLevels:
     - '2'
     - '3'
     - '4'
-  imageEntryTypeUid: null
-  imageFieldUid: null
+  imageEntryTypeUid: dc2be494-e4fe-4b74-a3bd-64b4f09e0e65 # Image(s) block
+  imageFieldUid: 3d304a0f-9b1d-4a51-9856-c80b3ffdd6ad
   imageMode: img
   js: null
   jsFile: null
@@ -86,6 +95,7 @@ settings:
     - insertTable
     - horizontalLine
     - link
+    - createEntry
     - sourceEditing
   wordLimit: null
 translationKeyFormat: null

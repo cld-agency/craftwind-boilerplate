@@ -11,10 +11,8 @@ fieldLayouts:
             elementCondition: null
             fieldUid: 7f75a3a3-bfc1-45da-821e-200988c43407 # _Plain text multiline (non-searchable)
             handle: address
-            includeInCards: false
             instructions: null
             label: Address
-            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -28,10 +26,8 @@ fieldLayouts:
             elementCondition: null
             fieldUid: 2be967b7-c0bf-4806-874b-29ca2ddd277b # _Plain text field (non-searchable)
             handle: phone
-            includeInCards: false
             instructions: null
             label: Phone
-            providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField

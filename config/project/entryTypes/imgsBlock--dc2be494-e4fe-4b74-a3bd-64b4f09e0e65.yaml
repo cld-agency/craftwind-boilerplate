@@ -1,0 +1,42 @@
+allowLineBreaksInTitles: false
+color: null
+description: null
+fieldLayouts:
+  66ccba58-1065-40fb-bb50-bdaea0fc4581:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            dateAdded: '2026-05-25T16:18:00+00:00'
+            editCondition: null
+            elementCondition: null
+            elementEditCondition: null
+            fieldUid: c6076260-49c3-4ef3-9936-0422c81a12c7 # Image(s)
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3d304a0f-9b1d-4a51-9856-c80b3ffdd6ad
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 50e70788-5613-44b5-9150-606a8dbcc0ac
+        userCondition: null
+    thumbFieldKey: 'layoutElement:3d304a0f-9b1d-4a51-9856-c80b3ffdd6ad'
+handle: imgsBlock
+hasTitleField: false
+icon: images
+name: 'Image(s) block'
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+uiLabelFormat: '{title}'
