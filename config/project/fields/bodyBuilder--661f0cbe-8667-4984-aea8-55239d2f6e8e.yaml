@@ -5,16 +5,40 @@ name: 'Body builder'
 searchable: true
 settings:
   createButtonLabel: 'Add a block'
+  defaultIndexViewMode: cards
+  enableVersioning: false
   entryTypes:
-    - 64ddacfa-0b2f-4cbc-a78c-b249a5c4621d # Text block
-    - 97122afc-ddc8-4cfc-8b2f-209b0e924477 # Reusable widget block
+    -
+      __assoc__:
+        -
+          - uid
+          - 64ddacfa-0b2f-4cbc-a78c-b249a5c4621d # Text block
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - dc2be494-e4fe-4b74-a3bd-64b4f09e0e65 # Image(s) block
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - 97122afc-ddc8-4cfc-8b2f-209b0e924477 # Reusable widget block
+        -
+          - group
+          - General
   includeTableView: false
   maxEntries: null
   minEntries: null
   pageSize: null
   propagationKeyFormat: null
   propagationMethod: all
-  showCardsInGrid: true
+  showCardsInGrid: false
   viewMode: blocks
 translationKeyFormat: null
 translationMethod: site

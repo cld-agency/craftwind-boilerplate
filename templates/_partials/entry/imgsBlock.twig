@@ -1,19 +1,19 @@
-{# This is the new CK Editor injected blocks auto rendering for anything inside _partials/entry/x.twig #}
+{# ==================================
+IMAGE(S) BLOCK.
+You'll probably want to add an option
+for singleImageSize to allow editors
+to choose how wide a single image should
+render.
+===================================== #}
 
-{# NB: this is _not_ the imagesBlock that's used in the body builder matrix - it's a very different context
-there, so it's a completely separate template and entry type. #}
+{% set items = entry.imgs.withTransforms(
+	craft.app.config.custom.transformsToEagerLoad.longformBodyImageFull
+	|merge(craft.app.config.custom.transformsToEagerLoad.longformBodyImageHalf)
+	|merge(craft.app.config.custom.transformsToEagerLoad.longformBodyImageThirds)
+	|merge(craft.app.config.custom.transformsToEagerLoad.fullWidth)
+).eagerly().all() %}
 
-{# ...but still keep the name "block" for now anyway... #}
-{% set block = entry %}
-
-<div class="spacing">
-	{% set items = block.imgs.withTransforms(
-		craft.app.config.custom.transformsToEagerLoad.longformBodyImageFull
-		|merge(craft.app.config.custom.transformsToEagerLoad.longformBodyImageHalf)
-		|merge(craft.app.config.custom.transformsToEagerLoad.longformBodyImageThirds)
-		|merge(craft.app.config.custom.transformsToEagerLoad.fullWidth)
-	).eagerly().all() %}
-
+{% set innards %}
 	{% if items|length %}
 		{% switch items|length %}
 			{% case 1 %}
@@ -53,4 +53,19 @@ there, so it's a completely separate template and entry type. #}
 			</ul>
 		{% endif %}
 	{% endif %}
-</div>
+{% endset %}
+
+{# ======================================================================= #}
+
+{# are we inside CKE or a bodybuilder matrix? #}
+{% if entry.field and entry.field.handle == 'body' %}
+	<div class="spacing">
+		{{ innards }}
+	</div>
+{% else %}
+	{% embed '_partials/container.twig' %}
+		{% block content %}
+			{{ innards }}
+		{% endblock %}
+	{% endembed %}
+{% endif %}

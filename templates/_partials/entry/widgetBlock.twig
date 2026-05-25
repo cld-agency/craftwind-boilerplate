@@ -2,15 +2,15 @@
 WIDGET RENDERER
 ===================================== #}
 
-{% set widgetEntry = block.widget[0] ?? null %}
+{% set widgetEntry = entry.widget[0] ?? null %}
 
-{# Overwrite the `block` object with the widget entry, but also inject the widget block's section layout fields, as they should be changeable according to the context of their neighbouring blocks. #}
+{# Overwrite the `entry` object with the widget entry, but also inject the widget block's section layout fields, as they should be changeable according to the context of their neighbouring blocks. #}
 
 {% if widgetEntry %}
 	{{ widgetEntry.render({
-		block: widgetEntry|merge({
-			sectionBG: { value: block.sectionBG.value }
+		entry: widgetEntry|merge({
+			sectionBG: { value: entry.sectionBG.value }
 		}),
-		entry: entry
+		pageEntry: pageEntry
 	}) }}
 {% endif %}

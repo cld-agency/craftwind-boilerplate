@@ -1,5 +1,12 @@
 {# ==================================
-BODY BUILDER
+BODY BUILDER BLOCK RENDERER. Add eager
+loading here for stuff that's relatively
+likely to be used, otherwise eager load
+inside each block type. Beware that you
+can't eager load image transforms when
+using .eagerly(), so be sure to test well
+and use e.g. `block.imgs.eagerly().withTransforms(...).all()`
+on nested images.
 ===================================== #}
 
 {% set blocks = blocks ?? entry.bodyBuilder.with([
@@ -13,6 +20,9 @@ BODY BUILDER
 		{% set blockSlug = block.slug starts with '__temp' ? ('block-' ~ block.id) : block.slug %}
 
 		{# Use Craft's auto-rendering to pluck a template out of _partials/entry/{entryTypeHandle}.twig #}
-		{{ block.render({ block: block, entry: entry }) }}
+		{{ block.render({
+			entry: block,
+			pageEntry: entry
+		}) }}
 	{% endfor %}
 {% endif %}

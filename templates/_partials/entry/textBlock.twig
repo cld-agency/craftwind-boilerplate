@@ -1,8 +1,8 @@
 {% embed '_partials/container.twig' %}
 	{% block content %}
-		{% if block.body|length %}
+		{% if entry.body|length %}
 			<div class="default-links">
-				{{ block.body }}
+				{{ entry.body }}
 			</div>
 		{% endif %}
 	{% endblock %}
