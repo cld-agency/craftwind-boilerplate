@@ -58,14 +58,14 @@ render.
 {# ======================================================================= #}
 
 {# are we inside CKE or a bodybuilder matrix? #}
-{% if entry.field and entry.field.handle == 'body' %}
-	<div class="spacing">
-		{{ innards }}
-	</div>
-{% else %}
+{% if entry.field and entry.field.handle == 'bodyBuilder' %}
 	{% embed '_partials/container.twig' %}
 		{% block content %}
 			{{ innards }}
 		{% endblock %}
 	{% endembed %}
+{% else %}
+	<div class="spacing">
+		{{ innards }}
+	</div>
 {% endif %}
