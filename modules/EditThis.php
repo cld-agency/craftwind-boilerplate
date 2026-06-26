@@ -26,6 +26,7 @@ class EditThis extends \yii\base\Module
 			UsersController::class,
 			UsersController::EVENT_AFTER_FIND_LOGIN_USER,
 			function($event) {
+				if (!$event->user) { return; }
 				$this->setLoggedInCookie($event->user->can('accessCp'));
 			}
 		);
