@@ -1,4 +1,8 @@
-import { getCookie } from '../utils/cookies';
+function getCookie(name) {
+	const value = `; ${document.cookie}`;
+	const parts = value.split(`; ${name}=`);
+	if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 export default els => {
 	// Only proceed if logged-in-with-cp-access cookie exists and is 'true'
