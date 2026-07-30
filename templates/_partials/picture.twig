@@ -166,8 +166,8 @@ Params
 				{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetWebp|join(',') }}"
 				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
 			>
-			<img src="{{ useLazyLoading ? '' : image.url(transforms|last) }}"
-				{{ useLazyLoading ? 'data-' }}src="{{ image.url(transforms|last) }}"
+			{# lazyloaded images hold the url in data-src for the lazyloader to swap in #}
+			<img {% if useLazyLoading %}src="" data-src="{{ image.url(transforms|last) }}"{% else %}src="{{ image.url(transforms|last) }}"{% endif %}
 				{{ useLazyLoading ? 'data-' }}srcset="{{ srcset|join(',') }}"
 				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
 				alt="{{ alt ?? image.alt ?? image.title }}"
