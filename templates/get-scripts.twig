@@ -24,7 +24,7 @@
 			{% for row in consentRows %}
 				{% set consentJson = consentJson|merge({ (row.key): row.value }) %}
 			{% endfor %}
-			{% if cat.gtmConsents|filter(row => row.value)|length %}
+			{% if consentRows|length %}
 				<script>
 					(function() {
 						var consent = {{ consentJson|json_encode|raw }};
