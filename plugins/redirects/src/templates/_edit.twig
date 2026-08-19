@@ -1,0 +1,43 @@
+{% extends "_layouts/cp" %}
+
+{% set title = redirect.id ? "Edit Redirect" : "New Redirect" %}
+{% set fullPageForm = true %}
+
+{% set crumbs = [
+	{ label: "Redirects", url: cpUrl('redirects') }
+] %}
+
+{% import '_includes/forms' as forms %}
+
+{% block content %}
+	{{ actionInput('redirects/redirects/save') }}
+	{{ redirectInput('redirects') }}
+
+	{% if redirect.id %}
+		{{ hiddenInput('id', redirect.id) }}
+	{% endif %}
+
+	{{ forms.textField({
+		label: "Source URI",
+		instructions: "The URI to redirect from. Use a trailing <code>&#42;</code> as a wildcard to match everything under a path (e.g. <code>blog/&#42;</code>).",
+		id: 'sourceUri',
+		name: 'sourceUri',
+		value: redirect.sourceUri,
+		errors: redirect.getErrors('sourceUri'),
+		required: true,
+	}) }}
+
+	{{ forms.textField({
+		label: "Destination URI",
+		instructions: "The URI or URL to redirect to. Use <code>&#42;</code> to insert the wildcard match (e.g. <code>articles/&#42;</code>).",
+		id: 'destinationUri',
+		name: 'destinationUri',
+		value: redirect.destinationUri,
+		errors: redirect.getErrors('destinationUri'),
+		required: true,
+	}) }}
+{% endblock %}
+
+{% block actionButton %}
+	<input type="submit" class="btn submit" value="Save">
+{% endblock %}

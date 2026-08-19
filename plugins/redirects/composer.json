@@ -1,0 +1,20 @@
+{
+  "name": "cld/craft-redirects",
+  "description": "Simple 301 redirect management for Craft CMS",
+  "type": "craft-plugin",
+  "license": "proprietary",
+  "require": {
+    "craftcms/cms": "^5.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "cld\\redirects\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "redirects",
+    "name": "Redirects",
+    "schemaVersion": "1.0.0",
+    "class": "cld\\redirects\\Plugin"
+  }
+}

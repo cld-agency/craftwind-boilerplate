@@ -1,0 +1,40 @@
+{% extends "_layouts/cp" %}
+
+{% set title = "Bulk Add Redirects" %}
+{% set fullPageForm = true %}
+
+{% set crumbs = [
+	{ label: "Redirects", url: cpUrl('redirects') }
+] %}
+
+{% import '_includes/forms' as forms %}
+
+{% block content %}
+	{{ actionInput('redirects/redirects/save-bulk') }}
+	{{ redirectInput('redirects') }}
+
+	{{ forms.textareaField({
+		label: "Redirects",
+		instructions: "One redirect per line. Use <code>&gt;</code> to separate source and destination (e.g. <code>old-page &gt; /new-page</code>).",
+		id: 'redirects',
+		name: 'redirects',
+		value: redirectsInput ?? '',
+		rows: 15,
+		required: true,
+	}) }}
+
+	{% if errors is defined and errors|length %}
+		<div class="readable" style="margin-top: 16px;">
+			<h3>Errors</h3>
+			<ul class="errors">
+				{% for error in errors %}
+					<li>{{ error }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block actionButton %}
+	<input type="submit" class="btn submit" value="Add Redirects">
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "_layouts/cp" %}
+
+{% set title = "Redirects" %}
+
+{% block actionButton %}
+	<a href="{{ cpUrl('redirects/bulk') }}" class="btn">Bulk Add</a>
+	<a href="{{ cpUrl('redirects/new') }}" class="btn submit">New Redirect</a>
+{% endblock %}
+
+{% block content %}
+	{% if redirects|length %}
+		<table class="data fullwidth">
+			<thead>
+				<tr>
+					<th>Source URI</th>
+					<th>Destination URI</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for redirect in redirects %}
+					<tr>
+						<td>
+							<a href="{{ cpUrl('redirects/' ~ redirect.id) }}">
+								{{ redirect.sourceUri }}
+							</a>
+						</td>
+						<td>{{ redirect.destinationUri }}</td>
+						<td class="thin">
+							<form method="post">
+								{{ csrfInput() }}
+								{{ actionInput('redirects/redirects/delete') }}
+								{{ hiddenInput('id', redirect.id) }}
+								<button type="submit" class="btn small" title="Delete" onclick="return confirm('Are you sure you want to delete this redirect?')">Delete</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<p>No redirects yet.</p>
+	{% endif %}
+{% endblock %}

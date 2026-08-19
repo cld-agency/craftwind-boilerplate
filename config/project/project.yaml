@@ -1,4 +1,4 @@
-dateModified: 1779730004
+dateModified: 1787160442
 elementSources:
   craft\elements\Entry:
     -
@@ -159,11 +159,19 @@ meta:
     fee487bb-86af-4918-b6c4-9d72e0f9f559: Pages # Pages
     ffd2bbfd-6f01-4375-bdc6-1936c61409ed: Scripts # Scripts
 plugins:
+  _blueprints:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
   ckeditor:
     edition: standard
     enabled: true
     schemaVersion: 5.6.0.0
   minify:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  redirects:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
