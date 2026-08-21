@@ -43,6 +43,20 @@ To use this Craft boilerplate:
 1. `npm run all` to start work at http://$PRIMARY_SITE_URL.test
 1. Add a new entry in the home pages section.
 
+Previewing on a phone or tablet
+-----------
+
+Vite serves your JS and CSS from its own dev server, so a phone needs to reach *both* the site and that dev server. Two things make this work:
+
+1. Set `PRIMARY_SITE_URL=@web` in your `.env`. Craft then builds every URL from whichever hostname the request arrived on, so the same install serves correct links to your Mac and your phone with no duplicate config. Local only — never do this on a public server, where the `Host` header can't be trusted.
+1. Run `npm run lan` (or just `npm run all`, which now calls it). It reads your machine's LAN IP and rewrites `VITE_HOST` to something like `boilerplate.test.192-168-1-5.sslip.io`, then prints the URL to open on your phone.
+
+`sslip.io` is a free public DNS service that resolves any hostname containing a dash-separated IP straight back to that IP, and MAMP already gives each host a `<hostname>.test.*` wildcard server name — so one hostname reaches both the site on port 80 and the dev server on `VITE_PORT`. No extra software, and nothing to configure on the phone beyond joining the same Wi-Fi. Only DNS lookups leave your network; the traffic itself never does.
+
+Because the IP is baked into the hostname, it changes when your DHCP lease does — which is why `npm run all` re-stamps it on every start. If you'd rather it never moved, give the machine a static reservation on your router.
+
+Two caveats worth knowing. The dev server binds to every network interface, so anyone on the same Wi-Fi can reach it — think twice on café or client networks. And CORS is restricted to your exact hostnames rather than a `*.sslip.io` wildcard, deliberately: sslip.io will resolve a lookalike name to *any* IP, so a wildcard would let a hostile page read your source. If you add another hostname for the site, add it to `localHosts` in `buildchain/vite.config.js`.
+
 If you're working with multiple developers you should have `nvm` installed locally and run `nvm use` prior to starting the build process. This automatically reads the `.nvmrc` file and uses the project's version of Node, which in turn avoids some unpleasant issues that can crop up if different developers are running different versions of Node.
 
 --------------------------------------------------

@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "all": "vite & npm-watch build",
+    "all": "node lan-host.js && vite & npm-watch build",
     "dev": "vite",
+    "lan": "node lan-host.js",
     "build": "vite build",
     "preview": "vite preview"
   },
