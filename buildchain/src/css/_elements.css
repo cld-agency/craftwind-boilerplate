@@ -105,16 +105,20 @@ hr {
 /* https://frontendmasters.com/blog/the-figcaption-problem/ */
 /* -------------------------------------------- */
 
+/* CK Editor wraps tables with figure.table, which borks on this technique... set it back to block... */
+figure.table{
+	display:block!important;
+}
 figure{
 	inline-size:fit-content;
 	margin-inline:auto;
-	img{
+	& img{
 		box-shadow:0 30px 60px -10px rgba(0,0,0,.3);
 		padding:1px;
 		border:1px solid var(--color-gray-200);
 	}
 }
-figure:not(.quote) figcaption {
+figcaption {
 	contain:inline-size;
 	font-size:0.875em;
 	line-height:1.6;
