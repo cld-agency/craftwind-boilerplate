@@ -4,10 +4,10 @@ PICTURE
 Generate a picture element with:
 - srcset & sizes
 - webp & avif variants
+- art direction (a separate crop below a given breakpoint)
 - lazyloading
 - fetchpriority for the LCP
 - focal point handling
-- aspect ratio box (deprecated in favour of aspect-ratio css)
 - svg inlining
 
 Params
@@ -21,19 +21,37 @@ Params
 	to help define an accurate `sizes` attribute according to the context
 - alt {string} (default to image.alt ?? '' (image.title is also available but is auto-populated with the filename, which is never good enough as editors don't change it!))
 
+ART DIRECTION
+- mobileImage {object} - a separately-cropped version of the image, served below the
+	mobileMedia breakpoint. Only its `<source>`s are media-gated, so wider viewports never
+	download it. (Hiding a second <picture> with CSS is not an option: an <img> inside a
+	display:none element is still downloaded.)
+- mobileMedia {string} (default '(max-width: 767.98px)', i.e. Tailwind's stock md). Pass
+	the project's own breakpoint, and keep it in step with whatever CSS swaps the layout over
+- mobileTransforms {array of objects} (default: transforms) - the mobile crop rarely needs the full set of widths
+- mobileSizes {string} (default: sizes)
+- mobileOnly {bool} (default false) - `image` IS the mobile image, and there's nothing to
+	show above the breakpoint (e.g. a video takes over). The <img> falls back to a transparent
+	pixel, so wider viewports download nothing at all
+
 - extraPictureClasses {string} - extra classes for the picture tag
 - extraFigureClasses {string} - extra classes for the figure tag (if using captions)
 - extraImgClasses {string} - extra classes for the img tag
 - extraSVGClasses {string} - extra classes for an inline SVG element
 - extraCaptionClasses {string} - extra classes for captions
+- pictureAttrs {hash} - any other attributes for the picture tag, passed through attr()
 
 - useInlineSVG {bool} (default false) - whether to inline an SVG
 - useLazyLoading {bool} (default true) - turn this off if your image is likely to be near the top of the viewport
-- useRatioBox {bool} (default false) -
-	output an appropriately proportioned wrapper element per image so that you can use lazyloading without incurring layout shifts as the images load in. (Note: if you want to have e.g. a set of cards which all share the same img aspect ratio, instead of useRatioBox you should use the following settings: `extraImgClasses: 'object-cover h-full w-full',extraPictureClasses: 'aspect-16-9 relative'` ... The aspect-16-9 class is defined in utilities.scss.
 - useFocalPoint {bool} (default false) - you'll need a wrapper element with some fixed dimensions for this to work (or define dimensions on the picture element via extraPictureClasses)
 - useCaption {bool} (default false) - output a caption under the image if it exists
-- isLCP {bool} (default false) - add fetchpriority=high to the img tag for LCP requests
+- isLCP {bool} (default false) - add fetchpriority=high to the img tag for LCP requests.
+	Left to the caller deliberately: only one image per page is the LCP, so a carousel should
+	pass it for the first slide alone
+
+No ratio box: for a set of images sharing one aspect ratio, use
+`extraImgClasses: 'object-cover h-full w-full'` with `extraPictureClasses: 'aspect-16-9 relative'`,
+or plain aspect-ratio CSS.
 ===================================== #}
 
 {% set useLazyLoading = useLazyLoading ?? true %}
@@ -62,12 +80,16 @@ Params
 		SVGS & GIFS
 		===================================== #}
 
+		{% set imgClasses = [extraImgClasses, useLazyLoading ? 'js-lazyload']|filter(c => c)|join(' ') %}
+
 		<picture{% if extraPictureClasses|length %} class="{{ extraPictureClasses }}"{% endif %}>
-			<img src="{{ image['extension'] is defined ? image.url : image }}"
-			    alt="{{ alt ?? image.alt ?? '' }}"
+			<img
+				{# lazyloaded images hold the url in data-src for the lazyloader to swap in #}
+				{% if useLazyLoading %}src="" data-src="{{ image['extension'] is defined ? image.url : image }}"{% else %}src="{{ image['extension'] is defined ? image.url : image }}"{% endif %}
+				alt="{{ alt ?? image.alt ?? '' }}"
 				height="{{ image.height() }}"
 				width="{{ image.width() }}"
-				{% if extraImgClasses|length or useLazyLoading %} class="{{ extraImgClasses }} {{ useLazyLoading ? 'js-lazyload' }}"{% endif %}
+				{% if imgClasses %}class="{{ imgClasses }}"{% endif %}
 			>
 		</picture>
 	{% endif %}
@@ -77,11 +99,8 @@ Params
 	ALL OTHER IMAGE TYPES
 	===================================== #}
 
-	{% set useRatioBox = useRatioBox ?? false %}
 	{% set useFocalPoint = useFocalPoint ?? false %}
 	{% set useCaption = useCaption ?? false %}
-	{% set pictureClass = useRatioBox ? 'absolute top-0 left-0 w-full h-full' : '' %}
-	{% set pictureClass = extraPictureClasses ? extraPictureClasses ~ ' ' ~ pictureClass : pictureClass %}
 
 	{# this value should reflect the mobile x-gutters. Could use calc() instead to make it more obvious #}
 	{# use a tool like https://github.com/ausi/respimagelint to help define an accurate `sizes` attribute for each use case #}
@@ -91,7 +110,36 @@ Params
 	{% set transforms = transforms ?? craft.app.config.custom.globalTransforms.fullWidth %}
 
 	{# ==================================
-	CREATE SRCSET STRINGS.
+	IMAGE VARIANTS.
+	One per <source> set: the art-directed mobile
+	crop (media-gated) first, then the default
+	image, which is also what the <img> carries.
+	===================================== #}
+
+	{% set mobileImage = mobileImage ?? null %}
+	{% set mobileOnly = mobileOnly ?? false %}
+	{% set mobileMedia = mobileMedia ?? '(max-width: 767.98px)' %}
+
+	{# 1x1 transparent gif — what wide viewports get in mobileOnly mode, at no network cost #}
+	{% set blankPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}
+
+	{% set imageVariants = mobileImage ? [{
+		image: mobileImage,
+		transforms: mobileTransforms ?? transforms,
+		sizes: mobileSizes ?? sizes,
+		media: mobileMedia
+	}] : [] %}
+
+	{% set imageVariants = imageVariants|merge([{
+		image: image,
+		transforms: transforms,
+		sizes: sizes,
+		media: mobileOnly ? mobileMedia : null
+	}]) %}
+
+	{# ==================================
+	CREATE SRCSET STRINGS AND SOURCES
+
 	Unfortunately Craft's built-in image.srcset()
 	method is a bit	too basic as it only accounts for
 	width transforms. At the time of writing there also
@@ -99,37 +147,106 @@ Params
 	the `upscaleImages:false` setting in general.php!
 	Doing it manually instead with .url() allows us
 	full freedom to use any kind of transform.
-
-	Remember that calling .url() here is the part that
-	actually gets Craft to create the transformed img.
-	(Calling .srcset() would too, but only on `w` descriptors)
 	===================================== #}
 
+	{% set sources = [] %}
 	{% set srcset = [] %}
-	{% set srcsetWebp = [] %}
-	{% set srcsetAvif = [] %}
+	{% set nativeTransform = null %}
 
-	{% for transform in transforms %}
-		{# only add to the srcset/srcsetWebp arrays if the original image is wide enough #}
-		{% if transform.width is defined and transform.height is defined %}
-			{% set pullTheTrigger = image.width >= transform.width and image.height >= transform.height %}
-		{% elseif transform.width is defined %}
-			{% set pullTheTrigger = image.width >= transform.width %}
-		{% elseif transform.height is defined %}
-			{% set pullTheTrigger = image.height >= transform.height %}
-		{% else %}
-			{% set pullTheTrigger = false %}
-		{% endif %}
+	{% for variant in imageVariants %}
+		{% set variantImage = variant.image %}
+		{% set srcset = [] %}
+		{% set srcsetWebp = [] %}
+		{% set srcsetAvif = [] %}
+		{% set largestFittingWidth = 0 %}
+		{% set skippedAnyTransform = false %}
+		{% set cropMode = false %}
+		{% set nativeTransform = null %}
 
-		{% if pullTheTrigger %}
-			{% set srcset = srcset|merge([image.url(transform) ~ ' ' ~ image.width(transform) ~ 'w']) %}
-			{% set webpTransform = transform|merge({format:'webp'}) %}
-			{% set avifTransform = transform|merge({format:'avif'}) %}
-			{% set srcsetWebp = srcsetWebp|merge([image.url(webpTransform) ~ ' ' ~ image.width(webpTransform) ~ 'w']) %}
-			{% if getenv('AVIF_SUPPORT') %}
-				{% set srcsetAvif = srcsetAvif|merge([image.url(avifTransform) ~ ' ' ~ image.width(avifTransform) ~ 'w']) %}
+		{% for transform in variant.transforms %}
+			{# only add to the srcsets if the original image is large enough #}
+			{% if transform.width is defined and transform.height is defined %}
+				{% set pullTheTrigger = variantImage.width >= transform.width and variantImage.height >= transform.height %}
+			{% elseif transform.width is defined %}
+				{% set pullTheTrigger = variantImage.width >= transform.width %}
+			{% elseif transform.height is defined %}
+				{% set pullTheTrigger = variantImage.height >= transform.height %}
+			{% else %}
+				{% set pullTheTrigger = false %}
+			{% endif %}
+
+			{# ==================================
+			Remember that calling .url() here is the part that
+			actually gets Craft to create the transformed img.
+			(Calling .srcset() would too, but only on `w` descriptors)
+			===================================== #}
+
+			{% if pullTheTrigger %}
+				{% set srcset = srcset|merge([variantImage.url(transform) ~ ' ' ~ variantImage.width(transform) ~ 'w']) %}
+				{% set srcsetWebp = srcsetWebp|merge([variantImage.url(transform|merge({format:'webp'})) ~ ' ' ~ variantImage.width(transform) ~ 'w']) %}
+				{% if craft.app.images.supportsAvif %}
+					{% set srcsetAvif = srcsetAvif|merge([variantImage.url(transform|merge({format:'avif'})) ~ ' ' ~ variantImage.width(transform) ~ 'w']) %}
+				{% endif %}
+				{% set largestFittingWidth = max(largestFittingWidth, variantImage.width(transform)) %}
+			{% else %}
+				{% set skippedAnyTransform = true %}
+			{% endif %}
+
+			{# make a note of whether we're cropping. (Highly unlikely that we'd
+			be cropping on some but not all transforms in a given set?!?!) #}
+			{% if transform.mode is defined and transform.mode == 'crop' %}
+				{% set cropMode = true %}
+			{% endif %}
+		{% endfor %}
+
+		{# ==================================
+		Native-size fallback. If the source image was smaller than some transforms
+		AND no fitting transform reached its native width, append a transform at the
+		image's actual width so we still get optimised webp/avif even if it's
+		poorly sized.
+		BEWARE, we can't easily eager load these transforms as they're dynamic
+		based on the source image's width. This should be a rare exception - the
+		real solution is to get editors to always upload images that are large
+		enough to cover all transforms
+		===================================== #}
+
+		{% if not cropMode and skippedAnyTransform and largestFittingWidth < variantImage.width %}
+			{% set nativeTransform = {width: variantImage.width} %}
+			{% set srcset = srcset|merge([variantImage.url(nativeTransform) ~ ' ' ~ variantImage.width ~ 'w']) %}
+			{% set srcsetWebp = srcsetWebp|merge([variantImage.url(nativeTransform|merge({format:'webp'})) ~ ' ' ~ variantImage.width ~ 'w']) %}
+			{% if craft.app.images.supportsAvif %}
+				{% set srcsetAvif = srcsetAvif|merge([variantImage.url(nativeTransform|merge({format:'avif'})) ~ ' ' ~ variantImage.width ~ 'w']) %}
 			{% endif %}
 		{% endif %}
+
+		{# ==================================
+		SET SOURCES
+		===================================== #}
+
+		{% set variantSources %}
+			{% if craft.app.images.supportsAvif %}
+				<source type="image/avif"
+					{% if variant.media %}media="{{ variant.media }}"{% endif %}
+					{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetAvif|join(',') }}"
+					{{ useLazyLoading ? 'data-' }}sizes="{{ variant.sizes }}"
+				>
+			{% endif %}
+			<source type="image/webp"
+				{% if variant.media %}media="{{ variant.media }}"{% endif %}
+				{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetWebp|join(',') }}"
+				{{ useLazyLoading ? 'data-' }}sizes="{{ variant.sizes }}"
+			>
+			{% if variant.media %}
+				{# a media-gated variant needs an un-optimised source too, or browsers
+				without webp/avif support would fall through to the <img> instead #}
+				<source media="{{ variant.media }}"
+					{{ useLazyLoading ? 'data-' }}srcset="{{ srcset|join(',') }}"
+					{{ useLazyLoading ? 'data-' }}sizes="{{ variant.sizes }}"
+				>
+			{% endif %}
+		{% endset %}
+
+		{% set sources = sources|merge([variantSources]) %}
 	{% endfor %}
 
 	{# ==================================
@@ -146,34 +263,30 @@ Params
 	===================================== #}
 
 	{% if useFocalPoint %}
-		{% set focalPointCoords = image.hasFocalPoint ? image.getFocalPoint() : [0.5, 0.5] %}
-		{% set focalPointPosition = 'object-position: ' ~ focalPointCoords|first * 100 ~ '% ' ~ focalPointCoords|last * 100 ~ '%' %}
+		{% set focalPointPosition = 'object-position:' ~ image.getFocalPoint(true) %}
 		{% set focalPointClass = 'w-full h-full object-cover' %}
 	{% endif %}
 
 	{# ======================================================================= #}
 
+	{% set imgClasses = [useLazyLoading ? 'js-lazyload', focalPointClass ?? null, extraImgClasses]|filter(c => c)|join(' ') %}
+
 	{% set innards %}
-		<picture{% if pictureClass|length %} class="{{ pictureClass }}"{% endif %} {{ pictureAttrs is defined ? attr(pictureAttrs) }}>
-			{# ffs MAMP PRO, get your act together and start supporting AVIF please! #}
-			{% if getenv('AVIF_SUPPORT') %}
-				<source type="image/avif"
-					{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetAvif|join(',') }}"
+		<picture{% if extraPictureClasses|length %} class="{{ extraPictureClasses }}"{% endif %}{{ pictureAttrs is defined ? attr(pictureAttrs) }}>
+			{{ sources|join('')|raw }}
+			<img
+				{# in mobileOnly mode the <img> gets no candidates of its own, or wide viewports
+				would download one instead of matching no source at all. Lazyloaded images hold
+				the url in data-src for the lazyloader to swap in #}
+				{% if mobileOnly %}src="{{ blankPixel }}"{% elseif useLazyLoading %}src="" data-src="{{ image.url(transforms|last) }}"{% else %}src="{{ image.url(transforms|last) }}"{% endif %}
+				{% if not mobileOnly %}
+					{{ useLazyLoading ? 'data-' }}srcset="{{ srcset|join(',') }}"
 					{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
-				>
-			{% endif %}
-			<source type="image/webp"
-				{{ useLazyLoading ? 'data-' }}srcset="{{ srcsetWebp|join(',') }}"
-				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
-			>
-			{# lazyloaded images hold the url in data-src for the lazyloader to swap in #}
-			<img {% if useLazyLoading %}src="" data-src="{{ image.url(transforms|last) }}"{% else %}src="{{ image.url(transforms|last) }}"{% endif %}
-				{{ useLazyLoading ? 'data-' }}srcset="{{ srcset|join(',') }}"
-				{{ useLazyLoading ? 'data-' }}sizes="{{ sizes }}"
+				{% endif %}
 				alt="{{ alt ?? image.alt ?? image.title }}"
-				height="{{ image.height(transforms|first) }}"
-				width="{{ image.width(transforms|first) }}"
-				class="{{ useLazyLoading ? 'js-lazyload'}} {{ focalPointClass ?? null }} {{ extraImgClasses ?? null }}"
+				height="{{ nativeTransform ? image.height : image.height(transforms|first) }}"
+				width="{{ nativeTransform ? image.width : image.width(transforms|first) }}"
+				{% if imgClasses %}class="{{ imgClasses }}"{% endif %}
 				{% if useFocalPoint %}style="{{ focalPointPosition }}"{% endif %}
 				{% if isLCP %}fetchpriority="high"{% endif %}
 			>
@@ -183,14 +296,10 @@ Params
 	{# ======================================================================= #}
 
 	{# Final output... To Wrap, Or Not To Wrap, that is the question #}
-	{% if useRatioBox %}
-		<div class="relative overflow-hidden w-full" style="padding-top: {{ (image.height(transforms[0]) / image.width(transforms[0])) * 100 }}%">
-			{{ innards }}
-		</div>
-	{% elseif useCaption and imageCaption|length %}
+	{% if useCaption and imageCaption|length %}
 		<figure{% if extraFigureClasses|length %} class="{{ extraFigureClasses }}"{% endif %}>
 			{{ innards }}
-			<figcaption class="{{ extraCaptionClasses ?? null }}">{{ imageCaption }}</figcaption>
+			<figcaption{% if extraCaptionClasses ?? null %} class="{{ extraCaptionClasses }}"{% endif %}>{{ imageCaption }}</figcaption>
 		</figure>
 	{% else %}
 		{{ innards }}
