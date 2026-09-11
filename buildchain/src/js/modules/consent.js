@@ -97,16 +97,19 @@ export default () => ({
 		fetch(url, {
 			headers: {'X-Requested-With': 'XMLHttpRequest'},
 			method: 'GET'
-		}).then(response => response.text()).then(data => {
+		}).then(response => response.text()).then(async data => {
 
 			// inject the scripts
 			const container = document.querySelector('[data-consented-scripts]');
 			container.innerHTML = data;
 
-			Array.from(container.getElementsByTagName('script')).forEach(scriptEl => {
+			// One at a time, waiting on each external script's load event before moving on:
+			// dynamically-inserted scripts are async by default, so a snippet's inline initialiser
+			// must not be allowed to run ahead of the library it depends on.
+			for (const scriptEl of Array.from(container.getElementsByTagName('script'))) {
 				const newScript = document.createElement('script');
 
-				// Copy attributes
+				// Copy attributes (this carries over src for external scripts)
 				Array.from(scriptEl.attributes).forEach(attr => {
 					newScript.setAttribute(attr.name, attr.value);
 				});
@@ -116,14 +119,14 @@ export default () => ({
 					newScript.textContent = scriptEl.textContent;
 				}
 
-				// Handle external scripts
-				if (scriptEl.src) {
-					newScript.src = scriptEl.src;
-				}
+				const loaded = newScript.src
+					? new Promise(resolve => { newScript.onload = newScript.onerror = resolve; })
+					: null;
 
 				// Append to body (this also executes them)
 				document.body.appendChild(newScript);
-			});
+				await loaded;
+			}
 
 			// Process non-script elements (maybe overkill?)
 			Array.from(container.children)
@@ -164,6 +167,38 @@ export default () => ({
 		this.consentCallbacks = { onAccept: null, onDecline: null };
 	},
 
+	// Grant consent for a single category by its slug. Used by in-place, editor-configurable
+	// embeds (thirdPartyEmbed) where the required category isn't fixed to functionality.
+	// Mirrors the per-type handling in setChoices(): set the cookie, sync the modal
+	// lightswitch, then pull in any associated scripts (which also fires the GTM consent
+	// update held on the cookie type). Finally let any sibling embeds requiring the same
+	// category switch themselves on.
+	grantConsent(slug) {
+		if (this.getCookie(slug)) return;
+
+		document.cookie = slug + '=1;path=/;max-age=15768000'; // 6 months
+		document.cookie = 'cookiesAccepted=1;path=/;max-age=15768000';
+
+		// keep the cookie modal in sync: tick this category's lightswitch, reveal the
+		// manage-cookies trigger and dismiss the banner now a choice has been made
+		Array.from(this.lightswitches || [])
+			.filter(label => label.getAttribute('for') === slug)
+			.forEach(label => label.querySelector('input').checked = true);
+		this.showModalTrigger = true;
+		this.openBanner = false;
+
+		// functionality consent has extra page-side effects (revealing video facades etc.)
+		if (slug === 'functionality') {
+			this.enableConsentableFunctionality(true);
+		}
+
+		// load any Scripts-section entries tied to this category + fire the GTM consent update
+		this.getScripts([slug]);
+
+		// let any other gated embeds requiring this same category reveal themselves
+		window.dispatchEvent(new CustomEvent('consent:granted', { detail: { slug } }));
+	},
+
 	declineConsentableFunctionality() {
 		// call the onDecline callback if one was registered, otherwise reload
 		if (this.consentCallbacks.onDecline) {
@@ -175,8 +210,9 @@ export default () => ({
 	},
 
 	// often an easier way to inject scripts is to have a placeholder one in the DOM with a data-src
-	// that can be swapped out and then appended to the container to execute it.
-	switchOnPlaceholderScripts(scriptContainers, onComplete) {
+	// that can be swapped out and then appended to the container to execute it. They go in one at a
+	// time, in document order, so a snippet made of a library plus an inline initialiser still works.
+	async switchOnPlaceholderScripts(scriptContainers, onComplete) {
 		const allScripts = [];
 
 		scriptContainers.forEach(el => {
@@ -186,29 +222,21 @@ export default () => ({
 			});
 		});
 
-		if (allScripts.length === 0) {
-			onComplete?.();
-			return;
-		}
-
-		let loadedCount = 0;
-
-		allScripts.forEach(({ script, container }) => {
+		for (const { script, container } of allScripts) {
 			const scriptTag = document.createElement('script');
 
-			const handleComplete = () => {
-				loadedCount++;
-				if (loadedCount === allScripts.length) {
-					onComplete?.();
-				}
-			};
-
-			scriptTag.addEventListener('load', handleComplete);
-			scriptTag.addEventListener('error', handleComplete);
+			// resolve on error too, so one dead script can't wedge the queue
+			const loaded = new Promise(resolve => {
+				scriptTag.addEventListener('load', resolve);
+				scriptTag.addEventListener('error', resolve);
+			});
 
 			container.appendChild(scriptTag);
 			scriptTag.src = script.dataset.src;
-		});
+			await loaded;
+		}
+
+		onComplete?.();
 	}
 
 });

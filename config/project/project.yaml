@@ -1,4 +1,4 @@
-dateModified: 1787160442
+dateModified: 1789144393
 elementSources:
   craft\elements\Entry:
     -
@@ -119,12 +119,14 @@ meta:
     0c282155-4eb4-4c74-b817-af7be4f901c9: '_Body - embedded entries (searchable)' # _Body - embedded entries (searchable)
     2be967b7-c0bf-4806-874b-29ca2ddd277b: '_Plain text field (non-searchable)' # _Plain text field (non-searchable)
     2df10726-700e-4e49-a203-a9fe43c3f7a1: 'Company info' # Company info
+    3b59ece5-180c-45ff-a77e-2fd59e1ebddc: 'Require consent?' # Require consent?
     3d55de4b-9675-4aa5-9975-690cc711a5ca: 'Cookie details table' # Cookie details table
     3fbbc91b-38d4-405d-888a-9bf3c34043ee: '_Plain text field (searchable)' # _Plain text field (searchable)
     4d75c350-59e2-4ecc-b469-bb97f6ff276d: 'Section background colour' # Section background colour
     5f3c0617-ce2b-446f-a3ae-af263602d228: Script # Script
     7dacd005-9633-40b1-9d20-5b168dc1590e: 'Social links' # Social links
     7f75a3a3-bfc1-45da-821e-200988c43407: '_Plain text multiline (non-searchable)' # _Plain text multiline (non-searchable)
+    8eb60b2b-35e0-4a79-bb48-c7555a3aab38: 'Third-party embed' # Third-party embed
     9ba80f98-3521-4d95-8103-833cc54f9074: 'X (Twitter) card' # X (Twitter) card
     18c8ccbb-5f3f-445b-a5c1-49df2d95dcef: Facades # Facades
     27fd5441-8230-4f21-8d4c-ae215e7076df: $SYSTEM_NAME # $SYSTEM_NAME
@@ -184,7 +186,7 @@ system:
   live: true
   name: $SYSTEM_NAME
   retryDuration: null
-  schemaVersion: 5.10.0.0
+  schemaVersion: 5.11.0.2
   timeZone: UTC
 users:
   allowPublicRegistration: false

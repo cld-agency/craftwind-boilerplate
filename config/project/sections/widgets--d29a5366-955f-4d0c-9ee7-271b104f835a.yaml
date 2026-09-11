@@ -3,6 +3,8 @@ enableVersioning: true
 entryTypes:
   -
     uid: 3d55de4b-9675-4aa5-9975-690cc711a5ca # Cookie details table
+  -
+    uid: 8eb60b2b-35e0-4a79-bb48-c7555a3aab38 # Third-party embed
 handle: widgets
 maxAuthors: 1
 minAuthors: 1

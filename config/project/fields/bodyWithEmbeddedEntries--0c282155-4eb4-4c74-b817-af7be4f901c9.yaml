@@ -23,6 +23,14 @@ settings:
         -
           - expanded
           - false
+    -
+      __assoc__:
+        -
+          - uid
+          - 8eb60b2b-35e0-4a79-bb48-c7555a3aab38 # Third-party embed
+        -
+          - expanded
+          - false
   fullGraphqlData: true
   headingLevels:
     - '2'

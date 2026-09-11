@@ -1,0 +1,149 @@
+allowLineBreaksInTitles: false
+color: null
+description: null
+fieldLayouts:
+  c1b48253-d118-4457-bf66-5827c04c85ea:
+    cardThumbAlignment: end
+    cardView:
+      - 'layoutElement:fe3f7e2d-4ead-4291-a67b-434e08d6c2be'
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2026-09-11T00:00:00+00:00'
+            disabled: false
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\FieldConditionRule
+                  operator: ni
+                  uid: d3f56ab9-7ef1-472a-a5dc-56e9604b5666
+                  values:
+                    - 661f0cbe-8667-4984-aea8-55239d2f6e8e # Body builder
+              elementType: craft\elements\Entry
+              fieldContext: global
+            id: null
+            inputType: null
+            instructions: null
+            label: 'Title (internal reference only)'
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            required: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 8a8d5262-6ff7-47e2-9034-d94f6a9338de
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-09-11T00:00:00+00:00'
+            editCondition: null
+            elementCondition: null
+            elementEditCondition: null
+            fieldUid: cbac532f-c0ed-484c-9ba5-c39c664cfab9 # Script
+            handle: null
+            instructions: null
+            label: 'Embed code'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: eb1eef38-73eb-4741-a806-951811b43f60
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-09-11T00:00:00+00:00'
+            dismissible: false
+            elementCondition: null
+            style: warning
+            tip: "You are legally obliged to gain each visitor's consent for most third-party embedded widgets. If your embed requires consent, you must also add a description of the provider's functionality to a new entry in the [Scripts area](/admin/content/entries/scripts) so that it is reflected in the cookie consent manager's summary table, and so that the category is available for selection in the consent modal. If in doubt, choose the \"Functionality\" category."
+            type: craft\fieldlayoutelements\Tip
+            uid: 1295623b-fde2-4903-a73e-a0807c987921
+            userCondition: null
+          -
+            dateAdded: '2026-09-11T00:00:00+00:00'
+            editCondition: null
+            elementCondition: null
+            elementEditCondition: null
+            fieldUid: 3b59ece5-180c-45ff-a77e-2fd59e1ebddc # Require consent?
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b68d59e6-2df8-4bd6-8c15-e52a99884835
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-09-11T00:00:00+00:00'
+            editCondition: null
+            elementCondition: null
+            elementEditCondition: null
+            fieldUid: caf5530a-8747-49b5-9d85-553de2e90c6f # _Body - default (searchable)
+            handle: consentPlaceholderOverride
+            instructions: "For visitors who have not yet consented to the appropriate category, use this field to override the default generic 'consent required' message."
+            label: 'Consent placeholder text override'
+            required: false
+            tip: 'Default: "This content can''t be shown until you allow {{ categoryName }} cookies. Learn more about our cookies"'
+            type: craft\fieldlayoutelements\CustomField
+            uid: fe3f7e2d-4ead-4291-a67b-434e08d6c2be
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2026-09-11T00:00:00+00:00'
+            editCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\FieldConditionRule
+                  operator: in
+                  uid: f096bbeb-1a4d-44a7-950c-6e5e20d22b3e
+                  values:
+                    - 661f0cbe-8667-4984-aea8-55239d2f6e8e # Body builder
+              elementType: craft\elements\Entry
+              fieldContext: global
+            elementEditCondition: null
+            fieldUid: 4d75c350-59e2-4ecc-b469-bb97f6ff276d # Section background colour
+            handle: null
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b5613f38-e509-4327-87ce-bd498271d7a6
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 5f1b88f8-824f-4d22-877f-812c8fad1f4c
+        userCondition: null
+    thumbFieldKey: null
+handle: thirdPartyEmbed
+hasTitleField: true
+icon: alien
+name: 'Third-party embed'
+showSlugField: false
+showStatusField: false
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+uiLabelFormat: '{title}'

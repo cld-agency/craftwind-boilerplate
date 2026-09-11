@@ -1,0 +1,100 @@
+{# ==================================
+THIRD-PARTY EMBED.
+Outputs an editor-supplied embed snippet
+(entry.script). If a consent category has
+been chosen (requireConsent → a Cookie Type
+entry), the snippet is gated: it sits in an
+inert <template> and is only injected once
+the visitor has consented. Consent is read
+from the cookie in the browser, never
+server-side — pages are statically cached,
+so everyone is served the same HTML.
+===================================== #}
+
+{% set embedCode = entry.script ?? '' %}
+
+{% if embedCode|trim|length %}
+	{% set consentType = entry.requireConsent.eagerly().one() %}
+
+	{% set innards %}
+		{% if not consentType %}
+			{{ embedCode|raw }}
+		{% else %}
+			{% set slug = consentType.slug %}
+			{% set categoryName = consentType.title %}
+
+			{# reveal(): the embed markup is moved across via innerHTML, the one insertion route that leaves
+			   its <script> tags permanently inert, so nothing runs until we say so. Each one is then
+			   re-created in place to make it execute, one at a time, awaiting each external script's load
+			   event before moving on — dynamically-inserted scripts are async by default, so otherwise an
+			   inline initialiser (e.g. HubSpot's hbspt.forms.create) would run before its library arrived.
+			   init(): self-reveal on load if already consented, reading the cookie directly so we don't
+			   depend on the consent component having initialised first. #}
+			<div
+				x-data="{
+					revealed: false,
+					async reveal() {
+						if (this.revealed) return;
+						this.revealed = true;
+						this.$refs.target.innerHTML = this.$refs.embed.innerHTML;
+						for (const oldScript of this.$refs.target.querySelectorAll('script')) {
+							const newScript = document.createElement('script');
+							Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+							if (oldScript.textContent.trim()) newScript.textContent = oldScript.textContent;
+							const loaded = newScript.src ? new Promise(resolve => { newScript.onload = newScript.onerror = resolve; }) : null;
+							oldScript.replaceWith(newScript);
+							await loaded;
+						}
+					},
+					allow() {
+						Alpine.$data(document.querySelector('[x-data=\'consent\']')).grantConsent('{{ slug }}');
+						this.reveal();
+					},
+					init() {
+						document.cookie.split('; ').some(c => c === '{{ slug }}=1') ? this.reveal() : null;
+					}
+				}"
+				@consent:granted.window="$event.detail.slug === '{{ slug }}' ? reveal() : null"
+			>
+				{# Consent prompt — shown until the visitor opts in (here or elsewhere on the page).
+				   x-cloak keeps it hidden until Alpine has decided, so already-consented visitors
+				   never see it flash before the embed swaps in. #}
+				<div x-cloak x-show="!revealed" class="bg-white border-l-4 border-brand p-4 md:p-6 lg:p-8 default-links">
+
+					{% if entry.consentPlaceholderOverride|length %}
+						{{ entry.consentPlaceholderOverride }}
+					{% else %}
+						<p>This content can't be shown until you allow <strong>{{ categoryName }}</strong> cookies. <a href="/cookies">Learn more about our cookies</a>.</p>
+					{% endif %}
+
+					{% include '_partials/button.twig' with {
+						element: 'button',
+						label: 'Allow ' ~ categoryName ~ ' cookies',
+						variants: ['mini'],
+						attrs: { type: 'button', '@click': 'allow()' }
+					} only %}
+				</div>
+
+				{# Where the embed lands once consent is given. #}
+				<div x-ref="target"></div>
+
+				{# Inert until moved into the page by JS — scripts here never run server-side or before consent. #}
+				<template x-ref="embed">{{ embedCode|raw }}</template>
+			</div>
+		{% endif %}
+	{% endset %}
+
+	{# Nested inside CKEditor prose it needs no section wrapper; every other context
+	   (body builder block, standalone reusable widget) gets the usual container. #}
+	{% if entry.field and entry.field.handle == 'bodyWithEmbeddedEntries' %}
+		<div class="spacing">
+			{{ innards }}
+		</div>
+	{% else %}
+		{% embed '_partials/container.twig' %}
+			{% block content %}
+				{{ innards }}
+			{% endblock %}
+		{% endembed %}
+	{% endif %}
+{% endif %}

@@ -28,6 +28,14 @@ settings:
       __assoc__:
         -
           - uid
+          - 8eb60b2b-35e0-4a79-bb48-c7555a3aab38 # Third-party embed
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
           - 97122afc-ddc8-4cfc-8b2f-209b0e924477 # Reusable widget block
         -
           - group

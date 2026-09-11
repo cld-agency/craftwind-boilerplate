@@ -1,0 +1,25 @@
+columnSuffix: null
+handle: requireConsent
+instructions: 'Which category of GDPR consent is required? Leave blank for none, but beware that the vast majority of third-party embeddable widgets require visitor consent.'
+name: 'Require consent?'
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  defaultPlacement: end
+  maintainHierarchy: false
+  maxRelations: 1
+  minRelations: null
+  selectionLabel: null
+  showSearchInput: true
+  showSiteMenu: true
+  showUnpermittedEntries: false
+  showUnpermittedSections: false
+  sources:
+    - 'section:d876412f-9cec-4b48-b307-7dd826e29b71' # Cookie types
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Entries
