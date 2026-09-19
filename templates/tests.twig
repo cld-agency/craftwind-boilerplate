@@ -1,0 +1,717 @@
+{#
+Website Testing Matrix
+======================
+Visit /tests to use this page.
+A tester must enter (or pick) a name before using the matrix — anonymous use is not allowed.
+State is persisted to the storage/testing directory under that name (with a localStorage backup).
+#}
+
+{# Restrict to CP users only — front-end members must not see the testing matrix.
+   requirePermission implies requireLogin (redirects anonymous visitors to log in,
+   then 403s anyone logged in without control-panel access). #}
+{% requirePermission 'accessCp' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Website Testing Matrix</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+	<style>body{ background:#1a1f2e; margin:0; padding:24px 16px; }</style>
+</head>
+<body>
+
+{# Add test categories here as the site is built — see ~/.claude/skills/testing-matrix/SKILL.md for the format. #}
+{% set categories = [
+] %}
+
+{# Count totals for the header #}
+{% set totalTests = 0 %}
+{% for cat in categories|filter(cat => cat.hide is not defined or not cat.hide) %}
+	{% set totalTests = totalTests + cat.items|length %}
+{% endfor %}
+
+<style>
+	.tm { --bg:#1a1f2e; --surface:#222839; --border:#2e3548; --hover:#293044; --text:#d0d5e0; --bright:#eef1f6; --dim:#7b849a; --faint:#565f75; --green:#22c55e; --red:#ef4444; --amber:#f59e0b; --blue:#3b82f6; --slate:#94a3b8; --purple:#a78bfa; --mono:'JetBrains Mono','SF Mono','Fira Code',monospace; font-family:'Inter','Helvetica Neue',system-ui,sans-serif; color:var(--text); max-width:1100px; margin:0 auto; padding:24px 0; }
+	.tm *{ box-sizing:border-box; }
+	.tm input::placeholder{ color:var(--faint); }
+
+	.tm-header{ margin-bottom:32px; }
+	.tm-header-row{ display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+	.tm-dot{ width:10px; height:10px; border-radius:50%; background:var(--green); box-shadow:0 0 8px rgba(22,163,74,0.5); }
+	.tm-header h2{ font-size:30px; font-weight:700; color:var(--bright); letter-spacing:-0.5px; margin:0; }
+	.tm-header p{ font-size:15px; color:var(--dim); margin-left:22px; }
+
+	.tm-stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-bottom:24px; }
+	.tm-stat{ background:linear-gradient(135deg, #2a3148 0%, var(--surface) 100%); border:1px solid var(--border); border-radius:8px; padding:18px 20px; }
+	.tm-stat-label{ font-size:11px; color:var(--dim); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px; font-family:var(--mono); }
+	.tm-stat-value{ font-size:34px; font-weight:600; font-family:var(--mono); }
+
+	.tm-progress{ background:var(--hover); border-radius:6px; height:8px; margin-bottom:24px; overflow:hidden; display:flex; }
+	.tm-progress > div{ height:100%; transition:width 0.3s; }
+
+	.tm-filters{ display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; align-items:center; }
+	.tm-filters input[type="text"]{ flex:1 1 200px; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:10px 14px; color:var(--text); font-size:15px; font-family:inherit; outline:none; }
+	.tm-filters input[type="text"]:focus{ border-color:#4a5570; }
+	.tm-filters select{ background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:10px 14px; color:var(--text); font-size:15px; font-family:inherit; cursor:pointer; }
+	.tm-filters select option{ background:var(--surface); }
+	.tm-btn{ border:none; border-radius:6px; padding:10px 14px; font-size:14px; font-family:inherit; cursor:pointer; }
+	.tm-btn-subtle{ background:var(--border); color:var(--slate); }
+	.tm-btn-danger{ background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.2); color:#f87171; }
+
+	.tm-categories{ display:flex; flex-direction:column; gap:8px; }
+	.tm-cat{ background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+	.tm-cat.has-fails{ border-color:var(--red); box-shadow:0 0 0 2px var(--red), 0 0 16px rgba(220,38,38,0.35); }
+	.tm-cat-header{ width:100%; display:flex; align-items:center; gap:12px; padding:16px 20px; background:transparent; border:none; color:var(--bright); font-size:16px; font-weight:600; font-family:inherit; cursor:pointer; text-align:left; }
+	.tm-cat-icon{ font-size:20px; color:var(--dim); width:28px; text-align:center; flex-shrink:0; line-height:1; position:relative; top:-1px; }
+	.tm-cat-header:hover{ background:rgba(255,255,255,0.04); }
+	.tm-cat-name{ flex:1; }
+	.tm-cat-count{ font-size:13px; color:var(--dim); font-weight:400; font-family:var(--mono); }
+	.tm-minibar{ width:60px; height:4px; background:var(--bg); border-radius:2px; overflow:hidden; }
+	.tm-minibar-fill{ height:100%; border-radius:2px; transition:width 0.3s; }
+	.tm-arrow{ color:var(--faint); font-size:18px; transition:transform 0.2s; }
+	.tm-arrow.open{ transform:rotate(90deg); }
+
+	.tm-items{ border-top:1px solid var(--border); display:none; }
+	.tm-items.open{ display:block; }
+	.tm-item{ border-bottom:1px solid var(--border); padding:12px 18px 12px 20px; }
+	.tm-item-bullet{ color:var(--faint); font-size:8px; flex-shrink:0; width:28px; text-align:center; }
+	.tm-item:last-child{ border-bottom:none; }
+	.tm-item-row{ display:flex; align-items:center; gap:10px; }
+	.tm-item[data-filtered="true"]{ display:none; }
+
+	.tm-cat-desc{ padding:12px 20px 16px; color:#fff; font-size:14px; line-height:1.6; border-bottom:1px solid var(--border); }
+	.tm-item-desc{ margin-top:4px; margin-left:38px; color:var(--dim); font-size:13px; line-height:1.5; }
+
+	.tm-cat-url{ font-size:13px; font-weight:400; color:var(--purple); text-decoration:none; margin-left:8px; opacity:0.7; }
+	.tm-cat-url:hover{ opacity:1; text-decoration:underline; }
+	.tm-item-urls{ margin-top:4px; margin-left:38px; display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+	.tm-item-urls-label{ font-size:12px; color:var(--dim); text-transform:uppercase; letter-spacing:0.3px; margin-right:2px; }
+	.tm-item-url{ font-size:13px; color:var(--purple); text-decoration:none; background:rgba(167,139,250,0.08); border:1px solid rgba(167,139,250,0.2); border-radius:4px; padding:2px 8px; }
+	.tm-item-url:hover{ text-decoration:underline; background:rgba(167,139,250,0.15); }
+
+	.tm-priority{ font-size:10px; font-weight:600; padding:2px 6px; border-radius:3px; white-space:nowrap; letter-spacing:0.3px; text-transform:uppercase; flex-shrink:0; }
+	.tm-priority-critical{ color:var(--red); background:rgba(220,38,38,0.1); }
+	.tm-priority-high{ color:var(--amber); background:rgba(217,119,6,0.1); }
+	.tm-priority-medium{ color:var(--blue); background:rgba(37,99,235,0.1); }
+	.tm-priority-low{ color:var(--dim); background:rgba(100,116,139,0.1); }
+
+	.tm-test{ flex:1; font-size:15px; line-height:1.5; color:var(--text); opacity:.75 }
+	.tm-test.done{ color:var(--dim); text-decoration:line-through; }
+
+	.tm-status-btns{ display:flex; gap:4px; flex-shrink:0; }
+	.tm-sbtn{ width:40px; height:40px; border-radius:8px; font-size:18px; font-weight:600; font-family:inherit; background:linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%); border:1px solid #3d4660; color:#8891a8; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+	.tm-sbtn:hover{ border-color:#5a6484; color:#b0b8cc; background:linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.05) 100%); }
+	.tm-sbtn.on-pass{ background:rgba(22,163,74,0.08); border:1.5px solid var(--green); color:var(--green); }
+	.tm-sbtn.on-fail{ background:rgba(220,38,38,0.08); border:1.5px solid var(--red); color:var(--red); }
+	.tm-sbtn.on-partial{ background:rgba(217,119,6,0.08); border:1.5px solid var(--amber); color:var(--amber); }
+	.tm-sbtn.on-na{ background:rgba(148,163,184,0.08); border:1.5px solid var(--slate); color:var(--slate); }
+	.tm-sbtn.on-untested{ background:rgba(100,116,139,0.08); border:1.5px solid #64748b; color:#64748b; }
+	.tm-note-btn{ font-size:14px; width:auto; padding:0 12px; margin-left:12px; background:rgba(167,139,250,0.06); border-color:rgba(167,139,250,0.2); color:var(--dim); gap:5px; }
+	.tm-note-btn:hover{ background:rgba(167,139,250,0.12); border-color:rgba(167,139,250,0.35); color:var(--purple); }
+	.tm-note-btn span{ display:inline-block; transform:scaleX(-1); font-size:16px; }
+	.tm-note-btn.has-note{ background:rgba(129,140,248,0.1); border-color:rgba(129,140,248,0.3); color:var(--purple); }
+
+	.tm-note-input{ background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:10px 14px; color:var(--text); font-size:14px; line-height:1.6; font-family:inherit; outline:none; margin:12px 0 4px 38px; width:calc(100% - 38px); display:none; }
+	.tm-note-input:focus{ border-color:#4a5570; }
+	.tm-note-input.open{ display:block; }
+	.tm-note-display{ font-size:14px; line-height:1.6; color:var(--purple); margin:12px 0 4px 38px; opacity:0.7; cursor:pointer; display:none; }
+	.tm-note-display.visible{ display:block; }
+	.tm-note-display:hover{ opacity:1; }
+
+	.tm-tester-badge{ font-size:14px; color:var(--purple); background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.25); border-radius:6px; padding:4px 12px; margin-left:auto; cursor:pointer; }
+	.tm-tester-badge:hover{ background:rgba(167,139,250,0.2); border-color:rgba(167,139,250,0.5); }
+	.tm-tester-gate{ position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.8); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px); display:flex; align-items:center; justify-content:center; padding:24px; }
+	.tm-tester-prompt{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:20px 24px; max-width:520px; width:100%; }
+	.tm-tester-prompt p{ margin:0 0 12px; color:var(--dim); font-size:15px; }
+	.tm-tester-prompt input{ background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:10px 14px; color:var(--text); font-size:15px; font-family:inherit; outline:none; }
+	.tm-tester-prompt input:focus{ border-color:#4a5570; }
+	.tm-btn-primary{ background:var(--purple); color:#fff; border:none; }
+	.tm-btn-primary:hover{ opacity:0.9; }
+	.tm-tester-chip{ display:inline-flex; align-items:stretch; margin:4px 4px 0 0; border:1px solid var(--border); border-radius:6px; overflow:hidden; background:var(--hover); }
+	.tm-tester-chip:hover{ border-color:#4a5570; }
+	.tm-tester-existing{ display:inline-block; padding:6px 10px 6px 12px; font-size:14px; color:var(--text); cursor:pointer; text-decoration:none; }
+	.tm-tester-existing span{ color:var(--dim); font-size:12px; margin-left:4px; }
+	.tm-tester-delete{ display:inline-flex; align-items:center; justify-content:center; padding:0 8px; border:none; border-left:1px solid var(--border); background:transparent; color:var(--faint); font-size:14px; cursor:pointer; font-family:inherit; }
+	.tm-tester-delete:hover{ background:rgba(220,38,38,0.15); color:var(--red); }
+
+	.tm-empty{ text-align:center; padding:60px; color:var(--faint); font-size:16px; display:none; }
+	.tm-footer{ text-align:center; padding:32px 0 8px; font-size:14px; color:var(--faint); }
+
+	@media (max-width: 768px) {
+		.tm { padding:16px 0; }
+		.tm-header h2{ font-size:22px; }
+		.tm-header p{ font-size:13px; margin-left:0; }
+		.tm-header-row{ flex-wrap:wrap; }
+		.tm-tester-badge{ margin-left:0; margin-top:8px; width:100%; text-align:center; }
+
+		.tm-stats{ grid-template-columns:repeat(3, 1fr); gap:6px; }
+		.tm-stat{ padding:12px 10px; }
+		.tm-stat-value{ font-size:24px; }
+		.tm-stat-label{ font-size:10px; }
+
+		.tm-filters{ flex-direction:column; gap:8px; }
+		.tm-filters input[type="text"]{ flex:none; width:100%; }
+		.tm-filters select{ width:100%; }
+		.tm-filters > div{ width:100%; justify-content:space-between; }
+		.tm-filters > div .tm-btn{ flex:1; }
+
+		.tm-cat-header{ padding:12px 14px; font-size:14px; gap:8px; flex-wrap:wrap; }
+		.tm-cat-icon{ display:none; }
+		.tm-cat-name{ width:100%; order:-1; }
+		.tm-cat-url{ display:block; margin-left:0; margin-top:2px; }
+		.tm-cat-count{ font-size:12px; }
+		.tm-minibar{ width:40px; }
+
+		.tm-cat-desc{ padding:10px 14px 12px; font-size:13px; }
+
+		.tm-item{ padding:12px 14px; }
+		.tm-item-bullet{ display:none; }
+		.tm-item-row{ flex-wrap:wrap; gap:8px; }
+		.tm-test{ flex:none; width:100%; font-size:14px; }
+		.tm-priority{ order:1; }
+		.tm-status-btns{ order:2; width:100%; }
+		.tm-sbtn{ width:36px; height:36px; font-size:16px; }
+		.tm-note-btn{ padding:0 8px; font-size:12px; height:36px; margin-left:4px; flex:1; }
+
+		.tm-item-desc{ margin-left:0; font-size:12px; }
+		.tm-item-urls{ margin-left:0; }
+		.tm-note-input{ margin-left:0; width:100%; }
+		.tm-note-display{ margin-left:0; }
+	}
+</style>
+
+<div class="tm">
+	{# ── Header ── #}
+	<div class="tm-header">
+		<div class="tm-header-row">
+			<div class="tm-dot"></div>
+			<h2>Testing Matrix</h2>
+			<span class="tm-tester-badge" id="tm-tester-badge" title="Click to change tester"></span>
+		</div>
+		<p>{{ categories|filter(cat => cat.hide is not defined or not cat.hide)|length }} categories · {{ totalTests }} tests</p>
+	</div>
+
+	{# ── Tester gate (blocks the matrix until a name is chosen — anonymous use is not allowed) ── #}
+	<div class="tm-tester-gate" id="tm-tester-prompt" style="display:none">
+		<div class="tm-tester-prompt">
+			<p>Enter your name to begin — your progress is saved against it. Pick an existing tester below, or type a new name.</p>
+			<div style="display:flex;gap:8px;align-items:center">
+				<input type="text" id="tm-tester-name" placeholder="Your name (e.g. sarah)" style="flex:1">
+				<button class="tm-btn tm-btn-primary" id="tm-tester-go">Start</button>
+			</div>
+			<div id="tm-tester-list" style="margin-top:12px"></div>
+		</div>
+	</div>
+
+	{# ── Stats ── #}
+	<div class="tm-stats">
+		<div class="tm-stat"><div class="tm-stat-label">Completion</div><div class="tm-stat-value" id="stat-completion" style="color:var(--purple)">0%</div></div>
+		<div class="tm-stat"><div class="tm-stat-label">Pass Rate</div><div class="tm-stat-value" id="stat-passrate" style="color:var(--green)">0%</div></div>
+		<div class="tm-stat"><div class="tm-stat-label">Passing</div><div class="tm-stat-value" id="stat-pass" style="color:var(--green)">0</div></div>
+		<div class="tm-stat"><div class="tm-stat-label">Failing</div><div class="tm-stat-value" id="stat-fail" style="color:var(--red)">0</div></div>
+		<div class="tm-stat"><div class="tm-stat-label">Partial</div><div class="tm-stat-value" id="stat-partial" style="color:var(--amber)">0</div></div>
+		<div class="tm-stat"><div class="tm-stat-label">Untested</div><div class="tm-stat-value" id="stat-untested" style="color:var(--dim)">{{ totalTests }}</div></div>
+	</div>
+
+	{# ── Progress bar ── #}
+	<div class="tm-progress">
+		<div id="bar-pass" style="background:var(--green);width:0"></div>
+		<div id="bar-partial" style="background:var(--amber);width:0"></div>
+		<div id="bar-fail" style="background:var(--red);width:0"></div>
+		<div id="bar-na" style="background:#475569;width:0"></div>
+	</div>
+
+	{# ── Filters ── #}
+	<div class="tm-filters">
+		<input type="text" id="tm-search" placeholder="Search tests...">
+		<select id="tm-filter-priority">
+			<option value="all">All Priorities</option>
+			<option value="critical">Critical</option>
+			<option value="high">High</option>
+			<option value="medium">Medium</option>
+			<option value="low">Low</option>
+		</select>
+		<select id="tm-filter-status">
+			<option value="all">All Statuses</option>
+			<option value="untested">Untested</option>
+			<option value="pass">Pass</option>
+			<option value="fail">Fail</option>
+			<option value="partial">Partial</option>
+			<option value="na">N/A</option>
+		</select>
+		<div style="display:flex;gap:6px">
+			<button class="tm-btn tm-btn-subtle" id="tm-expand-all">Expand All</button>
+			<button class="tm-btn tm-btn-subtle" id="tm-collapse-all">Collapse</button>
+			<button class="tm-btn tm-btn-danger" id="tm-reset">Reset</button>
+		</div>
+	</div>
+
+	{# ── Categories & test items ── #}
+	<div class="tm-categories" id="tm-categories">
+		{% for cat in categories|filter(cat => cat.hide is not defined or not cat.hide) %}
+			<div class="tm-cat" data-cat-id="{{ cat.id }}">
+				<button class="tm-cat-header" data-toggle="{{ cat.id }}">
+					<span class="tm-cat-icon">{{ cat.icon }}</span>
+					<span class="tm-cat-name">{{ cat.name }}{% if cat.url is defined and cat.url %} <a href="{{ cat.url }}" class="tm-cat-url" target="_blank" title="Open {{ cat.url }}">{{ cat.url }}</a>{% endif %}</span>
+					<span class="tm-cat-count" data-cat-count="{{ cat.id }}">0/{{ cat.items|length }} pass</span>
+					<div class="tm-minibar"><div class="tm-minibar-fill" data-cat-bar="{{ cat.id }}"></div></div>
+					<span class="tm-arrow" data-arrow="{{ cat.id }}">▶</span>
+				</button>
+
+				<div class="tm-items" data-items="{{ cat.id }}">
+					{% if cat.desc is defined and cat.desc %}
+						<div class="tm-cat-desc">{{ cat.desc }}</div>
+					{% endif %}
+					{% for item in cat.items %}
+						{% set itemId = cat.id ~ '-' ~ item.id %}
+						{% set priority = item.priority ?? 'critical' %}
+						<div class="tm-item" data-item-id="{{ itemId }}" data-priority="{{ priority }}">
+							<div class="tm-item-row">
+								<span class="tm-item-bullet">●</span>
+								<span class="tm-test" data-test-text="{{ itemId }}">{{ item.test }}</span>
+								<span class="tm-priority tm-priority-{{ priority }}">{{ priority }}</span>
+								<div class="tm-status-btns">
+									{% for s in ['pass', 'fail', 'partial', 'na', 'untested'] %}
+										<button class="tm-sbtn" data-set-status="{{ s }}" data-for="{{ itemId }}"
+										        title="{{ s == 'na' ? 'N/A' : s|capitalize }}">
+											{{ s == 'pass' ? '✓' : (s == 'fail' ? '✗' : (s == 'partial' ? '◐' : (s == 'na' ? '—' : '?'))) }}
+										</button>
+									{% endfor %}
+									<button class="tm-sbtn tm-note-btn" data-note-toggle="{{ itemId }}" title="Add note"><span>✎</span> Notes</button>
+								</div>
+							</div>
+							{% if item.desc is defined and item.desc %}
+								<div class="tm-item-desc">{{ item.desc }}</div>
+							{% endif %}
+							{% if item.urls is defined and item.urls|length %}
+								<div class="tm-item-urls"><span class="tm-item-urls-label">Relevant URIs:</span>{% for u in item.urls %}<a href="{{ u }}" class="tm-item-url" target="_blank">{{ u }}</a>{% endfor %}</div>
+							{% endif %}
+							<input type="text" class="tm-note-input" data-note-input="{{ itemId }}" placeholder="Add a note...">
+							<div class="tm-note-display" data-note-display="{{ itemId }}"></div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="tm-empty" id="tm-empty">No test cases match your current filters.</div>
+
+	<div class="tm-footer">{{ totalTests }} tests across {{ categories|filter(cat => cat.hide is not defined or not cat.hide)|length }} categories</div>
+</div>
+
+<script>
+	(function() {
+		const API = '/api/testing-matrix.php';
+		const STORAGE_KEY = 'testing_matrix';
+		const params = new URLSearchParams(window.location.search);
+		let tester = params.get('tester') || '';
+		let state = { statuses: {}, notes: {} };
+		let saveTimeout = null;
+
+		// ── Persistence ──
+
+		function loadLocal() {
+			try {
+				const saved = localStorage.getItem(STORAGE_KEY);
+				if (saved) state = JSON.parse(saved);
+			} catch(e) {}
+		}
+
+		function saveLocal() {
+			try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+		}
+
+		async function loadFromServer() {
+			try {
+				const res = await fetch(API + '?tester=' + encodeURIComponent(tester));
+				const data = await res.json();
+				if (data.statuses && !Array.isArray(data.statuses)) state.statuses = data.statuses;
+				if (data.notes && !Array.isArray(data.notes)) state.notes = data.notes;
+			} catch(e) {
+				console.warn('Could not load from server, falling back to localStorage');
+				loadLocal();
+			}
+		}
+
+		function saveToServer() {
+			if (!tester) return; // no anonymous saving — a tester name is required
+			// Also keep a localStorage backup
+			saveLocal();
+			// Debounce server saves to avoid hammering on rapid clicks
+			clearTimeout(saveTimeout);
+			saveTimeout = setTimeout(function() {
+				fetch(API + '?tester=' + encodeURIComponent(tester), {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ statuses: state.statuses, notes: state.notes }),
+				}).catch(function(e) { console.warn('Save failed', e); });
+			}, 500);
+		}
+
+		function saveState() { saveToServer(); }
+		function getStatus(id) { return state.statuses[id] || 'untested'; }
+
+		// ── DOM refs ──
+		const $search = document.getElementById('tm-search');
+		const $filterPri = document.getElementById('tm-filter-priority');
+		const $filterSta = document.getElementById('tm-filter-status');
+		const $empty = document.getElementById('tm-empty');
+		const allItems = document.querySelectorAll('.tm-item');
+		const allCats = document.querySelectorAll('.tm-cat');
+		const $badge = document.getElementById('tm-tester-badge');
+		const $prompt = document.getElementById('tm-tester-prompt');
+
+		// ── Render status buttons ──
+		function renderStatuses() {
+			document.querySelectorAll('.tm-sbtn[data-set-status]').forEach(btn => {
+				const itemId = btn.dataset.for;
+				const s = btn.dataset.setStatus;
+				btn.className = 'tm-sbtn' + (getStatus(itemId) === s ? ' on-' + s : '');
+			});
+			allItems.forEach(item => {
+				const id = item.dataset.itemId;
+				const textEl = item.querySelector('[data-test-text]');
+				textEl.classList.toggle('done', getStatus(id) === 'pass');
+			});
+		}
+
+		// ── Render notes ──
+		function renderNotes() {
+			allItems.forEach(item => {
+				const id = item.dataset.itemId;
+				const note = state.notes[id] || '';
+				const input = item.querySelector('[data-note-input]');
+				const display = item.querySelector('[data-note-display]');
+				const btn = item.querySelector('[data-note-toggle]');
+				input.value = note;
+				display.textContent = note ? '\uD83D\uDCAC ' + note : '';
+				display.classList.toggle('visible', !!note && !input.classList.contains('open'));
+				btn.classList.toggle('has-note', !!note);
+			});
+		}
+
+		// ── Compute & render stats ──
+		function renderStats() {
+			let total = allItems.length, pass = 0, fail = 0, partial = 0, na = 0, untested = 0;
+			const catStats = {};
+
+			allItems.forEach(item => {
+				const id = item.dataset.itemId;
+				const catEl = item.closest('.tm-cat');
+				const catId = catEl.dataset.catId;
+				if (!catStats[catId]) catStats[catId] = { total: 0, pass: 0, fail: 0 };
+				catStats[catId].total++;
+
+				const s = getStatus(id);
+				if (s === 'pass' || s === 'na') { pass++; catStats[catId].pass++; if (s === 'na') na++; }
+				else if (s === 'fail') { fail++; catStats[catId].fail++; }
+				else if (s === 'partial') { partial++; }
+				else { untested++; }
+			});
+
+			const completed = pass + fail + partial + na;
+			document.getElementById('stat-completion').textContent = total ? Math.round((completed / total) * 100) + '%' : '0%';
+			document.getElementById('stat-passrate').textContent = total ? Math.round((pass / total) * 100) + '%' : '0%';
+			document.getElementById('stat-pass').textContent = pass;
+			document.getElementById('stat-fail').textContent = fail;
+			document.getElementById('stat-partial').textContent = partial;
+			document.getElementById('stat-untested').textContent = untested;
+
+			document.getElementById('bar-pass').style.width = (pass / total * 100) + '%';
+			document.getElementById('bar-partial').style.width = (partial / total * 100) + '%';
+			document.getElementById('bar-fail').style.width = (fail / total * 100) + '%';
+			document.getElementById('bar-na').style.width = (na / total * 100) + '%';
+
+			allCats.forEach(cat => {
+				const catId = cat.dataset.catId;
+				const cs = catStats[catId] || { total: 0, pass: 0, fail: 0 };
+				const countEl = cat.querySelector('[data-cat-count]');
+				const barEl = cat.querySelector('[data-cat-bar]');
+				if (countEl) countEl.textContent = cs.pass + '/' + cs.total + ' pass';
+				const pct = cs.total ? ((cs.pass / cs.total) * 100) : 0;
+				if (barEl) {
+					barEl.style.width = pct + '%';
+					barEl.style.background = (cs.total > 0 && cs.pass === cs.total) ? 'var(--green)' : 'var(--amber)';
+				}
+				cat.classList.toggle('has-fails', cs.fail > 0);
+
+				const allPass = cs.total > 0 && cs.pass === cs.total;
+				if (allPass && !prevAllPass.has(catId)) {
+					if (confettiArmed) fireConfetti(cat);
+					prevAllPass.add(catId);
+				} else if (!allPass) {
+					prevAllPass.delete(catId);
+				}
+			});
+		}
+
+		let prevAllPass = new Set();
+		let confettiArmed = false;
+
+		function fireConfetti(targetEl) {
+			const rect = targetEl.getBoundingClientRect();
+			const originX = rect.left + rect.width / 2;
+			const originY = rect.top + rect.height / 2;
+			const vw = window.innerWidth;
+			const vh = window.innerHeight;
+			const colors = ['#22c55e', '#f59e0b', '#3b82f6', '#a78bfa', '#ef4444', '#eef1f6', '#facc15', '#ec4899'];
+			const count = 160;
+			for (let i = 0; i < count; i++) {
+				const piece = document.createElement('div');
+				const size = 7 + Math.random() * 9;
+				const color = colors[i % colors.length];
+				const isCircle = Math.random() < 0.25;
+				piece.style.cssText = 'position:fixed;left:' + originX + 'px;top:' + originY + 'px;width:' + size + 'px;height:' + (isCircle ? size : size * 0.4) + 'px;background:' + color + ';pointer-events:none;z-index:9999;border-radius:' + (isCircle ? '50%' : '1px') + ';will-change:transform,opacity;';
+				document.body.appendChild(piece);
+
+				const angle = Math.random() * Math.PI * 2;
+				const reach = 0.55 + Math.random() * 0.55;
+				const peakX = Math.cos(angle) * (vw * 0.5) * reach;
+				const peakY = Math.sin(angle) * (vh * 0.5) * reach - vh * 0.15;
+				const driftX = peakX + (Math.random() - 0.5) * 120;
+				const fallY = vh - originY + 80 + Math.random() * 80;
+				const rot = Math.random() * 1440 - 720;
+				const delay = Math.random() * 120;
+				const duration = 2600 + Math.random() * 1400;
+
+				piece.animate([
+					{ transform: 'translate(0,0) rotate(0deg)', opacity: 1, easing: 'cubic-bezier(.16,.84,.3,1)' },
+					{ transform: 'translate(' + peakX + 'px,' + peakY + 'px) rotate(' + (rot * 0.45) + 'deg)', opacity: 1, offset: 0.45, easing: 'cubic-bezier(.4,0,.7,.4)' },
+					{ transform: 'translate(' + driftX + 'px,' + fallY + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+				], { duration: duration, delay: delay, fill: 'forwards' }).onfinish = () => piece.remove();
+			}
+		}
+
+		// ── Filtering ──
+		function applyFilters() {
+			const search = $search.value.toLowerCase();
+			const pri = $filterPri.value;
+			const sta = $filterSta.value;
+			let visiblePerCat = {};
+
+			allItems.forEach(item => {
+				const id = item.dataset.itemId;
+				const priority = item.dataset.priority;
+				const status = getStatus(id);
+				const text = item.querySelector('.tm-test').textContent.toLowerCase();
+
+				const matchPri = pri === 'all' || priority === pri;
+				const matchSta = sta === 'all' || status === sta;
+				const matchSearch = !search || text.includes(search);
+				const visible = matchPri && matchSta && matchSearch;
+
+				item.dataset.filtered = visible ? 'false' : 'true';
+
+				const catId = item.closest('.tm-cat').dataset.catId;
+				if (!visiblePerCat[catId]) visiblePerCat[catId] = 0;
+				if (visible) visiblePerCat[catId]++;
+			});
+
+			let anyVisible = false;
+			allCats.forEach(cat => {
+				const catId = cat.dataset.catId;
+				const hasVisible = (visiblePerCat[catId] || 0) > 0;
+				cat.style.display = hasVisible ? '' : 'none';
+				if (hasVisible) anyVisible = true;
+			});
+			$empty.style.display = anyVisible ? 'none' : 'block';
+		}
+
+		// ── Category toggle ──
+		function toggleCat(catId, forceOpen) {
+			const items = document.querySelector('[data-items="' + catId + '"]');
+			const arrow = document.querySelector('[data-arrow="' + catId + '"]');
+			if (!items || !arrow) return;
+			const isOpen = forceOpen !== undefined ? forceOpen : !items.classList.contains('open');
+			items.classList.toggle('open', isOpen);
+			arrow.classList.toggle('open', isOpen);
+		}
+
+		function renderAll() {
+			renderStatuses();
+			renderNotes();
+			renderStats();
+			applyFilters();
+		}
+
+		// ── Event listeners ──
+
+		document.addEventListener('click', function(e) {
+			// Let category URL links work without toggling the category
+			if (e.target.closest('.tm-cat-url')) return;
+
+			const btn = e.target.closest('.tm-sbtn[data-set-status]');
+			if (btn) {
+				const itemId = btn.dataset.for;
+				const status = btn.dataset.setStatus;
+				state.statuses[itemId] = (status !== 'untested' && getStatus(itemId) === status) ? 'untested' : status;
+				saveState();
+				renderStatuses();
+				renderStats();
+				applyFilters();
+				return;
+			}
+
+			const noteBtn = e.target.closest('[data-note-toggle]');
+			if (noteBtn) {
+				const itemId = noteBtn.dataset.noteToggle;
+				const input = document.querySelector('[data-note-input="' + itemId + '"]');
+				const display = document.querySelector('[data-note-display="' + itemId + '"]');
+				const isOpen = input.classList.contains('open');
+				input.classList.toggle('open');
+				if (!isOpen) {
+					input.focus();
+					display.classList.remove('visible');
+				} else {
+					display.classList.toggle('visible', !!state.notes[itemId]);
+				}
+				return;
+			}
+
+			const noteDisplay = e.target.closest('.tm-note-display');
+			if (noteDisplay) {
+				const itemId = noteDisplay.dataset.noteDisplay;
+				const input = document.querySelector('[data-note-input="' + itemId + '"]');
+				input.classList.add('open');
+				noteDisplay.classList.remove('visible');
+				input.focus();
+				return;
+			}
+
+			const catHeader = e.target.closest('.tm-cat-header');
+			if (catHeader) {
+				toggleCat(catHeader.dataset.toggle);
+				return;
+			}
+		});
+
+		document.addEventListener('input', function(e) {
+			if (e.target.matches('.tm-note-input')) {
+				const itemId = e.target.dataset.noteInput;
+				state.notes[itemId] = e.target.value;
+				saveState();
+				const btn = document.querySelector('[data-note-toggle="' + itemId + '"]');
+				btn.classList.toggle('has-note', !!e.target.value);
+			}
+		});
+
+		document.addEventListener('keydown', function(e) {
+			if (e.target.matches('.tm-note-input') && e.key === 'Enter') {
+				const itemId = e.target.dataset.noteInput;
+				e.target.classList.remove('open');
+				const display = document.querySelector('[data-note-display="' + itemId + '"]');
+				display.textContent = state.notes[itemId] ? '\uD83D\uDCAC ' + state.notes[itemId] : '';
+				display.classList.toggle('visible', !!state.notes[itemId]);
+			}
+		});
+
+		$search.addEventListener('input', applyFilters);
+		$filterPri.addEventListener('change', applyFilters);
+		$filterSta.addEventListener('change', applyFilters);
+
+		document.getElementById('tm-expand-all').addEventListener('click', function() {
+			allCats.forEach(cat => toggleCat(cat.dataset.catId, true));
+		});
+		document.getElementById('tm-collapse-all').addEventListener('click', function() {
+			allCats.forEach(cat => toggleCat(cat.dataset.catId, false));
+		});
+		document.getElementById('tm-reset').addEventListener('click', function() {
+			if (confirm('Reset all test statuses and notes? This cannot be undone.')) {
+				state = { statuses: {}, notes: {} };
+				saveState();
+				renderAll();
+			}
+		});
+
+		// ── Tester prompt ──
+
+		function setTester(name) {
+			tester = name;
+			const url = new URL(window.location);
+			url.searchParams.set('tester', name);
+			window.history.replaceState({}, '', url);
+			$badge.textContent = 'Tester: ' + name + ' ⇄';
+			$badge.style.display = '';
+			$prompt.style.display = 'none';
+		}
+
+		document.getElementById('tm-tester-go').addEventListener('click', function() {
+			const name = document.getElementById('tm-tester-name').value.trim().replace(/[^a-zA-Z0-9_-]/g, '');
+			if (!name) return;
+			setTester(name);
+			loadFromServer().then(renderAll);
+		});
+
+		document.getElementById('tm-tester-name').addEventListener('keydown', function(e) {
+			if (e.key === 'Enter') document.getElementById('tm-tester-go').click();
+		});
+
+		$badge.addEventListener('click', function() {
+			tester = '';
+			const url = new URL(window.location);
+			url.searchParams.delete('tester');
+			window.history.replaceState({}, '', url);
+			$prompt.style.display = '';
+			$badge.style.display = 'none';
+			document.getElementById('tm-tester-name').value = '';
+			document.getElementById('tm-tester-name').focus();
+			loadExistingTesters();
+		});
+
+		async function loadExistingTesters() {
+			try {
+				const res = await fetch(API + '?list=1');
+				const testers = await res.json();
+				const $list = document.getElementById('tm-tester-list');
+				if (testers.length) {
+					$list.innerHTML = '<span style="color:var(--dim);font-size:13px">Existing testers: </span>' +
+						testers.map(function(t) {
+							const safe = encodeURIComponent(t.name);
+							return '<span class="tm-tester-chip">' +
+								'<a class="tm-tester-existing" href="?tester=' + safe + '">' + t.name + '</a>' +
+								'<button class="tm-tester-delete" data-delete-tester="' + t.name + '" title="Delete tester ' + t.name + '">×</button>' +
+								'</span>';
+						}).join('');
+				} else {
+					$list.innerHTML = '';
+				}
+			} catch(e) {}
+		}
+
+		document.addEventListener('click', function(e) {
+			const delBtn = e.target.closest('[data-delete-tester]');
+			if (!delBtn) return;
+			e.preventDefault();
+			const name = delBtn.dataset.deleteTester;
+			if (!confirm('Delete tester "' + name + '" and all their saved test results? This cannot be undone.')) return;
+			fetch(API + '?tester=' + encodeURIComponent(name), { method: 'DELETE' })
+				.then(() => loadExistingTesters())
+				.catch(err => alert('Failed to delete tester: ' + err.message));
+		});
+
+		// ── Init ──
+
+		async function init() {
+			if (tester) {
+				$badge.textContent = 'Tester: ' + tester + ' ⇄';
+				$badge.style.display = '';
+				await loadFromServer();
+			} else {
+				// No tester chosen — show the gate and require a name before anything can be filled in.
+				$prompt.style.display = '';
+				$badge.style.display = 'none';
+				await loadExistingTesters();
+			}
+			renderAll();
+			confettiArmed = true;
+		}
+
+		init();
+	})();
+</script>
+
+</body>
+</html>
