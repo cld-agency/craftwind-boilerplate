@@ -135,7 +135,7 @@ export default () => ({
 		});
 	},
 
-	enableConsentableFunctionality(skipFetch = false) {
+	enableConsentableFunctionality(skipFetch = true) {
 
 		// hide any video facade blocker elements
 		document.querySelectorAll('.js-videoFacadeBlocker').forEach(el => {
@@ -148,9 +148,10 @@ export default () => ({
 		// 	this.switchOnPlaceholderScripts(focusScriptContainers);
 		// }
 
-		// For some functionality we know in advance that we can skip the ajax fetching of scripts
-		// as that's already being handled elsewhere (e.g. for videos it's handled in lite-youtube
-		// component, for reCAPTCHA it's handled by switching on the placeholder scripts)
+		// Fetching is opt-in (skipFetch defaults to true) because every consentable feature
+		// currently loads its own scripts at the point of use — lite-youtube for videos, the
+		// facade's own click handler for live chat. Passing skipFetch:false pulls in every
+		// functionality script including facade-flagged ones, which would defeat those facades.
 		if (!skipFetch) {
 			this.getScripts(['functionality'], 'ignoreFacades');
 		}
