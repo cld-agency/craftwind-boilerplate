@@ -1,4 +1,4 @@
-dateModified: 1789144393
+dateModified: 1790064421
 elementSources:
   craft\elements\Entry:
     -
@@ -144,7 +144,7 @@ meta:
     b99e46fe-a420-4fd0-abfc-8eb0989ea429: Default # Default
     c9cbf2d5-a33a-4631-bb00-58ac64015efd: 'Script output location' # Script output location
     c6076260-49c3-4ef3-9936-0422c81a12c7: Image(s) # Image(s)
-    ca55cc2e-9a52-4b33-bc18-2f6cafe277f3: 'GTM consents' # GTM consents
+    ca55cc2e-9a52-4b33-bc18-2f6cafe277f3: 'Google Consent Mode (V2) parameters' # Google Consent Mode (V2) parameters
     cac312e5-9dfa-4d00-8bf4-ce5af69a0035: '_Lightswitch (default off)' # _Lightswitch (default off)
     caf5530a-8747-49b5-9d85-553de2e90c6f: '_Body - default (searchable)' # _Body - default (searchable)
     cbac532f-c0ed-484c-9ba5-c39c664cfab9: Script # Script

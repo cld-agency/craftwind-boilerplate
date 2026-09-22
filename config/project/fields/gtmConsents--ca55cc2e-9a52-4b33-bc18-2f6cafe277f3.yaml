@@ -1,7 +1,7 @@
 columnSuffix: dyumssxl
 handle: gtmConsents
-instructions: 'When a user consents to this cookie category, you can optionally send `granted` or `denied` signals to GTM for each of the following keys:'
-name: 'GTM consents'
+instructions: 'When a user consents to this cookie category, you can optionally send `granted` or `denied` signals to Google Consent Mode. These are read by Google tags (GA4, Google Ads) whether the site uses Google Tag Manager or gtag.js directly, and by any GTM tags configured with consent checks.'
+name: 'Google Consent Mode (V2) parameters'
 searchable: false
 settings:
   addRowLabel: 'Add a row'
@@ -84,6 +84,9 @@ settings:
         -
           - col2
           - ''
+        -
+          - rowId
+          - b160b522-7316-496a-8589-6a80f24a4eed
     -
       __assoc__:
         -
@@ -92,6 +95,9 @@ settings:
         -
           - col2
           - ''
+        -
+          - rowId
+          - 1d723cf4-8cd2-409c-b3fb-5ee196470fdf
     -
       __assoc__:
         -
@@ -100,6 +106,9 @@ settings:
         -
           - col2
           - ''
+        -
+          - rowId
+          - f694b0c5-d7ec-4abd-98a5-283e125c053c
     -
       __assoc__:
         -
@@ -108,6 +117,9 @@ settings:
         -
           - col2
           - ''
+        -
+          - rowId
+          - 28d02a93-666e-461c-b2a8-f416125b679f
     -
       __assoc__:
         -
@@ -116,6 +128,9 @@ settings:
         -
           - col2
           - ''
+        -
+          - rowId
+          - bd1f2f3f-f3eb-446c-8b73-7ed2678f39d1
     -
       __assoc__:
         -
@@ -124,6 +139,9 @@ settings:
         -
           - col2
           - ''
+        -
+          - rowId
+          - a9500861-2b19-4cb4-bf0c-3090e351136f
     -
       __assoc__:
         -
@@ -132,6 +150,9 @@ settings:
         -
           - col2
           - ''
+        -
+          - rowId
+          - ed72a13d-954c-4d81-9b84-3b54a541d924
   maxRows: null
   minRows: null
   staticRows: true
