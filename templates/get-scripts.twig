@@ -29,19 +29,25 @@
 					(function() {
 						var consent = {{ consentJson|json_encode|raw }};
 
-						// Google Tag Manager / GA4
-						if (typeof gtag !== 'undefined') {
-							gtag('consent', 'update', consent);
-						}
+						// Google Consent Mode — queue shim means this works even if gtag.js hasn't loaded yet
+						window.dataLayer = window.dataLayer || [];
+						function gtag() { dataLayer.push(arguments); }
+						gtag('consent', 'update', consent);
 
-						// Microsoft / Bing UET
-						//window.uetq = window.uetq || [];
-						//window.uetq.push('consent', 'update', consent);
+						// Microsoft Ads (UET) — only ad_storage is read, so send just that
+						// if (consent.ad_storage) {
+						// 	window.uetq = window.uetq || [];
+						// 	window.uetq.push('consent', 'update', { ad_storage: consent.ad_storage });
+						// }
 
-						// Microsoft Clarity
-						//if (typeof window.clarity !== 'undefined') {
-						//	window.clarity('consentv2', consent);
-						//}
+						// Microsoft Clarity — keys are case-sensitive (capital S) and only these two exist
+						// var clarityConsent = {};
+						// if (consent.ad_storage) { clarityConsent.ad_Storage = consent.ad_storage; }
+						// if (consent.analytics_storage) { clarityConsent.analytics_Storage = consent.analytics_storage; }
+						// if (Object.keys(clarityConsent).length) {
+						// 	window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+						// 	window.clarity('consentv2', clarityConsent);
+						// }
 					})();
 				</script>
 			{% endif %}

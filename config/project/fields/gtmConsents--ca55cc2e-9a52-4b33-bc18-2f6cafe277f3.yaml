@@ -1,7 +1,7 @@
 columnSuffix: dyumssxl
 handle: gtmConsents
-instructions: 'When a user consents to this cookie category, you can optionally send `granted` or `denied` signals to Google Consent Mode. These are read by Google tags (GA4, Google Ads) whether the site uses Google Tag Manager or gtag.js directly, and by any GTM tags configured with consent checks.'
-name: 'Google Consent Mode (V2) parameters'
+instructions: 'When a user consents to this cookie category, you can optionally send `granted` or `denied` signals to Google Consent Mode, Microsoft Bing and Microsoft Clarity.'
+name: 'Consent signals'
 searchable: false
 settings:
   addRowLabel: 'Add a row'
