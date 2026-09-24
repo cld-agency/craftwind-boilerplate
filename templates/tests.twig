@@ -3,7 +3,8 @@ Website Testing Matrix
 ======================
 Visit /tests to use this page.
 A tester must enter (or pick) a name before using the matrix — anonymous use is not allowed.
-State is persisted to the storage/testing directory under that name (with a localStorage backup).
+State is persisted to storage/testing/<tester>.json via modules/controllers/TestingMatrixController.php
+(which enforces the same CP-access gate), with a localStorage backup.
 #}
 
 {# Restrict to CP users only — front-end members must not see the testing matrix.
@@ -197,10 +198,11 @@ State is persisted to the storage/testing directory under that name (with a loca
 	<div class="tm-tester-gate" id="tm-tester-prompt" style="display:none">
 		<div class="tm-tester-prompt">
 			<p>Enter your name to begin — your progress is saved against it. Pick an existing tester below, or type a new name.</p>
-			<div style="display:flex;gap:8px;align-items:center">
-				<input type="text" id="tm-tester-name" placeholder="Your name (e.g. sarah)" style="flex:1">
-				<button class="tm-btn tm-btn-primary" id="tm-tester-go">Start</button>
-			</div>
+			<form id="tm-tester-form" style="display:flex;gap:8px;align-items:center">
+				{{ csrfInput() }}
+				<input type="text" id="tm-tester-name" placeholder="Your name (e.g. sarah)" maxlength="64" style="flex:1">
+				<button type="submit" class="tm-btn tm-btn-primary" id="tm-tester-go">Start</button>
+			</form>
 			<div id="tm-tester-list" style="margin-top:12px"></div>
 		</div>
 	</div>
@@ -304,7 +306,14 @@ State is persisted to the storage/testing directory under that name (with a loca
 
 <script>
 	(function() {
-		const API = '/api/testing-matrix.php';
+		const API = {
+			list: {{ actionUrl('my-module/testing-matrix/list')|json_encode|raw }},
+			load: {{ actionUrl('my-module/testing-matrix/load')|json_encode|raw }},
+			save: {{ actionUrl('my-module/testing-matrix/save')|json_encode|raw }},
+			delete: {{ actionUrl('my-module/testing-matrix/delete')|json_encode|raw }},
+		};
+		const $testerForm = document.getElementById('tm-tester-form');
+		const CSRF_TOKEN = new FormData($testerForm).get({{ craft.app.config.general.csrfTokenName|json_encode|raw }});
 		const STORAGE_KEY = 'testing_matrix';
 		const params = new URLSearchParams(window.location.search);
 		let tester = params.get('tester') || '';
@@ -312,6 +321,31 @@ State is persisted to the storage/testing directory under that name (with a loca
 		let saveTimeout = null;
 
 		// ── Persistence ──
+
+		function apiUrl(action, params) {
+			const url = new URL(API[action], window.location.origin);
+			Object.keys(params || {}).forEach(k => url.searchParams.set(k, params[k]));
+			return url.toString();
+		}
+
+		// All calls hit the Craft controller, which 403s if the session has lapsed. POSTs carry the CSRF token.
+		function apiFetch(action, params, options) {
+			const opts = Object.assign({ headers: {} }, options || {});
+			opts.headers = Object.assign({ 'Accept': 'application/json' }, opts.headers);
+			opts.method === 'POST' ? opts.headers['X-CSRF-Token'] = CSRF_TOKEN : null;
+			return fetch(apiUrl(action, params), opts).then(function(res) {
+				if (!res.ok) throw new Error('HTTP ' + res.status);
+				return res.json();
+			});
+		}
+
+		let saveWarned = false;
+		function warnSaveFailed(e) {
+			console.warn('Save failed', e);
+			if (saveWarned) return;
+			saveWarned = true;
+			alert('Your latest changes could not be saved to the server — you may have been logged out. Reload the page to log in again (changes since the last successful save will be lost).');
+		}
 
 		function loadLocal() {
 			try {
@@ -326,8 +360,7 @@ State is persisted to the storage/testing directory under that name (with a loca
 
 		async function loadFromServer() {
 			try {
-				const res = await fetch(API + '?tester=' + encodeURIComponent(tester));
-				const data = await res.json();
+				const data = await apiFetch('load', { tester: tester });
 				if (data.statuses && !Array.isArray(data.statuses)) state.statuses = data.statuses;
 				if (data.notes && !Array.isArray(data.notes)) state.notes = data.notes;
 			} catch(e) {
@@ -343,11 +376,11 @@ State is persisted to the storage/testing directory under that name (with a loca
 			// Debounce server saves to avoid hammering on rapid clicks
 			clearTimeout(saveTimeout);
 			saveTimeout = setTimeout(function() {
-				fetch(API + '?tester=' + encodeURIComponent(tester), {
+				apiFetch('save', { tester: tester }, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({ statuses: state.statuses, notes: state.notes }),
-				}).catch(function(e) { console.warn('Save failed', e); });
+				}).catch(warnSaveFailed);
 			}, 500);
 		}
 
@@ -638,15 +671,12 @@ State is persisted to the storage/testing directory under that name (with a loca
 			$prompt.style.display = 'none';
 		}
 
-		document.getElementById('tm-tester-go').addEventListener('click', function() {
-			const name = document.getElementById('tm-tester-name').value.trim().replace(/[^a-zA-Z0-9_-]/g, '');
+		$testerForm.addEventListener('submit', function(e) {
+			e.preventDefault();
+			const name = document.getElementById('tm-tester-name').value.trim().replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 64);
 			if (!name) return;
 			setTester(name);
 			loadFromServer().then(renderAll);
-		});
-
-		document.getElementById('tm-tester-name').addEventListener('keydown', function(e) {
-			if (e.key === 'Enter') document.getElementById('tm-tester-go').click();
 		});
 
 		$badge.addEventListener('click', function() {
@@ -663,8 +693,7 @@ State is persisted to the storage/testing directory under that name (with a loca
 
 		async function loadExistingTesters() {
 			try {
-				const res = await fetch(API + '?list=1');
-				const testers = await res.json();
+				const testers = await apiFetch('list');
 				const $list = document.getElementById('tm-tester-list');
 				if (testers.length) {
 					$list.innerHTML = '<span style="color:var(--dim);font-size:13px">Existing testers: </span>' +
@@ -687,7 +716,7 @@ State is persisted to the storage/testing directory under that name (with a loca
 			e.preventDefault();
 			const name = delBtn.dataset.deleteTester;
 			if (!confirm('Delete tester "' + name + '" and all their saved test results? This cannot be undone.')) return;
-			fetch(API + '?tester=' + encodeURIComponent(name), { method: 'DELETE' })
+			apiFetch('delete', { tester: name }, { method: 'POST' })
 				.then(() => loadExistingTesters())
 				.catch(err => alert('Failed to delete tester: ' + err.message));
 		});
