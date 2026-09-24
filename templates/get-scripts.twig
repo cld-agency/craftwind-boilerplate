@@ -16,44 +16,44 @@
 			{% endfor %}
 		{% endif %}
 
-		{# load any scripts directly held against the category (not the stuff from the Scripts section, but the category itself) #}
+		{# GTM consent presets, merged across all chosen categories into a single update #}
+		{% set consentJson = {} %}
 		{% for cat in typeCats %}
-			{# GTM consent preset ones... #}
-			{% set consentRows = cat.gtmConsents|filter(row => row.value) %}
-			{% set consentJson = {} %}
-			{% for row in consentRows %}
+			{% for row in cat.gtmConsents|filter(row => row.value) %}
 				{% set consentJson = consentJson|merge({ (row.key): row.value }) %}
 			{% endfor %}
-			{% if consentRows|length %}
-				<script>
-					(function() {
-						var consent = {{ consentJson|json_encode|raw }};
+		{% endfor %}
+		{% if consentJson|length %}
+			<script>
+				(function() {
+					var consent = {{ consentJson|json_encode|raw }};
 
-						// Google Consent Mode — queue shim means this works even if gtag.js hasn't loaded yet
-						window.dataLayer = window.dataLayer || [];
-						function gtag() { dataLayer.push(arguments); }
-						gtag('consent', 'update', consent);
+					// Google Consent Mode — queue shim means this works even if gtag.js hasn't loaded yet
+					window.dataLayer = window.dataLayer || [];
+					function gtag() { dataLayer.push(arguments); }
+					gtag('consent', 'update', consent);
 
-						// Microsoft Ads (UET) — only ad_storage is read, so send just that
-						// if (consent.ad_storage) {
-						// 	window.uetq = window.uetq || [];
-						// 	window.uetq.push('consent', 'update', { ad_storage: consent.ad_storage });
-						// }
+					// Microsoft Ads (UET) — only ad_storage is read, so send just that
+					// if (consent.ad_storage) {
+					// 	window.uetq = window.uetq || [];
+					// 	window.uetq.push('consent', 'update', { ad_storage: consent.ad_storage });
+					// }
 
-						// Microsoft Clarity — keys are case-sensitive (capital S) and only these two exist
-						// var clarityConsent = {};
-						// if (consent.ad_storage) { clarityConsent.ad_Storage = consent.ad_storage; }
-						// if (consent.analytics_storage) { clarityConsent.analytics_Storage = consent.analytics_storage; }
-						// if (Object.keys(clarityConsent).length) {
-						// 	window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
-						// 	window.clarity('consentv2', clarityConsent);
-						// }
-					})();
-				</script>
-			{% endif %}
+					// Microsoft Clarity — keys are case-sensitive (capital S) and only these two exist
+					// var clarityConsent = {};
+					// if (consent.ad_storage) { clarityConsent.ad_Storage = consent.ad_storage; }
+					// if (consent.analytics_storage) { clarityConsent.analytics_Storage = consent.analytics_storage; }
+					// if (Object.keys(clarityConsent).length) {
+					// 	window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+					// 	window.clarity('consentv2', clarityConsent);
+					// }
+				})();
+			</script>
+		{% endif %}
 
-			{# and arbitrary ones... #}
-			{% if cat.script|length %}{{ cat.script|raw }}{% endif %}
+		{# load any scripts directly held against the category (not the stuff from the Scripts section, but the category itself) #}
+		{% for cat in typeCats|filter(cat => cat.script|length) %}
+			{{ cat.script|raw }}
 		{% endfor %}
 	{% endif %}
 {% else %}
