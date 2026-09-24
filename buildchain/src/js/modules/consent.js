@@ -34,7 +34,7 @@ export default () => ({
 		});
 		// go get the scripts automatically
 		if (this.typesToLoad.length){
-			this.getScripts(this.typesToLoad);
+			this.getScripts(this.typesToLoad, 'initialLoad');
 		}
 	},
 
@@ -49,6 +49,7 @@ export default () => ({
 		}
 
 		this.typesToLoad = [];
+		const typesToRevoke = [];
 		// apply the chosen options
 		this.lightswitches.forEach(label => {
 			const type = label.getAttribute('for');
@@ -66,6 +67,7 @@ export default () => ({
 					document.cookie = type + '=1;path=/;max-age=15768000'; // 6 months
 				}
 			} else {
+				if (this.getCookie(type)) typesToRevoke.push(type);
 				// delete the cookie for this type so it doesn't get loaded on next page load
 				document.cookie = type + '=0;path=/;max-age=0';
 			}
@@ -78,6 +80,9 @@ export default () => ({
 		if (this.typesToLoad.length){
 			this.getScripts(this.typesToLoad);
 		}
+		if (typesToRevoke.length) {
+			this.revokeConsent(typesToRevoke);
+		}
 		// remember that this happened so we don't show the banner again
 		document.cookie = 'cookiesAccepted=1;path=/;max-age=15768000'; // 6 months
 	},
@@ -88,6 +93,29 @@ export default () => ({
 	// `consentData.getCookie(...)` via Alpine.$data() from outside.
 	getCookie(name) {
 		return getCookie(name);
+	},
+
+	// Deny the signals granted by categories that have just been switched off, unless a
+	// category that's still consented grants the same signal. Call once their cookies are deleted.
+	revokeConsent(revokedTypes) {
+		const grantsEl = document.getElementById('js-consentGrantsByCategory');
+		if (!grantsEl || !window.sendConsent) return;
+
+		const grants = JSON.parse(grantsEl.textContent);
+		const stillGranted = Object.keys(grants)
+			.filter(slug => this.getCookie(slug))
+			.flatMap(slug => Object.keys(grants[slug]));
+
+		const consent = {};
+		revokedTypes.forEach(slug => {
+			Object.keys(grants[slug] || {})
+				.filter(key => !stillGranted.includes(key))
+				.forEach(key => consent[key] = 'denied');
+		});
+
+		if (Object.keys(consent).length) {
+			window.sendConsent('update', consent);
+		}
 	},
 
 	getScripts(typesToLoadArray, mode = 'normal', facade = null) {

@@ -163,45 +163,66 @@
 
 	{% if essentialCat|length %}
 
+		{# consent keys each category grants (via its GTM consents field), keyed by its cookie slug #}
+		{% set consentGrantsByCategory = {} %}
+		{% for cat in craft.entries.type('cookieTypes').id(['not', essentialCat.id]).all() %}
+			{% set grants = {} %}
+			{% for row in cat.gtmConsents|filter(row => row.value) %}
+				{% set grants = grants|merge({ (row.key): row.value }) %}
+			{% endfor %}
+			{% set consentGrantsByCategory = consentGrantsByCategory|merge({ (cat.slug): grants }) %}
+		{% endfor %}
+
+		{# also read by the consent JS, to work out which signals to deny when a category is switched off #}
+		<script type="application/json" id="js-consentGrantsByCategory">{{ consentGrantsByCategory|json_encode|raw }}</script>
+
 		{# set default GTM consent values (must precede the GTM snippet in the Essential category's script below) #}
 		<script>
+			// Send a consent command ('default' or 'update') to every vendor; get-scripts.twig and the consent JS reuse this
+			window.sendConsent = function (command, consent) {
+				// Google Consent Mode — queue shim means this works even if gtag.js hasn't loaded yet
+				window.dataLayer = window.dataLayer || [];
+				function gtag() { dataLayer.push(arguments); }
+				gtag('consent', command, consent);
+
+				// Microsoft Ads (UET) — only ad_storage is read, so send just that
+				// if (consent.ad_storage) {
+				// 	window.uetq = window.uetq || [];
+				// 	window.uetq.push('consent', command, { ad_storage: consent.ad_storage });
+				// }
+
+				// Microsoft Clarity — keys are case-sensitive (capital S) and only these two exist
+				// var clarityConsent = {};
+				// if (consent.ad_storage) { clarityConsent.ad_Storage = consent.ad_storage; }
+				// if (consent.analytics_storage) { clarityConsent.analytics_Storage = consent.analytics_storage; }
+				// if (Object.keys(clarityConsent).length) {
+				// 	window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+				// 	window.clarity('consentv2', clarityConsent);
+				// }
+			};
+
 			(function() {
 				// Read consent cookies (value of "1" means granted)
 				function hasCookie(name) {
 					return new RegExp('(?:^|;\\s*)' + name + '=1(?:;|$)').test(document.cookie);
 				}
 
-				var advertising   = hasCookie('advertising');
-				var performance   = hasCookie('performance');
-				var functionality = hasCookie('functionality');
-
-				function state(granted) {
-					return granted ? 'granted' : 'denied';
-				}
-
-				// Build the consent object once — reused across GTM, UET, Clarity
+				// Start with everything denied, then apply what each consented category grants
 				var consent = {
-					'ad_user_data':            state(advertising),
-					'ad_personalization':      state(advertising),
-					'ad_storage':              state(advertising),
-					'analytics_storage':       state(performance),
-					'functionality_storage':   state(functionality),
+					'ad_user_data':            'denied',
+					'ad_personalization':      'denied',
+					'ad_storage':              'denied',
+					'analytics_storage':       'denied',
+					'functionality_storage':   'denied',
 					'personalization_storage': 'denied',
 					'security_storage':        'granted'
 				};
+				var grants = JSON.parse(document.getElementById('js-consentGrantsByCategory').textContent);
+				Object.keys(grants).forEach(function (slug) {
+					if (hasCookie(slug)) { Object.assign(consent, grants[slug]); }
+				});
 
-				// Google Tag Manager / GA4
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){ dataLayer.push(arguments); }
-				gtag('consent', 'default', consent);
-
-				// Microsoft Ads (UET) — only ad_storage is read, so send just that (uncomment alongside get-scripts.twig)
-				// window.uetq = window.uetq || [];
-				// window.uetq.push('consent', 'default', { ad_storage: consent.ad_storage });
-
-				// Microsoft Clarity — keys are case-sensitive (capital S) and only these two exist (uncomment alongside get-scripts.twig)
-				// window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
-				// window.clarity('consentv2', { ad_Storage: consent.ad_storage, analytics_Storage: consent.analytics_storage });
+				window.sendConsent('default', consent);
 			})();
 		</script>
 
