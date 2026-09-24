@@ -161,13 +161,9 @@
 	{# confusingly, this tag actually outputs both JS AND CSS assets when in production: #}
 	{{ craft.vite.script('src/js/main.js', false) }}
 
-	{# load any scripts directly held against the "Essential" category (not the stuff from the Scripts section, but the category itself) #}
 	{% if essentialCat|length %}
 
-		{# Arbitrary ones... #}
-		{% if essentialCat.script|length %}{{ essentialCat.script|raw }}{% endif %}
-
-		{# set default GTM consent values... #}
+		{# set default GTM consent values (must precede the GTM snippet in the Essential category's script below) #}
 		<script>
 			(function() {
 				// Read consent cookies (value of "1" means granted)
@@ -199,16 +195,18 @@
 				function gtag(){ dataLayer.push(arguments); }
 				gtag('consent', 'default', consent);
 
-				// Microsoft / Bing UET
-				window.uetq = window.uetq || [];
-				window.uetq.push('consent', 'default', consent);
+				// Microsoft Ads (UET) — only ad_storage is read, so send just that (uncomment alongside get-scripts.twig)
+				// window.uetq = window.uetq || [];
+				// window.uetq.push('consent', 'default', { ad_storage: consent.ad_storage });
 
-				// Microsoft Clarity
-				if (typeof window.clarity !== 'undefined') {
-					window.clarity('consentv2', consent);
-				}
+				// Microsoft Clarity — keys are case-sensitive (capital S) and only these two exist (uncomment alongside get-scripts.twig)
+				// window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+				// window.clarity('consentv2', { ad_Storage: consent.ad_storage, analytics_Storage: consent.analytics_storage });
 			})();
 		</script>
+
+		{# load any scripts directly held against the "Essential" category (not the stuff from the Scripts section, but the category itself) #}
+		{% if essentialCat.script|length %}{{ essentialCat.script|raw }}{% endif %}
 	{% endif %}
 
 	{# load any essential scripts from the Scripts section set to appear in head #}
